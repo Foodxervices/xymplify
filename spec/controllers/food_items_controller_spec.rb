@@ -56,4 +56,20 @@ describe FoodItemsController, :type => :controller do
       expect(response).to render_template :edit
     end
   end
+
+  describe '#update' do 
+    def do_request
+      patch :update, id: food_item.id, food_item: { code: new_code }
+    end
+
+    let!(:food_item) { create(:food_item) }
+    let!(:new_code)  { 'KL30902' }
+
+    it 'updates food item' do
+      do_request
+      expect(food_item.reload.code).to eq new_code
+      expect(flash[:notice]).to eq 'Food Item has been updated.'
+      expect(response).to redirect_to food_items_url
+    end
+  end
 end

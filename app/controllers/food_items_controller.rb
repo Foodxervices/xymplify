@@ -21,6 +21,16 @@ class FoodItemsController < ApplicationController
     @food_item = FoodItem.find(params[:id])
   end
 
+  def update
+    @food_item = FoodItem.find(params[:id])
+
+    if @food_item.update_attributes(food_item_params)
+      redirect_to food_items_url, notice: 'Food Item has been updated.'
+    else
+      render :edit
+    end
+  end
+
   private
 
   def food_item_params
