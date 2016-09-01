@@ -1,0 +1,15 @@
+#layouts-main-container {
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: $sidebar_width;
+    height: 100vh;
+    background: #0296e0;
+  }
+
+  main {
+    margin-left: $sidebar_width;
+    padding: 0 15px;
+  }
+}

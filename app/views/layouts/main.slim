@@ -1,0 +1,8 @@
+doctype html
+html
+  head = render 'layouts/head'
+  body#layouts-main-container class=page_class
+    #sidebar
+      = render 'shared/menu'
+    main 
+      = yield

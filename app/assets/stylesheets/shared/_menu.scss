@@ -1,0 +1,22 @@
+.shared-menu-container {
+  padding: 15px 0;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    padding: 0 15px;
+    display: block;
+    line-height: 40px;
+    font-size: 16px;
+    color: #82d4fa;
+
+    &.active, &:hover {
+      color: #fff;
+      background: #059eee;
+    }
+  }
+}
