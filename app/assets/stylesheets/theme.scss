@@ -8,3 +8,7 @@ ul.actions {
     padding: 0 10px;
   }
 }
+
+a[data-toggle=confirmation] {
+  cursor: pointer;
+}
