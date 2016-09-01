@@ -42,4 +42,18 @@ describe FoodItemsController, :type => :controller do
       expect(response).to redirect_to food_items_url
     end
   end
+
+  describe '#edit' do 
+    def do_request
+      get :edit, id: food_item.id
+    end
+
+    let!(:food_item) { create(:food_item) }
+
+    it 'returns edit page' do
+      do_request
+      expect(assigns(:food_item)).to match food_item
+      expect(response).to render_template :edit
+    end
+  end
 end

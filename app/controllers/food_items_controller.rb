@@ -17,6 +17,10 @@ class FoodItemsController < ApplicationController
     end
   end
 
+  def edit
+    @food_item = FoodItem.find(params[:id])
+  end
+
   private
 
   def food_item_params

@@ -18,7 +18,7 @@
           td.text-center = to_currency(food_item.unit_price)
           td.text-center
             ul.actions
-              li = active_link_to 'Edit', '#'
+              li = active_link_to 'Edit', [:edit, food_item]
               li = active_link_to 'Delete', '#'
   .text-right
     = link_to 'Create new food item', new_food_item_path, class: 'btn btn-default'
