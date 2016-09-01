@@ -1,0 +1,12 @@
+.food_items-form-container
+  = simple_form_for food_item do |f|
+    .form-inputs
+      .row
+        .col-md-6
+          = f.input         :code
+          = f.input         :name
+          = f.input         :unit
+          = f.input         :unit_price
+
+    .form-actions
+      = f.button :submit

@@ -6,4 +6,25 @@ class FoodItemsController < ApplicationController
   def new
     @food_item = FoodItem.new
   end
+
+  def create
+    @food_item = FoodItem.new(food_item_params)
+
+    if @food_item.save
+      redirect_to food_items_url, notice: 'Food Item has been created.'
+    else
+      render :new
+    end
+  end
+
+  private
+
+  def food_item_params
+    params.require(:food_item).permit(
+        :code,
+        :name,
+        :unit,
+        :unit_price
+      )
+  end
 end

@@ -23,10 +23,23 @@ describe FoodItemsController, :type => :controller do
       get :new 
     end
 
-    it 'renders the :new view' do 
+    it 'assigns a new food item and renders the :new view' do 
       do_request 
       expect(assigns(:food_item)).to be_a_new FoodItem
       expect(response).to render_template :new
+    end
+  end
+
+  describe '#create' do 
+    def do_request
+      post :create, food_item: food_item.attributes
+    end
+
+    let(:food_item) { build(:food_item) }
+
+    it 'creates a food item' do 
+      expect{ do_request }.to change{ [FoodItem.count] }.from([0]).to([1])
+      expect(response).to redirect_to food_items_url
     end
   end
 end
