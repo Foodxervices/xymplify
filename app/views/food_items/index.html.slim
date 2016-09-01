@@ -1,2 +1,10 @@
 #food_items-index-container
   h1 Food Item
+
+  table.table.table-striped
+    thead
+      tr 
+        th = FoodItem.human_attribute_name(:code)
+        th = FoodItem.human_attribute_name(:name)
+        th = FoodItem.human_attribute_name(:unit)
+        th = FoodItem.human_attribute_name(:unit_price)

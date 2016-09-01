@@ -1,0 +1,7 @@
+en:
+  activerecord:
+    attributes:
+      food_item:
+        code: "Item Code"
+        name: "Item Name"
+        unit_price: "Price per Unit"

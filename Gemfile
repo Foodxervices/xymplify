@@ -15,6 +15,7 @@ gem 'devise'
 gem 'simple_form'
 gem 'rails_utils'
 gem 'active_link_to'
+gem 'seedbank'
 
 group :development, :test do
   gem 'byebug'
