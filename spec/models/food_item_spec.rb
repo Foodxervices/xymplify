@@ -1,0 +1,10 @@
+require 'rails_helper'
+
+describe FoodItem do 
+  context 'validations' do 
+    it { is_expected.to validate_presence_of :code }
+    it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_presence_of :unit }
+    it { is_expected.to validate_presence_of :unit_price }
+  end
+end

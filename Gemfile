@@ -18,6 +18,9 @@ gem 'active_link_to'
 
 group :development, :test do
   gem 'byebug'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails'
+  gem 'shoulda'
 end
 
 group :development do
