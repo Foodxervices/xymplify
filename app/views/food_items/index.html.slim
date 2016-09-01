@@ -7,4 +7,18 @@
         th = FoodItem.human_attribute_name(:code)
         th = FoodItem.human_attribute_name(:name)
         th = FoodItem.human_attribute_name(:unit)
-        th = FoodItem.human_attribute_name(:unit_price)
+        th.text-center = FoodItem.human_attribute_name(:unit_price)
+        th.text-center Action
+    tbody 
+      - @food_items.each do |food_item|
+        tr
+          td = food_item.code
+          td = food_item.name
+          td = food_item.unit_text
+          td.text-center = to_currency(food_item.unit_price)
+          td.text-center
+            ul.actions
+              li = active_link_to 'Edit', '#'
+              li = active_link_to 'Delete', '#'
+  .text-right
+    = link_to 'Create new food item', new_food_item_path, class: 'btn btn-default'

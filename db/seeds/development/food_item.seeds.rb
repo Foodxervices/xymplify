@@ -1,4 +1,4 @@
-puts "==== DEVELOPMENT: Create FAQs ===="
+puts "==== Create Food Item ===="
 
 FoodItem.create([
   { code: 'PT90331', name: 'Pasta', unit: 'pack', unit_price: 28.00 },

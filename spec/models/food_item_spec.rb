@@ -6,5 +6,6 @@ describe FoodItem do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_presence_of :unit }
     it { is_expected.to validate_presence_of :unit_price }
+    it { is_expected.to enumerize(:unit).in(:pack, :kg, :litre, :can) }
   end
 end
