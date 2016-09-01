@@ -31,6 +31,12 @@ class FoodItemsController < ApplicationController
     end
   end
 
+  def destroy
+    @food_item = FoodItem.find(params[:id])
+    @food_item.destroy
+    redirect_to :back, notice: 'Food Item has been deleted.'
+  end
+
   private
 
   def food_item_params

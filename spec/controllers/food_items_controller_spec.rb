@@ -72,4 +72,22 @@ describe FoodItemsController, :type => :controller do
       expect(response).to redirect_to food_items_url
     end
   end
+
+  describe '#destroy' do 
+    def do_request
+      delete :destroy, id: food_item.id
+    end
+
+    let!(:food_item) { create(:food_item) }
+
+    before do
+      request.env["HTTP_REFERER"] = "where_i_came_from"
+    end
+
+    it 'deletes food item' do 
+      expect{ do_request }.to change{ FoodItem.count }.from(1).to(0)
+      expect(flash[:notice]).to eq('Food Item has been deleted.')
+      expect(response).to redirect_to "where_i_came_from"
+    end
+  end
 end
