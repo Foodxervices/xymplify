@@ -44,7 +44,8 @@ class FoodItemsController < ApplicationController
         :code,
         :name,
         :unit,
-        :unit_price
+        :unit_price,
+        :supplier_id,
       )
   end
 end

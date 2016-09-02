@@ -4,5 +4,6 @@ FactoryGirl.define do
     sequence(:name)     { |n| "Food Item #{n}" }
     unit                'pack'
     unit_price          20
+    supplier
   end
 end

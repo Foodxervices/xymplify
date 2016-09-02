@@ -5,6 +5,7 @@ class CreateFoodItems < ActiveRecord::Migration
       t.string :code 
       t.string :unit 
       t.decimal :unit_price, precision: 12, scale: 2, default: 0.0
+      t.belongs_to :supplier, index: true
     end
   end
 end
