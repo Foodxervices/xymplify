@@ -1,15 +1,13 @@
 class FoodItemsController < ApplicationController
+  load_and_authorize_resource
+
   def index
     @food_items = FoodItem.all
   end
 
-  def new
-    @food_item = FoodItem.new
-  end
+  def new; end
 
   def create
-    @food_item = FoodItem.new(food_item_params)
-
     if @food_item.save
       redirect_to food_items_url, notice: 'Food Item has been created.'
     else
@@ -17,13 +15,9 @@ class FoodItemsController < ApplicationController
     end
   end
 
-  def edit
-    @food_item = FoodItem.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @food_item = FoodItem.find(params[:id])
-
     if @food_item.update_attributes(food_item_params)
       redirect_to food_items_url, notice: 'Food Item has been updated.'
     else
@@ -32,7 +26,6 @@ class FoodItemsController < ApplicationController
   end
 
   def destroy
-    @food_item = FoodItem.find(params[:id])
     @food_item.destroy
     redirect_to :back, notice: 'Food Item has been deleted.'
   end

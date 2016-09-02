@@ -17,6 +17,7 @@ gem 'rails_utils'
 gem 'active_link_to'
 gem 'seedbank'
 gem 'enumerize'
+gem 'cancancan'
 
 group :development, :test do
   gem 'byebug'
