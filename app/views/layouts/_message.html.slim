@@ -11,6 +11,7 @@
             = simple_format message
         .modal-footer
           button.btn.btn-primary data-dismiss="modal" type="button"  Close
-  coffee:
-    if $('#system-message .modal-body p').first().text() != ''
-      $('#system-message').modal('show')
+  javascript:
+    if($('#system-message .modal-body p').first().text() != '') {
+      $('#system-message').modal('show')    
+    }
