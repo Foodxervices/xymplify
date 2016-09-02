@@ -1,0 +1,16 @@
+- if flash_messages.present?
+  #system-message.modal.fade
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close aria-label="Close" data-dismiss="modal" type="button" 
+            span aria-hidden="true"  &times;
+          h4.modal-title Message
+        .modal-body
+          - flash.each do |type, message|
+            = simple_format message
+        .modal-footer
+          button.btn.btn-primary data-dismiss="modal" type="button"  Close
+  coffee:
+    if $('#system-message .modal-body p').first().text() != ''
+      $('#system-message').modal('show')

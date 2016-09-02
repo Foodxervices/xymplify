@@ -18,6 +18,7 @@ gem 'active_link_to'
 gem 'seedbank'
 gem 'enumerize'
 gem 'cancancan'
+gem 'bootstrap_flash_messages'
 
 group :development, :test do
   gem 'byebug'
