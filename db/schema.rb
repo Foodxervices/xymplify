@@ -22,9 +22,11 @@ ActiveRecord::Schema.define(version: 20160902093926) do
     t.string  "unit"
     t.decimal "unit_price",  precision: 12, scale: 2, default: 0.0
     t.integer "supplier_id"
+    t.integer "user_id"
   end
 
   add_index "food_items", ["supplier_id"], name: "index_food_items_on_supplier_id", using: :btree
+  add_index "food_items", ["user_id"], name: "index_food_items_on_user_id", using: :btree
 
   create_table "suppliers", force: :cascade do |t|
     t.string "name"

@@ -2,7 +2,8 @@ class FoodItem < ActiveRecord::Base
   extend Enumerize
 
   belongs_to :supplier
-  validates_associated :supplier
+  belongs_to :user
+  validates_associated :supplier, :user
 
   validates :code,        presence: true
   validates :name,        presence: true 

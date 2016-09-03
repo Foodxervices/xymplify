@@ -9,7 +9,7 @@ describe FoodItemsController, :type => :controller do
       get :index
     end
 
-    let!(:food_items) { create_list(:food_item, 2) }
+    let!(:food_items) { create_list(:food_item, 2, user: user) }
 
     it 'renders the :index view' do
       do_request
