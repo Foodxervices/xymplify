@@ -7,5 +7,11 @@ const Utils = {
         $(this).attr('data-method', 'delete')
       }
     })
+  },
+  formatPrice: (price,decimal=2) => {
+    if(isNaN(price)) {
+      price = 0 
+    }
+    return '$' + Number(price).toLocaleString(undefined, { minimumFractionDigits: decimal })
   }
 }

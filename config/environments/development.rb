@@ -49,4 +49,6 @@ Rails.application.configure do
     Bullet.bullet_logger = true
     Bullet.alert = true
   end
+
+  config.react.variant = :development
 end

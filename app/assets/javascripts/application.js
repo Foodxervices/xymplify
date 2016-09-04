@@ -5,15 +5,12 @@
 //= require bootstrap-confirmation
 //= require turbolinks
 
+//= require react
+//= require react_ujs
+//= require components
 //= require utils
 //= require global
 
-//= require inventory/item
-//= require inventory/items
-//= require inventory/sub_header
-//= require inventory/group
-
 //= require pages/food_items 
-//= require pages/inventories
 
 

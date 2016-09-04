@@ -19,6 +19,7 @@ gem 'seedbank'
 gem 'enumerize'
 gem 'cancancan'
 gem 'bootstrap_flash_messages'
+gem 'react-rails'
 
 group :development, :test do
   gem 'byebug'
