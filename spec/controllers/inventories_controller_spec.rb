@@ -13,6 +13,7 @@ describe InventoriesController, :type => :controller do
 
     it 'renders the :index view' do
       do_request
+      expect(assigns(:food_items)).to match food_items
       expect(response).to render_template :index
     end
   end

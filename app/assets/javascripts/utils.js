@@ -1,4 +1,4 @@
-window.Utils = {
+const Utils = {
   initConfirmation: () => {
     $('[data-toggle="confirmation"]:not(.delete)').confirmation()
 

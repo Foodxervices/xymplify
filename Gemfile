@@ -32,7 +32,10 @@ group :development do
   gem 'spring'
   gem 'html2slim'
   gem 'letter_opener'
-  gem "better_errors"
-  gem "binding_of_caller"
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'quiet_assets'
+  gem 'meta_request'
+  gem 'bullet'
 end
 

@@ -12,7 +12,7 @@
         th.text-center Action
     tbody 
       - @food_items.each do |food_item|
-        tr
+        tr 
           td = food_item.code
           td = food_item.name
           td = food_item.unit_text

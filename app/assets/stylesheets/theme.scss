@@ -12,3 +12,13 @@ ul.actions {
 a[data-toggle=confirmation] {
   cursor: pointer;
 }
+
+.btn-red {
+  color: #fff;
+  background-color: $red_color;
+}
+
+.btn-green {
+  color: #fff;
+  background-color: $green_color;
+}

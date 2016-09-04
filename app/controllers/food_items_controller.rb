@@ -2,7 +2,7 @@ class FoodItemsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @food_items = current_user.food_items
+    @food_items = @food_items.includes(:supplier)
   end
 
   def new; end
