@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :food_items, only: [:index, :new, :create, :edit, :update, :destroy]
 
+  resources :food_item_imports, only: [:new, :create]
+
   resources :inventories, only: [:index] do 
     member do 
       patch :update_current_quantity

@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include PopupHelper
   protect_from_forgery with: :exception
   layout :layout_by_resource
 
@@ -12,5 +13,17 @@ class ApplicationController < ActionController::Base
 
   def layout_by_resource
     devise_controller? ? 'devise' : 'main'
+  end
+
+  def authenticate_user!
+    if request.format.symbol != :js
+      super
+    else
+      if !user_signed_in?
+        open_message(message: 'You need to sign in or sign up before continuing.')
+      else
+        return true 
+      end
+    end
   end
 end

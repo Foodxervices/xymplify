@@ -23,4 +23,6 @@
               li = active_link_to 'Edit', [:edit, food_item]
               li = link_to 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete'
   .text-right
-    = link_to 'Create new food item', new_food_item_path, class: 'btn btn-default'
+    .btn-group
+      = link_to 'Import', new_food_item_import_url, remote: true, class: 'btn btn-default'
+      = link_to 'Create new food item', new_food_item_path, class: 'btn btn-default'

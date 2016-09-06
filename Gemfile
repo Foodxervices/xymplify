@@ -20,6 +20,7 @@ gem 'enumerize'
 gem 'cancancan'
 gem 'bootstrap_flash_messages'
 gem 'react-rails'
+gem 'roo'
 
 group :development, :test do
   gem 'byebug'

@@ -1,0 +1,6 @@
+.food-item-imports-form
+  = simple_form_for food_item_imports_url, remote: true do |f|
+    = f.input :file, as: :file
+    .action
+      = f.button :submit, 'Submit'
+  #errors

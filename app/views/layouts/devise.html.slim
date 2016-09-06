@@ -6,4 +6,4 @@ html
     .container
       = yield
 
-    = render 'layouts/message'
+    = javascript_tag open_message(flash)

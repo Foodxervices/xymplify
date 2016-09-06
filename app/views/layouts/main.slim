@@ -7,5 +7,5 @@ html
     main 
       = yield
 
-    = render 'layouts/message'
+    = javascript_tag open_message(flash)
     = javascript_initialization

@@ -4,6 +4,7 @@ const InventoryGroup = React.createClass({
       currentQuantity: 0,
       quantityOrdered: 0,
       unitPrice: 0,
+      showItems: true,
       foodItems: this.props.foodItems,
     }
   },
@@ -44,13 +45,18 @@ const InventoryGroup = React.createClass({
     })
     return currentQuantity
   },
+  toggleItems: function() {
+    this.setState({
+      showItems: !this.state.showItems
+    })
+  },
   render: function() {
     const { name } = this.props
     const { currentQuantity, quantityOrdered, unitPrice, foodItems } = this.state
 
     return (
       <tbody>
-        <tr>
+        <tr className='sub-header' onClick={this.toggleItems}>
            <td className="text-left">{name}</td>
            <td className="text-left">All</td>
            <td>{currentQuantity}</td>
@@ -58,9 +64,12 @@ const InventoryGroup = React.createClass({
            <td></td>
            <td><Currency value={unitPrice}/></td>
         </tr>
-        {$(foodItems).map((index, foodItem) => {
-          return <InventoryItem key={foodItem.id} {...foodItem} onCurrentQuantityChange={this.updateCurrentQuantity} />
-        })}
+        {
+          this.state.showItems &&
+          $(foodItems).map((index, foodItem) => {
+            return <InventoryItem key={foodItem.id} {...foodItem} onCurrentQuantityChange={this.updateCurrentQuantity} />
+          })
+        }
       </tbody>
     );
   }

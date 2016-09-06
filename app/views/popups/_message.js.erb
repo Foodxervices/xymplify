@@ -1,0 +1,8 @@
+if($('#popup').length == 0) {
+  $('body').prepend("<%= j render 'popups/template' %>")
+}
+
+$('.modal-body').html("<%= j message %>");
+$('.modal-title').text("<%= title %>")
+$('#popup').modal('show') 
+$('#popup').attr('class', "modal popups-message %>")
