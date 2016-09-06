@@ -57,6 +57,7 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     bootstrap_flash_messages (1.0.2)
+    bower-rails (0.10.0)
     builder (3.2.2)
     bullet (5.3.0)
       activesupport (>= 3.0.0)
@@ -261,6 +262,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 3.3.6)
   bootstrap_flash_messages
+  bower-rails
   bullet
   byebug
   cancancan

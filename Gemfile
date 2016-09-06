@@ -21,6 +21,7 @@ gem 'cancancan'
 gem 'bootstrap_flash_messages'
 gem 'react-rails'
 gem 'roo'
+gem 'bower-rails'
 
 group :development, :test do
   gem 'byebug'
