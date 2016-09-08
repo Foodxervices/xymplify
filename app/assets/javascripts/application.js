@@ -10,3 +10,9 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require utils
+//= require global
+
+//= require pages/food_items 
+
+
