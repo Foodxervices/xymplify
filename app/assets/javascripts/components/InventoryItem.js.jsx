@@ -27,7 +27,7 @@ const InventoryItem = React.createClass({
 
     this.updateCurrentQuantityTimeOut = setTimeout(() => {
       this.updateCurrentQuantity(this.refs.currentQuantity.value)
-    }, 2000)
+    }, 1000)
   },
   render: function() {
     const { name, supplier_name, current_quantity, quantity_ordered, unit, unit_price } = this.props
