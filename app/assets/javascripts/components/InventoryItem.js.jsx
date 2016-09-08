@@ -6,12 +6,6 @@ const InventoryItem = React.createClass({
     this.updateCurrentQuantity(this.props.current_quantity + 1)
   },
   updateCurrentQuantity: function(nextCurrentQuantity) {
-    if(!$.isNumeric(nextCurrentQuantity)) {
-      nextCurrentQuantity = 0
-    }
-
-    this.refs.currentQuantity.value = nextCurrentQuantity
-
     $.ajax({
       type: 'PATCH',
       url: `/inventories/${this.props.id}/update_current_quantity`,
@@ -21,7 +15,12 @@ const InventoryItem = React.createClass({
       }
     });
   },
-  onCurrentQuantityChange: function() {
+  onCurrentQuantityChange: function(event) {
+    let nextCurrentQuantity = parseInt(event.target.value) || 0
+
+    this.props.onCurrentQuantityChange(this.props.id, nextCurrentQuantity)
+  },
+  onCurrentQuantityBlur: function() {
     this.updateCurrentQuantity(this.refs.currentQuantity.value)
   },
   render: function() {
@@ -34,7 +33,7 @@ const InventoryItem = React.createClass({
          <td className="current-quantity">
             <div className="form-inline">
               <a className="btn btn-minus form-control" onClick={this.minusQuantity}>-</a>
-              <input ref='currentQuantity' className="form-control" type="number" value={current_quantity} onChange={this.onCurrentQuantityChange}/>
+              <input ref='currentQuantity' className="form-control" type="number" value={current_quantity} onChange={this.onCurrentQuantityChange} onBlur={this.onCurrentQuantityBlur}/>
               <a className="btn btn-plus form-control" onClick={this.plusQuantity}>+</a>
             </div>
          </td>
