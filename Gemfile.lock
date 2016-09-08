@@ -158,6 +158,11 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     rails_utils (4.0.0)
       rails (>= 3.2)
     railties (4.2.7)
@@ -279,6 +284,7 @@ DEPENDENCIES
   pg (~> 0.15)
   quiet_assets
   rails (= 4.2.7)
+  rails_12factor
   rails_utils
   react-rails
   remotipart

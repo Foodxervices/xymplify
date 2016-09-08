@@ -43,3 +43,5 @@ group :development do
   gem 'bullet'
 end
 
+gem 'rails_12factor', group: :production
+
