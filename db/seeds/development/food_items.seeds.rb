@@ -1,4 +1,4 @@
-after "development:suppliers", "development:users" do 
+after "development:suppliers" do 
   puts "==== Create Food Item ===="
 
   FoodItem.create([
