@@ -26,6 +26,7 @@ gem 'bower-rails'
 gem 'remotipart'
 gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   gem 'byebug'

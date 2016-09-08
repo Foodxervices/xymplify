@@ -3,7 +3,7 @@ class FoodItemsController < ApplicationController
 
   def index
     @food_item_filter = FoodItemFilter.new(food_item_filter_params)
-    @food_items = @food_item_filter.result.includes(:supplier, :brand)
+    @food_items = @food_item_filter.result.includes(:supplier, :brand).paginate(:page => params[:page])
   end
 
   def new; end
