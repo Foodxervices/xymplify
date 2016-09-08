@@ -26,3 +26,12 @@ a[data-toggle=confirmation] {
 table.text-center th {
   text-align: center;
 }
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+
+  h1 {
+    margin: 10px 0;
+  }
+}

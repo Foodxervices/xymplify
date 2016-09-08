@@ -1,0 +1,5 @@
+.food_items-search-container
+  .text-right
+    = simple_form_for @food_item_filter, url: food_items_path, method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
+      = f.input :keyword
+      = f.button :submit, 'Search'
