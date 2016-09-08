@@ -13,3 +13,6 @@ en:
     placeholders:
       food_item_filter: 
         keyword: 'Keyword'
+    placeholders:
+      supplier_filter: 
+        keyword: 'Keyword'

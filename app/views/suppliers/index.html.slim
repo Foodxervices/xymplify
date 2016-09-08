@@ -1,9 +1,9 @@
 #suppliers-index-container
-  .row
+  .row.vertical-align
     .col-md-3
       h1 Supplier
     .col-md-6
-      
+      = render 'suppliers/search', supplier_filter: @supplier_filter, url: suppliers_path
     .col-md-3
       .text-right
         .btn-group

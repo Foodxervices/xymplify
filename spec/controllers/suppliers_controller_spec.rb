@@ -72,4 +72,22 @@ describe SuppliersController, :type => :controller do
       expect(response).to redirect_to suppliers_url
     end
   end
+
+  describe '#destroy' do 
+    def do_request
+      delete :destroy, id: supplier.id
+    end
+
+    let!(:supplier) { create(:supplier) }
+
+    before do
+      request.env["HTTP_REFERER"] = "where_i_came_from"
+    end
+
+    it 'deletes supplier' do 
+      expect{ do_request }.to change{ Supplier.count }.from(1).to(0)
+      expect(flash[:notice]).to eq('Supplier has been deleted.')
+      expect(response).to redirect_to "where_i_came_from"
+    end
+  end
 end
