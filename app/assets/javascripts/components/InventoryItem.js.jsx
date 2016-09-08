@@ -16,6 +16,10 @@ const InventoryItem = React.createClass({
     });
   },
   onCurrentQuantityChange: function() {
+    if(!$.trim(this.refs.currentQuantity.value).length) {
+      this.refs.currentQuantity.value = 0
+    }
+    
     this.updateCurrentQuantity(this.refs.currentQuantity.value)
   },
   render: function() {
