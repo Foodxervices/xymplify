@@ -2,7 +2,8 @@ class InventoriesController < ApplicationController
   load_and_authorize_resource :food_item, parent: false
 
   def index
-    @food_items = @food_items.order(:id).includes(:supplier)
+    @food_item_filter = FoodItemFilter.new(food_item_filter_params)
+    @food_items = @food_item_filter.result.order(:id).includes(:supplier).paginate(:page => params[:page])
     @groups = {}
     @food_items.each do |food_item|
       @groups[food_item.name] ||= []
@@ -28,6 +29,13 @@ class InventoriesController < ApplicationController
   def update_current_quantity_params
     params.require(:food_item).permit(
       :current_quantity
+    )
+  end
+
+  def food_item_filter_params
+    food_item_filter = ActionController::Parameters.new(params[:food_item_filter])
+    food_item_filter.permit(
+      :keyword,
     )
   end
 end

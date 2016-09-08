@@ -3,7 +3,7 @@
     .col-md-3
       h1 Food Item
     .col-md-6
-      = render 'food_items/search', food_item_filter: @food_item_filter
+      = render 'food_items/search', food_item_filter: @food_item_filter, url: food_items_path
     .col-md-3
       .text-right
         .btn-group

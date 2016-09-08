@@ -1,0 +1,13 @@
+.suppliers-form-container
+  = simple_form_for supplier do |f|
+    .form-inputs
+      .row
+        .col-md-6
+          = f.input :name
+          = f.input :country
+          = f.input :contact
+          = f.input :telephone
+          = f.input :email
+
+    .form-actions
+      = f.button :submit

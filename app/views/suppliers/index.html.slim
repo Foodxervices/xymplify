@@ -1,0 +1,34 @@
+#suppliers-index-container
+  .row
+    .col-md-3
+      h1 Supplier
+    .col-md-6
+      
+    .col-md-3
+      .text-right
+        .btn-group
+          = link_to 'Create new supplier', new_supplier_path, class: 'btn btn-default'
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr 
+          th = Supplier.human_attribute_name(:name)
+          th = Supplier.human_attribute_name(:country)
+          th = Supplier.human_attribute_name(:contact)
+          th = Supplier.human_attribute_name(:telephone)
+          th = Supplier.human_attribute_name(:email)
+          th.text-center Action
+      tbody 
+        - @suppliers.each do |supplier|
+          tr 
+            td = supplier.name
+            td = supplier.country_name
+            td = supplier.contact
+            td = supplier.telephone
+            td = supplier.email
+            td.text-center
+              ul.actions
+                li = active_link_to 'Edit', [:edit, supplier]
+                li = link_to 'Delete', '#', data: { toggle: "confirmation", href: supplier_path(supplier) }, class: 'delete'
+  .text-center          
+    = will_paginate @suppliers, renderer: BootstrapPagination::Rails
