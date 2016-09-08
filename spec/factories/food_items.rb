@@ -5,6 +5,7 @@ FactoryGirl.define do
     unit                'pack'
     unit_price          20
     supplier
+    brand
     user
   end
 end

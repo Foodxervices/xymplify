@@ -1,6 +1,4 @@
-.food-item-imports-form
-  = simple_form_for food_item_imports_url, remote: true do |f|
-    = f.input :file, as: :file
-    .action
-      = f.button :submit, 'Submit'
+.food_item-imports-form
+  = simple_form_for food_item_import, remote: true do |f|
+    = f.input :file, as: :file, input_html: { data: {'allowed-file-extensions' => "csv"} }
   #errors

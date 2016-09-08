@@ -12,7 +12,7 @@ class InventoriesController < ApplicationController
         supplier_name: food_item.supplier&.name,
         current_quantity: food_item.current_quantity,
         quantity_ordered: food_item.quantity_ordered,
-        unit: food_item.unit_text,
+        unit: food_item.unit,
         unit_price: food_item.unit_price
       }
     end

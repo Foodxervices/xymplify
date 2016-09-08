@@ -2,7 +2,7 @@ class FoodItemsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @food_items = @food_items.includes(:supplier)
+    @food_items = @food_items.includes(:supplier, :brand)
   end
 
   def new; end
@@ -39,6 +39,7 @@ class FoodItemsController < ApplicationController
         :unit,
         :unit_price,
         :supplier_id,
+        :brand_id
       )
     data[:user_id] = current_user.id
     data

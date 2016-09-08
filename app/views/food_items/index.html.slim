@@ -1,27 +1,30 @@
 #food_items-index-container
   h1 Food Item
 
-  table.table.table-striped
-    thead
-      tr 
-        th = FoodItem.human_attribute_name(:code)
-        th = FoodItem.human_attribute_name(:name)
-        th = FoodItem.human_attribute_name(:unit)
-        th.text-center = FoodItem.human_attribute_name(:unit_price)
-        th.text-center = FoodItem.human_attribute_name(:supplier)
-        th.text-center Action
-    tbody 
-      - @food_items.each do |food_item|
+  .table-responsive
+    table.table.table-striped.text-center
+      thead
         tr 
-          td = food_item.code
-          td = food_item.name
-          td = food_item.unit_text
-          td.text-center = to_currency(food_item.unit_price)
-          td.text-center = food_item.supplier&.name
-          td.text-center
-            ul.actions
-              li = active_link_to 'Edit', [:edit, food_item]
-              li = link_to 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete'
+          th = FoodItem.human_attribute_name(:code)
+          th.text-left = FoodItem.human_attribute_name(:name)
+          th = FoodItem.human_attribute_name(:unit)
+          th = FoodItem.human_attribute_name(:unit_price)
+          th = FoodItem.human_attribute_name(:supplier)
+          th = FoodItem.human_attribute_name(:brand)
+          th Action
+      tbody 
+        - @food_items.each do |food_item|
+          tr 
+            td = food_item.code
+            td.text-left = food_item.name
+            td = food_item.unit
+            td = to_currency(food_item.unit_price)
+            td = food_item.supplier&.name
+            td = food_item.brand&.name
+            td
+              ul.actions
+                li = active_link_to 'Edit', [:edit, food_item]
+                li = link_to 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete'
   .text-right
     .btn-group
       = link_to 'Import', new_food_item_import_url, remote: true, class: 'btn btn-default'

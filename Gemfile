@@ -22,6 +22,7 @@ gem 'bootstrap_flash_messages'
 gem 'react-rails'
 gem 'roo'
 gem 'bower-rails'
+gem 'remotipart'
 
 group :development, :test do
   gem 'byebug'

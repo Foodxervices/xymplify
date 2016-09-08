@@ -1,2 +1,13 @@
-.bubble-layer-imports-errors
-  = render partial: 'layer_imports/errors', locals: { errors: errors }
+.food_item-imports-errors
+  - if errors.present?
+    h4 File upload with #{errors.size} failed entries
+    table.table.table-striped.bordered
+      thead
+        tr
+          th Row
+          th Message
+      tbody    
+        - errors.each do |error|
+          tr
+            td = error[:row]
+            td = error[:message]

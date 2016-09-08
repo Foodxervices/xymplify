@@ -3,7 +3,9 @@
 //= require bootstrap-sprockets
 //= require bootstrap-tooltip
 //= require bootstrap-confirmation
+//= require bootstrap-fileinput/js/fileinput
 //= require turbolinks
+//= require jquery.remotipart
 
 //= require react
 //= require react_ujs

@@ -13,5 +13,17 @@ const Utils = {
       price = 0 
     }
     return '$' + Number(price).toLocaleString(undefined, { minimumFractionDigits: decimal })
+  },
+  initFileInput: () => {
+    $('input[type=file]:not(.initialized)').each(function() {
+      let extensions = $(this).attr('data-allowed-file-extensions')
+
+      if(extensions) {
+        extensions = `["${extensions.replace(',', '","')}"]`
+      }
+
+      $(this).attr('data-allowed-file-extensions', extensions)
+      $(this).addClass('initialized').fileinput()
+    })
   }
 }

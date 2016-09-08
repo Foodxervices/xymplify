@@ -175,6 +175,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    remotipart (1.2.1)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     roo (2.5.1)
@@ -280,6 +281,7 @@ DEPENDENCIES
   rails (= 4.2.7)
   rails_utils
   react-rails
+  remotipart
   roo
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
