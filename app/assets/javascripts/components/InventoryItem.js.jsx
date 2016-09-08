@@ -19,9 +19,15 @@ const InventoryItem = React.createClass({
     let nextCurrentQuantity = parseInt(event.target.value) || 0
 
     this.props.onCurrentQuantityChange(this.props.id, nextCurrentQuantity)
-  },
-  onCurrentQuantityBlur: function() {
-    this.updateCurrentQuantity(this.refs.currentQuantity.value)
+
+    if(this.updateCurrentQuantityTimeOut) {
+      clearTimeout(this.updateCurrentQuantityTimeOut)
+      this.updateCurrentQuantityTimeOut = null
+    }
+
+    this.updateCurrentQuantityTimeOut = setTimeout(() => {
+      this.updateCurrentQuantity(this.refs.currentQuantity.value)
+    }, 2000)
   },
   render: function() {
     const { name, supplier_name, current_quantity, quantity_ordered, unit, unit_price } = this.props
@@ -33,7 +39,7 @@ const InventoryItem = React.createClass({
          <td className="current-quantity">
             <div className="form-inline">
               <a className="btn btn-minus form-control" onClick={this.minusQuantity}>-</a>
-              <input ref='currentQuantity' className="form-control" type="number" value={current_quantity} onChange={this.onCurrentQuantityChange} onBlur={this.onCurrentQuantityBlur}/>
+              <input ref='currentQuantity' className="form-control" type="number" value={current_quantity} onChange={this.onCurrentQuantityChange}/>
               <a className="btn btn-plus form-control" onClick={this.plusQuantity}>+</a>
             </div>
          </td>
