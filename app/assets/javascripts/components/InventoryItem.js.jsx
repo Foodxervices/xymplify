@@ -6,6 +6,12 @@ const InventoryItem = React.createClass({
     this.updateCurrentQuantity(this.props.current_quantity + 1)
   },
   updateCurrentQuantity: function(nextCurrentQuantity) {
+    if(!$.isNumeric(nextCurrentQuantity)) {
+      nextCurrentQuantity = 0
+    }
+
+    this.refs.currentQuantity.value = nextCurrentQuantity
+
     $.ajax({
       type: 'PATCH',
       url: `/inventories/${this.props.id}/update_current_quantity`,
@@ -16,10 +22,6 @@ const InventoryItem = React.createClass({
     });
   },
   onCurrentQuantityChange: function() {
-    if(!$.trim(this.refs.currentQuantity.value).length) {
-      this.refs.currentQuantity.value = 0
-    }
-    
     this.updateCurrentQuantity(this.refs.currentQuantity.value)
   },
   render: function() {
