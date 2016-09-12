@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20160912133638) do
     t.integer "quantity_ordered",    default: 0
     t.integer "brand_id"
     t.string  "brand"
-    t.integer "unit_price_cents",    default: 0,     null: false
-    t.string  "unit_price_currency", default: "SGD", null: false
+    t.integer "unit_price_cents",    default: 0, null: false
+    t.string  "unit_price_currency",             null: false
   end
 
   add_index "food_items", ["brand_id"], name: "index_food_items_on_brand_id", using: :btree

@@ -14,12 +14,10 @@ class FoodItem < ActiveRecord::Base
   validates :current_quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :quantity_ordered, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-  before_validation :set_currency 
+  before_validation :set_currency, if: 'unit_price_currency.blank?'
 
-  private
+  private 
   def set_currency
-    if unit_price_currency.blank? 
-      self.unit_price_currency = supplier&.currency
-    end
+    self.unit_price_currency = supplier&.currency 
   end
 end

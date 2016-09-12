@@ -13,7 +13,9 @@ class FoodItemsController < ApplicationController
 
   def show; end
 
-  def new; end
+  def new 
+    @food_item = FoodItem.new(unit_price_currency: "")
+  end
 
   def create
     if @food_item.save

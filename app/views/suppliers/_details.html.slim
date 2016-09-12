@@ -4,6 +4,9 @@
       th = Supplier.human_attribute_name(:country)
       td = supplier.country
     tr 
+      th = Supplier.human_attribute_name(:address)
+      td = supplier.address
+    tr 
       th = Supplier.human_attribute_name(:contact)
       td = supplier.contact
     tr 
@@ -12,3 +15,6 @@
     tr 
       th = Supplier.human_attribute_name(:email)
       td = supplier.email
+    tr 
+      th = Supplier.human_attribute_name(:currency)
+      td = supplier.currency

@@ -62,14 +62,15 @@ class FoodItemImport
     header = food_item_attributes
 
     food_items = []
-    supplier_id = Supplier.find_or_create_by(name: supplier_name).id
+    supplier = Supplier.find_or_create_by(name: supplier_name)
 
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       food_item = FoodItem.find_or_initialize_by(user_id: user_id, code: row["code"])
       food_item.attributes = row.to_hash.slice(*row.to_hash.keys)
       food_item.unit = get_unit(food_item.name)
-      food_item.supplier_id = supplier_id
+      food_item.supplier = supplier
+      food_item.unit_price_currency = "" if food_item.new_record?
       food_items << food_item 
     end
 
