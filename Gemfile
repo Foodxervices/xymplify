@@ -29,6 +29,7 @@ gem 'sprockets-es6'
 gem 'will_paginate-bootstrap'
 gem 'country_select'
 gem 'money-rails'
+gem 'font-awesome-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

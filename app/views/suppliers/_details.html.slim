@@ -1,0 +1,14 @@
+.suppliers-details-container
+  table.table.table-bordered
+    tr 
+      th = Supplier.human_attribute_name(:country)
+      td = supplier.country
+    tr 
+      th = Supplier.human_attribute_name(:contact)
+      td = supplier.contact
+    tr 
+      th = Supplier.human_attribute_name(:telephone)
+      td = supplier.telephone
+    tr 
+      th = Supplier.human_attribute_name(:email)
+      td = supplier.email

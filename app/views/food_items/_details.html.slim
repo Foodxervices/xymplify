@@ -1,0 +1,23 @@
+.food_items-details-container
+  table.table.table-bordered
+    tr 
+      th = FoodItem.human_attribute_name(:code)
+      td = food_item.code
+    tr 
+      th = FoodItem.human_attribute_name(:name)
+      td = food_item.name
+    tr 
+      th = FoodItem.human_attribute_name(:brand)
+      td = food_item.brand
+    tr 
+      th = FoodItem.human_attribute_name(:supplier)
+      td = link_to food_item.supplier&.name, food_item.supplier, remote: true
+    tr 
+      th = FoodItem.human_attribute_name(:unit)
+      td = food_item.unit
+    tr 
+      th = FoodItem.human_attribute_name(:unit_price)
+      td = humanized_money_with_symbol(food_item.unit_price)
+    tr 
+      th = FoodItem.human_attribute_name(:unit_price_currency)
+      td = food_item.unit_price_currency

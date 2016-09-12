@@ -14,23 +14,23 @@
     table.table.table-striped.text-center
       thead
         tr 
-          th = FoodItem.human_attribute_name(:code)
-          th.text-left = FoodItem.human_attribute_name(:name)
-          th = FoodItem.human_attribute_name(:unit)
-          th = FoodItem.human_attribute_name(:unit_price)
-          th = FoodItem.human_attribute_name(:unit_price_currency)
-          th = FoodItem.human_attribute_name(:supplier)
-          th = FoodItem.human_attribute_name(:brand)
+          th = sortable(:code)
+          th.text-left = sortable(:name)
+          th = sortable(:unit)
+          th = sortable(:unit_price_cents)
+          th = sortable(:unit_price_currency)
+          th = sortable(:supplier_name)
+          th = sortable(:brand)
           th Action
       tbody 
         - @food_items.each do |food_item|
           tr 
-            td = food_item.code
+            td = link_to food_item.code, food_item, remote: true
             td.text-left = food_item.name
             td = food_item.unit
             td = humanized_money_with_symbol(food_item.unit_price)
             td = food_item.unit_price_currency
-            td = food_item.supplier&.name
+            td = link_to food_item.supplier_name, supplier_path(food_item.supplier_id), remote: true
             td = food_item.brand
             td
               ul.actions

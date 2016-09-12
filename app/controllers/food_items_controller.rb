@@ -1,10 +1,17 @@
 class FoodItemsController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   load_and_authorize_resource
 
   def index
     @food_item_filter = FoodItemFilter.new(food_item_filter_params)
-    @food_items = @food_item_filter.result.includes(:supplier).paginate(:page => params[:page])
+    @food_items = @food_item_filter.result.select('food_items.*, suppliers.name as supplier_name')
+                                          .joins('LEFT JOIN suppliers ON food_items.supplier_id = suppliers.id')
+                                          .order(sort_column + ' ' + sort_direction)
+                                          .paginate(:page => params[:page])
   end
+
+  def show; end
 
   def new; end
 
@@ -52,5 +59,13 @@ class FoodItemsController < ApplicationController
     )
     data[:user_id] = current_user.id
     data
+  end
+  
+  def sort_column
+    FoodItem.column_names.push('supplier_name').include?(params[:sort]) ? params[:sort] : "name"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

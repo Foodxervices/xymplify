@@ -2,3 +2,4 @@
   = simple_form_for @user_filter, url: url, method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
     = f.input :keyword
     = f.button :submit, 'Search'
+    = f.button :button, 'Reset', :type => 'reset'

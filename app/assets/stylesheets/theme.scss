@@ -1,3 +1,4 @@
+/* ACTIONS */
 ul.actions {
   margin: 0;
   padding: 0;
@@ -8,11 +9,15 @@ ul.actions {
     padding: 0 10px;
   }
 }
+/* ACTIONS */
 
+/* CONFIRMATION */
 a[data-toggle=confirmation] {
   cursor: pointer;
 }
+/* CONFIRMATION */
 
+/* BUTTON */
 .btn-red {
   color: #fff;
   background-color: $red_color;
@@ -22,7 +27,9 @@ a[data-toggle=confirmation] {
   color: #fff;
   background-color: $green_color;
 }
+/* BUTTON */
 
+/* TABLE */
 table.text-center th {
   text-align: center;
 
@@ -31,6 +38,35 @@ table.text-center th {
   }
 }
 
+table {
+  a.current {
+    display: inline-block;
+    padding-right: 25px;
+    position: relative;
+
+    &:before {
+      font-family: FontAwesome;
+      display: block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      margin-top: -12px;
+    }
+
+    &.asc:before {
+      content: "\f078";  
+    }
+
+    &.desc:before {
+      content: "\f077";  
+    }
+  }
+}
+/* TABLE */
+
+/* ALIGNMENT */
 .vertical-align {
   display: flex;
   align-items: center;
@@ -39,3 +75,4 @@ table.text-center th {
     margin: 10px 0;
   }
 }
+/* ALIGNMENT */

@@ -6,6 +6,8 @@ class SuppliersController < ApplicationController
     @suppliers = @supplier_filter.result.paginate(:page => params[:page])
   end
 
+  def show; end
+
   def new; end
 
   def create
