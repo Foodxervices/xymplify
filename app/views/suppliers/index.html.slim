@@ -17,6 +17,7 @@
           th = Supplier.human_attribute_name(:contact)
           th = Supplier.human_attribute_name(:telephone)
           th = Supplier.human_attribute_name(:email)
+          th.text-center = Supplier.human_attribute_name(:currency)
           th.text-center Action
       tbody 
         - @suppliers.each do |supplier|
@@ -26,6 +27,7 @@
             td = supplier.contact
             td = supplier.telephone
             td = supplier.email
+            td.text-center = supplier.currency
             td.text-center
               ul.actions
                 li = active_link_to 'Edit', [:edit, supplier]

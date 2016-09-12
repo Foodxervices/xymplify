@@ -53,7 +53,8 @@ class SuppliersController < ApplicationController
       :country,
       :contact,
       :telephone,
-      :email
+      :email,
+      :currency
     )
   end
 end
