@@ -1,8 +1,9 @@
 .shared-menu-container
   ul
     = active_link_to 'Dashboard', root_path, :wrap_tag => :li, :active => :exact
-    = active_link_to 'Suppliers', suppliers_path, :wrap_tag => :li
-    = active_link_to 'Food Items', food_items_path, :wrap_tag => :li
+    = active_link_to 'User', users_path, :wrap_tag => :li
+    = active_link_to 'Supplier', suppliers_path, :wrap_tag => :li
+    = active_link_to 'Food Item', food_items_path, :wrap_tag => :li
     = active_link_to 'Inventory Management', inventories_path, :wrap_tag => :li
     li = link_to 'Purchase Orders', '#'
     = active_link_to 'Log out', destroy_user_session_path, :wrap_tag => :li, method: :delete

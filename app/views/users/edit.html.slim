@@ -1,0 +1,4 @@
+#users-edit-container
+  h1 = @user.email
+
+  = render 'users/form', { user: @user, url: user_path(@user) }

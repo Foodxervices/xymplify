@@ -25,6 +25,10 @@ a[data-toggle=confirmation] {
 
 table.text-center th {
   text-align: center;
+
+  &.text-left {
+    text-align: left;
+  }
 }
 
 .vertical-align {

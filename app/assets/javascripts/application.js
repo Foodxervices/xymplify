@@ -14,6 +14,5 @@
 //= require global
 
 //= require pages/food_items 
-//= require pages/suppliers
 
 

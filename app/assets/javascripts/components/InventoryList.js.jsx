@@ -6,12 +6,12 @@ const InventoryList = React.createClass({
       <table className="table table-striped text-center">
         <thead>
           <tr>
-             <th>Item Name</th>
-             <th>Supplier</th>
-             <th className="text-center">Current Quantity</th>
-             <th className="text-center">Quantity Ordered</th>
-             <th className="text-center">Unit</th>
-             <th className="text-center">Price per Unit</th>
+             <th className="text-left">Item Name</th>
+             <th className="text-left">Supplier</th>
+             <th>Current Quantity</th>
+             <th>Quantity Ordered</th>
+             <th>Unit</th>
+             <th>Price per Unit</th>
           </tr>
         </thead>
         {$.map(groups, function(foodItems, name){

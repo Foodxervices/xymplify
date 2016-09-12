@@ -1,0 +1,28 @@
+#users-index-container
+  .row.vertical-align
+    .col-md-3
+      h1 User
+    .col-md-6
+      = render 'users/search', user_filter: @user_filter, url: users_path
+    .col-md-3
+      .text-right
+        .btn-group
+          = link_to 'Create new user', new_user_path, class: 'btn btn-default'
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr 
+          th = User.human_attribute_name(:email)
+          th = User.human_attribute_name(:type)
+          th.text-center Action
+      tbody 
+        - @users.each do |user|
+          tr 
+            td = user.email
+            td = user.type_text
+            td.text-center
+              ul.actions
+                li = active_link_to 'Edit', edit_user_path(user)
+                li = link_to 'Delete', '#', data: { toggle: "confirmation", href: user_path(user) }, class: 'delete'
+  .text-center          
+    = will_paginate @users, renderer: BootstrapPagination::Rails

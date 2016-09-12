@@ -6,9 +6,7 @@ ActiveRecord::Base.connection.execute(
 puts "==== End ===="
 
 puts "==== Create User ===="
-
-User.create([
+Admin.create([
   { email: 'admin@example.com', password: '123123123', confirmed_at: Date.today }
 ])
-
 puts "==== End ===="

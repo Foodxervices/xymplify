@@ -1,6 +1,7 @@
 const Foodxervices = {
   init: function() {
     Utils.initFileInput()
+    Utils.initConfirmation()
   }
 }
 

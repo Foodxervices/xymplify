@@ -3,8 +3,10 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  enumerize :type,    in: [:Admin], scope: true
-
+  
   has_many :food_items
+
+  validates :type, presence: true
+
+  enumerize :type, in: [:Admin], scope: true
 end
