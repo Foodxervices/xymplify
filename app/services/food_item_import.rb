@@ -90,6 +90,6 @@ class FoodItemImport
   end
 
   def food_item_attributes
-    ["code", "name", "brand_name", "unit_price"]
+    ["code", "name", "brand", "unit_price"]
   end
 end

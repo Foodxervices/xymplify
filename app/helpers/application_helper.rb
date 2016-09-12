@@ -1,5 +1,9 @@
 module ApplicationHelper
-  def to_currency(amount, unit: '$')
-    number_to_currency(amount, :unit => unit, :separator => ".", :delimiter => ",", format: "%u%n")
+  def currency_codes
+    currencies = []
+    Money::Currency.table.values.each do |currency|
+      currencies = currencies + [[currency[:name] + ' (' + currency[:iso_code] + ')', currency[:iso_code]]]
+    end
+    currencies
   end
 end

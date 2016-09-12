@@ -1,4 +1,6 @@
 class FoodItem < ActiveRecord::Base
+  monetize :unit_price_cents
+
   belongs_to :supplier
   belongs_to :user
   validates_associated :supplier, :user

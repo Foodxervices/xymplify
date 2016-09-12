@@ -5,6 +5,7 @@ en:
         code: "Item Code"
         name: "Item Name"
         unit_price: "Price per Unit"
+        unit_price_currency: "Currency"
       supplier:
         name: "Company Name"
         contact: "Contact Person"

@@ -28,6 +28,7 @@ gem 'sprockets', '>= 3.0.0'
 gem 'sprockets-es6'
 gem 'will_paginate-bootstrap'
 gem 'country_select'
+gem 'money-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

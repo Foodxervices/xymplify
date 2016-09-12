@@ -46,6 +46,7 @@ class FoodItemsController < ApplicationController
       :name,
       :unit,
       :unit_price,
+      :unit_price_currency,
       :supplier_id,
       :brand
     )

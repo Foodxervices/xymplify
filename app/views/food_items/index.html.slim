@@ -18,6 +18,7 @@
           th.text-left = FoodItem.human_attribute_name(:name)
           th = FoodItem.human_attribute_name(:unit)
           th = FoodItem.human_attribute_name(:unit_price)
+          th = FoodItem.human_attribute_name(:unit_price_currency)
           th = FoodItem.human_attribute_name(:supplier)
           th = FoodItem.human_attribute_name(:brand)
           th Action
@@ -27,7 +28,8 @@
             td = food_item.code
             td.text-left = food_item.name
             td = food_item.unit
-            td = to_currency(food_item.unit_price)
+            td = humanized_money_with_symbol(food_item.unit_price)
+            td = food_item.unit_price_currency
             td = food_item.supplier&.name
             td = food_item.brand
             td
