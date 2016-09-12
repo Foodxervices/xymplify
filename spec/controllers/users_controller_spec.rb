@@ -1,19 +1,19 @@
 require 'rails_helper'
 
 describe UsersController, :type => :controller do 
-  let!(:user) { create(:user) }
-  before { sign_in user }  
+  let!(:admin) { create(:admin) }
+  before       { sign_in admin }  
 
   describe '#index' do
     def do_request
       get :index
     end
 
-    let!(:users) { create_list(:user, 2) }
+    let!(:users) { create_list(:admin, 2) }
 
     it 'renders the :index view' do
       do_request
-      expect(assigns(:users)).to match users
+      expect(assigns(:users).size).to eq 3
       expect(response).to render_template :index
     end
   end
@@ -32,13 +32,11 @@ describe UsersController, :type => :controller do
 
   describe '#create' do 
     def do_request
-      post :create, user: user.attributes
+      post :create, user: attributes_for(:admin)
     end
 
-    let(:user) { build(:user) }
-
     it 'creates a user' do 
-      expect{ do_request }.to change{ [User.count] }.from([0]).to([1])
+      expect{ do_request }.to change{ [User.count] }.from([1]).to([2])
       expect(response).to redirect_to users_url
     end
   end
@@ -48,7 +46,7 @@ describe UsersController, :type => :controller do
       get :edit, id: user.id
     end
 
-    let!(:user) { create(:user) }
+    let!(:user) { create(:admin) }
 
     it 'returns edit page' do
       do_request
@@ -59,15 +57,15 @@ describe UsersController, :type => :controller do
 
   describe '#update' do 
     def do_request
-      patch :update, id: user.id, user: { name: new_name }
+      patch :update, id: user.id, user: { email: new_email }
     end
 
-    let!(:user)  { create(:user) }
-    let!(:new_name)  { 'Vinamilk' }
+    let!(:user)       { create(:admin) }
+    let!(:new_email)  { 'new_email@gmail.com' }
 
     it 'updates user' do
       do_request
-      expect(user.reload.name).to eq new_name
+      expect(user.reload.email).to eq new_email
       expect(flash[:notice]).to eq 'User has been updated.'
       expect(response).to redirect_to users_url
     end
@@ -78,14 +76,14 @@ describe UsersController, :type => :controller do
       delete :destroy, id: user.id
     end
 
-    let!(:user) { create(:user) }
+    let!(:user) { create(:admin) }
 
     before do
       request.env["HTTP_REFERER"] = "where_i_came_from"
     end
 
     it 'deletes user' do 
-      expect{ do_request }.to change{ User.count }.from(1).to(0)
+      expect{ do_request }.to change{ User.count }.from(2).to(1)
       expect(flash[:notice]).to eq('User has been deleted.')
       expect(response).to redirect_to "where_i_came_from"
     end

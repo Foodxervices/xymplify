@@ -29,7 +29,7 @@
             td = food_item.unit
             td = to_currency(food_item.unit_price)
             td = food_item.supplier&.name
-            td = food_item.brand&.name
+            td = food_item.brand
             td
               ul.actions
                 li = active_link_to 'Edit', [:edit, food_item]

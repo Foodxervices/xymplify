@@ -3,7 +3,7 @@ class FoodItemsController < ApplicationController
 
   def index
     @food_item_filter = FoodItemFilter.new(food_item_filter_params)
-    @food_items = @food_item_filter.result.includes(:supplier, :brand).paginate(:page => params[:page])
+    @food_items = @food_item_filter.result.includes(:supplier).paginate(:page => params[:page])
   end
 
   def new; end
@@ -47,7 +47,7 @@ class FoodItemsController < ApplicationController
       :unit,
       :unit_price,
       :supplier_id,
-      :brand_id
+      :brand
     )
     data[:user_id] = current_user.id
     data

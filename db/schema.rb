@@ -11,14 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908120829) do
+ActiveRecord::Schema.define(version: 20160912024230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "brands", force: :cascade do |t|
-    t.string "name"
-  end
 
   create_table "food_items", force: :cascade do |t|
     t.string  "name"
@@ -30,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160908120829) do
     t.integer "current_quantity",                          default: 0
     t.integer "quantity_ordered",                          default: 0
     t.integer "brand_id"
+    t.string  "brand"
   end
 
   add_index "food_items", ["brand_id"], name: "index_food_items_on_brand_id", using: :btree

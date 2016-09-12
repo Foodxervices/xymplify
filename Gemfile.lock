@@ -62,7 +62,6 @@ GEM
     bullet (5.3.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
-    byebug (9.0.5)
     callsite (0.0.11)
     cancancan (1.15.0)
     coderay (1.1.1)
@@ -127,6 +126,7 @@ GEM
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.1.0)
+    method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
@@ -139,6 +139,12 @@ GEM
     orm_adapter (0.5.0)
     pg (0.18.4)
     pkg-config (1.1.7)
+    pry (0.10.4)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -239,6 +245,7 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (~> 3.0)
+    slop (3.6.0)
     sort_alphabetical (1.0.2)
       unicode_utils (>= 1.2.2)
     spring (1.7.2)
@@ -288,7 +295,6 @@ DEPENDENCIES
   bootstrap_flash_messages
   bower-rails
   bullet
-  byebug
   cancancan
   coffee-rails (~> 4.1.0)
   country_select
@@ -301,6 +307,7 @@ DEPENDENCIES
   letter_opener
   meta_request
   pg (~> 0.15)
+  pry-rails
   quiet_assets
   rails (= 4.2.7)
   rails_12factor

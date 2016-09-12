@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe FoodItemsController, :type => :controller do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:admin) }
   before { sign_in user }  
 
   describe '#index' do

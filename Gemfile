@@ -30,10 +30,10 @@ gem 'will_paginate-bootstrap'
 gem 'country_select'
 
 group :development, :test do
-  gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
   gem 'shoulda'
+  gem 'pry-rails'
 end
 
 group :development do
