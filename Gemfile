@@ -30,6 +30,7 @@ gem 'will_paginate-bootstrap'
 gem 'country_select'
 gem 'money-rails'
 gem 'font-awesome-rails'
+gem 'puma'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
