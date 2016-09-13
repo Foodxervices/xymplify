@@ -29,6 +29,6 @@ class ApplicationController < ActionController::Base
   end
 
   def js_request?
-    request.format.js?
+    request.format.symbol == :js
   end
 end
