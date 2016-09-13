@@ -10,11 +10,9 @@
       }
     }
 
-    > input[type=submit] {
-      flex-grow: 1;
-    }
-
-    > a.btn {
+    > input[type=submit], > a.btn {
+      height: 34px;
+      margin-left: 5px;
       flex-grow: 1;
     }
   }

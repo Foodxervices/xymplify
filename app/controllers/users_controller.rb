@@ -46,10 +46,18 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(
+    data = params.require(:user).permit(
+      :name,
       :email,
+      :avatar,
       :password,
+      :password_confirmation,
       :type
     )
+    if data[:password].blank?
+      data.delete(:password)
+      data.delete(:password_confirmation) 
+    end
+    data
   end
 end

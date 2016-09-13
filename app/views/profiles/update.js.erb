@@ -1,0 +1,5 @@
+<% if @success %>
+  window.location = "<%= root_url %>"
+<% else %>
+  <%= open_popup(title: current_user.email, partial: 'profiles/form') %> 
+<% end %> 

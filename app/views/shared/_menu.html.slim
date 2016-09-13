@@ -1,10 +1,17 @@
 .shared-menu-container
-  ul
-    = active_link_to 'Dashboard', root_path, :wrap_tag => :li, :active => :exact
-    = active_link_to 'User', users_path, :wrap_tag => :li
-    = active_link_to 'Supplier', suppliers_path, :wrap_tag => :li
-    = active_link_to 'Food Item', food_items_path, :wrap_tag => :li
-    = active_link_to 'Inventory Management', inventories_path, :wrap_tag => :li
-    li = link_to 'Purchase Orders', '#'
-    = active_link_to 'Log out', destroy_user_session_path, :wrap_tag => :li, method: :delete
-  
+  nav.navbar.navbar-default
+    .container-fluid
+      .navbar-header
+        button.navbar-toggle.collapsed aria-expanded="false" data-target="#main-menu" data-toggle="collapse" type="button" 
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+      #main-menu.collapse.navbar-collapse
+        .navbar-form.navbar-left
+          = yield :menu_left
+        ul.nav.navbar-nav.navbar-right
+          li = image_tag(current_user.avatar.url(:thumb))
+          = active_link_to 'Setting', edit_profile_path, remote: true, :wrap_tag => :li
+          = active_link_to 'Log out', destroy_user_session_path, :wrap_tag => :li, method: :delete
+            

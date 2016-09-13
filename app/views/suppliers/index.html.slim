@@ -1,10 +1,10 @@
+- content_for :menu_left do 
+  = render 'suppliers/search', supplier_filter: @supplier_filter, url: suppliers_path
 #suppliers-index-container
   .row.vertical-align
-    .col-md-3
+    .col-md-6
       h1 Supplier
     .col-md-6
-      = render 'suppliers/search', supplier_filter: @supplier_filter, url: suppliers_path
-    .col-md-3
       .text-right
         .btn-group
           = link_to 'Create New Supplier', new_supplier_path, class: 'btn btn-default'

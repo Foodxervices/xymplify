@@ -1,4 +1,13 @@
 #layouts-main-container {
+  #menu {
+    position: fixed;
+    top: 0;
+    left: $sidebar_width;
+    right: 0;
+    z-index: 2;
+    height: $menu_height;
+  }
+
   #sidebar {
     position: fixed;
     top: 0;
@@ -9,7 +18,10 @@
   }
 
   main {
-    margin-left: $sidebar_width;
+    position: absolute;
+    top: $menu_height;
+    left: $sidebar_width;
+    right: 0;
     padding: 0 15px;
   }
 }

@@ -2,9 +2,13 @@ doctype html
 html
   head = render 'layouts/head'
   body#layouts-main-container class=page_class
-    #sidebar
+    #menu
       = render 'shared/menu'
-    main 
+
+    #sidebar
+      = render 'shared/sidebar'
+     
+    main
       = yield
 
     = javascript_tag open_message(flash)

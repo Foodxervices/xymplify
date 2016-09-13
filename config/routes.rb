@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
+
   root 'home#index'
+
+  resource :profile, only: [:edit, :update]
 
   resources :food_items,  only: [:index, :show, :new, :create, :edit, :update, :destroy]
   

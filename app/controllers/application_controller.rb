@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include PopupHelper
   protect_from_forgery with: :exception
+  skip_before_action :verify_authenticity_token, if: :js_request?
   layout :layout_by_resource
 
   before_action :authenticate_user!
@@ -16,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    if request.format.symbol != :js
+    if js_request?
       super
     else
       if !user_signed_in?
@@ -25,5 +26,9 @@ class ApplicationController < ActionController::Base
         return true 
       end
     end
+  end
+
+  def js_request?
+    request.format.js?
   end
 end
