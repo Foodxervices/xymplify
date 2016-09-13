@@ -1,0 +1,21 @@
+.search-container {
+  form {
+    display: flex;
+
+    > .form-group {
+      flex-grow: 6;
+
+      input[type=text] {
+        width: 100%;
+      }
+    }
+
+    > input[type=submit] {
+      flex-grow: 1;
+    }
+
+    > a.btn {
+      flex-grow: 1;
+    }
+  }
+}

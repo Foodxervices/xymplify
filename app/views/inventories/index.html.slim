@@ -1,6 +1,7 @@
 #inventories-index-container
-  .text-right
-    = render 'food_items/search', food_item_filter: @food_item_filter, url: inventories_path
+  .row
+    .col-md-6.col-md-offset-3
+      = render 'food_items/search', food_item_filter: @food_item_filter, url: inventories_path
   = react_component('InventoryList', groups: @groups)
   .text-center          
     = will_paginate @food_items, renderer: BootstrapPagination::Rails
