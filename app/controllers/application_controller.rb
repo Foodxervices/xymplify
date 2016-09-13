@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    if js_request?
+    if !js_request?
       super
     else
       if !user_signed_in?
