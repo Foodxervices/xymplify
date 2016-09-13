@@ -57,7 +57,8 @@ class FoodItemsController < ApplicationController
       :unit_price,
       :unit_price_currency,
       :supplier_id,
-      :brand
+      :brand,
+      :image
     )
     data[:user_id] = current_user.id
     data

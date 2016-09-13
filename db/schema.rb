@@ -11,23 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913044551) do
+ActiveRecord::Schema.define(version: 20160913140052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "food_items", force: :cascade do |t|
-    t.string  "name"
-    t.string  "code"
-    t.string  "unit"
-    t.integer "supplier_id"
-    t.integer "user_id"
-    t.integer "current_quantity",    default: 0
-    t.integer "quantity_ordered",    default: 0
-    t.integer "brand_id"
-    t.string  "brand"
-    t.integer "unit_price_cents",    default: 0, null: false
-    t.string  "unit_price_currency",             null: false
+    t.string   "name"
+    t.string   "code"
+    t.string   "unit"
+    t.integer  "supplier_id"
+    t.integer  "user_id"
+    t.integer  "current_quantity",    default: 0
+    t.integer  "quantity_ordered",    default: 0
+    t.integer  "brand_id"
+    t.string   "brand"
+    t.integer  "unit_price_cents",    default: 0, null: false
+    t.string   "unit_price_currency",             null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "food_items", ["brand_id"], name: "index_food_items_on_brand_id", using: :btree

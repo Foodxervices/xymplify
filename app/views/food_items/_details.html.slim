@@ -7,6 +7,9 @@
       th = FoodItem.human_attribute_name(:name)
       td = food_item.name
     tr 
+      th = FoodItem.human_attribute_name(:image)
+      td.text-center = image_tag food_item.image.url(:medium)
+    tr 
       th = FoodItem.human_attribute_name(:brand)
       td = food_item.brand
     tr 

@@ -14,6 +14,9 @@ class FoodItem < ActiveRecord::Base
   validates :current_quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :quantity_ordered, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
+  has_attached_file :image, styles: { thumb: "80x80#", medium: "400x400#" }
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+
   before_validation :set_currency, if: 'unit_price_currency.blank?'
 
   private 

@@ -16,6 +16,7 @@
         tr 
           th = sortable(:code)
           th.text-left = sortable(:name)
+          th = FoodItem.human_attribute_name(:image)
           th = sortable(:unit)
           th = sortable(:unit_price_cents)
           th = sortable(:unit_price_currency)
@@ -27,6 +28,7 @@
           tr 
             td = link_to food_item.code, food_item, remote: true
             td.text-left = food_item.name
+            td = image_tag food_item.image.url(:thumb)
             td = food_item.unit
             td = humanized_money_with_symbol(food_item.unit_price)
             td = food_item.unit_price_currency
