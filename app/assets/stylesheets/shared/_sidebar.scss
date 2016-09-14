@@ -1,5 +1,5 @@
 .shared-sidebar-container {
-  padding: 20px 0;
+  padding: 48px 0;
 
   ul {
     list-style: none;
@@ -8,6 +8,7 @@
   }
 
   a {
+    position: relative;
     padding: 0 15px;
     display: block;
     line-height: 40px;
@@ -17,6 +18,45 @@
     &.active, &:hover {
       color: #fff;
       background: #059eee;
+    }
+
+    &:before {
+      font-family: FontAwesome;
+      position: absolute;
+      top: 0px;
+      right: 14px;
+      cursor: pointer;
+      font-size: 22px;
+      text-align: center;
+    }
+
+    &.sb-dashboard:before {
+      content: "\f015";
+      right: 12px;
+    }
+
+    &.sb-user:before {
+      content: "\f007";
+    }
+
+    &.sb-supplier:before {
+      right: 13px;
+      content: "\f21b";
+    }
+
+    &.sb-food_item:before {
+      content: "\f0f5";
+      font-size: 20px;
+      right: 16px;
+    }
+
+    &.sb-inventory:before {
+      content: "\f044";
+      right: 11px;
+    }
+
+    &.sb-purchase_orders:before {
+      content: "\f298";
     }
   }
 }

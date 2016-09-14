@@ -1,0 +1,39 @@
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $sidebar_width;
+  height: 100vh;
+  background: #0296e0;
+  overflow: hidden;
+  z-index: 2;
+
+  > i {
+    font-family: FontAwesome;
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+    font-style: normal;
+  }
+
+  &.collapsed {
+    left: $sidebar_collapsed_left;
+    transition: left 0.5s;
+
+    > i:before {
+      content: "\f0c9";
+    }
+  }
+
+  &.expanded {
+    left: 0;
+    transition: left 0.5s;
+
+    > i:before {
+      content: "\f00d";
+    }
+  }
+}

@@ -2,25 +2,16 @@
   #menu {
     position: fixed;
     top: 0;
-    left: $sidebar_width;
+    left: $main_padding;
     right: 0;
     z-index: 2;
     height: $menu_height;
   }
 
-  #sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: $sidebar_width;
-    height: 100vh;
-    background: #0296e0;
-  }
-
   main {
     position: absolute;
     top: $menu_height;
-    left: $sidebar_width;
+    left: $main_padding;
     right: 0;
     padding: 0 15px;
   }

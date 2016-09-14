@@ -11,6 +11,7 @@
 //= require react_ujs
 //= require components
 //= require utils
+//= require sidebar
 //= require global
 
 //= require pages/food_items 

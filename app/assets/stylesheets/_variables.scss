@@ -6,7 +6,12 @@ $grid-float-breakpoint: 900px;
 
 // SIDEBAR
 $sidebar_width: 250px;
+$sidebar_collapsed_left: -205px;
 // SIDEBAR
+
+// MAIN
+$main_padding: $sidebar_width + $sidebar_collapsed_left;
+// MAIN
 
 // COLOR
 $red_color: #f34336;

@@ -4,6 +4,10 @@
     height: 50px;
   }
 
+  .navbar-default .navbar-form {
+    border: none;
+  }
+
   @media all and (min-width: 1300px) {
     .navbar-left {
       width: 800px;
