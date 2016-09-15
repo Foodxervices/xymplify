@@ -7,6 +7,12 @@ const Sidebar = function(sidebar) {
   this.toggleButton.click(() => {
     this.toggle()
   })
+
+  $(document).click((event) => { 
+    if(!$(event.target).closest(this.sidebar).length) {
+      this.collapse()
+    }        
+  })
 }
 
 Sidebar.prototype.collapse = function() {
