@@ -1,0 +1,17 @@
+.restaurants-details-container
+  table.table.table-bordered
+    tr 
+      th = Restaurant.human_attribute_name(:site_address)
+      td = restaurant.site_address
+    tr 
+      th = Restaurant.human_attribute_name(:billing_address)
+      td = restaurant.billing_address
+    tr 
+      th = Restaurant.human_attribute_name(:contact_person)
+      td = restaurant.contact_person
+    tr 
+      th = Restaurant.human_attribute_name(:telephone)
+      td = restaurant.telephone
+    tr 
+      th = Restaurant.human_attribute_name(:email)
+      td = restaurant.email

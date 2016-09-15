@@ -35,6 +35,11 @@
       right: 12px;
     }
 
+    &.sb-restaurant:before {
+      content: "\f19c";
+      right: 9px;
+    }
+
     &.sb-user:before {
       content: "\f007";
     }

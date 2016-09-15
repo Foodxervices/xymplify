@@ -1,0 +1,14 @@
+.restaurants-form-container
+  = simple_form_for restaurant do |f|
+    .form-inputs
+      .row
+        .col-md-6
+          = f.input :name
+          = f.input :site_address
+          = f.input :billing_address
+          = f.input :contact_person
+          = f.input :telephone
+          = f.input :email
+
+    .form-actions
+      = f.button :submit

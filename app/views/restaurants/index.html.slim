@@ -1,2 +1,36 @@
+- content_for :menu_left do 
+  = render 'restaurants/search', restaurant_filter: @restaurant_filter, url: restaurants_path
 #restaurants-index-container
-  h1 Restaurant
+  .row.vertical-align
+    .col-md-6
+      h1 Restaurant
+    .col-md-6
+      .text-right
+        .btn-group
+          = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default'
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr 
+          th = Restaurant.human_attribute_name(:name)
+          th = Restaurant.human_attribute_name(:site_address)
+          th = Restaurant.human_attribute_name(:billing_address)
+          th = Restaurant.human_attribute_name(:contact_person)
+          th = Restaurant.human_attribute_name(:telephone)
+          th = Restaurant.human_attribute_name(:email)
+          th.text-center Action
+      tbody 
+        - @restaurants.each do |restaurant|
+          tr 
+            td = link_to restaurant.name, restaurant, remote: true
+            td = restaurant.site_address
+            td = restaurant.billing_address
+            td = restaurant.contact_person
+            td = restaurant.telephone
+            td = restaurant.email
+            td.text-center
+              ul.actions
+                li = active_link_to 'Edit', [:edit, restaurant]
+                li = link_to 'Delete', '#', data: { toggle: "confirmation", href: restaurant_path(restaurant) }, class: 'delete'
+  .text-center          
+    = will_paginate @restaurants, renderer: BootstrapPagination::Rails

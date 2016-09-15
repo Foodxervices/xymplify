@@ -40,6 +40,11 @@ ActiveRecord::Schema.define(version: 20160915030234) do
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
+    t.string "site_address"
+    t.string "billing_address"
+    t.string "contact_person"
+    t.string "telephone"
+    t.string "email"
   end
 
   create_table "suppliers", force: :cascade do |t|
