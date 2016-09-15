@@ -3,7 +3,11 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+
+
   resource :profile, only: [:edit, :update]
+
+  resources :restaurants, only: [:index]
 
   resources :food_items,  only: [:index, :show, :new, :create, :edit, :update, :destroy]
   
