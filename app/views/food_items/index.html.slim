@@ -2,9 +2,9 @@
   = render 'food_items/search', food_item_filter: @food_item_filter, url: food_items_path
 #food_items-index-container
   .row.vertical-align
-    .col-md-6
+    .col-xs-6
       h1 Food Item
-    .col-md-6
+    .col-xs-6
       .text-right
         .btn-group
           = link_to 'Import', new_food_item_import_url, remote: true, class: 'btn btn-default'
