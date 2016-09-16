@@ -1,6 +1,7 @@
 - content_for :menu_left do 
   = render 'food_items/search', food_item_filter: @food_item_filter, url: inventories_path
 #inventories-index-container
-  = react_component('InventoryList', groups: @groups)
+  .table-responsive
+    = react_component('InventoryList', groups: @groups)
   .text-center          
     = will_paginate @food_items, renderer: BootstrapPagination::Rails

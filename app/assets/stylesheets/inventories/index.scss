@@ -1,4 +1,8 @@
 #inventories-index-container {
+  .table-responsive > div {
+    min-width: 1000px;
+  }
+  
   tr.sub-header {
     background: #F9F9F9;
     cursor: pointer;
