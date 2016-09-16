@@ -3,7 +3,7 @@ class RestaurantsController < ApplicationController
 
   def index
     @restaurant_filter = RestaurantFilter.new(restaurant_filter_params)
-    @restaurants = @restaurant_filter.result.paginate(:page => params[:page])
+    @restaurants = @restaurant_filter.result.includes(:chickens).paginate(:page => params[:page])
   end
 
   def show; end
@@ -54,7 +54,11 @@ class RestaurantsController < ApplicationController
       :billing_address,
       :contact_person,
       :telephone,
-      :email
+      :email,
+      chickens_attributes: [
+                    :id,
+                    :name
+                  ]
     )
   end
 end

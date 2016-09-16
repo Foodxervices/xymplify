@@ -11,3 +11,5 @@ en:
       supplier:
         name: "Company Name"
         contact: "Contact Person"
+      chicken:
+        name: "Chicken Name"

@@ -14,6 +14,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'slim-rails'
 gem 'devise'
 gem 'simple_form'
+gem 'nested_form'
 gem 'rails_utils'
 gem 'active_link_to'
 gem 'seedbank'

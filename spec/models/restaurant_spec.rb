@@ -6,4 +6,8 @@ describe Restaurant do
     it { is_expected.to allow_value("test@example.com").for(:email) }
     it { is_expected.to_not allow_value("invalid@email").for(:email) }
   end
+
+  context 'associations' do 
+    it { is_expected.to have_many :chickens }
+  end
 end

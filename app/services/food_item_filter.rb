@@ -1,6 +1,7 @@
 class FoodItemFilter
   include ActiveModel::Model
   attr_accessor :keyword
+  attr_accessor :chicken_id
 
   def initialize(attributes = {})
     attributes.each { |name, value| send("#{name}=", value) }
@@ -15,6 +16,7 @@ class FoodItemFilter
                                     food_items.brand ILIKE :keyword OR 
                                     suppliers.name   ILIKE :keyword 
                                   ", keyword: "%#{keyword}%") if keyword.present?
+    food_items = food_items.where(chicken_id: chicken_id) if chicken_id.present?
     food_items
   end
 

@@ -1,14 +1,18 @@
 .restaurants-form-container
-  = simple_form_for restaurant do |f|
-    .form-inputs
-      .row
-        .col-md-6
+  = simple_nested_form_for restaurant, wrapper: :table_form do |f|
+    .row
+      .col-md-6
+        table.table.table-bordered
           = f.input :name
           = f.input :site_address
           = f.input :billing_address
           = f.input :contact_person
           = f.input :telephone
           = f.input :email
+      .col-md-6
+        = render partial: 'chickens/form', locals: { restaurant_form: f }
 
-    .form-actions
-      = f.button :submit
+    .text-right
+      .btn-group
+        = f.link_to_add "Add Chicken", :chickens, data: { target: "#chickens" }, class: 'btn btn-default'
+        = f.button :submit

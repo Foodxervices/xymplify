@@ -21,6 +21,7 @@
           th = sortable(:unit_price_cents)
           th = sortable(:unit_price_currency)
           th = sortable(:supplier_name)
+          th = sortable(:chicken_name)
           th = sortable(:brand)
           th Action
       tbody 
@@ -33,6 +34,7 @@
             td = humanized_money_with_symbol(food_item.unit_price)
             td = food_item.unit_price_currency
             td = link_to food_item.supplier_name, supplier_path(food_item.supplier_id), remote: true
+            td = food_item.chicken_name
             td = food_item.brand
             td
               ul.actions

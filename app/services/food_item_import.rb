@@ -3,6 +3,7 @@ class FoodItemImport
   include ActiveModel::Validations
 
   attr_accessor :user_id
+  attr_accessor :chicken_id
   attr_accessor :supplier_name
   attr_accessor :file
 
@@ -12,6 +13,11 @@ class FoodItemImport
   end
 
   def valid?
+    if chicken_id.blank?
+      errors.add :chicken_id, "please select a chicken."
+      return false
+    end
+
     if file.nil?
       errors.add :file, "please upload the import file."
       return false
@@ -34,10 +40,7 @@ class FoodItemImport
 
   def save
     if valid?
-      imported_food_items.each do |food_item|
-        food_item.user_id = user_id
-        food_item.save
-      end
+      imported_food_items.map(&:save)
 
       return true
     end
@@ -66,10 +69,12 @@ class FoodItemImport
 
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      food_item = FoodItem.find_or_initialize_by(user_id: user_id, code: row["code"])
-      food_item.attributes = row.to_hash.slice(*row.to_hash.keys)
-      food_item.unit = get_unit(food_item.name)
-      food_item.supplier = supplier
+      food_item = FoodItem.find_or_initialize_by(code: row["code"])
+      food_item.attributes  = row.to_hash.slice(*row.to_hash.keys)
+      food_item.unit        = get_unit(food_item.name)
+      food_item.supplier    = supplier
+      food_item.user_id     = user_id
+      food_item.chicken_id  = chicken_id
       food_item.unit_price_currency = "" if food_item.new_record?
       food_items << food_item 
     end

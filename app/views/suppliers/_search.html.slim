@@ -1,5 +1,5 @@
 .suppliers-search-container.search-container
-  = simple_form_for @supplier_filter, url: url, method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
+  = simple_form_for supplier_filter, url: url, method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
     = f.input :keyword
     = f.button :submit, 'Search'
     = link_to "Reset", suppliers_url, class: 'btn btn-default'

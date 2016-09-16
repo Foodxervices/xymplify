@@ -14,4 +14,24 @@ module ApplicationHelper
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     link_to title, params.merge(:sort => column, :direction => direction), {:class => css_class}
   end
+
+  def comma_seperated_for(list, field = :title)
+    list.map(&field).join(', ') 
+  end
+
+  def comma_seperated_links_for(list, field = :title, cancan = true)
+    collection = []
+    list.collect do |item|
+      value = item.send(field)
+      if !value.blank?
+        collection << link_to_if(!cancan || can?(:show, item), value, item)
+      end
+    end
+    collection.join(", ").html_safe
+  end
+
+  def chicken_dropdown(form, include_blank: true) 
+    restaurants = Restaurant.accessible_by(current_ability).includes(:chickens)
+    form.input :chicken_id, collection: restaurants, as: :grouped_select, group_method: :chickens, include_blank: include_blank
+  end
 end

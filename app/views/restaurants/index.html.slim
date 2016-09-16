@@ -18,6 +18,7 @@
           th = Restaurant.human_attribute_name(:contact_person)
           th = Restaurant.human_attribute_name(:telephone)
           th = Restaurant.human_attribute_name(:email)
+          th = Restaurant.human_attribute_name(:chickens)
           th.text-center Action
       tbody 
         - @restaurants.each do |restaurant|
@@ -28,6 +29,7 @@
             td = restaurant.contact_person
             td = restaurant.telephone
             td = restaurant.email
+            td = comma_seperated_for(restaurant.chickens, :name)
             td.text-center
               ul.actions
                 li = active_link_to 'Edit', [:edit, restaurant]

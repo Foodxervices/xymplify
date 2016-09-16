@@ -1,20 +1,22 @@
-@import "variables";
-@import "font-awesome";
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "bootstrap-fileinput/sass/fileinput";
-@import "theme";
-@import "search";
+@import 'variables';
+@import 'font-awesome';
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'bootstrap_select/bootstrap_select';
+@import 'bootstrap-fileinput/sass/fileinput';
+@import 'theme';
+@import 'search';
+@import 'selectpicker';
 
-@import "layouts/main";
-@import "layouts/sidebar";
+@import 'layouts/main';
+@import 'layouts/sidebar';
 
-@import "users/shared/_links";
+@import 'users/shared/_links';
 
-@import "inventories/index";
+@import 'inventories/index';
 
-@import "food_items/index";
+@import 'food_items/index';
 
-@import "shared/_menu";
-@import "shared/_sidebar";
-@import "popups/_message";
+@import 'shared/_menu';
+@import 'shared/_sidebar';
+@import 'popups/_message';

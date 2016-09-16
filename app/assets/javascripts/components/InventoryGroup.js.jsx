@@ -58,7 +58,8 @@ const InventoryGroup = React.createClass({
       <tbody>
         <tr className='sub-header' onClick={this.toggleItems}>
            <td className="text-left">{name}</td>
-           <td className="text-left">All</td>
+           <td className="text-left"></td>
+           <td className="text-left"></td>
            <td>{currentQuantity}</td>
            <td>{quantityOrdered}</td>
            <td></td>
