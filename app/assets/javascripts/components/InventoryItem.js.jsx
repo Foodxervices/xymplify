@@ -24,7 +24,7 @@ const InventoryItem = React.createClass({
           this.props.onCurrentQuantityChange(food_item.id, food_item.current_quantity)
         }
       });
-    }, 1000)  
+    }, 500)  
   },
   render: function() {
     const { name, supplier_name, chicken_name, current_quantity, quantity_ordered, unit, unit_price } = this.props
