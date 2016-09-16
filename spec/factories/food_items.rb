@@ -5,6 +5,7 @@ FactoryGirl.define do
     unit                'pack'
     unit_price          20
     supplier
+    chicken
     sequence(:brand)    { |n| "Brand #{n}" }
     association :user ,   factory: :admin
   end
