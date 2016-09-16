@@ -3,7 +3,7 @@ class InventoriesController < ApplicationController
 
   def index
     @food_item_filter = FoodItemFilter.new(food_item_filter_params)
-    @food_items = @food_item_filter.result.order(:id).includes(:supplier, :chicken).paginate(:page => params[:page])
+    @food_items = @food_item_filter.result.order(:name).includes(:supplier, :chicken).paginate(:page => params[:page])
     @groups = {}
     @food_items.each do |food_item|
       @groups[food_item.name] ||= []
