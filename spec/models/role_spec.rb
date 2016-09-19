@@ -5,6 +5,7 @@ describe Role do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_presence_of :user_id }
     it { is_expected.to validate_presence_of :restaurant_id }
+    it { is_expected.to enumerize(:name).in('Owner', 'KitchenManager') }
   end
 
   context 'associations' do 

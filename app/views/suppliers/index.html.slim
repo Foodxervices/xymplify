@@ -18,6 +18,7 @@
           th = Supplier.human_attribute_name(:contact)
           th = Supplier.human_attribute_name(:telephone)
           th = Supplier.human_attribute_name(:email)
+          th = Supplier.human_attribute_name(:bank_account_number)
           th.text-center = Supplier.human_attribute_name(:currency)
           th.text-center Action
       tbody 
@@ -29,6 +30,7 @@
             td = supplier.contact
             td = supplier.telephone
             td = supplier.email
+            td = supplier.bank_account_number
             td.text-center = supplier.currency
             td.text-center
               ul.actions

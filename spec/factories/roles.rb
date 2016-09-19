@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :role do
-    sequence(:name)     { |n| "Role #{n}" }
+    name        'Owner'
     restaurant
     association :user ,   factory: :admin
   end

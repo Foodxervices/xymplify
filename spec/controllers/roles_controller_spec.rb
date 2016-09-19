@@ -62,8 +62,8 @@ describe RolesController, :type => :controller do
       patch :update, id: role.id, role: { name: new_name }
     end
 
-    let!(:role)  { create(:role) }
-    let!(:new_name)  { 'Manager' }
+    let!(:role)      { create(:role) }
+    let!(:new_name)  { 'KitchenManager' }
 
     it 'updates role' do
       do_request

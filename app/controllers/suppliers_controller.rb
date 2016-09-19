@@ -55,7 +55,8 @@ class SuppliersController < ApplicationController
       :contact,
       :telephone,
       :email,
-      :currency
+      :currency,
+      :bank_account_number
     )
   end
 end

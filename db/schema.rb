@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919015759) do
+ActiveRecord::Schema.define(version: 20160919070418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,7 +72,8 @@ ActiveRecord::Schema.define(version: 20160919015759) do
     t.string "contact"
     t.string "telephone"
     t.string "email"
-    t.string "currency",  default: "SGD"
+    t.string "currency",            default: "SGD"
+    t.string "bank_account_number"
   end
 
   create_table "users", force: :cascade do |t|
