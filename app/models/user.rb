@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   
   has_many :food_items
+  has_many :roles
 
   validates :name, presence: true
   validates :type, presence: true

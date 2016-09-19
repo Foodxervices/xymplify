@@ -63,5 +63,10 @@
     &.sb-purchase_orders:before {
       content: "\f298";
     }
+
+    &.sb-role:before {
+      content: "\f0c0";
+      right: 11px;
+    }
   }
 }

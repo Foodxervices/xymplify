@@ -30,8 +30,8 @@ module ApplicationHelper
     collection.join(", ").html_safe
   end
 
-  def chicken_dropdown(form, include_blank: true) 
-    restaurants = Restaurant.accessible_by(current_ability).includes(:chickens)
-    form.input :chicken_id, collection: restaurants, as: :grouped_select, group_method: :chickens, include_blank: include_blank
+  def kitchen_dropdown(form, include_blank: true) 
+    restaurants = Restaurant.accessible_by(current_ability).includes(:kitchens)
+    form.input :kitchen_id, collection: restaurants, as: :grouped_select, group_method: :kitchens, include_blank: include_blank
   end
 end

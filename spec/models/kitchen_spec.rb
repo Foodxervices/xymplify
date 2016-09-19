@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Chicken do 
+describe Kitchen do 
   context 'validations' do 
     it { is_expected.to validate_presence_of :name }
   end

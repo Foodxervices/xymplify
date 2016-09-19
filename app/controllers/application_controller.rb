@@ -31,4 +31,8 @@ class ApplicationController < ActionController::Base
   def js_request?
     request.format.symbol == :js
   end
+
+  def self.permission
+    return controller_name.classify.constantize
+  end
 end

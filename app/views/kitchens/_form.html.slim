@@ -1,0 +1,4 @@
+#kitchens.kitchens-form-container
+  = restaurant_form.simple_fields_for :kitchens, wrapper: :table_form do |kitchen_form|
+    table.table.table-striped
+      = kitchen_form.input  :name

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resource :profile, only: [:edit, :update]
 
+  resources :roles,       only: [:index, :show, :new, :create, :edit, :update, :destroy]
+
   resources :restaurants, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   resources :food_items,  only: [:index, :show, :new, :create, :edit, :update, :destroy]

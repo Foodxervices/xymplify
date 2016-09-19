@@ -3,7 +3,7 @@ class InventoriesController < ApplicationController
 
   def index
     @food_item_filter = FoodItemFilter.new(food_item_filter_params)
-    @food_items = @food_item_filter.result.order(:name).includes(:supplier, :chicken).paginate(:page => params[:page])
+    @food_items = @food_item_filter.result.order(:name).includes(:supplier, :kitchen).paginate(:page => params[:page])
     @groups = {}
     @food_items.each do |food_item|
       @groups[food_item.name] ||= []
@@ -15,7 +15,7 @@ class InventoriesController < ApplicationController
         quantity_ordered: food_item.quantity_ordered,
         unit: food_item.unit,
         unit_price: food_item.unit_price,
-        chicken_name: food_item.chicken&.name
+        kitchen_name: food_item.kitchen&.name
       }
     end
   end
@@ -37,7 +37,11 @@ class InventoriesController < ApplicationController
     food_item_filter = ActionController::Parameters.new(params[:food_item_filter])
     food_item_filter.permit(
       :keyword,
-      :chicken_id,
+      :kitchen_id,
     )
+  end
+
+  def self.permission
+    return name = FoodItem
   end
 end

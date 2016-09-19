@@ -5,9 +5,9 @@ class FoodItemsController < ApplicationController
 
   def index
     @food_item_filter = FoodItemFilter.new(food_item_filter_params)
-    @food_items = @food_item_filter.result.select('food_items.*, suppliers.name as supplier_name, chickens.name as chicken_name')
+    @food_items = @food_item_filter.result.select('food_items.*, suppliers.name as supplier_name, kitchens.name as kitchen_name')
                                           .joins('LEFT JOIN suppliers ON food_items.supplier_id = suppliers.id')
-                                          .joins('LEFT JOIN chickens ON food_items.chicken_id = chickens.id')
+                                          .joins('LEFT JOIN kitchens ON food_items.kitchen_id = kitchens.id')
                                           .order(sort_column + ' ' + sort_direction)
                                           .paginate(:page => params[:page])
   end
@@ -47,7 +47,7 @@ class FoodItemsController < ApplicationController
     food_item_filter = ActionController::Parameters.new(params[:food_item_filter])
     food_item_filter.permit(
       :keyword,
-      :chicken_id,
+      :kitchen_id,
     )
   end
 
@@ -59,7 +59,7 @@ class FoodItemsController < ApplicationController
       :unit_price,
       :unit_price_currency,
       :supplier_id,
-      :chicken_id,
+      :kitchen_id,
       :brand,
       :image
     )
@@ -70,7 +70,7 @@ class FoodItemsController < ApplicationController
   def sort_column
     FoodItem.column_names
             .push('supplier_name')
-            .push('chicken_name')
+            .push('kitchen_name')
             .include?(params[:sort]) ? params[:sort] : "name"
   end
   

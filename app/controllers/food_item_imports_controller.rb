@@ -12,7 +12,7 @@ class FoodItemImportsController < ApplicationController
 
   def food_item_import_params
     data = params.require(:food_item_import).permit(
-      :chicken_id,
+      :kitchen_id,
       :file
     )
     data[:user_id] = current_user.id

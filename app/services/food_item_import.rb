@@ -3,7 +3,7 @@ class FoodItemImport
   include ActiveModel::Validations
 
   attr_accessor :user_id
-  attr_accessor :chicken_id
+  attr_accessor :kitchen_id
   attr_accessor :supplier_name
   attr_accessor :file
 
@@ -13,8 +13,8 @@ class FoodItemImport
   end
 
   def valid?
-    if chicken_id.blank?
-      errors.add :chicken_id, "please select a chicken."
+    if kitchen_id.blank?
+      errors.add :kitchen_id, "please select a kitchen."
       return false
     end
 
@@ -74,7 +74,7 @@ class FoodItemImport
       food_item.unit        = get_unit(food_item.name)
       food_item.supplier    = supplier
       food_item.user_id     = user_id
-      food_item.chicken_id  = chicken_id
+      food_item.kitchen_id  = kitchen_id
       food_item.unit_price_currency = "" if food_item.new_record?
       food_items << food_item 
     end

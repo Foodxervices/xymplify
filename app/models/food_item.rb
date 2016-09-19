@@ -3,8 +3,8 @@ class FoodItem < ActiveRecord::Base
 
   belongs_to :supplier
   belongs_to :user
-  belongs_to :chicken
-  validates_associated :supplier, :user, :chicken
+  belongs_to :kitchen
+  validates_associated :supplier, :user, :kitchen
 
   validates :code,        presence: true
   validates :name,        presence: true 
@@ -12,7 +12,7 @@ class FoodItem < ActiveRecord::Base
   validates :brand,       presence: true
   validates :supplier_id, presence: true
   validates :user_id,     presence: true
-  validates :chicken_id,  presence: true
+  validates :kitchen_id,  presence: true
   validates :unit_price_currency, presence: true
   validates :current_quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :quantity_ordered, numericality: { only_integer: true, greater_than_or_equal_to: 0 }

@@ -27,13 +27,13 @@ const InventoryItem = React.createClass({
     }, 500)  
   },
   render: function() {
-    const { name, supplier_name, chicken_name, current_quantity, quantity_ordered, unit, unit_price } = this.props
+    const { name, supplier_name, kitchen_name, current_quantity, quantity_ordered, unit, unit_price } = this.props
     
     return (
       <tr className="item">
          <td></td>
          <td className="text-left">{supplier_name}</td>
-         <td className="text-left">{chicken_name}</td>
+         <td className="text-left">{kitchen_name}</td>
          <td className="current-quantity">
             <div className="form-inline">
               <a className="btn btn-minus form-control" onClick={this.minusQuantity}>-</a>

@@ -1,0 +1,4 @@
+#roles-edit-container
+  h1 = @role.user&.name
+
+  = render 'roles/form', { role: @role }

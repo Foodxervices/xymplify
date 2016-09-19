@@ -1,0 +1,13 @@
+.roles-form-container
+  = simple_nested_form_for role, wrapper: :table_form do |f|
+    .row
+      .col-md-6
+        table.table.table-bordered
+          = f.input :name
+          = f.association :user
+          = f.association :restaurant
+          = f.association :permissions
+
+        .text-right
+          .btn-group
+            = f.button :submit

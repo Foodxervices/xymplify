@@ -26,4 +26,8 @@ class ProfilesController < ApplicationController
     end
     data
   end
+
+  def self.permission
+    return name = User
+  end
 end

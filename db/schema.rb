@@ -11,17 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160916080342) do
+ActiveRecord::Schema.define(version: 20160919033912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "chickens", force: :cascade do |t|
-    t.string  "name"
-    t.integer "restaurant_id"
-  end
-
-  add_index "chickens", ["restaurant_id"], name: "index_chickens_on_restaurant_id", using: :btree
 
   create_table "food_items", force: :cascade do |t|
     t.string   "name"
@@ -39,13 +32,37 @@ ActiveRecord::Schema.define(version: 20160916080342) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.integer  "chicken_id"
+    t.integer  "kitchen_id"
   end
 
   add_index "food_items", ["brand_id"], name: "index_food_items_on_brand_id", using: :btree
-  add_index "food_items", ["chicken_id"], name: "index_food_items_on_chicken_id", using: :btree
+  add_index "food_items", ["kitchen_id"], name: "index_food_items_on_kitchen_id", using: :btree
   add_index "food_items", ["supplier_id"], name: "index_food_items_on_supplier_id", using: :btree
   add_index "food_items", ["user_id"], name: "index_food_items_on_user_id", using: :btree
+
+  create_table "kitchens", force: :cascade do |t|
+    t.string  "name"
+    t.integer "restaurant_id"
+  end
+
+  add_index "kitchens", ["restaurant_id"], name: "index_kitchens_on_restaurant_id", using: :btree
+
+  create_table "permissions", force: :cascade do |t|
+    t.string   "name"
+    t.string   "subject_class"
+    t.string   "action"
+    t.text     "description"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "permissions_roles", force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "permission_id"
+  end
+
+  add_index "permissions_roles", ["permission_id"], name: "index_permissions_roles_on_permission_id", using: :btree
+  add_index "permissions_roles", ["role_id"], name: "index_permissions_roles_on_role_id", using: :btree
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
@@ -55,6 +72,15 @@ ActiveRecord::Schema.define(version: 20160916080342) do
     t.string "telephone"
     t.string "email"
   end
+
+  create_table "roles", force: :cascade do |t|
+    t.string  "name"
+    t.integer "restaurant_id"
+    t.integer "user_id"
+  end
+
+  add_index "roles", ["restaurant_id"], name: "index_roles_on_restaurant_id", using: :btree
+  add_index "roles", ["user_id"], name: "index_roles_on_user_id", using: :btree
 
   create_table "suppliers", force: :cascade do |t|
     t.string "name"

@@ -1,0 +1,30 @@
+- content_for :menu_left do 
+  = render 'roles/search', role_filter: @role_filter, url: roles_path
+#roles-index-container
+  .row.vertical-align
+    .col-xs-6
+      h1 Roles
+    .col-xs-6
+      .text-right
+        .btn-group
+          = link_to 'Create New Role', new_role_path, class: 'btn btn-default'
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr
+          th = Role.human_attribute_name(:name)
+          th = Role.human_attribute_name(:user) 
+          th = Role.human_attribute_name(:restaurant)
+          th.text-center Action
+      tbody 
+        - @roles.each do |role|
+          tr 
+            td = link_to role.name, role, remote: true
+            td = role.user&.name
+            td = role.restaurant&.name
+            td.text-center
+              ul.actions
+                li = active_link_to 'Edit', [:edit, role]
+                li = link_to 'Delete', '#', data: { toggle: "confirmation", href: role_path(role) }, class: 'delete'
+  .text-center          
+    = will_paginate @roles, renderer: BootstrapPagination::Rails

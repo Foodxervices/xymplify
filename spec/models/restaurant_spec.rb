@@ -8,6 +8,7 @@ describe Restaurant do
   end
 
   context 'associations' do 
-    it { is_expected.to have_many :chickens }
+    it { is_expected.to have_many :kitchens }
+    it { is_expected.to have_many :roles }
   end
 end
