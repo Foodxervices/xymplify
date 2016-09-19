@@ -51,8 +51,7 @@ class RolesController < ApplicationController
     params.require(:role).permit(
       :name,
       :user_id,
-      :restaurant_id,
-      permission_ids: []
+      :restaurant_id
     )
   end
 end

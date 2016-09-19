@@ -40,8 +40,4 @@ class InventoriesController < ApplicationController
       :kitchen_id,
     )
   end
-
-  def self.permission
-    return name = FoodItem
-  end
 end
