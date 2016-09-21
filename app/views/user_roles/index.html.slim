@@ -1,0 +1,31 @@
+- content_for :menu_left do 
+  = render 'user_roles/search', user_role_filter: @user_role_filter, url: [@restaurant, :user_roles]
+#user_roles-index-container
+  .row.vertical-align
+    .col-xs-6
+      h1 User Roles
+    .col-xs-6
+      .text-right
+        .btn-group
+          - if can?(:update, UserRole.new(restaurant_id: @restaurant.id))
+            = link_to 'Create New User Role', [:new, @restaurant, :user_role], class: 'btn btn-default'
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr
+          th = UserRole.human_attribute_name(:user) 
+          th = UserRole.human_attribute_name(:role)
+          th = UserRole.human_attribute_name(:kitchens)
+          th.text-center Action
+      tbody 
+        - @user_roles.each do |user_role|
+          tr
+            td = link_to user_role.user&.name, user_role, remote: true 
+            td = user_role.role&.name
+            td = comma_seperated_for(user_role.kitchens, :name)
+            td.text-center
+              ul.actions
+                li = link_to_if can?(:update, user_role), 'Edit', [:edit, user_role]
+                li = link_to_if can?(:destroy, user_role), 'Delete', '#', data: { toggle: "confirmation", href: user_role_path(user_role) }, class: 'delete'
+  .text-center          
+    = will_paginate @user_roles, renderer: BootstrapPagination::Rails

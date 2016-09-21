@@ -18,7 +18,7 @@ const InventoryItem = React.createClass({
     this.updateCurrentQuantityTimeOut = setTimeout(() => {
       $.ajax({
         type: 'PATCH',
-        url: `/inventories/${this.props.id}/update_current_quantity`,
+        url: `/restaurants/${this.props.restaurant_id}/inventories/${this.props.id}/update_current_quantity`,
         data: { food_item: { current_quantity: nextCurrentQuantity } },
         success: (food_item) => {
           this.props.onCurrentQuantityChange(food_item.id, food_item.current_quantity)

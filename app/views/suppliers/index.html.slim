@@ -1,5 +1,5 @@
 - content_for :menu_left do 
-  = render 'suppliers/search', supplier_filter: @supplier_filter, url: suppliers_path
+  = render 'suppliers/search', supplier_filter: @supplier_filter, url: [@restaurant, :suppliers]
 #suppliers-index-container
   .row.vertical-align
     .col-xs-6
@@ -7,7 +7,7 @@
     .col-xs-6
       .text-right
         .btn-group
-          = link_to 'Create New Supplier', new_supplier_path, class: 'btn btn-default'
+          = link_to 'Create New Supplier', [:new, @restaurant, :supplier], class: 'btn btn-default'
   .table-responsive
     table.table.table-striped
       thead

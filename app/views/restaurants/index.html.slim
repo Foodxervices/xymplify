@@ -3,11 +3,12 @@
 #restaurants-index-container
   .row.vertical-align
     .col-xs-6
-      h1 Restaurant
+      h1 Restaurants
     .col-xs-6
       .text-right
         .btn-group
-          = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default'
+          - if can?(:create, Restaurant)
+            = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default'
   .table-responsive
     table.table.table-striped
       thead
@@ -23,7 +24,7 @@
       tbody 
         - @restaurants.each do |restaurant|
           tr 
-            td = link_to restaurant.name, restaurant, remote: true
+            td = link_to restaurant.name, restaurant
             td = restaurant.site_address
             td = restaurant.billing_address
             td = restaurant.contact_person
@@ -32,7 +33,7 @@
             td = comma_seperated_for(restaurant.kitchens, :name)
             td.text-center
               ul.actions
-                li = active_link_to 'Edit', [:edit, restaurant]
-                li = link_to 'Delete', '#', data: { toggle: "confirmation", href: restaurant_path(restaurant) }, class: 'delete'
+                li = link_to_if can?(:edit, restaurant), 'Edit', [:edit, restaurant]
+                li = link_to_if can?(:destroy, restaurant), 'Delete', '#', data: { toggle: "confirmation", href: restaurant_path(restaurant) }, class: 'delete'
   .text-center          
     = will_paginate @restaurants, renderer: BootstrapPagination::Rails

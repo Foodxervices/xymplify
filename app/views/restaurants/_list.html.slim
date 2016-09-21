@@ -1,0 +1,12 @@
+.restaurants-list-container
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr 
+          th = Restaurant.human_attribute_name(:name)
+          th = Restaurant.human_attribute_name(:kitchens)
+      tbody 
+        - restaurants.each do |restaurant|
+          tr 
+            td = link_to restaurant.name, restaurant
+            td = comma_seperated_links_for_kitchens(restaurant.kitchens)

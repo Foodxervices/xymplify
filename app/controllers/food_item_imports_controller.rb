@@ -15,6 +15,7 @@ class FoodItemImportsController < ApplicationController
       :kitchen_id,
       :file
     )
+    data[:kitchen_id] = Kitchen.accessible_by(current_ability).find(data[:kitchen_id]).id if data[:kitchen_id].present?
     data[:user_id] = current_user.id
     data
   end

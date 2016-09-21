@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe RolesController, :type => :controller do 
-  let!(:user) { create(:admin) }
-  before { sign_in user }  
+  let!(:admin) { create(:admin) }
+  before       { sign_in admin }  
 
   describe '#index' do
     def do_request
@@ -13,7 +13,7 @@ describe RolesController, :type => :controller do
 
     it 'renders the :index view' do
       do_request
-      expect(assigns(:roles)).to match roles
+      expect(assigns(:roles).size).to eq 2
       expect(response).to render_template :index
     end
   end
@@ -32,10 +32,8 @@ describe RolesController, :type => :controller do
 
   describe '#create' do 
     def do_request
-      post :create, role: role.attributes
+      post :create, role: attributes_for(:role)
     end
-
-    let(:role) { build(:role) }
 
     it 'creates a role' do 
       expect{ do_request }.to change{ [Role.count] }.from([0]).to([1])
@@ -59,11 +57,11 @@ describe RolesController, :type => :controller do
 
   describe '#update' do 
     def do_request
-      patch :update, id: role.id, role: { name: new_name }
+      patch :update, id: role.id, role: { name: new_name } 
     end
 
     let!(:role)      { create(:role) }
-    let!(:new_name)  { 'KitchenManager' }
+    let!(:new_name)  { 'Manager' }
 
     it 'updates role' do
       do_request

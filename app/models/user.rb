@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   
   has_many :food_items
-  has_many :roles
+  has_many :user_roles
 
   validates :name, presence: true
   validates :type, presence: true
@@ -13,5 +13,5 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, styles: { thumb: "80x80#", small: "200x200#" }
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
-  enumerize :type, in: ['User', 'Admin'], scope: true
+  enumerize :type, in: ['User', 'Admin'], default: 'User', scope: true
 end

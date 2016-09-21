@@ -1,9 +1,14 @@
 class InventoriesController < ApplicationController
-  load_and_authorize_resource :food_item, parent: false
+  load_and_authorize_resource :restaurant
+  load_and_authorize_resource :food_item, :through => :restaurant, :shallow => true, :parent => false
 
   def index
     @food_item_filter = FoodItemFilter.new(food_item_filter_params)
-    @food_items = @food_item_filter.result.order(:name).includes(:supplier, :kitchen).paginate(:page => params[:page])
+    @food_items  = @food_item_filter.result
+                                    .accessible_by(current_ability)
+                                    .includes(:supplier, :kitchen)
+                                    .order(:name, :id)
+                                    .paginate(:page => params[:page])
     @groups = {}
     @food_items.each do |food_item|
       @groups[food_item.name] ||= []
@@ -15,7 +20,8 @@ class InventoriesController < ApplicationController
         quantity_ordered: food_item.quantity_ordered,
         unit: food_item.unit,
         unit_price: food_item.unit_price,
-        kitchen_name: food_item.kitchen&.name
+        kitchen_name: food_item.kitchen&.name,
+        restaurant_id: food_item.kitchen&.restaurant_id
       }
     end
   end

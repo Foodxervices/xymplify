@@ -3,13 +3,13 @@ require 'rails_helper'
 describe Role do 
   context 'validations' do 
     it { is_expected.to validate_presence_of :name }
-    it { is_expected.to validate_presence_of :user_id }
-    it { is_expected.to validate_presence_of :restaurant_id }
-    it { is_expected.to enumerize(:name).in('Owner', 'KitchenManager') }
-  end
-
-  context 'associations' do 
-    it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to :restaurant }
+    it do 
+      is_expected.to enumerize(:permissions).in(
+        'food_item__manage', 'food_item__read', 'food_item__create', 'food_item__update', 'food_item__destroy', 'food_item__update_current_quantity',
+        'restaurant__manage', 'restaurant__read', 'restaurant__create', 'restaurant__update', 'restaurant__destroy', 
+        'supplier__manage', 'supplier__read', 'supplier__create', 'supplier__update', 'supplier__destroy',
+        'user_role__manage', 'user_role__read', 'user_role__create', 'user_role__update', 'user_role__destroy'
+      ) 
+    end
   end
 end

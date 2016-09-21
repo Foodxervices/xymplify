@@ -12,16 +12,14 @@
     table.table.table-striped
       thead
         tr
-          th = Role.human_attribute_name(:name)
-          th = Role.human_attribute_name(:user) 
-          th = Role.human_attribute_name(:restaurant)
+          th = Role.human_attribute_name(:name) 
+          th = Role.human_attribute_name(:permissions)
           th.text-center Action
       tbody 
         - @roles.each do |role|
-          tr 
-            td = link_to role.name, role, remote: true
-            td = role.user&.name
-            td = role.restaurant&.name
+          tr
+            td = role.name
+            td = role.permissions.texts.join(', ')
             td.text-center
               ul.actions
                 li = active_link_to 'Edit', [:edit, role]

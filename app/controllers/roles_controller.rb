@@ -3,10 +3,8 @@ class RolesController < ApplicationController
 
   def index
     @role_filter = RoleFilter.new(role_filter_params)
-    @roles = @role_filter.result.includes(:user, :restaurant).paginate(:page => params[:page])
+    @roles = @role_filter.result.paginate(:page => params[:page])
   end
-
-  def show; end
 
   def new; end
 
@@ -50,8 +48,7 @@ class RolesController < ApplicationController
   def role_params
     params.require(:role).permit(
       :name,
-      :user_id,
-      :restaurant_id
+      permissions: []
     )
   end
 end

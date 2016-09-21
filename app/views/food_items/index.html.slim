@@ -1,5 +1,5 @@
 - content_for :menu_left do 
-  = render 'food_items/search', food_item_filter: @food_item_filter, url: food_items_path
+  = render 'food_items/search', food_item_filter: @food_item_filter, url: [@restaurant, :food_items]
 #food_items-index-container
   .row.vertical-align
     .col-xs-6
@@ -8,7 +8,7 @@
       .text-right
         .btn-group
           = link_to 'Import', new_food_item_import_url, remote: true, class: 'btn btn-default'
-          = link_to 'Create New Food Item', new_food_item_path, class: 'btn btn-default'
+          = link_to 'Create New Food Item', [:new, @restaurant, :food_item], class: 'btn btn-default'
 
   .table-responsive
     table.table.table-striped.text-center

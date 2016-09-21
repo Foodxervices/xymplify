@@ -1,15 +1,16 @@
 class FoodItemsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
-  load_and_authorize_resource
+  load_and_authorize_resource :restaurant
+  load_and_authorize_resource :food_item, :through => :restaurant, :shallow => true
 
   def index
     @food_item_filter = FoodItemFilter.new(food_item_filter_params)
-    @food_items = @food_item_filter.result.select('food_items.*, suppliers.name as supplier_name, kitchens.name as kitchen_name')
-                                          .joins('LEFT JOIN suppliers ON food_items.supplier_id = suppliers.id')
-                                          .joins('LEFT JOIN kitchens ON food_items.kitchen_id = kitchens.id')
-                                          .order(sort_column + ' ' + sort_direction)
-                                          .paginate(:page => params[:page])
+    @food_items =  @food_item_filter.result
+                                    .select('food_items.*, suppliers.name as supplier_name, kitchens.name as kitchen_name')
+                                    .accessible_by(current_ability)
+                                    .order(sort_column + ' ' + sort_direction)
+                                    .paginate(:page => params[:page])
   end
 
   def show; end
@@ -20,7 +21,7 @@ class FoodItemsController < ApplicationController
 
   def create
     if @food_item.save
-      redirect_to food_items_url, notice: 'Food Item has been created.'
+      redirect_to [@restaurant, :food_items], notice: 'Food Item has been created.'
     else
       render :new
     end
@@ -30,7 +31,7 @@ class FoodItemsController < ApplicationController
 
   def update
     if @food_item.update_attributes(food_item_params)
-      redirect_to food_items_url, notice: 'Food Item has been updated.'
+      redirect_to [@food_item.restaurant, :food_items], notice: 'Food Item has been updated.'
     else
       render :edit
     end
@@ -63,6 +64,7 @@ class FoodItemsController < ApplicationController
       :brand,
       :image
     )
+    data[:kitchen_id] = Kitchen.accessible_by(current_ability).find(data[:kitchen_id]).id if data[:kitchen_id].present?
     data[:user_id] = current_user.id
     data
   end

@@ -30,8 +30,21 @@ module ApplicationHelper
     collection.join(", ").html_safe
   end
 
+  def comma_seperated_links_for_kitchens(kitchens, cancan = true)
+    collection = []
+    kitchens.collect do |kitchen|
+      collection << link_to_if(!cancan || can?(:read, FoodItem), kitchen.name, restaurant_food_items_url(kitchen.restaurant, food_item_filter: { kitchen_id: kitchen.id }))
+    end
+    collection.join(", ").html_safe
+  end
+
   def kitchen_dropdown(form, include_blank: true) 
-    restaurants = Restaurant.accessible_by(current_ability).includes(:kitchens)
-    form.input :kitchen_id, collection: restaurants, as: :grouped_select, group_method: :kitchens, include_blank: include_blank
+    kitchens = Kitchen.accessible_by(current_ability).includes(:restaurant)
+    restaurants = {}
+    kitchens.each do |kitchen|
+      restaurants[kitchen.restaurant_id] ||= Restaurant.new(name: kitchen.restaurant&.name)
+      restaurants[kitchen.restaurant_id].kitchens << kitchen
+    end
+    form.input :kitchen_id, collection: restaurants.values, as: :grouped_select, group_method: :kitchens, include_blank: include_blank
   end
 end

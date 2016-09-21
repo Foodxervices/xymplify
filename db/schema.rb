@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919070418) do
+ActiveRecord::Schema.define(version: 20160921083148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(version: 20160919070418) do
 
   add_index "kitchens", ["restaurant_id"], name: "index_kitchens_on_restaurant_id", using: :btree
 
+  create_table "kitchens_user_roles", force: :cascade do |t|
+    t.integer "kitchen_id"
+    t.integer "user_role_id"
+  end
+
+  add_index "kitchens_user_roles", ["kitchen_id"], name: "index_kitchens_user_roles_on_kitchen_id", using: :btree
+  add_index "kitchens_user_roles", ["user_role_id"], name: "index_kitchens_user_roles_on_user_role_id", using: :btree
+
   create_table "restaurants", force: :cascade do |t|
     t.string "name"
     t.string "site_address"
@@ -57,24 +65,33 @@ ActiveRecord::Schema.define(version: 20160919070418) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string  "name"
-    t.integer "restaurant_id"
-    t.integer "user_id"
+    t.string "name"
+    t.string "permissions"
   end
-
-  add_index "roles", ["restaurant_id"], name: "index_roles_on_restaurant_id", using: :btree
-  add_index "roles", ["user_id"], name: "index_roles_on_user_id", using: :btree
 
   create_table "suppliers", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "country"
-    t.string "contact"
-    t.string "telephone"
-    t.string "email"
-    t.string "currency",            default: "SGD"
-    t.string "bank_account_number"
+    t.string  "name"
+    t.string  "address"
+    t.string  "country"
+    t.string  "contact"
+    t.string  "telephone"
+    t.string  "email"
+    t.string  "currency",            default: "SGD"
+    t.string  "bank_account_number"
+    t.integer "restaurant_id"
   end
+
+  add_index "suppliers", ["restaurant_id"], name: "index_suppliers_on_restaurant_id", using: :btree
+
+  create_table "user_roles", force: :cascade do |t|
+    t.integer "restaurant_id"
+    t.integer "user_id"
+    t.integer "role_id"
+  end
+
+  add_index "user_roles", ["restaurant_id"], name: "index_user_roles_on_restaurant_id", using: :btree
+  add_index "user_roles", ["role_id"], name: "index_user_roles_on_role_id", using: :btree
+  add_index "user_roles", ["user_id"], name: "index_user_roles_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

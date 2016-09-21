@@ -1,9 +1,12 @@
 class SuppliersController < ApplicationController
-  load_and_authorize_resource 
+  load_and_authorize_resource :restaurant
+  load_and_authorize_resource :supplier, :through => :restaurant, :shallow => true
 
   def index
     @supplier_filter = SupplierFilter.new(supplier_filter_params)
-    @suppliers = @supplier_filter.result.paginate(:page => params[:page])
+    @suppliers = @supplier_filter.result
+                                 .accessible_by(current_ability)
+                                 .paginate(:page => params[:page])
   end
 
   def show; end
@@ -12,7 +15,7 @@ class SuppliersController < ApplicationController
 
   def create
     if @supplier.save
-      redirect_to suppliers_url, notice: 'Supplier has been created.'
+      redirect_to [@restaurant, :suppliers], notice: 'Supplier has been created.'
     else
       render :new
     end
@@ -22,7 +25,7 @@ class SuppliersController < ApplicationController
 
   def update
     if @supplier.update_attributes(supplier_params)
-      redirect_to suppliers_url, notice: 'Supplier has been updated.'
+      redirect_to [@supplier.restaurant, :suppliers], notice: 'Supplier has been updated.'
     else
       render :edit
     end

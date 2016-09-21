@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :role do
-    name        'Owner'
-    restaurant
-    association :user ,   factory: :admin
+    sequence(:name)     { |n| "Role #{n}" } 
+    permissions         ['kitchen__read', 'kitchen__edit']
   end
 end

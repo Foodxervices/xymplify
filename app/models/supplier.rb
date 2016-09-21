@@ -1,10 +1,12 @@
 class Supplier < ActiveRecord::Base
   before_destroy :check_for_food_items
 
+  belongs_to :restaurant
   has_many :food_items
 
-  validates :name,        presence: true
-  validates :email,       email: true
+  validates :name,            presence: true
+  validates :restaurant_id,   presence: true
+  validates :email,           email: true
 
   def country_name
     ISO3166::Country[country]

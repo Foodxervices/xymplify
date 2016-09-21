@@ -1,5 +1,5 @@
 - content_for :menu_left do 
-  = render 'food_items/search', food_item_filter: @food_item_filter, url: inventories_path
+  = render 'food_items/search', food_item_filter: @food_item_filter, url: [@restaurant, :inventories]
 #inventories-index-container
   .table-responsive
     = react_component('InventoryList', groups: @groups)

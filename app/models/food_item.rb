@@ -4,6 +4,8 @@ class FoodItem < ActiveRecord::Base
   belongs_to :supplier
   belongs_to :user
   belongs_to :kitchen
+  has_one :restaurant, through: :kitchen
+  
   validates_associated :supplier, :user, :kitchen
 
   validates :code,        presence: true

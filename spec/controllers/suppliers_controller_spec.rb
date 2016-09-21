@@ -1,26 +1,29 @@
 require 'rails_helper'
 
 describe SuppliersController, :type => :controller do 
-  let!(:user) { create(:admin) }
+  let!(:restaurant)   { create(:restaurant) }
+  let!(:user)         { create(:admin) }
+
   before { sign_in user }  
 
   describe '#index' do
     def do_request
-      get :index
+      get :index, restaurant_id: restaurant.id
     end
-
-    let!(:suppliers) { create_list(:supplier, 2) }
+   
+    let!(:suppliers)        { create_list(:supplier, 2, restaurant_id: restaurant.id) }
+    let!(:other_suppliers)  { create_list(:supplier, 1) }
 
     it 'renders the :index view' do
       do_request
-      expect(assigns(:suppliers)).to match suppliers
+      expect(assigns(:suppliers).size).to eq 2
       expect(response).to render_template :index
     end
   end
 
   describe '#new' do 
     def do_request
-      get :new 
+      get :new, restaurant_id: restaurant.id
     end
 
     it 'assigns a new supplier and renders the :new view' do 
@@ -32,14 +35,14 @@ describe SuppliersController, :type => :controller do
 
   describe '#create' do 
     def do_request
-      post :create, supplier: supplier.attributes
+      post :create, restaurant_id: restaurant.id, supplier: supplier.attributes
     end
 
     let(:supplier) { build(:supplier) }
 
     it 'creates a supplier' do 
       expect{ do_request }.to change{ [Supplier.count] }.from([0]).to([1])
-      expect(response).to redirect_to suppliers_url
+      expect(response).to redirect_to [restaurant, :suppliers]
     end
   end
 
@@ -69,7 +72,7 @@ describe SuppliersController, :type => :controller do
       do_request
       expect(supplier.reload.name).to eq new_name
       expect(flash[:notice]).to eq 'Supplier has been updated.'
-      expect(response).to redirect_to suppliers_url
+      expect(response).to redirect_to [supplier.restaurant, :suppliers]
     end
   end
 

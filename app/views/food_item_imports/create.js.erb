@@ -1,5 +1,5 @@
 <% if @success %>
-  window.location = "<%= food_items_url %>"
+  window.location = "<%= request.env['HTTP_REFERER'] %>"
 <% else %>
   <%= open_popup(title: 'Import', partial: 'food_item_imports/form', locals: { food_item_import: @food_item_import }) %> 
   

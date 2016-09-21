@@ -7,14 +7,16 @@ class RestaurantFilter
   end
 
   def result
-    restaurants = Restaurant.all
-    restaurants = restaurants.where("
+    restaurants =  Restaurant.all
+    restaurants =  restaurants.joins("LEFT JOIN kitchens ON restaurants.id = kitchens.restaurant_id")
+                              .where("
                             restaurants.name              ILIKE :keyword OR
                             restaurants.site_address      ILIKE :keyword OR
                             restaurants.billing_address   ILIKE :keyword OR
                             restaurants.contact_person    ILIKE :keyword OR
                             restaurants.telephone         ILIKE :keyword OR
-                            restaurants.email             ILIKE :keyword 
+                            restaurants.email             ILIKE :keyword OR 
+                            kitchens.name                 ILIKE :keyword
                           ", keyword: "%#{keyword}%") if keyword.present?
     restaurants
   end

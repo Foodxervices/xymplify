@@ -64,9 +64,14 @@
       content: "\f298";
     }
 
-    &.sb-role:before {
+    &.sb-user_role:before {
       content: "\f0c0";
       right: 11px;
+    }
+
+    &.sb-role:before {
+      content: "\f023";
+      right: 16px;
     }
   }
 }

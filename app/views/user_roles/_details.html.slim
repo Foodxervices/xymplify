@@ -1,0 +1,11 @@
+.user_roles-details-container
+  table.table.table-bordered
+    tr 
+      th = UserRole.human_attribute_name(:user)
+      td = user_role.user&.name
+    tr 
+      th = UserRole.human_attribute_name(:restaurant)
+      td = user_role.restaurant&.name
+    tr 
+      th = UserRole.human_attribute_name(:role)
+      td = user_role.role&.name

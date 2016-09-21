@@ -1,11 +1,19 @@
 .shared-sidebar-container
   ul
-    = active_link_to 'Dashboard', root_path, :wrap_tag => :li, :active => :exact, class: 'sb-dashboard', title: 'Dashboard'
-    = active_link_to 'Restaurant', restaurants_path, :wrap_tag => :li, class: 'sb-restaurant', title: 'Restaurant'
-    = active_link_to 'Role', roles_path, :wrap_tag => :li, class: 'sb-role', title: 'Role'
-    = active_link_to 'User', users_path, :wrap_tag => :li, class: 'sb-user', title: 'User'
-    = active_link_to 'Supplier', suppliers_path, :wrap_tag => :li, class: 'sb-supplier', title: 'Supplier'
-    = active_link_to 'Food Item', food_items_path, :wrap_tag => :li, class: 'sb-food_item', title: 'Food Item'
-    = active_link_to 'Inventory Management', inventories_path, :wrap_tag => :li, class: 'sb-inventory', title: 'Inventory Management'
-    = active_link_to 'Purchase Orders', "#purchase", :wrap_tag => :li, :active => :exact, class: 'sb-purchase_orders', title: 'Purchase Orders'
+    - if can?(:read, Restaurant)
+      = active_link_to 'Restaurant', restaurants_path, :wrap_tag => :li, :active => :exact, class: 'sb-restaurant', title: 'Restaurant'
+    - if !@restaurant  
+      - if can?(:index, Role)
+        = active_link_to 'Role', roles_path, :wrap_tag => :li, class: 'sb-role', title: 'Role'
+      - if can?(:read, User)
+        = active_link_to 'User', users_path, :wrap_tag => :li, class: 'sb-user', title: 'User'
+    - else
+      - if can?(:index, UserRole)
+        = active_link_to 'User Role', [@restaurant, :user_roles], :wrap_tag => :li, class: 'sb-user_role',  title: 'User Role'
+      - if can?(:index, Supplier)
+        = active_link_to 'Supplier',  [@restaurant, :suppliers],  :wrap_tag => :li, class: 'sb-supplier',   title: 'Supplier'
+      - if can?(:index, FoodItem)
+        = active_link_to 'Food Item', [@restaurant, :food_items], :wrap_tag => :li, class: 'sb-food_item', title: 'Food Item'
+        = active_link_to 'Inventory Management', [@restaurant, :inventories], :wrap_tag => :li, class: 'sb-inventory', title: 'Inventory Management'
+      = active_link_to 'Purchase Orders', "#purchase", :wrap_tag => :li, :active => :exact, class: 'sb-purchase_orders', title: 'Purchase Orders'
   

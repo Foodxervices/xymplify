@@ -8,13 +8,7 @@ class RoleFilter
 
   def result
     roles = Role.all
-    roles =  roles.joins("LEFT JOIN users ON roles.user_id = users.id")
-                  .joins("LEFT JOIN restaurants ON roles.restaurant_id = restaurants.id")
-                  .where("
-                          roles.name        ILIKE :keyword OR
-                          users.name        ILIKE :keyword OR
-                          restaurants.name  ILIKE :keyword
-                        ", keyword: "%#{keyword}%") if keyword.present?
+    roles = roles.where("name ILIKE :keyword", keyword: "%#{keyword}%") if keyword.present?
     roles
   end
 

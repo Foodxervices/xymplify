@@ -15,7 +15,7 @@ class SupplierFilter
                             suppliers.contact              ILIKE :keyword OR
                             suppliers.telephone            ILIKE :keyword OR
                             suppliers.email                ILIKE :keyword OR
-                            suppliers.bank_account_number  ILIKE :keyword 
+                            suppliers.bank_account_number  ILIKE :keyword OR
                             suppliers.currency             ILIKE :keyword 
                           ", keyword: "%#{keyword}%") if keyword.present?
     suppliers

@@ -13,5 +13,10 @@
         ul.nav.navbar-nav.navbar-right
           li = image_tag(current_user.avatar.url(:thumb))
           = active_link_to 'Settings', edit_profile_path, remote: true, :wrap_tag => :li
+          - if @restaurant
+            li 
+              = link_to restaurants_url, class: "dropdown-toggle", data: { 'toggle' => 'dropdown', 'role' => 'button', 'aria-haspopup' => "true", 'aria-expanded' => false }, remote: true do 
+                = @restaurant.name 
+                span class="caret"
           = active_link_to 'Log out', destroy_user_session_path, :wrap_tag => :li, method: :delete
             

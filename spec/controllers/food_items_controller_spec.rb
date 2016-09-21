@@ -1,15 +1,18 @@
 require 'rails_helper'
 
 describe FoodItemsController, :type => :controller do
-  let!(:user) { create(:admin) }
+  let!(:restaurant) { create(:restaurant) }
+  let!(:user)       { create(:admin) }
   before { sign_in user }  
 
   describe '#index' do
     def do_request
-      get :index
+      get :index, restaurant_id: restaurant.id
     end
 
-    let!(:food_items) { create_list(:food_item, 2, user: user) }
+    let!(:kitchen)          { create(:kitchen, restaurant_id: restaurant.id) }
+    let!(:food_items)       { create_list(:food_item, 2, kitchen_id: kitchen.id) }
+    let!(:other_food_items) { create_list(:food_item, 1) }
 
     it 'renders the :index view' do
       do_request
@@ -20,7 +23,7 @@ describe FoodItemsController, :type => :controller do
 
   describe '#new' do 
     def do_request
-      get :new 
+      get :new, restaurant_id: restaurant.id
     end
 
     it 'assigns a new food item and renders the :new view' do 
@@ -32,14 +35,15 @@ describe FoodItemsController, :type => :controller do
 
   describe '#create' do 
     def do_request
-      post :create, food_item: food_item.attributes
+      post :create, restaurant_id: restaurant.id, food_item: food_item.attributes
     end
 
-    let(:food_item) { build(:food_item) }
+    let!(:kitchen)  { create(:kitchen, restaurant_id: restaurant.id) }
+    let(:food_item) { build(:food_item, kitchen_id: kitchen.id) }
 
     it 'creates a food item' do 
       expect{ do_request }.to change{ [FoodItem.count] }.from([0]).to([1])
-      expect(response).to redirect_to food_items_url
+      expect(response).to redirect_to [restaurant, :food_items]
     end
   end
 
@@ -69,7 +73,7 @@ describe FoodItemsController, :type => :controller do
       do_request
       expect(food_item.reload.code).to eq new_code
       expect(flash[:notice]).to eq 'Food Item has been updated.'
-      expect(response).to redirect_to food_items_url
+      expect(response).to redirect_to [food_item.restaurant, :food_items]
     end
   end
 
