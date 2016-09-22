@@ -7,6 +7,10 @@ const InventoryItem = React.createClass({
   },
   updateCurrentQuantity: function(nextCurrentQuantity) {
     nextCurrentQuantity = parseInt(nextCurrentQuantity) || 0
+    
+    if(nextCurrentQuantity < 0) {
+      nextCurrentQuantity = 0 
+    }
 
     this.props.onCurrentQuantityChange(this.props.id, nextCurrentQuantity)
 
@@ -20,8 +24,11 @@ const InventoryItem = React.createClass({
         type: 'PATCH',
         url: `/restaurants/${this.props.restaurant_id}/inventories/${this.props.id}/update_current_quantity`,
         data: { food_item: { current_quantity: nextCurrentQuantity } },
-        success: (food_item) => {
-          this.props.onCurrentQuantityChange(food_item.id, food_item.current_quantity)
+        success: (data) => {
+          if(!data.success) {
+            const { id, current_quantity } = data.food_item
+            this.props.onCurrentQuantityChange(id, current_quantity)
+          }
         }
       });
     }, 500)  

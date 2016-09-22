@@ -29,8 +29,11 @@ class InventoriesController < ApplicationController
   end
 
   def update_current_quantity
-    @food_item.update_attributes(update_current_quantity_params)
-    render json: @food_item.reload 
+    if @food_item.update_attributes(update_current_quantity_params)
+      render json: { success: true }
+    else
+      render json: { food_item: @food_item.reload, success: false }
+    end
   end
 
   private 
