@@ -7,10 +7,10 @@ after [:roles, :users, :restaurants] do
   puts "==== End ===="
 
   puts "==== Create User Role ===="
-
+  restaurant = Restaurant.first
   UserRole.create([
-    { role: Role.find_by_name('Owner'), user: User.find_by_name('Owner Tester'), restaurant: Restaurant.first},
-    { role: Role.find_by_name('Kitchen Manager'), user: User.find_by_name('Kitchen Manager Tester'), restaurant: Restaurant.first}
+    { role: Role.find_by_name('Owner'), user: User.find_by_name('Owner Tester'), restaurant: restaurant},
+    { role: Role.find_by_name('Kitchen Manager'), user: User.find_by_name('Kitchen Manager Tester'), restaurant: restaurant, kitchens: [restaurant.kitchens.first]}
   ])
   puts "==== End ===="
 end

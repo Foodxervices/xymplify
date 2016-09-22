@@ -22,7 +22,9 @@ class Ability
             when 'supplier', 'user_role'
               can action, clazz.camelize.constantize, { restaurant_id: user_role.restaurant_id }
             when 'food_item'
-              can action, clazz.camelize.constantize, kitchen_id: kitchen_ids
+              can action, clazz.camelize.constantize, { kitchen_id: kitchen_ids }
+            when 'kitchen'
+              can action, clazz.camelize.constantize, { id: kitchen_ids }
           end
         end
       end
