@@ -7,6 +7,8 @@ class Ability
     if user.kind_of?(Admin) 
       can :manage, :all
     else
+      can :read, Restaurant, { id: [] }
+      
       user.user_roles.includes(:role).each do |user_role|
         kitchen_ids = user_role.kitchens.any? ? user_role.kitchens.ids : user_role.restaurant.kitchens.ids
         
