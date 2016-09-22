@@ -5,6 +5,14 @@ ActiveRecord::Base.connection.execute(
 )
 puts "==== End ===="
 
+puts "==== Destroy Kitchen ===="
+Kitchen.destroy_all
+ActiveRecord::Base.connection.execute(
+  "ALTER SEQUENCE kitchens_id_seq RESTART WITH 1"
+)
+puts "==== End ===="
+
+
 puts "==== Create Restaurant ===="
 Restaurant.create([
   { 
