@@ -43,8 +43,8 @@ module ApplicationHelper
     link_to_if(!cancan || can?(:read, kitchen), kitchen.name, restaurant_food_items_url(kitchen.restaurant, food_item_filter: { kitchen_id: kitchen.id }))
   end
 
-  def kitchen_dropdown(form, include_blank: true) 
-    kitchens = Kitchen.accessible_by(current_ability).includes(:restaurant)
+  def kitchen_dropdown(form, include_blank: true, action: :read) 
+    kitchens = Kitchen.accessible_by(current_ability, action).includes(:restaurant)
     restaurants = {}
     kitchens.each do |kitchen|
       restaurants[kitchen.restaurant_id] ||= Restaurant.new(name: kitchen.restaurant&.name)
