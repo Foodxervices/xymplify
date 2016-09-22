@@ -3,9 +3,8 @@ class SuppliersController < ApplicationController
   load_and_authorize_resource :supplier, :through => :restaurant, :shallow => true
 
   def index
-    @supplier_filter = SupplierFilter.new(supplier_filter_params)
+    @supplier_filter = SupplierFilter.new(@suppliers, supplier_filter_params)
     @suppliers = @supplier_filter.result
-                                 .accessible_by(current_ability)
                                  .paginate(:page => params[:page])
   end
 

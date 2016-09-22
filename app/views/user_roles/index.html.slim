@@ -22,7 +22,7 @@
           tr
             td = link_to user_role.user&.name, user_role, remote: true 
             td = user_role.role&.name
-            td = comma_seperated_for(user_role.kitchens, :name)
+            td = comma_seperated_links_for_kitchens(user_role.kitchens)
             td.text-center
               ul.actions
                 li = link_to_if can?(:update, user_role), 'Edit', [:edit, user_role]

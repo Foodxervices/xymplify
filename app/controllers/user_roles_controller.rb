@@ -3,9 +3,8 @@ class UserRolesController < ApplicationController
   load_and_authorize_resource :user_role, :through => :restaurant, :shallow => true
 
   def index
-    @user_role_filter = UserRoleFilter.new(user_role_filter_params)
+    @user_role_filter = UserRoleFilter.new(@user_roles, user_role_filter_params)
     @user_roles = @user_role_filter.result
-                                   .accessible_by(current_ability)
                                    .includes(:user, :role, :kitchens).paginate(:page => params[:page])
   end
 

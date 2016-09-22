@@ -11,9 +11,9 @@ const Utils = {
   initFileInput: () => {
     $('input[type=file]:not(.initialized)').each(function() {
       let extensions = $(this).attr('data-allowed-file-extensions')
-
+      
       if(extensions) {
-        extensions = `["${extensions.replace(',', '","')}"]`
+        extensions = `["${extensions.replace(/,/g, '","')}"]`
       }
 
       $(this).attr('data-allowed-file-extensions', extensions)
@@ -27,10 +27,10 @@ const Utils = {
       $(select).data('live-search', !$(this).hasClass('not-autocomplete') && $(this).find('option').length > 5).selectpicker({hideDisabled: true})
     })
   },
-  formatPrice: (price,decimal=2) => {
+  formatPrice: (price, symbol='$',decimal=2) => {
     if(isNaN(price)) {
       price = 0 
     }
-    return '$' + Number(price).toLocaleString(undefined, { minimumFractionDigits: decimal })
+    return symbol + Number(price).toLocaleString(undefined, { minimumFractionDigits: decimal })
   }
 }

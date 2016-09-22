@@ -5,10 +5,10 @@ class FoodItemsController < ApplicationController
   load_and_authorize_resource :food_item, :through => :restaurant, :shallow => true
 
   def index
-    @food_item_filter = FoodItemFilter.new(food_item_filter_params)
+    @food_item_filter = FoodItemFilter.new(@food_items, food_item_filter_params)
     @food_items =  @food_item_filter.result
                                     .select('food_items.*, suppliers.name as supplier_name, kitchens.name as kitchen_name')
-                                    .accessible_by(current_ability)
+                                    .includes(:supplier, :kitchen)
                                     .order(sort_column + ' ' + sort_direction)
                                     .paginate(:page => params[:page])
   end

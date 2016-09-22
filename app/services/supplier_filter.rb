@@ -2,13 +2,13 @@ class SupplierFilter
   include ActiveModel::Model
   attr_accessor :keyword
 
-  def initialize(attributes = {})
+  def initialize(suppliers, attributes = {})
+    @suppliers = suppliers
     attributes.each { |name, value| send("#{name}=", value) }
   end
 
   def result
-    suppliers = Supplier.all
-    suppliers = suppliers.where("
+    @suppliers = @suppliers.where("
                             suppliers.name                 ILIKE :keyword OR
                             suppliers.address              ILIKE :keyword OR
                             suppliers.country              ILIKE :keyword OR
@@ -18,7 +18,7 @@ class SupplierFilter
                             suppliers.bank_account_number  ILIKE :keyword OR
                             suppliers.currency             ILIKE :keyword 
                           ", keyword: "%#{keyword}%") if keyword.present?
-    suppliers
+    @suppliers
   end
 
   def persisted?

@@ -33,13 +33,13 @@
             td = food_item.unit
             td = humanized_money_with_symbol(food_item.unit_price)
             td = food_item.unit_price_currency
-            td = link_to food_item.supplier_name, supplier_path(food_item.supplier_id), remote: true
-            td = food_item.kitchen_name
+            td = link_to_if can?(:read, food_item.supplier), food_item.supplier_name, supplier_path(food_item.supplier_id), remote: true
+            td = chicken_link(food_item.kitchen)
             td = food_item.brand
             td
               ul.actions
-                li = active_link_to 'Edit', [:edit, food_item]
-                li = link_to 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete'
+                li = link_to_if can?(:update, food_item), 'Edit', [:edit, food_item]
+                li = link_to_if can?(:destroy, food_item), 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete'
   .text-center          
     = will_paginate @food_items, renderer: BootstrapPagination::Rails
   
