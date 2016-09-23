@@ -7,7 +7,8 @@
     .col-xs-6
       .text-right
         .btn-group
-          = link_to 'Create New Supplier', [:new, @restaurant, :supplier], class: 'btn btn-default'
+          - if can?(:create, Supplier.new(restaurant_id: @restaurant&.id))
+            = link_to 'Create New Supplier', [:new, @restaurant, :supplier], class: 'btn btn-default'
   .table-responsive
     table.table.table-striped
       thead
@@ -34,7 +35,7 @@
             td.text-center = supplier.currency
             td.text-center
               ul.actions
-                li = active_link_to 'Edit', [:edit, supplier]
-                li = link_to 'Delete', '#', data: { toggle: "confirmation", href: supplier_path(supplier) }, class: 'delete'
+                li = link_to_if can?(:update, supplier), 'Edit', [:edit, supplier]
+                li = link_to_if can?(:destroy, supplier), 'Delete', '#', data: { toggle: "confirmation", href: supplier_path(supplier) }, class: 'delete'
   .text-center          
     = will_paginate @suppliers, renderer: BootstrapPagination::Rails
