@@ -25,6 +25,7 @@
           th = sortable(:supplier_name)
           th = sortable(:kitchen_name)
           th = sortable(:brand)
+          th = sortable(:type)
           th Action
       tbody 
         - @food_items.each do |food_item|
@@ -38,6 +39,7 @@
             td = link_to_if can?(:read, food_item.supplier), food_item.supplier_name, supplier_path(food_item.supplier_id), remote: true
             td = chicken_link(food_item.kitchen)
             td = food_item.brand
+            td = food_item.type
             td
               ul.actions
                 li = link_to_if can?(:update, food_item), 'Edit', [:edit, food_item]

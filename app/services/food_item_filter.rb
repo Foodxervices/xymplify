@@ -14,6 +14,7 @@ class FoodItemFilter
                                     food_items.code  ILIKE :keyword OR 
                                     food_items.name  ILIKE :keyword OR 
                                     food_items.brand ILIKE :keyword OR 
+                                    food_items.type  ILIKE :keyword OR 
                                     suppliers.name   ILIKE :keyword OR
                                     kitchens.name    ILIKE :keyword 
                                   ", keyword: "%#{keyword}%") if keyword.present?

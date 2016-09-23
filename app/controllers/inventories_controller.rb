@@ -23,6 +23,7 @@ class InventoriesController < ApplicationController
         symbol: food_item.unit_price.symbol,
         kitchen_name: food_item.kitchen&.name,
         restaurant_id: food_item.kitchen&.restaurant_id,
+        type: food_item.type,
         can_update_current_quantity: can?(:update_current_quantity, food_item)
       }
     end

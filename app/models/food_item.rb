@@ -1,4 +1,6 @@
 class FoodItem < ActiveRecord::Base
+  self.inheritance_column = :_type_disabled
+  
   monetize :unit_price_cents
 
   belongs_to :supplier

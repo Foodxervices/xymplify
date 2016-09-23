@@ -64,6 +64,7 @@ const InventoryGroup = React.createClass({
            <td>{quantityOrdered}</td>
            <td></td>
            <td><Currency value={unitPrice}/></td>
+           <td></td>
         </tr>
         {
           this.state.showItems &&
