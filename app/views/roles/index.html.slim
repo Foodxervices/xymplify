@@ -19,7 +19,8 @@
         - @roles.each do |role|
           tr
             td = role.name
-            td = role.permissions.texts.join(', ')
+            td 
+              pre == role.permissions.texts.join('<br />')
             td.text-center
               ul.actions
                 li = active_link_to 'Edit', [:edit, role]
