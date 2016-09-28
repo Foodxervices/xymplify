@@ -7,7 +7,7 @@ class UserFilter
   end
 
   def result
-    users = User.all
+    users = User.uniq
     users = users.where("users.email ILIKE :keyword", keyword: "%#{keyword}%") if keyword.present?
     users
   end

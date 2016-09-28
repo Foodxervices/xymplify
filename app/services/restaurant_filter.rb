@@ -7,7 +7,7 @@ class RestaurantFilter
   end
 
   def result
-    restaurants =  Restaurant.all
+    restaurants =  Restaurant.uniq
     restaurants =  restaurants.joins("LEFT JOIN kitchens ON restaurants.id = kitchens.restaurant_id")
                               .where("
                             restaurants.name              ILIKE :keyword OR

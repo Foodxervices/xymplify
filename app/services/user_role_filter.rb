@@ -3,7 +3,7 @@ class UserRoleFilter
   attr_accessor :keyword
 
   def initialize(user_roles, attributes = {})
-    @user_roles = user_roles
+    @user_roles = user_roles.uniq
     attributes.each { |name, value| send("#{name}=", value) }
   end
 
