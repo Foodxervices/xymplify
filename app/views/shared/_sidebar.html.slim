@@ -2,7 +2,7 @@
   ul
     - if can?(:read, Restaurant)
       = active_link_to 'Restaurant', restaurants_path, :wrap_tag => :li, :active => :exact, class: 'sb-restaurant', title: 'Restaurant'
-    - if !@restaurant  
+    - if @restaurant&.id.nil?
       - if can?(:index, Role)
         = active_link_to 'Role', roles_path, :wrap_tag => :li, class: 'sb-role', title: 'Role'
       - if can?(:read, User)

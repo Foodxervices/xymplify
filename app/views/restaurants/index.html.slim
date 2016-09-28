@@ -7,7 +7,7 @@
     .col-xs-6
       .text-right
         .btn-group
-          - if can?(:create, Restaurant)
+          - if can?(:create, Restaurant.new)
             = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default'
   .table-responsive
     table.table.table-striped
