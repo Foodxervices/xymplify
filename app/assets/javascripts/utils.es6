@@ -1,4 +1,10 @@
 const Utils = {
+  init: () => {
+    Utils.initFileInput()
+    Utils.initConfirmation()
+    Utils.initSelectPicker()
+    Utils.disableSubmittingForm()
+  },
   initConfirmation: () => {
     $('[data-toggle="confirmation"]:not(.delete)').confirmation()
 
@@ -32,5 +38,14 @@ const Utils = {
       price = 0 
     }
     return symbol + Number(price).toLocaleString(undefined, { minimumFractionDigits: decimal })
+  },
+  disableSubmittingForm: () => {
+    $('form').submit(function() {
+      if($('body').hasClass('submitting')) {
+        return false
+      }
+  
+      $('body').addClass('submitting')
+    })
   }
 }
