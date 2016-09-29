@@ -13,7 +13,9 @@ en:
       supplier:
         name: "Company Name"
         contact: "Contact Person"
+        bank_swift_code: "Bank SWIFT code"
       kitchen:
         name: "Kitchen Name"
+        bank_swift_code: "Bank SWIFT code"
       role:
         name: "Position"
