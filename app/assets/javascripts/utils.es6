@@ -40,7 +40,7 @@ const Utils = {
     return symbol + Number(price).toLocaleString(undefined, { minimumFractionDigits: decimal })
   },
   disableSubmittingForm: () => {
-    $('form').submit(function() {
+    $('form').not('.jsubmitting').addClass('jsubmitting').submit(function() {
       if($('body').hasClass('submitting')) {
         return false
       }

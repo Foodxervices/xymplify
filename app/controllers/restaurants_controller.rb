@@ -60,7 +60,12 @@ class RestaurantsController < ApplicationController
       :email,
       kitchens_attributes: [
                     :id,
-                    :name
+                    :name,
+                    :bank_name,
+                    :bank_address,
+                    :bank_swift_code,
+                    :bank_account_name,
+                    :bank_account_number
                   ]
     )
   end

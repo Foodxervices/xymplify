@@ -1,4 +1,10 @@
 #kitchens.kitchens-form-container
   = restaurant_form.simple_fields_for :kitchens, wrapper: :table_form do |kitchen_form|
-    table.table.table-striped
-      = kitchen_form.input  :name
+    .col-md-6
+      table.table.table-bordered
+        = kitchen_form.input  :name
+        = kitchen_form.input  :bank_name
+        = kitchen_form.input  :bank_address
+        = kitchen_form.input  :bank_swift_code
+        = kitchen_form.input  :bank_account_name
+        = kitchen_form.input  :bank_account_number

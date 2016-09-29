@@ -1,0 +1,20 @@
+.kitchens-details-container
+  table.table.table-bordered
+    tr 
+      th = Kitchen.human_attribute_name(:name)
+      td = kitchen.name
+    tr 
+      th = Kitchen.human_attribute_name(:bank_name)
+      td = kitchen.bank_name
+    tr 
+      th = Kitchen.human_attribute_name(:bank_address)
+      td = kitchen.bank_address
+    tr 
+      th = Kitchen.human_attribute_name(:bank_swift_code)
+      td = kitchen.bank_swift_code
+    tr 
+      th = Kitchen.human_attribute_name(:bank_account_name)
+      td = kitchen.bank_account_name
+    tr 
+      th = Kitchen.human_attribute_name(:bank_account_number)
+      td = kitchen.bank_account_number
