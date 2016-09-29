@@ -5,7 +5,6 @@ class RestaurantsController < ApplicationController
     @restaurant_filter = RestaurantFilter.new(restaurant_filter_params)
     @restaurants  = @restaurant_filter.result
                                       .accessible_by(current_ability)
-                                      .includes(:kitchens)
                                       .paginate(:page => params[:page])
   end
 

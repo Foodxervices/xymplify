@@ -32,7 +32,7 @@ module ApplicationHelper
 
   def comma_seperated_links_for_kitchens(kitchens, cancan = true)
     collection = []
-    kitchens.collect do |kitchen|
+    kitchens.includes(:restaurant).each do |kitchen|
       collection << chicken_link(kitchen, cancan)
     end
     collection.join(", ").html_safe

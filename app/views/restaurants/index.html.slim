@@ -30,7 +30,7 @@
             td = restaurant.contact_person
             td = restaurant.telephone
             td = restaurant.email
-            td = comma_seperated_for(restaurant.kitchens, :name)
+            td = comma_seperated_links_for_kitchens(restaurant.kitchens)
             td.text-center
               ul.actions
                 li = link_to 'Show', restaurant
