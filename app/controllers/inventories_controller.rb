@@ -52,4 +52,8 @@ class InventoriesController < ApplicationController
       :kitchen_id,
     )
   end
+
+  def resource
+    @food_item
+  end
 end

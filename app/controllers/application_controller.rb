@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
 
+  helper_method :current_restaurant
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to main_app.root_url, alert: exception.message
   end
@@ -30,5 +32,13 @@ class ApplicationController < ActionController::Base
 
   def js_request?
     request.format.symbol == :js
+  end
+
+  def current_restaurant
+    @current_restaurant ||= (@restaurant || resource.try(:restaurant))
+  end
+
+  def resource
+    eval("@#{controller_name.classify.underscore.to_sym}")
   end
 end
