@@ -8,4 +8,8 @@ class Restaurant < ActiveRecord::Base
   validates :email,  email: true
 
   accepts_nested_attributes_for :kitchens, reject_if: :all_blank
+
+  def to_param
+    "#{id}-#{name.parameterize}"
+  end
 end

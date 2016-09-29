@@ -9,8 +9,13 @@
           = f.input :contact
           = f.input :telephone
           = f.input :email
-          = f.input :bank_account_number
           = f.input :currency, collection: currency_codes
+          = f.simple_fields_for :bank do |bank_form|
+            = bank_form.input :name
+            = bank_form.input :address
+            = bank_form.input :swift_code
+            = bank_form.input :account_name
+            = bank_form.input :account_number
 
     .form-actions
       = f.button :submit

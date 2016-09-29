@@ -42,6 +42,7 @@
             td = food_item.type
             td
               ul.actions
+                li = link_to 'View', food_item, remote: true
                 li = link_to_if can?(:update, food_item), 'Edit', [:edit, food_item]
                 li = link_to_if can?(:destroy, food_item), 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete'
   .text-center          

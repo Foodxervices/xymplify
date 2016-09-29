@@ -10,7 +10,9 @@ class SuppliersController < ApplicationController
 
   def show; end
 
-  def new; end
+  def new
+    @supplier.build_bank
+  end
 
   def create
     if @supplier.save
@@ -20,7 +22,9 @@ class SuppliersController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @supplier.bank || @supplier.build_bank
+  end
 
   def update
     if @supplier.update_attributes(supplier_params)
@@ -58,7 +62,13 @@ class SuppliersController < ApplicationController
       :telephone,
       :email,
       :currency,
-      :bank_account_number
+      bank_attributes: [
+        :name,
+        :address,
+        :swift_code,
+        :account_name,
+        :account_number
+      ]
     )
   end
 end

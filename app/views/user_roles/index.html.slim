@@ -25,6 +25,7 @@
             td = comma_seperated_links_for_kitchens(user_role.kitchens)
             td.text-center
               ul.actions
+                li = link_to 'View', user_role, remote: true 
                 li = link_to_if can?(:update, user_role), 'Edit', [:edit, user_role]
                 li = link_to_if can?(:destroy, user_role), 'Delete', '#', data: { toggle: "confirmation", href: user_role_path(user_role) }, class: 'delete'
   .text-center          

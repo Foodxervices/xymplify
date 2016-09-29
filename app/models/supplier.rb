@@ -3,6 +3,9 @@ class Supplier < ActiveRecord::Base
 
   belongs_to :restaurant
   has_many :food_items
+  has_one :bank, as: :bankable, inverse_of: :bankable
+
+  accepts_nested_attributes_for :bank
 
   validates :name,            presence: true
   validates :restaurant_id,   presence: true

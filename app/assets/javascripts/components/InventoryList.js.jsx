@@ -13,7 +13,7 @@ const InventoryList = React.createClass({
              <th>Quantity Ordered</th>
              <th>Unit</th>
              <th>Price per Unit</th>
-             <th>Type</th>
+             <th>Item Type</th>
           </tr>
         </thead>
         {$.map(groups, function(foodItems, name){

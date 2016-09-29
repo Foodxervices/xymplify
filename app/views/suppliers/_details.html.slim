@@ -18,3 +18,18 @@
     tr 
       th = Supplier.human_attribute_name(:currency)
       td = supplier.currency
+    tr 
+      th = Supplier.human_attribute_name(:bank_name)
+      td = supplier.bank&.name
+    tr 
+      th = Supplier.human_attribute_name(:bank_address)
+      td = supplier.bank&.address
+    tr 
+      th = Supplier.human_attribute_name(:swift_code)
+      td = supplier.bank&.swift_code
+    tr 
+      th = Supplier.human_attribute_name(:account_name)
+      td = supplier.bank&.account_name
+    tr 
+      th = Supplier.human_attribute_name(:account_number)
+      td = supplier.bank&.account_number

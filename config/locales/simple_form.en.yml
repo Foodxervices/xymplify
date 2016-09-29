@@ -19,3 +19,8 @@ en:
         keyword: 'Keyword'
       user_role_filter: 
         keyword: 'Keyword'
+    labels:
+      supplier:
+        bank: 
+          name: "Bank name"
+          address: "Bank address"

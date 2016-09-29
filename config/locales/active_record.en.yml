@@ -9,6 +9,7 @@ en:
         unit_price_currency: "Currency"
         supplier_name: "Supplier"
         kitchen_name: "Kitchen"
+        type: "Item type"
       supplier:
         name: "Company Name"
         contact: "Contact Person"
