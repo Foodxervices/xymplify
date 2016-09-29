@@ -1,14 +1,22 @@
+- user_roles = current_user.user_roles.joins(:restaurant, :role).load
 .profile-form-container
   = simple_form_for current_user, url: profile_path, :as => :profile, remote: true do |f|
     .form-inputs
       .row
-        .col-md-6
+        .col-md-7
           = f.input :name
           = f.input :email
           = f.input :password, hint: "leave it blank if you don't want to change it"
           = f.input :password_confirmation
-        .col-md-6
-          = image_tag(current_user.avatar.url(:small))
+        .col-md-5
+          .text-center = image_tag(current_user.avatar.url(:small))
+          - if user_roles.any?
+            table.table.table-striped
+              - user_roles.each do |user_role|
+                tr
+                  td = user_role.restaurant&.name
+                  td = user_role.role&.name
+      .row
         .col-md-12
           = f.input :avatar, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg"} }
           = f.input :current_password, hint: "we need your current password to confirm your changes", required: true
