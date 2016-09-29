@@ -11,6 +11,5 @@ describe Supplier do
   context 'associations' do 
     it { is_expected.to belong_to :restaurant }
     it { is_expected.to have_many :food_items }
-    it { is_expected.to have_one :bank }
   end
 end

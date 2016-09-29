@@ -11,22 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160929071818) do
+ActiveRecord::Schema.define(version: 20160929081609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "banks", force: :cascade do |t|
-    t.string  "name"
-    t.string  "address"
-    t.string  "swift_code"
-    t.string  "account_name"
-    t.string  "account_number"
-    t.integer "bankable_id"
-    t.string  "bankable_type"
-  end
-
-  add_index "banks", ["bankable_type", "bankable_id"], name: "index_banks_on_bankable_type_and_bankable_id", using: :btree
 
   create_table "food_items", force: :cascade do |t|
     t.string   "name"
@@ -89,8 +77,13 @@ ActiveRecord::Schema.define(version: 20160929071818) do
     t.string  "contact"
     t.string  "telephone"
     t.string  "email"
-    t.string  "currency",      default: "SGD"
+    t.string  "currency",            default: "SGD"
     t.integer "restaurant_id"
+    t.string  "bank_name"
+    t.string  "bank_address"
+    t.string  "bank_swift_code"
+    t.string  "bank_account_name"
+    t.string  "bank_account_number"
   end
 
   add_index "suppliers", ["restaurant_id"], name: "index_suppliers_on_restaurant_id", using: :btree

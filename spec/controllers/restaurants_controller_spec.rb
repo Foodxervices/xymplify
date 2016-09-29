@@ -13,7 +13,7 @@ describe RestaurantsController, :type => :controller do
 
     it 'renders the :index view' do
       do_request
-      expect(assigns(:restaurants)).to match restaurants
+      expect(assigns(:restaurants).size).to eq 2
       expect(response).to render_template :index
     end
   end
