@@ -5,4 +5,5 @@
       tr
         td = activity_message(activity)
         td.text-center = link_to_if can?(:read, activity), "History", activity, remote: true
-  = will_paginate activities, renderer: BootstrapPagination::Rails, param_name: "activity_page"
+  .text-center
+    = will_paginate activities, inner_window: 1, outer_window: 2, renderer: BootstrapPagination::Rails, param_name: "activity_page"
