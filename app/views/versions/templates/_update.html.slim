@@ -1,0 +1,12 @@
+- kclass = version.item_type.constantize
+.versions-templates-update-container
+  table.table.table-striped
+    tr
+      th Field
+      th Previous Version
+      th Current Version
+    - version.changeset.each do |field, value|
+      tr
+        th = kclass.human_attribute_name(field)
+        td == version_value(field, value[0])
+        td == version_value(field, value[1])

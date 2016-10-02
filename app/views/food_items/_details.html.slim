@@ -19,6 +19,9 @@
       th = FoodItem.human_attribute_name(:supplier)
       td = link_to food_item.supplier&.name, food_item.supplier, remote: true
     tr 
+      th = FoodItem.human_attribute_name(:kitchen)
+      td = link_to food_item.kitchen&.name, food_item.kitchen, remote: true
+    tr 
       th = FoodItem.human_attribute_name(:unit)
       td = food_item.unit
     tr 

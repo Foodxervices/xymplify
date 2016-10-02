@@ -20,7 +20,7 @@
       tbody 
         - @user_roles.each do |user_role|
           tr
-            td = link_to user_role.user&.name, user_role, remote: true 
+            td = link_to_if can?(:show, user_role.user), user_role.user&.name, user_path(user_role.user), remote: true 
             td = user_role.role&.name
             td = comma_seperated_links_for_kitchens(user_role.kitchens)
             td.text-center

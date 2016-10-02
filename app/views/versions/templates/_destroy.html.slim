@@ -1,0 +1,10 @@
+- kclass = version.item_type.constantize
+.versions-templates-destroy-container
+  table.table.table-striped
+    tr
+      th Field
+      th Value
+    - version.reify.attributes.each do |field, value|
+      tr
+        th = kclass.human_attribute_name(field)
+        td == version_value(field, value)

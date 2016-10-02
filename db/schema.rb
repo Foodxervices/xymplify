@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930092916) do
+ActiveRecord::Schema.define(version: 20161002004852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20160930092916) do
     t.integer  "user_id"
     t.integer  "current_quantity",    default: 0
     t.integer  "quantity_ordered",    default: 0
-    t.integer  "brand_id"
     t.string   "brand"
     t.integer  "unit_price_cents",    default: 0,        null: false
     t.string   "unit_price_currency",                    null: false
@@ -36,7 +35,6 @@ ActiveRecord::Schema.define(version: 20160930092916) do
     t.string   "type",                default: "Others"
   end
 
-  add_index "food_items", ["brand_id"], name: "index_food_items_on_brand_id", using: :btree
   add_index "food_items", ["kitchen_id"], name: "index_food_items_on_kitchen_id", using: :btree
   add_index "food_items", ["supplier_id"], name: "index_food_items_on_supplier_id", using: :btree
   add_index "food_items", ["user_id"], name: "index_food_items_on_user_id", using: :btree
@@ -132,5 +130,17 @@ ActiveRecord::Schema.define(version: 20160930092916) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+    t.text     "object_changes"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end

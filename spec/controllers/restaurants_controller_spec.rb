@@ -18,6 +18,20 @@ describe RestaurantsController, :type => :controller do
     end
   end
 
+  describe '#show' do
+    def do_request
+      get :show, id: restaurant.id
+    end
+
+    let!(:restaurant) { create(:restaurant) }
+
+    it 'renders the :show view' do
+      do_request
+      expect(assigns(:restaurant)).to match restaurant
+      expect(assigns(:activities).size).to eq 0
+    end
+  end
+
   describe '#new' do 
     def do_request
       get :new 

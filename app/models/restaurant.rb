@@ -1,8 +1,8 @@
 class Restaurant < ActiveRecord::Base
   has_many :suppliers
   has_many :user_roles
-  has_many :kitchens
-  has_many :food_items, through: :kitchens
+  has_many :kitchens, dependent: :destroy
+  has_many :food_items, through: :kitchens, dependent: :destroy
 
   validates :name,   presence: true
   validates :email,  email: true

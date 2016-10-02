@@ -13,7 +13,9 @@ Rails.application.routes.draw do
 
   resources :user_roles,  only: [:show, :edit, :update, :destroy]
 
-  resources :users,       only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :users,       only: [:index, :show, :new, :create, :edit, :update, :destroy]
+
+  resources :versions,    only: [:show]
 
   resources :food_item_imports, only: [:new, :create]
 

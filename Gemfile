@@ -34,6 +34,7 @@ gem 'font-awesome-sass', '~> 4.6.2'
 gem 'puma'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
+gem 'paper_trail'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

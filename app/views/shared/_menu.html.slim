@@ -12,7 +12,7 @@
           = yield :menu_left
         ul.nav.navbar-nav.navbar-right
           li = image_tag(current_user.avatar.url(:thumb))
-          = active_link_to "Hi #{current_user.name}!!!", edit_profile_path, remote: true, :wrap_tag => :li
+          = active_link_to "Hi #{current_user.name}!!!", user_path(current_user), remote: true, :wrap_tag => :li
           = active_link_to 'Settings', edit_profile_path, remote: true, :wrap_tag => :li
           - if @restaurant
             li 

@@ -18,6 +18,19 @@ describe UsersController, :type => :controller do
     end
   end
 
+  describe '#show' do
+    def do_request
+      get :show, id: user.id, format: :js
+    end
+
+    let!(:user) { create(:admin) }
+
+    it 'renders the :show view' do
+      do_request
+      expect(assigns(:user)).to match user
+    end
+  end
+
   describe '#new' do 
     def do_request
       get :new 

@@ -1,0 +1,8 @@
+.activities-listing-container
+  h2 Recent Activities
+  table.table.table-striped
+    - activities.each do |activity|
+      tr
+        td = activity_message(activity)
+        td.text-center = link_to_if can?(:read, activity), "History", activity, remote: true
+  = will_paginate activities, renderer: BootstrapPagination::Rails, param_name: "activity_page"

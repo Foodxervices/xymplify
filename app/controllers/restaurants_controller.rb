@@ -8,7 +8,11 @@ class RestaurantsController < ApplicationController
                                       .paginate(:page => params[:page])
   end
 
-  def show; end
+  def show
+    @activities = Version.by_restaurant(@restaurant)
+                         .includes(:item)
+                         .paginate(:page => params[:activity_page], :per_page => 5)
+  end
 
   def new; end
 
