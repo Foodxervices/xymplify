@@ -1,14 +1,12 @@
 - content_for :menu_left do 
   = render 'restaurants/search', restaurant_filter: @restaurant_filter, url: restaurants_path
 #restaurants-index-container
-  .row.vertical-align
-    .col-xs-6
-      h1 Restaurants
-    .col-xs-6
-      .text-right
-        .btn-group
-          - if can?(:create, Restaurant.new)
-            = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default'
+  .pull-right
+    .btn-group
+      - if can?(:create, Restaurant.new)
+        = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default'
+        
+  h1 Restaurants
   .table-responsive
     table.table.table-striped
       thead

@@ -1,13 +1,11 @@
 - content_for :menu_left do 
   = render 'roles/search', role_filter: @role_filter, url: roles_path
 #roles-index-container
-  .row.vertical-align
-    .col-xs-6
-      h1 Roles
-    .col-xs-6
-      .text-right
-        .btn-group
-          = link_to 'Create New Role', new_role_path, class: 'btn btn-default'
+  .pull-right
+    .btn-group
+      = link_to 'Create New Role', new_role_path, class: 'btn btn-default'
+    
+  h1 Roles
   .table-responsive
     table.table.table-striped
       thead

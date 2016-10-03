@@ -1,14 +1,12 @@
 - content_for :menu_left do 
   = render 'suppliers/search', supplier_filter: @supplier_filter, url: [@restaurant, :suppliers]
 #suppliers-index-container
-  .row.vertical-align
-    .col-xs-6
-      h1 Supplier
-    .col-xs-6
-      .text-right
-        .btn-group
-          - if can?(:create, Supplier.new(restaurant_id: @restaurant&.id))
-            = link_to 'Create New Supplier', [:new, @restaurant, :supplier], class: 'btn btn-default'
+  .pull-right
+    .btn-group
+      - if can?(:create, Supplier.new(restaurant_id: @restaurant&.id))
+        = link_to 'Create New Supplier', [:new, @restaurant, :supplier], class: 'btn btn-default'
+        
+  h1 Supplier
   .table-responsive
     table.table.table-striped
       thead

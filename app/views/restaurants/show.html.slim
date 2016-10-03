@@ -1,10 +1,12 @@
 #restaurants-show-container
   h1 = @restaurant.name 
   = render 'restaurants/details', restaurant: @restaurant
-  - if can?(:update, @restaurant)
-    .text-right
+  
+  .pull-right
+    - if can?(:update, @restaurant)
       = link_to 'Edit Restaurant', [:edit, @restaurant], class: 'btn btn-default'
-      
+
+  h2 Recent Activities  
   .row
     .col-md-6
       = render 'activities/listing', activities: @activities

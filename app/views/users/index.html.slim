@@ -1,13 +1,11 @@
 - content_for :menu_left do 
   = render 'users/search', user_filter: @user_filter, url: users_path
 #users-index-container
-  .row.vertical-align
-    .col-xs-6
-      h1 User
-    .col-xs-6
-      .text-right
-        .btn-group
-          = link_to 'Create New User', new_user_path, class: 'btn btn-default'
+  .pull-right
+    .btn-group
+      = link_to 'Create New User', new_user_path, class: 'btn btn-default'
+      
+  h1 User
   .table-responsive
     table.table.table-striped
       thead

@@ -1,14 +1,12 @@
 - content_for :menu_left do 
   = render 'user_roles/search', user_role_filter: @user_role_filter, url: [@restaurant, :user_roles]
 #user_roles-index-container
-  .row.vertical-align
-    .col-xs-6
-      h1 User Roles
-    .col-xs-6
-      .text-right
-        .btn-group
-          - if can?(:update, UserRole.new(restaurant_id: @restaurant.id))
-            = link_to 'Create New User Role', [:new, @restaurant, :user_role], class: 'btn btn-default'
+  .pull-right
+    .btn-group
+      - if can?(:update, UserRole.new(restaurant_id: @restaurant.id))
+        = link_to 'Create New User Role', [:new, @restaurant, :user_role], class: 'btn btn-default'
+        
+  h1 User Roles
   .table-responsive
     table.table.table-striped
       thead
