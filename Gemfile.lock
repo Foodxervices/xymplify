@@ -173,6 +173,8 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    paranoia (2.1.5)
+      activerecord (~> 4.0)
     pg (0.18.4)
     pkg-config (1.1.7)
     pry (0.10.4)
@@ -352,6 +354,7 @@ DEPENDENCIES
   nested_form
   paper_trail
   paperclip
+  paranoia
   pg (~> 0.15)
   pry-rails
   puma

@@ -1,4 +1,8 @@
 class Restaurant < ActiveRecord::Base
+  has_paper_trail
+
+  acts_as_paranoid
+  
   has_many :suppliers
   has_many :user_roles
   has_many :kitchens, dependent: :destroy

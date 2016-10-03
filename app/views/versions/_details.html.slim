@@ -1,9 +1,10 @@
 .versions-details-container
   = render "versions/templates/#{version.event}", version: version
   
-  .text-right
-    ul.list-inline
+  .row
+    .col-xs-6
       - if version.previous.present?
-        li = link_to_if can?(:read, version.previous), "Previous Version", version.previous, remote: true 
+        = link_to_if can?(:read, version.previous), "Previous Version", version.previous, remote: true 
+    .col-xs-6.text-right
       - if version.next.present?
-        li = link_to_if can?(:read, version.next), "Next Version", version.next, remote: true
+        = link_to_if can?(:read, version.next), "Next Version", version.next, remote: true

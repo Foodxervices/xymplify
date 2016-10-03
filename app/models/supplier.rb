@@ -1,4 +1,6 @@
 class Supplier < ActiveRecord::Base
+  has_paper_trail
+  
   before_destroy :check_for_food_items
 
   belongs_to :restaurant

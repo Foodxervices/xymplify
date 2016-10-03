@@ -2,16 +2,30 @@ class RestaurantsController < ApplicationController
   load_and_authorize_resource 
 
   def index
-    @restaurant_filter = RestaurantFilter.new(restaurant_filter_params)
-    @restaurants  = @restaurant_filter.result
-                                      .accessible_by(current_ability)
-                                      .paginate(:page => params[:page])
+    respond_to do |format|
+      format.html do
+        @restaurant_filter = RestaurantFilter.new(restaurant_filter_params)
+        @restaurants  = @restaurant_filter.result
+                                          .accessible_by(current_ability)
+                                          .paginate(:page => params[:page])
+      end
+      
+      format.js  do
+        @restaurants  = Restaurant.accessible_by(current_ability)
+      end
+    end
   end
 
   def show
-    @activities = Version.by_restaurant(@restaurant)
-                         .includes(:item)
-                         .paginate(:page => params[:activity_page], :per_page => 5)
+    respond_to do |format|
+      format.html do
+        @activities = Version.accessible_by(current_ability, restaurant_id: @restaurant.id)
+                             .includes(:item)
+                             .paginate(:page => params[:activity_page], :per_page => 5)
+      end
+
+      format.js
+    end
   end
 
   def new; end

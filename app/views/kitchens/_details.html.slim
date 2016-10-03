@@ -2,7 +2,7 @@
   table.table.table-bordered
     tr 
       th = Kitchen.human_attribute_name(:name)
-      td = kitchen.name
+      td = chicken_link(kitchen)
     tr 
       th = Kitchen.human_attribute_name(:bank_name)
       td = kitchen.bank_name

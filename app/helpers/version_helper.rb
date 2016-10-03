@@ -1,6 +1,6 @@
 module VersionHelper
   def version_value(field, value) 
-    if ['kitchen_id', 'supplier_id', 'user_id'].include?(field)
+    if ['kitchen_id', 'supplier_id', 'user_id', 'role_id', 'restaurant_id', 'user_role_id'].include?(field)
       field = field.gsub("_id", "")
 
       kclass = field.classify.constantize

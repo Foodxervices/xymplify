@@ -1,4 +1,4 @@
-class Role < ActiveRecord::Base
+class Role < ActiveRecord::Base  
   extend Enumerize
 
   validates :name, presence: true

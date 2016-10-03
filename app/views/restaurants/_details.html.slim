@@ -16,6 +16,6 @@
       th = Restaurant.human_attribute_name(:email)
       td = restaurant.email
   .row    
-    - restaurant.kitchens.each do |kitchen|
+    - restaurant.kitchens.includes(:restaurant).each do |kitchen|
       .col-md-6
         = render 'kitchens/details', kitchen: kitchen

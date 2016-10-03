@@ -1,4 +1,6 @@
 class UserRole < ActiveRecord::Base
+  has_paper_trail
+
   extend Enumerize
 
   belongs_to :role
@@ -11,4 +13,8 @@ class UserRole < ActiveRecord::Base
   validates :role_id,       presence: true
   validates :user_id,       presence: true, uniqueness: {scope: :role_id}
   validates :restaurant_id, presence: true
+
+  def name
+    "#{user.name}'s Role"
+  end
 end
