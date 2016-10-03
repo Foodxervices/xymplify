@@ -1,6 +1,9 @@
 #restaurants-show-container
   h1 = @restaurant.name 
   = render 'restaurants/details', restaurant: @restaurant
+  - if can?(:update, @restaurant)
+    .text-right
+      = link_to 'Edit Restaurant', [:edit, @restaurant], class: 'btn btn-default'
       
   .row
     .col-md-6
