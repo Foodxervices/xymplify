@@ -9,7 +9,7 @@ class RestaurantsController < ApplicationController
                                           .accessible_by(current_ability)
                                           .paginate(:page => params[:page])
       end
-      
+
       format.js  do
         @restaurants  = Restaurant.accessible_by(current_ability)
       end
@@ -19,7 +19,7 @@ class RestaurantsController < ApplicationController
   def show
     respond_to do |format|
       format.html do
-        @activities = Version.accessible_by(current_ability, restaurant_id: @restaurant.id)
+        @activities = Version.by_restaurant(@restaurant.id)
                              .includes(:item)
                              .paginate(:page => params[:activity_page], :per_page => 5)
       end

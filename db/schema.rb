@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161003024130) do
+ActiveRecord::Schema.define(version: 20161003041834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,9 +33,11 @@ ActiveRecord::Schema.define(version: 20161003024130) do
     t.datetime "image_updated_at"
     t.integer  "kitchen_id"
     t.string   "type",                default: "Others"
+    t.integer  "restaurant_id"
   end
 
   add_index "food_items", ["kitchen_id"], name: "index_food_items_on_kitchen_id", using: :btree
+  add_index "food_items", ["restaurant_id"], name: "index_food_items_on_restaurant_id", using: :btree
   add_index "food_items", ["supplier_id"], name: "index_food_items_on_supplier_id", using: :btree
   add_index "food_items", ["user_id"], name: "index_food_items_on_user_id", using: :btree
 
@@ -60,16 +62,13 @@ ActiveRecord::Schema.define(version: 20161003024130) do
   add_index "kitchens_user_roles", ["user_role_id"], name: "index_kitchens_user_roles_on_user_role_id", using: :btree
 
   create_table "restaurants", force: :cascade do |t|
-    t.string   "name"
-    t.string   "site_address"
-    t.string   "billing_address"
-    t.string   "contact_person"
-    t.string   "telephone"
-    t.string   "email"
-    t.datetime "deleted_at"
+    t.string "name"
+    t.string "site_address"
+    t.string "billing_address"
+    t.string "contact_person"
+    t.string "telephone"
+    t.string "email"
   end
-
-  add_index "restaurants", ["deleted_at"], name: "index_restaurants_on_deleted_at", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string "name"

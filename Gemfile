@@ -35,7 +35,6 @@ gem 'puma'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'paper_trail'
-gem 'paranoia'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

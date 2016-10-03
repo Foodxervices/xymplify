@@ -5,10 +5,12 @@ class FoodItem < ActiveRecord::Base
   
   monetize :unit_price_cents
 
+  before_save :cache_restaurant
+
   belongs_to :supplier
   belongs_to :user
   belongs_to :kitchen
-  has_one :restaurant, through: :kitchen
+  belongs_to :restaurant
   
   validates_associated :supplier, :user, :kitchen
 
@@ -31,5 +33,9 @@ class FoodItem < ActiveRecord::Base
   private 
   def set_currency
     self.unit_price_currency = supplier&.currency 
+  end
+
+  def cache_restaurant
+    self.restaurant_id = kitchen.restaurant_id if kitchen_id_changed?
   end
 end
