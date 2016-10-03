@@ -36,5 +36,3 @@
                 li = link_to 'Show', restaurant
                 li = link_to_if can?(:edit, restaurant), 'Edit', [:edit, restaurant]
                 li = link_to_if can?(:destroy, restaurant), 'Delete', '#', data: { toggle: "confirmation", href: restaurant_path(restaurant) }, class: 'delete'
-  .text-center          
-    = will_paginate @restaurants, renderer: BootstrapPagination::Rails

@@ -7,7 +7,7 @@ class RestaurantsController < ApplicationController
         @restaurant_filter = RestaurantFilter.new(restaurant_filter_params)
         @restaurants  = @restaurant_filter.result
                                           .accessible_by(current_ability)
-                                          .paginate(:page => params[:page])
+        redirect_to @restaurants.first if @restaurants.size == 1                                          
       end
 
       format.js  do
