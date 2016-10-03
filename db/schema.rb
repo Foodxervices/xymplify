@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161003041834) do
+ActiveRecord::Schema.define(version: 20161003121259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20161003041834) do
   add_index "food_items", ["kitchen_id"], name: "index_food_items_on_kitchen_id", using: :btree
   add_index "food_items", ["restaurant_id"], name: "index_food_items_on_restaurant_id", using: :btree
   add_index "food_items", ["supplier_id"], name: "index_food_items_on_supplier_id", using: :btree
+  add_index "food_items", ["type"], name: "index_food_items_on_type", using: :btree
   add_index "food_items", ["user_id"], name: "index_food_items_on_user_id", using: :btree
 
   create_table "kitchens", force: :cascade do |t|
@@ -60,6 +61,25 @@ ActiveRecord::Schema.define(version: 20161003041834) do
 
   add_index "kitchens_user_roles", ["kitchen_id"], name: "index_kitchens_user_roles_on_kitchen_id", using: :btree
   add_index "kitchens_user_roles", ["user_role_id"], name: "index_kitchens_user_roles_on_user_role_id", using: :btree
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "unit_price_cents",    default: 0,     null: false
+    t.string  "unit_price_currency", default: "SGD", null: false
+    t.integer "quantity"
+    t.integer "order_id"
+    t.integer "food_item_id"
+  end
+
+  add_index "order_items", ["food_item_id"], name: "index_order_items_on_food_item_id", using: :btree
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "supplier_id"
+    t.integer "kitchen_id"
+  end
+
+  add_index "orders", ["kitchen_id"], name: "index_orders_on_kitchen_id", using: :btree
+  add_index "orders", ["supplier_id"], name: "index_orders_on_supplier_id", using: :btree
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name"

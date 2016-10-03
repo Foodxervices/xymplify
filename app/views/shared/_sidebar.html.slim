@@ -15,5 +15,5 @@
       - if can?(:index, FoodItem)
         = active_link_to 'Food Item', [current_restaurant, :food_items], :wrap_tag => :li, class: 'sb-food_item', title: 'Food Item'
         = active_link_to 'Inventory Management', [current_restaurant, :inventories], :wrap_tag => :li, class: 'sb-inventory', title: 'Inventory Management'
-      = active_link_to 'Purchase Orders', "#purchase", :wrap_tag => :li, :active => :exact, class: 'sb-purchase_orders', title: 'Purchase Orders'
-  
+        = active_link_to 'Purchase Orders', [current_restaurant, :categories], :wrap_tag => :li, :active => :exact, class: 'sb-purchase_orders', title: 'Purchase Orders'
+    

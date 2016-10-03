@@ -1,0 +1,15 @@
+.carts-form-container
+  table.table.table-striped
+    tr
+      th Kitchen
+      th Supplier
+      th UOM
+      th Unit Price
+      th Qty
+    - @food_items.each do |food_item|
+      tr 
+        td = food_item.kitchen&.name
+        td = food_item.supplier&.name
+        td = food_item.unit
+        td = humanized_money_with_symbol(food_item.unit_price)
+        td 

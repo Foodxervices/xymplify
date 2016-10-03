@@ -23,6 +23,9 @@ Rails.application.routes.draw do
     resources :suppliers,   only: [:index, :new, :create]
     resources :user_roles,  only: [:index, :new, :create]
     resources :food_items,  only: [:index, :new, :create]
+    resources :categories,  only: [:index]
+    resources :carts,       only: [:new]
+
     resources :inventories, only: [:index] do 
       member do 
         patch :update_current_quantity

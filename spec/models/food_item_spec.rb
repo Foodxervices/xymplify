@@ -17,6 +17,6 @@ describe FoodItem do
     it { is_expected.to belong_to :supplier }
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :kitchen }
-    it { is_expected.to have_one :restaurant }
+    it { is_expected.to belong_to :restaurant }
   end
 end

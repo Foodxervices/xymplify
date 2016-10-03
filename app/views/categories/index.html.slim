@@ -1,0 +1,6 @@
+#categories-index-container
+  .row
+    - @types.each do |type|
+      .col-md-4
+        = link_to type, [:new, @restaurant, :cart, type: type], remote: true
+
