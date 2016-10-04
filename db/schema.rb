@@ -11,10 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161003121259) do
+ActiveRecord::Schema.define(version: 20161004031000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+  end
 
   create_table "food_items", force: :cascade do |t|
     t.string   "name"
@@ -34,8 +38,10 @@ ActiveRecord::Schema.define(version: 20161003121259) do
     t.integer  "kitchen_id"
     t.string   "type",                default: "Others"
     t.integer  "restaurant_id"
+    t.integer  "category_id"
   end
 
+  add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree
   add_index "food_items", ["kitchen_id"], name: "index_food_items_on_kitchen_id", using: :btree
   add_index "food_items", ["restaurant_id"], name: "index_food_items_on_restaurant_id", using: :btree
   add_index "food_items", ["supplier_id"], name: "index_food_items_on_supplier_id", using: :btree
@@ -65,7 +71,7 @@ ActiveRecord::Schema.define(version: 20161003121259) do
   create_table "order_items", force: :cascade do |t|
     t.integer "unit_price_cents",    default: 0,     null: false
     t.string  "unit_price_currency", default: "SGD", null: false
-    t.integer "quantity"
+    t.integer "quantity",            default: 0
     t.integer "order_id"
     t.integer "food_item_id"
   end
@@ -76,10 +82,13 @@ ActiveRecord::Schema.define(version: 20161003121259) do
   create_table "orders", force: :cascade do |t|
     t.integer "supplier_id"
     t.integer "kitchen_id"
+    t.integer "user_id"
+    t.string  "status"
   end
 
   add_index "orders", ["kitchen_id"], name: "index_orders_on_kitchen_id", using: :btree
   add_index "orders", ["supplier_id"], name: "index_orders_on_supplier_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name"

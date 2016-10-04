@@ -6,6 +6,7 @@ FactoryGirl.define do
     unit_price          20
     supplier
     kitchen
+    category
     sequence(:brand)    { |n| "Brand #{n}" }
     association :user ,   factory: :admin
   end

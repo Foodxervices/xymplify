@@ -1,1 +1,5 @@
 <%= open_popup(title: params[:type], partial: 'carts/form', locals: { food_items: @food_items }) %> 
+
+$('.cart-item').each(function() {
+  new CartItem($(this))
+})

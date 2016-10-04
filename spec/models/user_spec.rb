@@ -10,5 +10,6 @@ describe User do
   context 'associations' do 
     it { is_expected.to have_many :food_items }
     it { is_expected.to have_many :user_roles }
+    it { is_expected.to have_many :orders }
   end
 end

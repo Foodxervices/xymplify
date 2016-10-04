@@ -24,7 +24,11 @@ Rails.application.routes.draw do
     resources :user_roles,  only: [:index, :new, :create]
     resources :food_items,  only: [:index, :new, :create]
     resources :categories,  only: [:index]
-    resources :carts,       only: [:new]
+    resources :carts,       only: [:new] do 
+      collection do 
+        post :add
+      end
+    end
 
     resources :inventories, only: [:index] do 
       member do 

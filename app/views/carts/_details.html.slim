@@ -1,0 +1,20 @@
+.carts-details-container
+  h3 Request
+
+  - orders.includes(:supplier).each do |order|
+    table.table.table-striped
+      thead
+        tr 
+          th PO #{order.code}
+          th Quantity
+          th UOM
+          th = humanized_money_with_symbol(order.price)
+      tbody
+        tr 
+          th colspan="4" = order.supplier&.name
+        - order.items.includes(:food_item).each do |item|
+          tr 
+            td = item.food_item&.name
+            td.text-center = item.quantity
+            td = item.food_item&.unit
+            td.text-right = humanized_money_with_symbol(item.total_price)

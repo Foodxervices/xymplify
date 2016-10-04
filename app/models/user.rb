@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   
   has_many :food_items
   has_many :user_roles
+  has_many :orders
 
   validates :name, presence: true
   validates :type, presence: true

@@ -67,6 +67,7 @@ class FoodItemImport
     food_items = []
     restaurant = Kitchen.find(kitchen_id).restaurant
     supplier = Supplier.find_or_create_by(name: supplier_name, restaurant_id: restaurant.id)
+    category = Category.find_by_name('Others')
 
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
@@ -76,6 +77,7 @@ class FoodItemImport
       food_item.supplier    = supplier
       food_item.user_id     = user_id
       food_item.kitchen_id  = kitchen_id
+      food_item.category_id = category.id
       food_item.unit_price_currency = "" if food_item.new_record?
       food_items << food_item 
     end

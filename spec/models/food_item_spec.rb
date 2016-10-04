@@ -8,6 +8,7 @@ describe FoodItem do
     it { is_expected.to validate_presence_of :supplier_id }
     it { is_expected.to validate_presence_of :user_id }
     it { is_expected.to validate_presence_of :kitchen_id }
+    it { is_expected.to validate_presence_of :category_id }
     it { is_expected.to monetize :unit_price }
     it { is_expected.to validate_numericality_of(:current_quantity).only_integer.is_greater_than_or_equal_to(0) }
     it { is_expected.to validate_numericality_of(:quantity_ordered).only_integer.is_greater_than_or_equal_to(0) }
@@ -18,5 +19,6 @@ describe FoodItem do
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :kitchen }
     it { is_expected.to belong_to :restaurant }
+    it { is_expected.to belong_to :category }
   end
 end

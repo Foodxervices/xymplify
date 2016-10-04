@@ -1,6 +1,14 @@
 #categories-index-container
   .row
-    - @types.each do |type|
-      .col-md-4
-        = link_to type, [:new, @restaurant, :cart, type: type], remote: true
+    .col-md-4.col-md-push-8
+      #cart-details
+        = render 'carts/details', orders: @orders
+    .col-md-8.col-md-pull-4
+      - @categories.each do |name, types|
+        h4 = name
+        .row
+          - types.each do |type|
+            .col-md-4
+              = link_to type, [:new, @restaurant, :cart, type: type], remote: true
+    
 

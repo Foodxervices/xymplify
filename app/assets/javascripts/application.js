@@ -14,6 +14,7 @@
 //= require components
 //= require utils
 //= require sidebar
+//= require cart_item
 //= require global
 
 //= require pages/food_items 

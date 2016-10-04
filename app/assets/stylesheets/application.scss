@@ -20,8 +20,11 @@
 
 @import 'restaurants/_list';
 
+@import 'categories/index';
+
 @import 'shared/_menu';
 @import 'shared/_sidebar';
 
 @import 'popups/_message';
 @import 'popups/restaurants/_details';
+@import 'popups/carts/_form';

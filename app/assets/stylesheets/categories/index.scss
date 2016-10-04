@@ -1,0 +1,20 @@
+#categories-index-container {
+  h4 {
+    padding: 3px 10px;
+    border-left: 4px solid #027ae0;
+  }
+
+  a {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #dedede;
+    cursor: pointer;
+    color: #393838;
+    text-decoration: none;
+
+    &:hover {
+      background-color: #efecec;
+    }
+  }
+}
