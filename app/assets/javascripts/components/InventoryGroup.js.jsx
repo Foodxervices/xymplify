@@ -28,15 +28,15 @@ const InventoryGroup = React.createClass({
     this.setState({foodItems: foodItems, currentQuantity: this.getCurrentQuantity(), unitPrice: this.getUnitPrice()})
   },
   getUnitPrice: function() {
-    let totalUnitPrice, quantity
-    totalUnitPrice = quantity = 0
+    let totalPrice, quantity
+    totalPrice = quantity = 0
 
     $.map(this.state.foodItems, function(foodItem, index) {
       quantity += foodItem.current_quantity
-      totalUnitPrice += foodItem.current_quantity * foodItem.unit_price
+      totalPrice += foodItem.current_quantity * foodItem.default_unit_price
     })
 
-    return totalUnitPrice / quantity
+    return totalPrice / quantity
   },
   getCurrentQuantity: function() {
     let currentQuantity = 0

@@ -25,4 +25,4 @@
     hr
 
   .text-right
-    h3 = humanized_money_with_symbol(current_orders.price)
+    h3 = humanized_money_with_symbol(current_orders.price.exchange_to(:SGD))

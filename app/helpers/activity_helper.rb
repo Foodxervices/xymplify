@@ -2,7 +2,7 @@ module ActivityHelper
   def activity_message(activity) 
     kclass = activity.item_type.constantize
     
-    user_link = link_to_if(can?(:show, activity.user), activity.user.name, user_path(activity.user), remote: true)
+    user_link = link_to_if(can?(:show, activity.user), activity.user.name, user_path(activity.user), remote: true) if activity.user
 
     event = activity.event == "destroy" ? "deleted" : "#{activity.event}d"
 
