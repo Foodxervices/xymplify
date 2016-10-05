@@ -1,6 +1,10 @@
 require 'numeric'
 
 module ApplicationHelper
+  def format_date(date)
+    date.try(:strftime, '%d %b %Y')
+  end
+  
   def currency_codes
     currencies = []
     Money::Currency.table.values.each do |currency|

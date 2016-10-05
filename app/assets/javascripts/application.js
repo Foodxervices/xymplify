@@ -6,6 +6,7 @@
 //= require bootstrap-confirmation
 //= require bootstrap-fileinput/js/fileinput
 //= require turbolinks
+//= require masonry.pkgd
 //= require jquery.remotipart
 //= require jquery_nested_form
 
@@ -18,5 +19,6 @@
 //= require global
 
 //= require pages/food_items 
+//= require pages/orders
 
 

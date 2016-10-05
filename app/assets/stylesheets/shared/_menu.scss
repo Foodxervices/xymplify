@@ -4,6 +4,12 @@
     height: 50px;
   }
 
+  @media all and (min-width: 900px) {
+    .container-fluid {
+      padding-left: 0;
+    }
+  }
+
   .navbar-default .navbar-form {
     border: none;
   }

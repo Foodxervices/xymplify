@@ -1,0 +1,1 @@
+<%= open_popup(title: "#{@order.name} - #{@order.status_text}<br /><small>#{format_date(@order.created_at)}</small>".html_safe, partial: 'orders/details', locals: { order: @order }) %> 

@@ -1,11 +1,16 @@
 class Order < ActiveRecord::Base
+  has_paper_trail
+
   extend Enumerize
+
+  before_save :cache_restaurant
+  after_save :set_item_price
 
   has_many :items, class_name: "OrderItem", dependent: :destroy
   belongs_to :supplier 
   belongs_to :kitchen
   belongs_to :user 
-  has_one :restaurant, through: :kitchen
+  belongs_to :restaurant
 
   validates_associated :supplier, :kitchen, :user
 
@@ -31,5 +36,18 @@ class Order < ActiveRecord::Base
 
   def code
     id.to_s.rjust(6,"0")
+  end
+
+  private 
+  def cache_restaurant
+    self.restaurant_id = kitchen.restaurant_id if restaurant_id.nil?
+  end
+
+  def set_item_price
+    if status_change == ["wip", "placed"]
+      items.includes(:food_item).each do |item|
+        item.update_columns(unit_price_cents: item.food_item.unit_price_cents, unit_price_currency: item.food_item.unit_price_currency)
+      end
+    end
   end
 end

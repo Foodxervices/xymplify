@@ -1,6 +1,13 @@
 class OrdersController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :restaurant
+  load_and_authorize_resource :order, :through => :restaurant, :shallow => true
 
+  def index
+    @orders = @orders.includes(:supplier).where.not(status: :wip)
+  end
+
+  def show; end 
+  
   def edit; end
 
   def update
