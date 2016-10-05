@@ -74,7 +74,7 @@ class FoodItemImport
       food_item = FoodItem.find_or_initialize_by(code: row["code"], kitchen_id: kitchen_id)
       food_item.attributes  = row.to_hash.slice(*row.to_hash.keys)
       food_item.unit        = get_unit(food_item.name)
-      food_item.supplier    = supplier
+      food_item.supplier    = supplier if food_item.new_record?
       food_item.user_id     = user_id
       food_item.kitchen_id  = kitchen_id
       food_item.category_id = category.id
