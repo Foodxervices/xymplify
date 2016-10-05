@@ -11,7 +11,7 @@
           th.text-right = humanized_money_with_symbol(order.price)
       tbody
         tr 
-          th colspan="4" = order.supplier&.name
+          td colspan="4" = link_to_if can?(:read, order.supplier), order.supplier&.name, order.supplier, remote: true
         - order.items.includes(:food_item).each do |item|
           tr 
             td = item.food_item&.name

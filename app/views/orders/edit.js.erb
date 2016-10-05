@@ -1,1 +1,1 @@
-<%= open_popup(title: "#{@order.name} - #{@order.supplier&.name}".html_safe, partial: 'orders/form', locals: { order: @order }) %> 
+<%= open_popup(title: "#{@order.name} - #{@order.supplier&.name}", partial: 'orders/form', locals: { order: @order }) %> 
