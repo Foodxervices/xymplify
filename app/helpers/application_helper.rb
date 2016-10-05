@@ -1,3 +1,5 @@
+require 'numeric'
+
 module ApplicationHelper
   def currency_codes
     currencies = []

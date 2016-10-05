@@ -21,6 +21,8 @@ class OrdersController < ApplicationController
   private
 
   def order_params
+    return {} if params[:order].nil?
+
     params.require(:order).permit(
       items_attributes: [
         :id,
