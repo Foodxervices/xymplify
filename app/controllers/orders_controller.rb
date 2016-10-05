@@ -5,7 +5,11 @@ class OrdersController < ApplicationController
 
   def update
     @success = @order.update_attributes(order_params)
-    @restaurant = @order.restaurant if @success
+
+    if @success
+      @restaurant = @order.restaurant 
+      @order.destroy if @order.items.empty?
+    end
   end
 
   def destroy
@@ -21,8 +25,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    return {} if params[:order].nil?
-
     params.require(:order).permit(
       items_attributes: [
         :id,
