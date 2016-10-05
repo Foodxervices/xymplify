@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_orders
-    @current_orders ||= Order.where(user_id: current_user.id, kitchen_id: @restaurant.kitchens, status: :wip)
+    @current_orders ||= Order.where(user_id: current_user.id, kitchen_id: current_restaurant.kitchens, status: :wip)
   end
 
   def resource

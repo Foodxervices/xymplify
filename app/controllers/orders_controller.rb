@@ -7,7 +7,6 @@ class OrdersController < ApplicationController
     @success = @order.update_attributes(order_params)
 
     if @success
-      @restaurant = @order.restaurant 
       @order.destroy if @order.items.empty?
     end
   end

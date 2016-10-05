@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :carts,       only: [:new] do 
       collection do 
         post :add
+        post :purchase
       end
     end
 

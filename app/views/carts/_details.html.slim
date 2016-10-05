@@ -1,6 +1,6 @@
 .carts-details-container
   h3 Request
-
+  hr
   - current_orders.includes(:supplier).each do |order|
     table.table.table-striped
       thead
@@ -25,4 +25,6 @@
     hr
 
   .text-right
-    h3 = humanized_money_with_symbol(current_orders.price.exchange_to(:SGD))
+    h3 = "Total: #{humanized_money_with_symbol(current_orders.price.exchange_to(:SGD))}"
+  - if current_orders.any?
+    = link_to 'Purchase', [:purchase, current_restaurant, :carts], method: :post, class: 'btn btn-primary btn-block'
