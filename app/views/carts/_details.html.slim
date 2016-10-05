@@ -8,7 +8,7 @@
           th = order.name
           th Quantity
           th UOM
-          th = humanized_money_with_symbol(order.price)
+          th.text-right = humanized_money_with_symbol(order.price)
       tbody
         tr 
           th colspan="4" = order.supplier&.name
@@ -17,7 +17,7 @@
             td = item.food_item&.name
             td.text-center = item.quantity
             td = item.food_item&.unit
-            td.text-right = humanized_money_with_symbol(item.total_price)
+            td.text-right width="80" = humanized_money_with_symbol(item.total_price)
     .text-right
       .btn-group
         = link_to 'Delete', '#', data: { toggle: "confirmation", href: order_path(order) }, class: 'delete btn btn-default'
