@@ -34,10 +34,12 @@ class FoodItem < ActiveRecord::Base
 
   def self.random_group
     FoodItem.all.each do |food_item|
+      random_supplier = food_item.restaurant.suppliers.sample
       food_item.update_columns(
           category_id: Category.all.sample, 
           type: ['Chicken', 'Duck', 'Lamb', 'Banana', 'Tissue', 'Olive Oil', 'Cocacola Light', 'Carrot'].sample,
-          supplier_id: food_item.restaurant.suppliers.sample
+          supplier_id: random_supplier,
+          unit_price_currency: random_supplier.currency
         )
     end
   end
