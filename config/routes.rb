@@ -19,11 +19,14 @@ Rails.application.routes.draw do
 
   resources :food_item_imports, only: [:new, :create]
 
+  resources :orders,      only: [:edit, :update, :destroy]
+
   resources :restaurants, only: [:index, :show, :new, :create, :edit, :update, :destroy] do 
     resources :suppliers,   only: [:index, :new, :create]
     resources :user_roles,  only: [:index, :new, :create]
     resources :food_items,  only: [:index, :new, :create]
     resources :categories,  only: [:index]
+
     resources :carts,       only: [:new] do 
       collection do 
         post :add

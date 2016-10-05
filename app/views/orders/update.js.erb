@@ -1,0 +1,6 @@
+<% if @success %>
+  $('#cart-details').html("<%= j render 'carts/details' %>")
+  $('#popup').modal('hide');
+<% else %>
+  <%= open_popup(title: "#{@order.name} - #{@order.supplier&.name}".html_safe, partial: 'orders/form', locals: { order: @order }) %> 
+<% end %> 

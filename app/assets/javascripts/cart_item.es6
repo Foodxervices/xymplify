@@ -1,4 +1,5 @@
 const CartItem = function(item) {
+  this.submitting = false
   this.item = $(item)
   this.foodItemId = this.item.data('id')
   this.restaurantId = this.item.data('restaurant-id')
@@ -20,6 +21,11 @@ CartItem.prototype.quantity = function() {
 }
 
 CartItem.prototype.submit = function() {
+  if(this.submitting) {
+    return 
+  }
+
+  this.submitting = true
   $.post({
     url: `/restaurants/${this.restaurantId}/carts/add.js`,
     data: { 
@@ -28,6 +34,7 @@ CartItem.prototype.submit = function() {
     },
     success: () => {
       this.quantityInput.val(0)
+      this.submitting = false
     }
   });
 }

@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   belongs_to :supplier 
   belongs_to :kitchen
   belongs_to :user 
+  has_one :restaurant, through: :kitchen
 
   validates_associated :supplier, :kitchen, :user
 
@@ -14,8 +15,18 @@ class Order < ActiveRecord::Base
 
   enumerize :status, in: [:wip, :placed, :shipped, :cancelled], default: :wip
 
+  accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
+
   def price 
-    items.includes(:food_item).map(&:total_price).inject(0, :+)
+    items.includes(:food_item, :order).map(&:total_price).inject(0, :+)
+  end
+
+  def self.price 
+    all.map(&:price).inject(0, :+)
+  end
+
+  def name
+    "PO #{code}"
   end
 
   def code

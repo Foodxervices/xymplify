@@ -9,6 +9,6 @@ class Role < ActiveRecord::Base
     'supplier__manage', 'supplier__read', 'supplier__create', 'supplier__update', 'supplier__destroy',
     'user_role__manage', 'user_role__read', 'user_role__create', 'user_role__update', 'user_role__destroy', 
     'kitchen__import',
-    'food_item__manage', 'food_item__read', 'food_item__create', 'food_item__update', 'food_item__destroy', 'food_item__update_current_quantity'
+    'food_item__manage', 'food_item__read', 'food_item__create', 'food_item__update', 'food_item__destroy', 'food_item__update_current_quantity', 'food_item__order'
   ], multiple: true
 end

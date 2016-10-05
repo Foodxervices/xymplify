@@ -24,3 +24,4 @@ en:
         food_item__update:                    "Food Item  :: Update"
         food_item__destroy:                   "Food Item  :: Destroy"
         food_item__update_current_quantity:   "Food Item  :: Update Current Quantity"
+        food_item__order:                     "Cart       :: Add"

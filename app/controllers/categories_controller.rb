@@ -3,7 +3,8 @@ class CategoriesController < ApplicationController
   load_and_authorize_resource :food_item, :through => :restaurant, :parent => false
 
   def index
-    food_items = @food_items.joins("LEFT JOIN categories ON categories.id = food_items.category_id")
+    food_items = @food_items.accessible_by(current_ability, :order)
+                            .joins("LEFT JOIN categories ON categories.id = food_items.category_id")
                             .select('type, categories.name category_name')
                             .order("CASE categories.name WHEN 'Others' THEN 1 ELSE 0 END, category_name, type ASC")
                             

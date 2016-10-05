@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_restaurant
 
+  helper_method :current_orders
+
   before_action :set_paper_trail_whodunnit
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -38,6 +40,10 @@ class ApplicationController < ActionController::Base
 
   def current_restaurant
     @current_restaurant ||= (@restaurant || resource.try(:restaurant))
+  end
+
+  def current_orders
+    @current_orders ||= Order.where(user_id: current_user.id, kitchen_id: @restaurant.kitchens, status: :wip)
   end
 
   def resource

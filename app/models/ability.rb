@@ -10,6 +10,7 @@ class Ability
       can :show, User
       can :read, Restaurant, { id: [] }
       can :read, Version
+      can [:update, :destroy], Order, { user_id: user.id, status: :wip }
       
       user.user_roles.includes(:role).each do |user_role|
         kitchen_ids = user_role.kitchens.any? ? user_role.kitchens.ids : user_role.restaurant.kitchens.ids

@@ -116,6 +116,8 @@ GEM
     git-version-bump (0.15.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    google_currency (3.3.0)
+      money (~> 6.7)
     hpricot (0.8.6)
     html2slim (0.2.0)
       hpricot
@@ -343,6 +345,7 @@ DEPENDENCIES
   enumerize
   factory_girl_rails
   font-awesome-sass (~> 4.6.2)
+  google_currency
   html2slim
   jbuilder (~> 2.0)
   jquery-rails

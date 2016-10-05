@@ -1,0 +1,16 @@
+.orders-form-container {
+  tr.fields {
+    td {
+      line-height: 33px;
+    }
+  }
+
+  .order_items_quantity {
+    input {
+      margin: 0 auto;
+      padding-left: 22px;
+      width: 100px;
+      text-align: center;
+    }
+  }
+}

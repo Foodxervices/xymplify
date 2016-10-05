@@ -9,11 +9,11 @@ class CartsController < ApplicationController
 
   def add
     @food_item = @restaurant.food_items.find(params[:food_item_id])
+    authorize! :order, @food_item
+
     order = Order.find_or_create_by(user_id: current_user.id, kitchen_id: @food_item.kitchen_id, supplier_id: @food_item.supplier_id, status: :wip)
     item = order.items.find_or_create_by(food_item_id: @food_item.id)
     item.quantity += params[:quantity].to_i
     item.save
-
-    @orders = Order.where(user_id: current_user.id, kitchen_id: @restaurant.kitchens, status: :wip)
   end
 end
