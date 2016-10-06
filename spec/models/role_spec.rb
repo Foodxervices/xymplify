@@ -10,7 +10,7 @@ describe Role do
         'supplier__manage', 'supplier__read', 'supplier__create', 'supplier__update', 'supplier__destroy',
         'user_role__manage', 'user_role__read', 'user_role__create', 'user_role__update', 'user_role__destroy',
         'kitchen__import',
-        'order__read'
+        'order__read', 'order__mark_as_shipped'
       ) 
     end
   end

@@ -20,8 +20,10 @@ class CartsController < ApplicationController
   end
 
   def purchase
-    current_orders.each do |order|
-      order.update(status: :placed)
+    ActiveRecord::Base.transaction do
+      current_orders.each do |order|
+        order.update(status: :placed)
+      end
     end
 
     redirect_to :back, notice: "Your request was submitted successfully."

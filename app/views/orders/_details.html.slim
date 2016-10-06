@@ -13,3 +13,9 @@
       tr
         td.text-right colspan="3" Total Price
         td.text-center = humanized_money_with_symbol(order.price)
+  .text-right 
+    .btn-group 
+      - if can?(:mark_as_shipped, order)
+        = link_to 'Mark as Shipped', '#', data: { toggle: "confirmation", href: mark_as_shipped_order_path(order), link_method: 'patch' }, class: 'btn btn-primary'
+      - if can?(:mark_as_cancelled, order)
+        = link_to 'Mark as Cancelled', '#', data: { toggle: "confirmation", href: mark_as_cancelled_order_path(order), link_method: 'patch' }, class: 'btn btn-warning'

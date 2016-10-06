@@ -44,9 +44,17 @@ class Order < ActiveRecord::Base
   end
 
   def set_item_price
-    if status_change == ["wip", "placed"]
-      items.includes(:food_item).each do |item|
-        item.update_columns(unit_price_cents: item.food_item.unit_price_cents, unit_price_currency: item.food_item.unit_price_currency)
+    items.includes(:food_item).each do |item|
+      food_item = item.food_item
+
+      case status_change 
+        when ["wip", "placed"]
+          item.update_columns(unit_price_cents: food_item.unit_price_cents, unit_price_currency: food_item.unit_price_currency)
+          food_item.update_column(:quantity_ordered, food_item.quantity_ordered + item.quantity)
+        when ["placed", "shipped"] 
+          food_item.update_columns(current_quantity: food_item.current_quantity + item.quantity, quantity_ordered: food_item.quantity_ordered - item.quantity)
+        when ["placed", "cancelled"]
+          food_item.update_columns(quantity_ordered: food_item.quantity_ordered - item.quantity)
       end
     end
   end

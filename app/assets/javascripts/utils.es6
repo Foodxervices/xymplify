@@ -6,12 +6,19 @@ const Utils = {
     Utils.disableSubmittingForm()
   },
   initConfirmation: () => {
-    $('[data-toggle="confirmation"]:not(.delete)').confirmation()
-
-    $('[data-toggle="confirmation"].delete').confirmation({
-      onConfirm: function() {
-        $(this).attr('data-method', 'delete')
+    $('[data-toggle="confirmation"]').each(function() {
+      let method = $(this).data('link-method') || 'get'
+      
+      if($(this).hasClass('delete')) {
+        method = 'delete'
       }
+
+
+      $(this).confirmation({
+        onConfirm: function() {
+          $(this).attr('data-method', method)
+        }
+      })
     })
   },
   initFileInput: () => {

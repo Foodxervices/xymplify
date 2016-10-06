@@ -19,7 +19,12 @@ Rails.application.routes.draw do
 
   resources :food_item_imports, only: [:new, :create]
 
-  resources :orders,      only: [:show, :edit, :update, :destroy]
+  resources :orders,      only: [:show, :edit, :update, :destroy] do 
+    member do 
+      patch :mark_as_shipped 
+      patch :mark_as_cancelled
+    end
+  end
 
   resources :restaurants, only: [:index, :show, :new, :create, :edit, :update, :destroy] do 
     resources :suppliers,   only: [:index, :new, :create]
