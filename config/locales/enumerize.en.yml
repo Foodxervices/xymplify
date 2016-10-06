@@ -18,6 +18,7 @@ en:
         user_role__update:                    "User Role  :: Update"
         user_role__destroy:                   "User Role  :: Destroy"
         kitchen__import:                      "Kitchen    :: Import"
+        kitchen__read:                        "Kitchen    :: Read"
         food_item__manage:                    "Food Item  :: Manage"
         food_item__read:                      "Food Item  :: Read"
         food_item__create:                    "Food Item  :: Create"
