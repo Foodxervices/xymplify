@@ -36,6 +36,7 @@ gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'paper_trail'
 gem 'google_currency'
+gem 'acts-as-taggable-on'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

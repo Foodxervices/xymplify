@@ -8,7 +8,7 @@ class FoodItemsController < ApplicationController
     @food_item_filter = FoodItemFilter.new(@food_items, food_item_filter_params)
     @food_items =  @food_item_filter.result
                                     .select('food_items.*, suppliers.name as supplier_name, kitchens.name as kitchen_name')
-                                    .includes(:supplier, :kitchen)
+                                    .includes(:supplier, :kitchen, :taggings)
                                     .order(sort_column + ' ' + sort_direction)
                                     .paginate(:page => params[:page])
   end
@@ -64,7 +64,7 @@ class FoodItemsController < ApplicationController
       :category_id,
       :brand,
       :image,
-      :type
+      :tag_list
     )
     data[:kitchen_id] = Kitchen.accessible_by(current_ability).find(data[:kitchen_id]).id if data[:kitchen_id].present?
     data[:user_id] = current_user.id

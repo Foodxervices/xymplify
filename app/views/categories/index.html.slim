@@ -6,11 +6,11 @@
       #cart-details
         = render 'carts/details', orders: @orders
     .col-md-8.col-md-pull-4
-      - @categories.each do |name, types|
+      - @categories.each do |name, tags|
         h4 = name
         .row
-          - types.each do |type|
+          - tags.each do |tag|
             .col-md-4
-              = link_to type, [:new, @restaurant, :cart, type: type], remote: true, class: 'item-type'
+              = link_to tag, [:new, @restaurant, :cart, tag: tag], remote: true, class: 'item-tag'
     
 

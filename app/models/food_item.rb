@@ -1,4 +1,5 @@
 class FoodItem < ActiveRecord::Base
+  acts_as_taggable
   has_paper_trail
 
   self.inheritance_column = :_type_disabled
@@ -37,7 +38,7 @@ class FoodItem < ActiveRecord::Base
       random_supplier = food_item.restaurant.suppliers.sample
       food_item.update_columns(
           category_id: Category.all.sample, 
-          type: ['Chicken', 'Duck', 'Lamb', 'Banana', 'Tissue', 'Olive Oil', 'Cocacola Light', 'Carrot'].sample,
+          tag_list: ['Chicken', 'Duck', 'Lamb', 'Banana', 'Tissue', 'Olive Oil', 'Cocacola Light', 'Carrot'].sample,
           supplier_id: random_supplier,
           unit_price_currency: random_supplier.currency
         )

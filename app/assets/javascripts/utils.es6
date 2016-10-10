@@ -3,6 +3,7 @@ const Utils = {
     Utils.initFileInput()
     Utils.initConfirmation()
     Utils.initSelectPicker()
+    Utils.initTaggable()
     Utils.disableSubmittingForm()
   },
   initConfirmation: () => {
@@ -38,6 +39,27 @@ const Utils = {
     
     selects.each(function(index, select) {
       $(select).data('live-search', !$(this).hasClass('not-autocomplete') && $(this).find('option').length > 5).selectpicker({hideDisabled: true})
+    })
+  },
+  initTaggable:() => {
+    $('input.taggable:not(.taggable-initialized)').each(function() {
+      $(this).addClass('taggable-initialized')
+      $(this).tokenfield({
+        autocomplete: {
+          source: $(this).data('source'),
+          delay: 100,
+          beautify: true
+        },
+        showAutocompleteOnFocus: true
+      })
+
+      $(this).on('tokenfield:createtoken', function (event) {
+        var existingTokens = $(this).tokenfield('getTokens');
+        $.each(existingTokens, function(index, token) {
+            if (token.value === event.attrs.value)
+              event.preventDefault();
+        });
+      });
     })
   },
   formatPrice: (price, symbol='$',decimal=2) => {

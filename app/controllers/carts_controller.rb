@@ -4,7 +4,7 @@ class CartsController < ApplicationController
   def new
     @food_items = @restaurant.food_items
                              .accessible_by(current_ability)
-                             .where(type: params[:type])
+                             .tagged_with(params[:tag])
   end
 
   def add

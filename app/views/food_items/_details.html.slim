@@ -13,8 +13,8 @@
       th = FoodItem.human_attribute_name(:brand)
       td = food_item.brand
     tr 
-      th = FoodItem.human_attribute_name(:type)
-      td = food_item.type
+      th = FoodItem.human_attribute_name(:tag_list)
+      td = food_item.tag_list
     tr 
       th = FoodItem.human_attribute_name(:supplier)
       td = link_to food_item.supplier&.name, food_item.supplier, remote: true

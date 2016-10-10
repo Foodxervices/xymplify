@@ -10,15 +10,19 @@ class FoodItemFilter
 
   def result
     @food_items = @food_items.uniq.joins("LEFT JOIN suppliers ON food_items.supplier_id = suppliers.id")
-    @food_items = @food_items.where("
-                                    food_items.code  ILIKE :keyword OR 
-                                    food_items.name  ILIKE :keyword OR 
-                                    food_items.brand ILIKE :keyword OR 
-                                    food_items.type  ILIKE :keyword OR 
-                                    suppliers.name   ILIKE :keyword OR
-                                    kitchens.name    ILIKE :keyword 
-                                  ", keyword: "%#{keyword}%") if keyword.present?
     @food_items = @food_items.where('food_items.kitchen_id = ?', kitchen_id) if kitchen_id.present?
+
+    if keyword.present?
+      @food_items = @food_items.where("
+                                        food_items.code             ILIKE :keyword OR 
+                                        food_items.name             ILIKE :keyword OR 
+                                        food_items.brand            ILIKE :keyword OR 
+                                        food_items.cached_tag_list  ILIKE :keyword OR 
+                                        suppliers.name   ILIKE :keyword OR
+                                        kitchens.name    ILIKE :keyword
+                                      ", keyword: "%#{keyword}%") 
+    end
+
     @food_items
   end
 

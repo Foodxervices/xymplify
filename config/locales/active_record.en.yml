@@ -10,6 +10,7 @@ en:
         supplier_name: "Supplier"
         kitchen_name: "Kitchen"
         type: "Item type"
+        tag_list: "Item tags"
       supplier:
         name: "Company Name"
         contact: "Contact Person"

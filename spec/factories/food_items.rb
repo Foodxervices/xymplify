@@ -7,6 +7,7 @@ FactoryGirl.define do
     supplier
     kitchen
     category
+    tag_list              'Banana'
     sequence(:brand)    { |n| "Brand #{n}" }
     association :user ,   factory: :admin
   end

@@ -34,7 +34,7 @@ const InventoryItem = React.createClass({
     }, 500)  
   },
   render: function() {
-    const { name, supplier_name, kitchen_name, current_quantity, quantity_ordered, unit, unit_price, symbol, can_update_current_quantity, type } = this.props
+    const { name, supplier_name, kitchen_name, current_quantity, quantity_ordered, unit, unit_price, symbol, can_update_current_quantity, tag_list } = this.props
   
     return (
       <tr className="item">
@@ -54,7 +54,6 @@ const InventoryItem = React.createClass({
          <td className="quantity-ordered">{quantity_ordered}</td>
          <td className="unit-text">{unit}</td>
          <td className="unit-price"><Currency value={unit_price} symbol={symbol}/></td>
-         <td>{type}</td>
       </tr>
     );
   }

@@ -2,6 +2,8 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap_select/bootstrap_select
+//= require bootstrap_taggable/jquery-ui
+//= require bootstrap_taggable/bootstrap-tokenfield
 //= require bootstrap-tooltip
 //= require bootstrap-confirmation
 //= require bootstrap-fileinput/js/fileinput
