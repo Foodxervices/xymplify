@@ -26,6 +26,6 @@ class CartsController < ApplicationController
       end
     end
 
-    redirect_to :back, notice: "Your request was submitted successfully."
+    redirect_to [current_restaurant, :orders], notice: "Your request was submitted successfully."
   end
 end

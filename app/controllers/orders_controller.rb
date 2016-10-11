@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   load_and_authorize_resource :order, :through => :restaurant, :shallow => true
 
   def index
-    @orders = @orders.includes(:supplier).where.not(status: :wip).order(id: :desc)
+    @orders = @orders.includes(:supplier).where(status: status).order(id: :desc)
   end
 
   def show; end 
@@ -56,5 +56,9 @@ class OrdersController < ApplicationController
         :_destroy
       ]
     )
+  end
+
+  def status
+    params[:status] == 'archived' ? [:shipped, :cancelled] : :placed
   end
 end

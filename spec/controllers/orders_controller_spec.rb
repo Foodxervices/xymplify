@@ -4,6 +4,20 @@ describe OrdersController, :type => :controller do
   let!(:user) { create(:admin) }
   before      { sign_in user }  
 
+  describe '#index' do 
+    def do_request
+      get :index, restaurant_id: placed_order.restaurant.id
+    end
+
+    let!(:placed_order) { create(:order, status: :placed) }
+
+    it 'renders index view' do
+      do_request
+      expect(assigns(:orders).size).to eq 1
+      expect(response).to render_template :index
+    end
+  end
+
   describe '#edit' do 
     def do_request
       get :edit, id: order.id, format: :js

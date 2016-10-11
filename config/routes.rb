@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :food_items,  only: [:index, :new, :create]
     resources :categories,  only: [:index]
     resources :orders,      only: [:index]
+    get 'archived_pos' => 'orders#index', :as => :archived_pos, :defaults => { status: 'archived' }
 
     resources :carts,       only: [:new] do 
       collection do 
