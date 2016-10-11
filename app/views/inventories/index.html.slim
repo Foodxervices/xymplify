@@ -1,7 +1,7 @@
 - content_for :navbar_form do 
-  = render 'food_items/search', food_item_filter: @food_item_filter, url: [@restaurant, :inventories]
+  = render 'food_items/search', food_item_filter: @food_item_filter, url: [current_restaurant, :inventories]
 #inventories-index-container
   .table-responsive
-    = react_component('InventoryList', groups: @groups)
+    = react_component('InventoryList', groups: @groups, restaurant_currency_symbol: Money::Currency.new(current_restaurant.currency).symbol)
   .text-center          
     = will_paginate @food_items, renderer: BootstrapPagination::Rails

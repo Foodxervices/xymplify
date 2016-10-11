@@ -7,7 +7,8 @@ class Restaurant < ActiveRecord::Base
   has_many :orders, through: :kitchens
   has_many :food_items, through: :kitchens, dependent: :destroy
 
-  validates :name,   presence: true
+  validates :name,        presence: true
+  validates :currency,    presence: true
   validates :email,  email: true
 
   accepts_nested_attributes_for :kitchens, reject_if: :all_blank

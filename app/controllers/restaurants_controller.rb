@@ -75,6 +75,7 @@ class RestaurantsController < ApplicationController
       :contact_person,
       :telephone,
       :email,
+      :currency,
       kitchens_attributes: [
                     :id,
                     :name,

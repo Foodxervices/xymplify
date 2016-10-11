@@ -9,6 +9,7 @@
           = f.input :contact_person
           = f.input :telephone
           = f.input :email
+          = f.input :currency, collection: currency_codes
     h4 Kitchens
     = render partial: 'kitchens/form', locals: { restaurant_form: f }
 

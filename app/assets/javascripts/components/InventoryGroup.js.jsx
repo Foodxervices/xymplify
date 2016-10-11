@@ -51,7 +51,7 @@ const InventoryGroup = React.createClass({
     })
   },
   render: function() {
-    const { name } = this.props
+    const { name, restaurant_currency_symbol } = this.props
     const { currentQuantity, quantityOrdered, unitPrice, foodItems } = this.state
 
     return (
@@ -63,7 +63,7 @@ const InventoryGroup = React.createClass({
            <td>{currentQuantity}</td>
            <td>{quantityOrdered}</td>
            <td></td>
-           <td><Currency value={unitPrice}/></td>
+           <td><Currency value={unitPrice} symbol={restaurant_currency_symbol}/></td>
            <td></td>
         </tr>
         {

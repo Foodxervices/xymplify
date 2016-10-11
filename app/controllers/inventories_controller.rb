@@ -20,7 +20,7 @@ class InventoriesController < ApplicationController
         quantity_ordered: food_item.quantity_ordered,
         unit: food_item.unit,
         unit_price: food_item.unit_price.dollars,
-        default_unit_price: food_item.unit_price.exchange_to(:SGD).dollars,
+        default_unit_price: food_item.unit_price.exchange_to(current_restaurant.currency).dollars,
         symbol: food_item.unit_price.symbol,
         kitchen_name: food_item.kitchen&.name,
         restaurant_id: food_item.kitchen&.restaurant_id,
