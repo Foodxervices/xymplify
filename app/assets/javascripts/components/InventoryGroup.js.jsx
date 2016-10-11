@@ -43,7 +43,7 @@ const InventoryGroup = React.createClass({
     $.map(this.state.foodItems, function(foodItem, index) {
       currentQuantity += parseFloat(foodItem.current_quantity)
     })
-    return currentQuantity
+    return currentQuantity.toFixed(2)
   },
   toggleItems: function() {
     this.setState({

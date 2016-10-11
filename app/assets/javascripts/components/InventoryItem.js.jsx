@@ -1,9 +1,9 @@
 const InventoryItem = React.createClass({
   minusQuantity: function() {
-    this.updateCurrentQuantity(this.props.current_quantity - 1)
+    this.updateCurrentQuantity(parseFloat(this.props.current_quantity) - 1)
   },
   plusQuantity: function() {
-    this.updateCurrentQuantity(this.props.current_quantity + 1)
+    this.updateCurrentQuantity(parseFloat(this.props.current_quantity) + 1)
   },
   updateCurrentQuantity: function(nextCurrentQuantity) {
     nextCurrentQuantity = parseFloat(nextCurrentQuantity) || 0
