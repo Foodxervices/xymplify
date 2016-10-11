@@ -11,8 +11,9 @@ class OrdersController < ApplicationController
   def edit; end
 
   def update
+    authorize! "update_#{@order.status}".to_sym, @order
     @success = @order.update_attributes(order_params)
-
+  
     if @success
       @order.destroy if @order.items.empty?
     end
@@ -52,6 +53,7 @@ class OrdersController < ApplicationController
     params.require(:order).permit(
       items_attributes: [
         :id,
+        :unit_price,
         :quantity,
         :_destroy
       ]

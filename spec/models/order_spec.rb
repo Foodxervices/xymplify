@@ -20,7 +20,7 @@ describe Order do
       let!(:order) { create(:order) }
 
       it 'returns price' do
-        expect(order.price.to_i).to eq 80
+        expect(order.price.to_i).to eq 40
       end
     end
 

@@ -10,7 +10,8 @@ class Ability
       can :show, User
       can :read, Restaurant, { id: [] }
       can :read, Version
-      can [:update, :destroy], Order, { user_id: user.id, status: :wip }
+      can :update, Order
+      can [:update_wip, :destroy], Order, { user_id: user.id, status: :wip }
       
       user.user_roles.includes(:role).each do |user_role|
         kitchen_ids = user_role.kitchens.any? ? user_role.kitchens.ids : user_role.restaurant.kitchens.ids
@@ -26,7 +27,9 @@ class Ability
               can action, clazz.camelize.constantize, { id: user_role.restaurant_id }
             when 'supplier', 'user_role'
               can action, clazz.camelize.constantize, { restaurant_id: user_role.restaurant_id }
-            when 'food_item', 'order'
+            when 'food_item'
+              can action, clazz.camelize.constantize, { kitchen_id: kitchen_ids }
+            when 'order'
               can action, clazz.camelize.constantize, { kitchen_id: kitchen_ids }
             when 'kitchen'
               can action, clazz.camelize.constantize, { id: kitchen_ids }

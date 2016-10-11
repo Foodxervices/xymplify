@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+  before_action :disable_bullet, only: [:show]
   load_and_authorize_resource 
 
   def index

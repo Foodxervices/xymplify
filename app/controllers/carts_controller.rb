@@ -14,9 +14,9 @@ class CartsController < ApplicationController
 
     order = Order.find_or_create_by(user_id: current_user.id, kitchen_id: @food_item.kitchen_id, supplier_id: @food_item.supplier_id, status: :wip)
     item = order.items.find_or_create_by(food_item_id: @food_item.id)
-    item.quantity += params[:quantity].to_i
+    item.unit_price = @food_item.unit_price
+    item.quantity += params[:quantity].to_f
     item.save
-    
   end
 
   def purchase

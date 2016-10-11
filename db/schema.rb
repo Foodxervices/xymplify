@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011055706) do
+ActiveRecord::Schema.define(version: 20161011084853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,11 +26,11 @@ ActiveRecord::Schema.define(version: 20161011055706) do
     t.string   "unit"
     t.integer  "supplier_id"
     t.integer  "user_id"
-    t.integer  "current_quantity",    default: 0
-    t.integer  "quantity_ordered",    default: 0
+    t.decimal  "current_quantity",    precision: 8, scale: 2, default: 0.0
+    t.decimal  "quantity_ordered",    precision: 8, scale: 2, default: 0.0
     t.string   "brand"
-    t.integer  "unit_price_cents",    default: 0,  null: false
-    t.string   "unit_price_currency",              null: false
+    t.integer  "unit_price_cents",                            default: 0,   null: false
+    t.string   "unit_price_currency",                                       null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20161011055706) do
     t.integer  "kitchen_id"
     t.integer  "restaurant_id"
     t.integer  "category_id"
-    t.string   "cached_tag_list",     default: ""
+    t.string   "cached_tag_list",                             default: ""
   end
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree
@@ -68,15 +68,17 @@ ActiveRecord::Schema.define(version: 20161011055706) do
   add_index "kitchens_user_roles", ["user_role_id"], name: "index_kitchens_user_roles_on_user_role_id", using: :btree
 
   create_table "order_items", force: :cascade do |t|
-    t.integer "unit_price_cents",    default: 0,     null: false
-    t.string  "unit_price_currency", default: "SGD", null: false
-    t.integer "quantity",            default: 0
+    t.integer "unit_price_cents",                            default: 0,     null: false
+    t.string  "unit_price_currency",                         default: "SGD", null: false
+    t.decimal "quantity",            precision: 8, scale: 2, default: 0.0
     t.integer "order_id"
     t.integer "food_item_id"
+    t.integer "restaurant_id"
   end
 
   add_index "order_items", ["food_item_id"], name: "index_order_items_on_food_item_id", using: :btree
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
+  add_index "order_items", ["restaurant_id"], name: "index_order_items_on_restaurant_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.integer  "supplier_id"

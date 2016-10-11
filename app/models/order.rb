@@ -23,7 +23,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
   def price 
-    items.includes(:food_item, :order).map(&:total_price).inject(0, :+)
+    items.includes(:food_item).map(&:total_price).inject(0, :+)
   end
 
   def self.price 
@@ -49,7 +49,6 @@ class Order < ActiveRecord::Base
 
       case status_change 
         when ["wip", "placed"]
-          item.update_columns(unit_price_cents: food_item.unit_price_cents, unit_price_currency: food_item.unit_price_currency)
           food_item.update_column(:quantity_ordered, food_item.quantity_ordered + item.quantity)
         when ["placed", "shipped"] 
           food_item.update_columns(current_quantity: food_item.current_quantity + item.quantity, quantity_ordered: food_item.quantity_ordered - item.quantity)

@@ -95,3 +95,13 @@ table {
   }
 }
 /* MODAL */
+
+/* FORM */
+input[type=number] {
+  text-align: center;
+}
+
+.bootstrap-select.form-control:not([class*=span]):not([class*=col-]) {
+  max-width: 1000px;
+}
+/* FORM */

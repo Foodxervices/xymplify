@@ -49,4 +49,8 @@ class ApplicationController < ActionController::Base
   def resource
     eval("@#{controller_name.classify.underscore.to_sym}")
   end
+
+  def disable_bullet
+    Bullet.enable = false if Rails.env.development?
+  end
 end

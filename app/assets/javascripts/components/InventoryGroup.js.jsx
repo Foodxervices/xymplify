@@ -32,7 +32,7 @@ const InventoryGroup = React.createClass({
     totalPrice = quantity = 0
 
     $.map(this.state.foodItems, function(foodItem, index) {
-      quantity += foodItem.current_quantity
+      quantity += parseFloat(foodItem.current_quantity)
       totalPrice += foodItem.current_quantity * foodItem.default_unit_price
     })
 
@@ -41,7 +41,7 @@ const InventoryGroup = React.createClass({
   getCurrentQuantity: function() {
     let currentQuantity = 0
     $.map(this.state.foodItems, function(foodItem, index) {
-      currentQuantity += foodItem.current_quantity
+      currentQuantity += parseFloat(foodItem.current_quantity)
     })
     return currentQuantity
   },
@@ -64,7 +64,6 @@ const InventoryGroup = React.createClass({
            <td>{quantityOrdered}</td>
            <td></td>
            <td><Currency value={unitPrice} symbol={restaurant_currency_symbol}/></td>
-           <td></td>
         </tr>
         {
           this.state.showItems &&

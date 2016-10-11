@@ -3,6 +3,9 @@ class OrderItem < ActiveRecord::Base
   
   belongs_to :order
   belongs_to :food_item
+  belongs_to :restaurant
+
+  before_save :cache_restaurant
 
   monetize :unit_price_cents
 
@@ -12,11 +15,16 @@ class OrderItem < ActiveRecord::Base
   validates :food_item_id,  presence: true
   validates :quantity,      presence: true
 
-  def current_unit_price
-    order.status.wip? ? food_item.unit_price : unit_price
+  def name 
+    food_item&.name
   end
 
   def total_price
-    current_unit_price * quantity
+    unit_price * quantity
+  end
+
+  private 
+  def cache_restaurant
+    self.restaurant_id = order.restaurant_id if restaurant_id.nil?
   end
 end

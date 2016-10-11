@@ -9,7 +9,11 @@ module ActivityHelper
     if activity.item.nil?
       item_link = activity.reify.name if activity.reify.present?
     else
-      item_link = link_to_if(can?(:read, activity.item), activity.item.name, activity.item, remote: true)  
+      if activity.item_type == 'OrderItem'
+        item_link = link_to_if(can?(:read, activity.item.order), activity.item.name, activity.item.order, remote: true)  
+      else
+        item_link = link_to_if(can?(:read, activity.item), activity.item.name, activity.item, remote: true)  
+      end
     end
     
     "#{user_link} #{event} #{kclass.model_name.human} #{item_link} #{time_ago_in_words(activity.created_at)} ago".html_safe

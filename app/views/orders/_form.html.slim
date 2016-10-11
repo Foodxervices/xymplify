@@ -4,6 +4,7 @@
       thead
         tr
           th Item Name
+          th.text-center Currency
           th.text-center Unit Price
           th.text-center Quantity
           th.text-center UOM
@@ -13,9 +14,10 @@
           tr.fields
             - item = item_form.object
             td = item.food_item&.name
-            td.text-right = humanized_money_with_symbol(item.total_price)
+            td.text-center = item.unit_price_currency
+            td.text-right = item_form.input :unit_price, as: :float
             td.text-center = item_form.input :quantity
-            td.text-right = item.food_item&.unit
+            td.text-center = item.food_item&.unit
             td.text-center = item_form.link_to_remove "Remove"
     .text-right
       = f.button :submit

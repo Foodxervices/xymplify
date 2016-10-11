@@ -1,9 +1,9 @@
-.orders-details-container
+.orders-details-container rel=order.id
   table.table.table-striped.table-bordered
     tbody
       tr 
         td colspan="10" = link_to_if can?(:read, order.supplier), order.supplier&.name, order.supplier, remote: true
-      - order.items.includes(:food_item, :order).each do |item|
+      - order.items.includes(:food_item).each do |item|
         tr 
           td = link_to_if can?(:read, item.food_item), item.food_item&.name, item.food_item, remote: true
           td = "#{item.quantity} x #{item.food_item&.unit}"
@@ -15,6 +15,8 @@
         td.text-center = humanized_money_with_symbol(order.price)
   .text-right 
     .btn-group 
+      - if can?("update_#{order.status}".to_sym, order) 
+        = link_to 'Edit PO', [:edit, order], remote: true, class: 'btn btn-default'   
       - if can?(:mark_as_shipped, order)
         = link_to 'Mark as Shipped', '#', data: { toggle: "confirmation", href: mark_as_shipped_order_path(order), link_method: 'patch' }, class: 'btn btn-primary'
       - if can?(:mark_as_cancelled, order)

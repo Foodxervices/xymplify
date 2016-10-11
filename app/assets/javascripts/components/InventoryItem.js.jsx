@@ -6,7 +6,7 @@ const InventoryItem = React.createClass({
     this.updateCurrentQuantity(this.props.current_quantity + 1)
   },
   updateCurrentQuantity: function(nextCurrentQuantity) {
-    nextCurrentQuantity = parseInt(nextCurrentQuantity) || 0
+    nextCurrentQuantity = parseFloat(nextCurrentQuantity) || 0
     
     if(nextCurrentQuantity < 0) {
       nextCurrentQuantity = 0 

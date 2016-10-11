@@ -28,3 +28,6 @@ en:
         order__read:                          "Order      :: Read"
         order__mark_as_shipped:               "Order      :: Mark as Shipped"
         order__mark_as_cancelled:             "Order      :: Mark as Cancelled"
+        order__update_placed:                 "Order      :: Update Placed PO"
+        order__update_shipped:                "Order      :: Update Shipped PO"
+        order__update_cancelled:              "Order      :: Update Cancelled PO"

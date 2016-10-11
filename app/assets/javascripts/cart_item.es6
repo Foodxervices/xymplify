@@ -17,7 +17,7 @@ const CartItem = function(item) {
 }
 
 CartItem.prototype.quantity = function() {
-  return parseInt(this.quantityInput.val())
+  return parseFloat(this.quantityInput.val())
 }
 
 CartItem.prototype.submit = function() {
