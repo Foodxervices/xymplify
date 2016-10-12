@@ -6,6 +6,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :restaurant
 
   before_save :cache_restaurant
+  before_save :update_quantity_ordered
 
   monetize :unit_price_cents
 
@@ -26,5 +27,11 @@ class OrderItem < ActiveRecord::Base
   private 
   def cache_restaurant
     self.restaurant_id = order.restaurant_id if restaurant_id.nil?
+  end
+
+  def update_quantity_ordered
+    if quantity_changed? && !order.status_changed? && order.status.placed? 
+      food_item.update_column(:quantity_ordered, food_item.quantity_ordered + (quantity - quantity_was))
+    end
   end
 end
