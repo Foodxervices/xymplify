@@ -15,6 +15,6 @@ class UserRole < ActiveRecord::Base
   validates :restaurant_id, presence: true
 
   def name
-    "#{user.name}'s Role"
+    "#{user&.name}'s Role"
   end
 end
