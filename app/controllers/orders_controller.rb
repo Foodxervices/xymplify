@@ -6,14 +6,22 @@ class OrdersController < ApplicationController
     @orders = @orders.includes(:supplier).where(status: status).order(id: :desc)
   end
 
-  def show; end 
+  def show
+    respond_to do |format|
+      format.js
+      format.pdf do 
+        render pdf: @order.name,
+               layout: 'main'
+      end
+    end
+  end 
   
   def edit; end
 
   def update
     authorize! "update_#{@order.status}".to_sym, @order
     @success = @order.update_attributes(order_params)
-  
+    
     if @success
       @order.destroy if @order.items.empty?
     end

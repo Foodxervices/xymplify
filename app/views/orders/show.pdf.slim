@@ -1,0 +1,21 @@
+#pdf-orders-show-container
+  h1 Purchase Order
+
+  table#restaurant-info
+    tr
+      th To:
+      td
+        h2 = current_restaurant.name 
+        p = current_restaurant.billing_address
+        p = "Phone: #{current_restaurant.telephone}"
+
+  table#po-info
+    tr 
+      th P/O No.
+      td = @order.code
+    tr 
+      th Date of Delivery
+      td = format_date @order.delivery_at
+    tr
+      th Currency
+      td = @order.currency

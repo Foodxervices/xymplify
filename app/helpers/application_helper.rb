@@ -2,7 +2,7 @@ require 'numeric'
 
 module ApplicationHelper
   def format_date(date)
-    date.try(:strftime, '%d %b %Y')
+    date.try(:strftime, '%a, %d %b %Y')
   end
   
   def currency_codes

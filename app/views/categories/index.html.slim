@@ -2,15 +2,18 @@
   = render 'orders/menu'
 #categories-index-container
   .row
+    .col-md-8
+      = render 'food_items/search', food_item_filter: @food_item_filter, url: [@restaurant, :categories]
+  .row
     .col-md-4.col-md-push-8
       #cart-details
         = render 'carts/details', orders: @orders
     .col-md-8.col-md-pull-4
-      - @categories.each do |name, tags|
+      - @categories.each do |name, category|
         h4 = name
         .row
-          - tags.each do |tag|
+          - category.each do |tag, ids|
             .col-md-4
-              = link_to tag, [:new, @restaurant, :cart, tag: tag], remote: true, class: 'item-tag'
+              = link_to tag, [:new, @restaurant, :cart, ids: ids], remote: true, class: 'item-tag'
     
 

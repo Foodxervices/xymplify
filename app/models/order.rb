@@ -4,6 +4,7 @@ class Order < ActiveRecord::Base
   extend Enumerize
 
   before_save :cache_restaurant
+  before_save :set_delivery_at
   after_save :set_item_price
 
   has_many :items, class_name: "OrderItem", dependent: :destroy
@@ -21,6 +22,8 @@ class Order < ActiveRecord::Base
   enumerize :status, in: [:wip, :placed, :shipped, :cancelled], default: :wip
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
+
+  delegate :currency, to: :supplier, allow_nil: true
 
   def price 
     items.includes(:food_item).map(&:total_price).inject(0, :+)
@@ -43,10 +46,16 @@ class Order < ActiveRecord::Base
     self.restaurant_id = kitchen.restaurant_id if restaurant_id.nil?
   end
 
+  def set_delivery_at
+    if status_change == ["placed", "shipped"]
+      self.delivery_at = Time.zone.now
+    end
+  end
+
   def set_item_price
     items.includes(:food_item).each do |item|
       food_item = item.food_item
-
+      
       case status_change 
         when ["wip", "placed"]
           food_item.update_column(:quantity_ordered, food_item.quantity_ordered + item.quantity)
