@@ -10,7 +10,7 @@ class OrderGst < ActiveRecord::Base
   before_save :cache_amount
 
   validates :name,      presence: true
-  validates :percent,   presence: true, numericality: { greater_than: 0 }
+  validates :percent,   presence: true, numericality: { greater_than: 0, less_than: 100 }
 
   def self.amount 
     all.map(&:amount).inject(0, :+)
