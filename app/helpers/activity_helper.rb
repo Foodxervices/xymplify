@@ -9,7 +9,7 @@ module ActivityHelper
     if activity.item.nil?
       item_link = activity.reify.name if activity.reify.present?
     else
-      if activity.item_type == 'OrderItem'
+      if ['OrderItem', 'OrderGst'].include?(activity.item_type)
         item_link = link_to_if(can?(:read, activity.item.order), activity.item&.name, activity.item.order, remote: true)  
       else
         item_link = link_to_if(can?(:read, activity.item), activity.item&.name, activity.item, remote: true) if activity.item 
