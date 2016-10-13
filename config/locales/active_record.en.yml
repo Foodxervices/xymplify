@@ -16,6 +16,9 @@ en:
         name: "Company Name"
         contact: "Contact Person"
         bank_swift_code: "Bank SWIFT code"
+        company_registration_no: "Company ID"
+      restaurant: 
+        company_registration_no: "Company ID"
       kitchen:
         name: "Kitchen Name"
         bank_swift_code: "Bank SWIFT code"

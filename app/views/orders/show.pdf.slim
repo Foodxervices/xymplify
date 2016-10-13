@@ -6,6 +6,7 @@
       th To:
       td
         h2 = @supplier.name 
+        p = @supplier.company_registration_no
         p = @supplier.address
         p = "Phone: #{@supplier.telephone}" if @supplier.telephone.present?
 
@@ -53,10 +54,10 @@
         th Qty
         th Amount
     tbody
-      - @items.each do |item|
+      - @items.each_with_index do |item, i|
         - food_item = item.food_item
         tr
-          td = item.id
+          td = "#{i + 1}."
           td = food_item&.code
           td = food_item&.name
           td = food_item&.unit

@@ -1,7 +1,10 @@
 .restaurants-form-container
   = simple_nested_form_for restaurant, wrapper: :table_form do |f|
     .row
-      .col-md-6
+      .col-md-4.col-md-push-8.text-center
+        - if restaurant.logo.exists?
+          = image_tag restaurant.logo.url(:medium) 
+      .col-md-8.col-md-pull-4
         table.table.table-bordered
           = f.input :name
           = f.input :site_address
@@ -10,6 +13,10 @@
           = f.input :telephone
           = f.input :email
           = f.input :currency, collection: currency_codes
+          = f.input :company_registration_no
+          tr 
+            th Logo
+            td = f.input :logo, label: false, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg"} }
     h4 Kitchens
     = render partial: 'kitchens/form', locals: { restaurant_form: f }
 

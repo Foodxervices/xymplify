@@ -1,20 +1,30 @@
 .suppliers-form-container
-  = simple_form_for [@restaurant, supplier] do |f|
+  = simple_form_for [@restaurant, supplier], wrapper: :table_form do |f|
     .form-inputs
       .row
+        .col-md-8
+          table.table.table-bordered
+            = f.input :name
+            tr 
+              th Logo
+              td = f.input :logo, label: false, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg"} }
+            = f.input :address
+            = f.input :country
+      .row
         .col-md-6
-          = f.input :name
-          = f.input :address
-          = f.input :country
-          = f.input :contact
-          = f.input :telephone
-          = f.input :email
-          = f.input :currency, collection: currency_codes
-          = f.input :bank_name
-          = f.input :bank_address
-          = f.input :bank_swift_code
-          = f.input :bank_account_name
-          = f.input :bank_account_number
+          table.table.table-bordered
+            = f.input :contact
+            = f.input :telephone
+            = f.input :email
+            = f.input :currency, collection: currency_codes
+            = f.input :company_registration_no
+        .col-md-6
+          table.table.table-bordered
+            = f.input :bank_name
+            = f.input :bank_address
+            = f.input :bank_swift_code
+            = f.input :bank_account_name
+            = f.input :bank_account_number
 
     .form-actions
       = f.button :submit

@@ -9,6 +9,9 @@ class Supplier < ActiveRecord::Base
   validates :name,            presence: true
   validates :restaurant_id,   presence: true
   validates :email,           email: true
+  
+  has_attached_file :logo, styles: { thumb: "80x80#", medium: "300x300#" }
+  validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
 
   def country_name
     ISO3166::Country[country]

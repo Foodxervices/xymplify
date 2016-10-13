@@ -18,6 +18,9 @@
     tr 
       th = Restaurant.human_attribute_name(:currency)
       td = restaurant.currency
+    tr 
+      th = Restaurant.human_attribute_name(:company_registration_no)
+      td = restaurant.company_registration_no
   .row    
     - restaurant.kitchens.includes(:restaurant).each do |kitchen|
       .col-md-6

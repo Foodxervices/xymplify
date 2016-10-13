@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161013025303) do
+ActiveRecord::Schema.define(version: 20161013062533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,13 +99,18 @@ ActiveRecord::Schema.define(version: 20161013025303) do
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "restaurants", force: :cascade do |t|
-    t.string "name"
-    t.string "site_address"
-    t.string "billing_address"
-    t.string "contact_person"
-    t.string "telephone"
-    t.string "email"
-    t.string "currency",        default: "SGD"
+    t.string   "name"
+    t.string   "site_address"
+    t.string   "billing_address"
+    t.string   "contact_person"
+    t.string   "telephone"
+    t.string   "email"
+    t.string   "currency",                default: "SGD"
+    t.string   "company_registration_no"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -114,19 +119,24 @@ ActiveRecord::Schema.define(version: 20161013025303) do
   end
 
   create_table "suppliers", force: :cascade do |t|
-    t.string  "name"
-    t.string  "address"
-    t.string  "country"
-    t.string  "contact"
-    t.string  "telephone"
-    t.string  "email"
-    t.string  "currency",            default: "SGD"
-    t.integer "restaurant_id"
-    t.string  "bank_name"
-    t.string  "bank_address"
-    t.string  "bank_swift_code"
-    t.string  "bank_account_name"
-    t.string  "bank_account_number"
+    t.string   "name"
+    t.string   "address"
+    t.string   "country"
+    t.string   "contact"
+    t.string   "telephone"
+    t.string   "email"
+    t.string   "currency",                default: "SGD"
+    t.integer  "restaurant_id"
+    t.string   "bank_name"
+    t.string   "bank_address"
+    t.string   "bank_swift_code"
+    t.string   "bank_account_name"
+    t.string   "bank_account_number"
+    t.string   "company_registration_no"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   add_index "suppliers", ["restaurant_id"], name: "index_suppliers_on_restaurant_id", using: :btree

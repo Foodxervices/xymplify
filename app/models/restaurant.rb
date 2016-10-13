@@ -11,6 +11,9 @@ class Restaurant < ActiveRecord::Base
   validates :currency,    presence: true
   validates :email,  email: true
 
+  has_attached_file :logo, styles: { thumb: "80x80#", medium: "300x300#" }
+  validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
+
   accepts_nested_attributes_for :kitchens, reject_if: :all_blank
 
   def to_param

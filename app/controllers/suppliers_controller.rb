@@ -58,6 +58,8 @@ class SuppliersController < ApplicationController
       :telephone,
       :email,
       :currency,
+      :company_registration_no,
+      :logo,
       :bank_name,
       :bank_address,
       :bank_swift_code,

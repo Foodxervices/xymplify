@@ -4,5 +4,10 @@ html
     meta charset="utf-8" /
     = stylesheet_link_tag wicked_pdf_asset_base64("pdf") 
 
-  body 
+  body#pdf-layouts-main-container
+    #head
+      #logo = wicked_pdf_image_tag current_restaurant.logo.url(:thumb) 
+      #restaurant
+        h1 = current_restaurant.name
+        p = current_restaurant.company_registration_no
     = yield 

@@ -1,0 +1,28 @@
+#pdf-layouts-main-container {
+  #head {
+    position: relative;
+    height: 80px;
+
+    #logo {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #restaurant {
+      padding-left: 100px;
+
+      h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+      }
+
+      p {
+        margin: 0;
+        padding: 0; 
+        font-size: 14px;
+      }
+    }
+  }
+}

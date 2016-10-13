@@ -1,5 +1,9 @@
 .suppliers-details-container
   table.table.table-bordered
+    - if @supplier.logo.exists?
+      tr 
+        th = Supplier.human_attribute_name(:logo)
+        td = image_tag supplier.logo.url(:thumb) 
     tr 
       th = Supplier.human_attribute_name(:country)
       td = supplier.country
@@ -18,6 +22,9 @@
     tr 
       th = Supplier.human_attribute_name(:currency)
       td = supplier.currency
+    tr 
+      th = Supplier.human_attribute_name(:company_registration_no)
+      td = supplier.company_registration_no
     tr 
       th = Supplier.human_attribute_name(:bank_name)
       td = supplier.bank_name

@@ -77,6 +77,8 @@ class RestaurantsController < ApplicationController
       :telephone,
       :email,
       :currency,
+      :company_registration_no,
+      :logo,
       kitchens_attributes: [
                     :id,
                     :name,
