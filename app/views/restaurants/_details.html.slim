@@ -15,6 +15,9 @@
     tr 
       th = Restaurant.human_attribute_name(:email)
       td = restaurant.email
+    tr 
+      th = Restaurant.human_attribute_name(:currency)
+      td = restaurant.currency
   .row    
     - restaurant.kitchens.includes(:restaurant).each do |kitchen|
       .col-md-6

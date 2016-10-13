@@ -78,7 +78,7 @@ class FoodItemImport
       food_item.user_id     = user_id
       food_item.kitchen_id  = kitchen_id
       food_item.category_id = category.id
-      food_item.unit_price_currency = "" if food_item.new_record?
+      food_item.unit_price_currency = supplier.currency if food_item.new_record?
       food_items << food_item 
     end
 

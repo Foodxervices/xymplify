@@ -18,6 +18,7 @@
           th = Restaurant.human_attribute_name(:telephone)
           th = Restaurant.human_attribute_name(:email)
           th = Restaurant.human_attribute_name(:kitchens)
+          th.text-center = Restaurant.human_attribute_name(:currency)
           th.text-center Action
       tbody 
         - @restaurants.each do |restaurant|
@@ -29,6 +30,7 @@
             td = restaurant.telephone
             td = restaurant.email
             td = comma_seperated_links_for_kitchens(restaurant.kitchens)
+            td.text-center = restaurant.currency
             td.text-center
               ul.actions
                 li = link_to 'Show', restaurant
