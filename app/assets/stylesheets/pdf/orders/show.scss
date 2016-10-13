@@ -5,10 +5,19 @@
     text-align: center;
   }
 
+  .text-center {
+    text-align: center;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
   table {
     th, td {
       vertical-align: baseline;
       text-align: left;
+      font-weight: normal;
     }
 
     h2, p {
@@ -20,6 +29,7 @@
     h2 {
       text-transform: uppercase;
       font-size: 16px;
+      font-weight: normal;
     }
 
     p {
@@ -27,22 +37,73 @@
     }
   }
 
-  #restaurant-info {
+  #restaurant-info, #delivery-info {
     width: 48%;
     float: left;
+  }
 
+  #billing-info, #po-info {
+    width: 48%;
+    float: right;
+  }
+
+  #restaurant-info {
     th {
       width: 50px;
     } 
   }
 
   #po-info {
-    width: 48%;
-    float: right;
     margin-top: 2px;
 
     th {
       width: 130px;
     } 
+  }
+
+  #delivery-info, #billing-info {
+    h3 {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    p {
+      margin-top: 3px;
+      padding-top: 0;
+    }
+  }
+
+  .clearfix {
+    clear: both;
+  }
+
+  #order-items {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 5px;
+      border: 1px solid #dedede;
+    }
+
+    th {
+      text-align: center;
+    }
+
+    tfoot {
+      td {
+        text-align: right;
+      }
+    }
+  }
+
+  #payment-details, #remarks {
+    p {
+      margin: 0;
+    }
+
+    h3 {
+      margin: 20px 0 5px 0;
+    }
   }
 }

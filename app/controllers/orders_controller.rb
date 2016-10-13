@@ -10,8 +10,11 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.js
       format.pdf do 
-        @supplier = @order.supplier
-        
+        @supplier     = @order.supplier
+        @kitchen      = @order.kitchen
+        @restaurant   = @kitchen.restaurant
+        @items        = @order.items.includes(:food_item)
+
         render pdf: @order.name,
                layout: 'main'
       end
