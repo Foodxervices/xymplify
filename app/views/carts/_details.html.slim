@@ -37,6 +37,6 @@
     hr
 
   .text-right
-    h3 = "Total: #{humanized_money_with_symbol(current_orders.price.exchange_to(current_restaurant.currency))}"
+    h3 = "Total: #{humanized_money_with_symbol(current_orders.price_with_gst.exchange_to(current_restaurant.currency))}"
   - if current_orders.any?
     = link_to 'Purchase', [:purchase, current_restaurant, :carts], method: :post, class: 'btn btn-primary btn-block', data: { :disable_with => "Purchasing..." }

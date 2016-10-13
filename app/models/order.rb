@@ -39,6 +39,10 @@ class Order < ActiveRecord::Base
     gsts.amount
   end
 
+  def self.gst 
+    all.map(&:gst).inject(0, :+)
+  end
+
   def price_with_gst
     price + gst
   end
