@@ -6,8 +6,10 @@ html
 
   body#pdf-layouts-main-container
     #head
-      #logo = wicked_pdf_image_tag current_restaurant.logo.url(:thumb) 
+      - if current_restaurant.logo.exists?
+        #logo = wicked_pdf_image_tag current_restaurant.logo.url(:thumb) 
       #restaurant
         h1 = current_restaurant.name
         p = current_restaurant.company_registration_no
+      .clearfix
     = yield 

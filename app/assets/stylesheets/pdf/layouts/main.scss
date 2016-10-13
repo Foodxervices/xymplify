@@ -1,17 +1,13 @@
 #pdf-layouts-main-container {
   #head {
-    position: relative;
     height: 80px;
 
     #logo {
-      position: absolute;
-      top: 0;
-      left: 0;
+      float: left; 
+      padding-right: 20px;
     }
 
     #restaurant {
-      padding-left: 100px;
-
       h1 {
         margin: 0;
         padding: 0;
