@@ -14,7 +14,7 @@ class OrderItem < ActiveRecord::Base
 
   validates :order_id,      presence: true
   validates :food_item_id,  presence: true
-  validates :quantity,      presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :quantity,      presence: true, numericality: { greater_than: 0 }
 
   def name 
     food_item&.name

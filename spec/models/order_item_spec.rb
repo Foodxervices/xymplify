@@ -5,7 +5,7 @@ describe OrderItem do
     it { is_expected.to validate_presence_of :order_id }
     it { is_expected.to validate_presence_of :food_item_id }
     it { is_expected.to validate_presence_of :quantity }
-    it { is_expected.to validate_numericality_of(:quantity).is_greater_than_or_equal_to(0) }
+    it { is_expected.to validate_numericality_of(:quantity).is_greater_than(0) }
   end
 
   context 'associations' do 
