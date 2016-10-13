@@ -10,6 +10,8 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.js
       format.pdf do 
+        @supplier = @order.supplier
+        
         render pdf: @order.name,
                layout: 'main'
       end

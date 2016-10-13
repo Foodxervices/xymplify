@@ -4,6 +4,12 @@
       th = Kitchen.human_attribute_name(:name)
       td = chicken_link(kitchen)
     tr 
+      th = Kitchen.human_attribute_name(:address)
+      td = kitchen.address
+    tr 
+      th = Kitchen.human_attribute_name(:phone)
+      td = kitchen.phone
+    tr 
       th = Kitchen.human_attribute_name(:bank_name)
       td = kitchen.bank_name
     tr 

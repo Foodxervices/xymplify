@@ -16,17 +16,17 @@ puts "==== End ===="
 puts "==== Create Restaurant ===="
 Restaurant.create([
   { 
-    name: 'Windsor', site_address: 'http://windsoraz.com', billing_address: '18 An Dương Vương, phường 9, Hồ Chí Minh, 67337', contact_person: 'James La', telephone: '+84933557739', email: 'jamesla0604@gmail.com', 
+    name: 'Saveur Pte Ltd', site_address: 'http://saveur.com', billing_address: '100 Lorong 23 Geylang #09-03', contact_person: 'Eunice Lee', telephone: '97484654', email: 'order@saveur.sg', 
     kitchens_attributes: [
-      { name: 'Kitchen 1' }, 
-      { name: 'Kitchen 2' }
+      { name: 'Saveur Art Ion Orchard', address: '2 Orchard Turn, #04-11, ION Orchard, 238801', phone: '90608421' }, 
+      { name: 'Saveur Art Ion Orchard 2', address: '2 Orchard Turn, #04-11, ION Orchard, 238801', phone: '90608421' }
     ] 
   },
   { 
-    name: 'Ai Hue', site_address: 'http://aihue.com', billing_address: '412 418 11 P 11, Q 5, Trần Hưng Đạo, Hồ Chí Minh', contact_person: 'La Hong Phat', telephone: '+84838555802', email: 'phatlh90@gmail.com', 
+    name: 'Windsor Pte Ltd', site_address: 'http://windsor.com', billing_address: '100 Lorong 23 Geylang #09-03', contact_person: 'Eunice Lee', telephone: '97484654', email: 'order@windsor.sg', 
     kitchens_attributes: [
-      { name: 'Kitchen A' }, 
-      { name: 'Kitchen B' }
+      { name: 'Windsor Art Ion Orchard', address: '2 Orchard Turn, #04-11, ION Orchard, 238801', phone: '90608421' }, 
+      { name: 'Windsor Art Ion Orchard 2', address: '2 Orchard Turn, #04-11, ION Orchard, 238801', phone: '90608421' }, 
     ] 
   }
 ])

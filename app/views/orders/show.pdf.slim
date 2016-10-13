@@ -5,9 +5,9 @@
     tr
       th To:
       td
-        h2 = current_restaurant.name 
-        p = current_restaurant.billing_address
-        p = "Phone: #{current_restaurant.telephone}"
+        h2 = @supplier.name 
+        p = @supplier.address
+        p = "Phone: #{@supplier.telephone}"
 
   table#po-info
     tr 

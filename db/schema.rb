@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011161928) do
+ActiveRecord::Schema.define(version: 20161013025303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20161011161928) do
     t.string  "bank_swift_code"
     t.string  "bank_account_name"
     t.string  "bank_account_number"
+    t.string  "address"
+    t.string  "phone"
   end
 
   add_index "kitchens", ["restaurant_id"], name: "index_kitchens_on_restaurant_id", using: :btree

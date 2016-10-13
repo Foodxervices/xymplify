@@ -34,11 +34,6 @@ class FoodItem < ActiveRecord::Base
   before_validation :set_currency, if: 'unit_price_currency.blank?'
 
   def self.random_group
-    Restaurant.all.each do |restaurant|
-      Supplier.create(name: 'F&N Food', currency: 'VND', restaurant: restaurant)
-      Supplier.create(name: 'The Cornish Sea Salt Company', currency: 'MYR', restaurant: restaurant)
-    end
-
     FoodItem.all.includes(:restaurant).each do |food_item|
       random_supplier = food_item.restaurant.suppliers.sample
       random_category = Category.all.sample

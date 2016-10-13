@@ -80,6 +80,8 @@ class RestaurantsController < ApplicationController
       kitchens_attributes: [
                     :id,
                     :name,
+                    :address,
+                    :phone,
                     :bank_name,
                     :bank_address,
                     :bank_swift_code,

@@ -8,7 +8,7 @@ class FoodItemImport
   attr_accessor :file
 
   def initialize(attributes = {})
-    @supplier_name = 'FoodXervices'
+    @supplier_name = 'Foodxervices inc pte ltd'
     attributes.each { |name, value| send("#{name}=", value) }
   end
 
