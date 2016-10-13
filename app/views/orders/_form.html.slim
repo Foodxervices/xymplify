@@ -19,6 +19,20 @@
             td.text-center = item_form.input :quantity
             td.text-center = item.food_item&.unit
             td.text-center = item_form.link_to_remove "Remove"
+
+    table.table.table-bordered
+      tbody#gsts_form
+        = f.simple_fields_for :gsts, :wrapper => false, defaults: { label: false } do |gst_form|
+          tr.fields
+            td.text-right GST
+            td = gst_form.input :name
+            td.text-right Percent
+            td.text-center = gst_form.input :percent
+            td.text-center %
+            td.text-center = gst_form.link_to_remove "Remove"
+
     .text-right
-      = f.button :submit
+      .btn-group
+        = f.link_to_add "Add GST", :gsts, data: { target: "#gsts_form" }, class: 'btn btn-default'
+        = f.button :submit
             

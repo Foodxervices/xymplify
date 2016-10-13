@@ -7,12 +7,21 @@
         tr 
           td = link_to_if can?(:read, item.food_item), item.food_item&.name, item.food_item, remote: true
           td = "#{item.quantity} x #{item.food_item&.unit}"
-          td.text-center = humanized_money_with_symbol(item.unit_price)
-          td.text-center = humanized_money_with_symbol(item.total_price)
+          td.text-right = humanized_money_with_symbol(item.unit_price)
+          td.text-right = humanized_money_with_symbol(item.total_price)
     tfoot
-      tr
-        td.text-right colspan="3" Total Price
-        td.text-center = humanized_money_with_symbol(order.price)
+      - if order.gsts.size != 0
+        tr
+          td.text-right colspan="3" Subtotal
+          td.text-right = humanized_money_with_symbol(order.price)
+        - order.gsts.each do |gst|
+          tr
+            td.text-right colspan="3" = "#{gst.name} #{gst.percent}%"
+            td.text-right = humanized_money_with_symbol(gst.amount)
+      tr 
+        td.text-right colspan="3" Total
+        td.text-right = humanized_money_with_symbol(order.price_with_gst)
+
   .text-right 
     .btn-group 
       - if can?("update_#{order.status}".to_sym, order) 

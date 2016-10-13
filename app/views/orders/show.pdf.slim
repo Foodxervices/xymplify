@@ -65,9 +65,17 @@
           td.text-right = item.quantity
           td.text-right = humanized_money_with_symbol(item.total_price)
     tfoot
-      tr
-        td colspan="6" Subtotal
-        td = humanized_money_with_symbol(@order.price)
+      - if @order.gsts.size != 0
+        tr
+          td.text-right colspan="6" Subtotal
+          td.text-right = humanized_money_with_symbol(@order.price)
+        - @order.gsts.each do |gst|
+          tr
+            td.text-right colspan="6" = "#{gst.name} #{gst.percent}%"
+            td.text-right = humanized_money_with_symbol(gst.amount)
+      tr 
+        td.text-right colspan="6" Total
+        td.text-right = humanized_money_with_symbol(@order.price_with_gst)
   
   - if @kitchen.bank_name.present?
     #payment-details

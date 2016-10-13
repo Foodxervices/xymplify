@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   load_and_authorize_resource :order, :through => :restaurant, :shallow => true
 
   def index
-    @orders = @orders.includes(:supplier).where(status: status).order(id: :desc)
+    @orders = @orders.includes(:supplier, :gsts).where(status: status).order(id: :desc)
   end
 
   def show
@@ -68,6 +68,12 @@ class OrdersController < ApplicationController
         :id,
         :unit_price,
         :quantity,
+        :_destroy
+      ],
+      gsts_attributes: [
+        :id,
+        :name,
+        :percent,
         :_destroy
       ]
     )

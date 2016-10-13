@@ -8,6 +8,7 @@ class Order < ActiveRecord::Base
   after_save :set_item_price
 
   has_many :items, class_name: "OrderItem", dependent: :destroy
+  has_many :gsts,  class_name: "OrderGst",  dependent: :destroy
   belongs_to :supplier 
   belongs_to :kitchen
   belongs_to :user 
@@ -22,6 +23,7 @@ class Order < ActiveRecord::Base
   enumerize :status, in: [:wip, :placed, :shipped, :cancelled], default: :wip
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :gsts,  reject_if: :all_blank, allow_destroy: true
 
   delegate :currency, to: :supplier, allow_nil: true
 
@@ -31,6 +33,18 @@ class Order < ActiveRecord::Base
 
   def self.price 
     all.map(&:price).inject(0, :+)
+  end
+
+  def gst
+    gsts.amount
+  end
+
+  def price_with_gst
+    price + gst
+  end
+
+  def self.price_with_gst
+    all.map(&:price_with_gst).inject(0, :+)
   end
 
   def name

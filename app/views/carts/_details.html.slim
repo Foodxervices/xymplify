@@ -8,7 +8,7 @@
           th = order.name
           th Quantity
           th UOM
-          th.text-right = humanized_money_with_symbol(order.price)
+          th
       tbody
         tr 
           td colspan="4" = link_to_if can?(:read, order.supplier), order.supplier&.name, order.supplier, remote: true
@@ -18,6 +18,18 @@
             td.text-center = item.quantity
             td = item.food_item&.unit
             td.text-right width="80" = humanized_money_with_symbol(item.total_price)
+      tfoot
+        - if order.gsts.size != 0
+          tr
+            td.text-right colspan="3" Subtotal
+            td.text-right = humanized_money_with_symbol(order.price)
+          - order.gsts.each do |gst|
+            tr
+              td.text-right colspan="3" = "#{gst.name} #{gst.percent}%"
+              td.text-right = humanized_money_with_symbol(gst.amount)
+        tr 
+          td.text-right colspan="3" Total
+          td.text-right = humanized_money_with_symbol(order.price_with_gst)
     .text-right
       .btn-group
         = link_to 'Delete', '#', data: { toggle: "confirmation", href: order_path(order) }, class: 'delete btn btn-default'

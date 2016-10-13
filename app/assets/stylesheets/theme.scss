@@ -104,4 +104,10 @@ input[type=number] {
 .bootstrap-select.form-control:not([class*=span]):not([class*=col-]) {
   max-width: 1000px;
 }
+
+table.table-bordered {
+  .form-group {
+    margin-bottom: 0;
+  }
+}
 /* FORM */
