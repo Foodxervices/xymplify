@@ -11,6 +11,8 @@ en:
     error_notification:
       default_message: "Please review the problems below:"
     placeholders:
+      order_filter: 
+        keyword: 'Keyword'
       food_item_filter: 
         keyword: 'Keyword'
       supplier_filter: 

@@ -3,7 +3,12 @@ class OrdersController < ApplicationController
   load_and_authorize_resource :order, :through => :restaurant, :shallow => true
 
   def index
-    @orders = @orders.includes(:supplier, :gsts).where(status: status).order(id: :desc)
+    @order_filter = OrderFilter.new(@orders, order_filter_params)
+
+    @orders = @order_filter.result
+                           .includes(:supplier, :gsts)
+                           .where(status: status)
+                           .order(id: :desc)
   end
 
   def show
@@ -76,6 +81,13 @@ class OrdersController < ApplicationController
         :percent,
         :_destroy
       ]
+    )
+  end
+
+  def order_filter_params
+    order_filter = ActionController::Parameters.new(params[:order_filter])
+    order_filter.permit(
+      :keyword
     )
   end
 

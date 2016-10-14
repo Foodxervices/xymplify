@@ -32,12 +32,4 @@ describe Order do
       end
     end
   end
-
-  describe '#code' do 
-    let!(:order) { create(:order) }
-
-    it 'returns code' do
-      expect(order.code.size).to eq 6
-    end
-  end
 end

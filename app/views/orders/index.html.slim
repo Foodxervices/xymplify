@@ -1,12 +1,16 @@
 - content_for :navbar_left 
   = render 'orders/menu'
-#orders-index-container.grid
-  - @orders.each do |order|
-    .po-wrap.grid-item
-      div
-        .title
-          .btn.btn-default class="status-#{order.status}" = order.status_text
-          h4 = order.name
-          small = format_date(order.created_at)
-        .clearfix
-        = render 'orders/details', order: order
+#orders-index-container
+  .row
+    .col-md-8
+      = render 'orders/search', order_filter: @order_filter, url: [@restaurant, params[:status] == 'archived' ?  :archived_pos : :orders]
+  .grid
+    - @orders.each do |order|
+      .po-wrap.grid-item
+        div
+          .title
+            .btn.btn-default class="status-#{order.status}" = order.status_text
+            h4 = order.name
+            small = format_date(order.created_at)
+          .clearfix
+          = render 'orders/details', order: order

@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
 
   before_save :cache_restaurant
   before_save :set_delivery_at
+  before_save :set_name
   after_save :set_item_price
 
   has_many :items, class_name: "OrderItem", dependent: :destroy
@@ -51,17 +52,13 @@ class Order < ActiveRecord::Base
     all.map(&:price_with_gst).inject(0, :+)
   end
 
-  def name
-    "PO #{code}"
-  end
-
-  def code
-    id.to_s.rjust(6,"0")
-  end
-
   private 
   def cache_restaurant
     self.restaurant_id = kitchen.restaurant_id if restaurant_id.nil?
+  end
+
+  def set_name
+    self.name = "PO #{id.to_s.rjust(6,"0")}" if name.blank?
   end
 
   def set_delivery_at

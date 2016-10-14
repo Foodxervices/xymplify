@@ -6,6 +6,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :restaurant
 
   before_save :cache_restaurant
+  before_save :cache_name
   before_save :update_quantity_ordered
 
   monetize :unit_price_cents
@@ -16,10 +17,6 @@ class OrderItem < ActiveRecord::Base
   validates :food_item_id,  presence: true
   validates :quantity,      presence: true, numericality: { greater_than: 0 }
 
-  def name 
-    food_item&.name
-  end
-
   def total_price
     unit_price * quantity
   end
@@ -27,6 +24,10 @@ class OrderItem < ActiveRecord::Base
   private 
   def cache_restaurant
     self.restaurant_id = order.restaurant_id if restaurant_id.nil?
+  end
+
+  def cache_name
+    self.name = food_item&.name if name.blank?
   end
 
   def update_quantity_ordered
