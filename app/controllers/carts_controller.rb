@@ -17,6 +17,8 @@ class CartsController < ApplicationController
     item.unit_price = @food_item.unit_price
     item.quantity += params[:quantity].to_f
     item.save
+    
+    order.destroy if order.price_with_gst == 0
   end
 
   def purchase

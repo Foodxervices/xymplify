@@ -10,8 +10,8 @@ describe InventoriesController, :type => :controller do
       get :index, restaurant_id: restaurant.id
     end
 
-    let!(:kitchen)    { create(:kitchen, restaurant_id: restaurant.id) }
-    let!(:food_items)       { create_list(:food_item, 2, kitchen_id: kitchen.id) }
+    let!(:kitchen)          { create(:kitchen, restaurant_id: restaurant.id) }
+    let!(:food_items)       { create_list(:food_item, 2, kitchen_id: kitchen.id, current_quantity: 2) }
     let!(:other_food_items) { create_list(:food_item, 1) }
 
     it 'renders the :index view' do
