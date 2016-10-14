@@ -12,8 +12,8 @@
 
   table#po-info
     tr 
-      th P/O No.
-      td = @order.code
+      th P/O
+      td = @order.name
     tr 
       th Date of Delivery
       td = format_date @order.delivery_at
