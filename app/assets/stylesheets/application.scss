@@ -25,9 +25,10 @@
 @import 'categories/index';
 
 @import 'orders/index';
-@import 'orders/form';
+@import 'orders/_form';
+@import 'orders/_details';
 
-@import 'carts/form';
+@import 'carts/_form';
 @import 'carts/_details';
 
 @import 'shared/_menu';
