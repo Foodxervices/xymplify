@@ -8,7 +8,7 @@ module VersionHelper
       object = kclass.find_by_id(value)
 
       if object.present?
-        if ['category_id'].includes?(field)
+        if ['category_id'].include?(field)
           value = object&.name
         else
           object = object.becomes(User) if object.kind_of?(Admin)
