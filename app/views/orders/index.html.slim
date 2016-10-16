@@ -11,6 +11,6 @@
           .title
             .btn.btn-default class="status-#{order.status}" = order.status_text
             h4 = order.name
-            small = format_date(order.created_at)
+            small = format_date(order.changed_status_at)
           .clearfix
           = render 'orders/details', order: order

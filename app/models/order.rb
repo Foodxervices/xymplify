@@ -55,6 +55,17 @@ class Order < ActiveRecord::Base
     all.map(&:price_with_gst).inject(0, :+)
   end
 
+  def changed_status_at
+    case status.to_s
+    when 'placed'
+      return delivery_at
+    when 'shipped'
+      return shipped_at
+    else
+      return updated_at
+    end
+  end
+
   private 
   def cache_restaurant
     self.restaurant_id = kitchen.restaurant_id if restaurant_id.nil?
