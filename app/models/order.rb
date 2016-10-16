@@ -58,9 +58,9 @@ class Order < ActiveRecord::Base
   def changed_status_at
     case status.to_s
     when 'placed'
-      return delivery_at
+      return placed_at
     when 'shipped'
-      return shipped_at
+      return delivery_at
     else
       return updated_at
     end
