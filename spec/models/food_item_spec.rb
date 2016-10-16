@@ -9,9 +9,13 @@ describe FoodItem do
     it { is_expected.to validate_presence_of :user_id }
     it { is_expected.to validate_presence_of :kitchen_id }
     it { is_expected.to validate_presence_of :category_id }
+    it { is_expected.to validate_presence_of :current_quantity }
+    it { is_expected.to validate_presence_of :quantity_ordered }
     it { is_expected.to monetize :unit_price }
     it { is_expected.to validate_numericality_of(:current_quantity).is_greater_than_or_equal_to(0) }
     it { is_expected.to validate_numericality_of(:quantity_ordered).is_greater_than_or_equal_to(0) }
+    it { is_expected.to validate_numericality_of(:low_quantity).is_greater_than_or_equal_to(0) }
+    it { is_expected.to allow_value("", nil).for(:low_quantity) }
   end
 
   context 'associations' do 
@@ -20,5 +24,7 @@ describe FoodItem do
     it { is_expected.to belong_to :kitchen }
     it { is_expected.to belong_to :restaurant }
     it { is_expected.to belong_to :category }
+
+    it { is_expected.to have_many :alerts }
   end
 end

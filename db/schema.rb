@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014054420) do
+ActiveRecord::Schema.define(version: 20161016133645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "alerts", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "alertable_id"
+    t.string   "alertable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "alerts", ["alertable_type", "alertable_id"], name: "index_alerts_on_alertable_type_and_alertable_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -39,6 +49,7 @@ ActiveRecord::Schema.define(version: 20161014054420) do
     t.integer  "restaurant_id"
     t.integer  "category_id"
     t.string   "cached_tag_list",                             default: ""
+    t.decimal  "low_quantity",        precision: 8, scale: 2
   end
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree
@@ -106,6 +117,7 @@ ActiveRecord::Schema.define(version: 20161014054420) do
     t.datetime "delivery_at"
     t.string   "name"
     t.integer  "gsts_count",    default: 0
+    t.datetime "placed_at"
   end
 
   add_index "orders", ["kitchen_id"], name: "index_orders_on_kitchen_id", using: :btree

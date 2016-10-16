@@ -1,0 +1,8 @@
+.alerts-listing-container
+  table.table.table-striped
+    - alerts.each do |alert|
+      tr
+        td = format_date(alert.created_at)
+        td = link_to_if can?(:read, alert.alertable), alert.title, alert.alertable, remote: true
+  .text-center
+    = will_paginate alerts, inner_window: 1, outer_window: 2, renderer: BootstrapPagination::Rails, param_name: "alert_page"

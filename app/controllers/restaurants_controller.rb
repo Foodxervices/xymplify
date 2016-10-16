@@ -23,6 +23,10 @@ class RestaurantsController < ApplicationController
         @activities = Version.by_restaurant(@restaurant.id)
                              .includes(:item)
                              .paginate(:page => params[:activity_page], :per_page => 5)
+
+        @alerts = Alert.accessible_by(current_ability)
+                       .includes(:alertable)
+                       .paginate(:page => params[:alert_page], :per_page => 5)
       end
 
       format.js

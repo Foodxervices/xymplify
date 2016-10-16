@@ -64,7 +64,8 @@ class FoodItemsController < ApplicationController
       :category_id,
       :brand,
       :image,
-      :tag_list
+      :tag_list,
+      :low_quantity
     )
     data[:kitchen_id] = Kitchen.accessible_by(current_ability).find(data[:kitchen_id]).id if data[:kitchen_id].present?
     data[:user_id] = current_user.id

@@ -4,12 +4,15 @@ class Order < ActiveRecord::Base
   extend Enumerize
 
   before_save :cache_restaurant
+  before_save :set_placed_at
   before_save :set_delivery_at
   before_save :set_name
   after_save :set_item_price
 
   has_many :items, class_name: "OrderItem", dependent: :destroy
   has_many :gsts,  class_name: "OrderGst",  dependent: :destroy
+  has_many :alerts, as: :alertable
+  
   belongs_to :supplier 
   belongs_to :kitchen
   belongs_to :user 
@@ -64,6 +67,12 @@ class Order < ActiveRecord::Base
   def set_delivery_at
     if status_change == ["placed", "shipped"]
       self.delivery_at = Time.zone.now
+    end
+  end
+
+  def set_placed_at
+    if status_change == ["wip", "placed"]
+      self.placed_at = Time.zone.now
     end
   end
 

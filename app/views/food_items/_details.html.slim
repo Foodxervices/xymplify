@@ -36,3 +36,9 @@
     tr 
       th = FoodItem.human_attribute_name(:quantity_ordered)
       td = food_item.quantity_ordered
+  .text-right
+    .btn-group
+      - if can?(:update, food_item)
+        = link_to 'Edit', [:edit, food_item], class: 'btn btn-primary'
+      - if can?(:destroy, food_item)
+        = link_to 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete btn btn-danger'

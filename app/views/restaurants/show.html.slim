@@ -6,7 +6,12 @@
     - if can?(:update, @restaurant)
       = link_to 'Edit Restaurant', [:edit, @restaurant], class: 'btn btn-default'
 
-  h2 Recent Activities  
+  .clearfix
+  
   .row
     .col-md-6
+      h2 Recent Activities  
       = render 'activities/listing', activities: @activities
+    .col-md-6
+      h2 Alert for pending orders and inventory
+      = render 'alerts/listing', alerts: @alerts

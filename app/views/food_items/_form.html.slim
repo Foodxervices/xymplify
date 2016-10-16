@@ -8,15 +8,15 @@
           = f.input         :brand
           = f.association   :supplier
           = kitchen_dropdown(f)
+          = image_tag food_item.image.url(:thumb)
+          = f.input         :image
         .col-md-6
           = f.input         :unit
           = f.input         :unit_price
           = f.input         :unit_price_currency, collection: currency_codes
+          = f.input         :low_quantity
           = f.association   :category
           = f.input         :tag_list, input_html: { class: 'taggable', value: f.object.tag_list.to_s, data: {source: ActsAsTaggableOn::Tag.most_used.pluck(:name).uniq} }
-        .col-md-12
-          = image_tag food_item.image.url(:medium)
-          = f.input         :image
 
     .form-actions
       = f.button :submit

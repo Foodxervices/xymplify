@@ -97,8 +97,10 @@ table {
 /* MODAL */
 
 /* FORM */
-input[type=number] {
-  text-align: center;
+table.table-striped {
+  input[type=number] {
+    text-align: center;
+  }
 }
 
 .bootstrap-select.form-control:not([class*=span]):not([class*=col-]) {
@@ -111,3 +113,8 @@ table.table-bordered {
   }
 }
 /* FORM */
+
+/* POPUP */
+.popover-content {
+  min-width: 121px;
+}
