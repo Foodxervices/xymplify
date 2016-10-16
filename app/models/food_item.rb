@@ -36,19 +36,6 @@ class FoodItem < ActiveRecord::Base
 
   before_validation :set_currency, if: 'unit_price_currency.blank?'
 
-  def self.random_group
-    FoodItem.all.includes(:restaurant).each do |food_item|
-      random_supplier = food_item.restaurant.suppliers.sample
-      random_category = Category.all.sample
-      food_item.update_attributes(
-          category_id: random_category.id, 
-          tag_list: "#{random_category.name} #{rand(1..4)}",
-          supplier_id: random_supplier.id,
-          unit_price_currency: random_supplier.currency
-        )
-    end
-  end
-
   private 
   def set_currency
     self.unit_price_currency = supplier&.currency 
