@@ -2,7 +2,7 @@ class FoodItemsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   load_and_authorize_resource :restaurant
-  load_and_authorize_resource :food_item, :through => :restaurant, :shallow => true
+  load_and_authorize_resource :food_item, :through => :restaurant, :shallow => true, except: [:new]
 
   def index
     @food_item_filter = FoodItemFilter.new(@food_items, food_item_filter_params)
