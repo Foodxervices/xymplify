@@ -72,7 +72,19 @@ class Order < ActiveRecord::Base
   end
 
   def set_name
-    self.name = "PO #{id.to_s.rjust(6,"0")}" if name.blank?
+    if name.blank?
+      today = Time.new
+      current_month = today.strftime("%y/%m")
+      latest_order_in_current_month = restaurant.orders.where(created_at: today.at_beginning_of_month..today.at_end_of_month).order(:id).last
+      
+      if latest_order_in_current_month.nil?
+        no = "0001"
+      else
+        no = (latest_order_in_current_month.code[-4..-1].to_i + 1).to_s.rjust(4,"0")
+      end
+      
+      self.name = "Q" + current_month + '/' + no
+    end
   end
 
   def set_delivery_at
