@@ -3,10 +3,12 @@ class Order < ActiveRecord::Base
 
   extend Enumerize
 
-  before_save :cache_restaurant
+  before_create :cache_restaurant
+  before_create :set_name
+  
   before_save :set_placed_at
   before_save :set_delivery_at
-  before_save :set_name
+  
   after_save :set_item_price
 
   has_many :items, class_name: "OrderItem", dependent: :destroy
@@ -68,23 +70,21 @@ class Order < ActiveRecord::Base
 
   private 
   def cache_restaurant
-    self.restaurant_id = kitchen.restaurant_id if restaurant_id.nil?
+    self.restaurant_id = kitchen.restaurant_id 
   end
 
   def set_name
-    if name.blank?
-      today = Time.new
-      current_month = today.strftime("%y/%m")
-      latest_order_in_current_month = restaurant.orders.where(created_at: today.at_beginning_of_month..today.at_end_of_month).order(:id).last
-      
-      if latest_order_in_current_month.nil?
-        no = "0001"
-      else
-        no = (latest_order_in_current_month.name[-4..-1].to_i + 1).to_s.rjust(4,"0")
-      end
-      
-      self.name = "Q" + current_month + '/' + no
+    today = Time.new
+    current_month = today.strftime("%y/%m")
+    latest_order_in_current_month = restaurant.orders.where(created_at: today.at_beginning_of_month..today.at_end_of_month).order(:id).last
+    
+    if latest_order_in_current_month.nil?
+      no = "0001"
+    else
+      no = (latest_order_in_current_month.name[-4..-1].to_i + 1).to_s.rjust(4,"0")
     end
+    
+    self.name = "Q" + current_month + '/' + no
   end
 
   def set_delivery_at

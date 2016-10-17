@@ -11,7 +11,7 @@ class UserRole < ActiveRecord::Base
   validates_associated :restaurant, :user, :role
   
   validates :role_id,       presence: true
-  validates :user_id,       presence: true, uniqueness: {scope: :role_id}
+  validates :user_id,       presence: true, uniqueness: {scope: [:role_id, :restaurant_id]}
   validates :restaurant_id, presence: true
 
   def name

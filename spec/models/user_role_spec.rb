@@ -5,7 +5,7 @@ describe UserRole do
     it { is_expected.to validate_presence_of :user_id }
     it { is_expected.to validate_presence_of :role_id }
     it { is_expected.to validate_presence_of :restaurant_id }
-    it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:role_id) }
+    it { is_expected.to validate_uniqueness_of(:user_id).scoped_to(:role_id).scoped_to(:restaurant_id) }
   end
 
   context 'associations' do 
