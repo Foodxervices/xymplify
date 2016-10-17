@@ -24,7 +24,7 @@ class RestaurantsController < ApplicationController
                              .includes(:item)
                              .paginate(:page => params[:activity_page], :per_page => 5)
 
-        @alerts = Alert.accessible_by(current_ability)
+        @alerts = Alert.accessible_by(current_ability, restaurant: @restaurant)
                        .includes(:alertable)
                        .paginate(:page => params[:alert_page], :per_page => 5)
                        .order(id: :desc)
