@@ -27,6 +27,7 @@ class RestaurantsController < ApplicationController
         @alerts = Alert.accessible_by(current_ability)
                        .includes(:alertable)
                        .paginate(:page => params[:alert_page], :per_page => 5)
+                       .order(id: :desc)
       end
 
       format.js
