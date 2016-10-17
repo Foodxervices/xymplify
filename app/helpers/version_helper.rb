@@ -15,6 +15,8 @@ module VersionHelper
           value = link_to_if(can?(:show, object), object&.name, object, remote: true) 
         end
       end
+    elsif field == 'unit_price_cents'
+      value = value.to_f / 100
     end
 
     value
