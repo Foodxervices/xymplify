@@ -11,6 +11,7 @@ const InventoryGroup = React.createClass({
   componentDidMount: function() {
     this.setState({
       currentQuantity: this.getCurrentQuantity(),
+      quantityOrdered: this.getQuantityOrdered(),
       unitPrice: this.getUnitPrice()
     })
   },
@@ -25,15 +26,16 @@ const InventoryGroup = React.createClass({
       foodItems.push(foodItem)
     })
     
-    this.setState({foodItems: foodItems, currentQuantity: this.getCurrentQuantity(), unitPrice: this.getUnitPrice()})
+    this.setState({foodItems: foodItems, currentQuantity: this.getCurrentQuantity(), quantityOrdered: this.getQuantityOrdered(), unitPrice: this.getUnitPrice()})
   },
   getUnitPrice: function() {
-    let totalPrice, quantity
+    let totalPrice, quantity, currentQuantity
     totalPrice = quantity = 0
 
     $.map(this.state.foodItems, function(foodItem, index) {
-      quantity += parseFloat(foodItem.current_quantity)
-      totalPrice += foodItem.current_quantity * foodItem.default_unit_price
+      currentQuantity = formatNumber(foodItem.current_quantity)
+      quantity += currentQuantity
+      totalPrice += currentQuantity * foodItem.default_unit_price
     })
 
     return totalPrice / quantity
@@ -41,9 +43,16 @@ const InventoryGroup = React.createClass({
   getCurrentQuantity: function() {
     let currentQuantity = 0
     $.map(this.state.foodItems, function(foodItem, index) {
-      currentQuantity += parseFloat(foodItem.current_quantity)
+      currentQuantity += formatNumber(foodItem.current_quantity)
     })
-    return currentQuantity.toFixed(2)
+    return currentQuantity
+  },
+  getQuantityOrdered: function() {
+    let quantityOrdered = 0
+    $.map(this.state.foodItems, function(foodItem, index) {
+      quantityOrdered += formatNumber(foodItem.quantity_ordered)
+    })
+    return quantityOrdered
   },
   toggleItems: function() {
     this.setState({
@@ -60,8 +69,8 @@ const InventoryGroup = React.createClass({
            <td className="text-left">{name}</td>
            <td className="text-left"></td>
            <td className="text-left"></td>
-           <td>{currentQuantity}</td>
-           <td>{quantityOrdered}</td>
+           <td>{formatNumber(currentQuantity)}</td>
+           <td>{formatNumber(quantityOrdered)}</td>
            <td></td>
            <td><Currency value={unitPrice} symbol={restaurant_currency_symbol}/></td>
         </tr>

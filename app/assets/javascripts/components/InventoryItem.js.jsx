@@ -6,9 +6,13 @@ const InventoryItem = React.createClass({
     this.updateCurrentQuantity(parseFloat(this.props.current_quantity) + 1)
   },
   updateCurrentQuantity: function(nextCurrentQuantity) {
-    nextCurrentQuantity = parseFloat(nextCurrentQuantity) || 0
-    
-    if(nextCurrentQuantity < 0) {
+    let nextQuantity = parseFloat(nextCurrentQuantity) || 0
+
+    if(nextQuantity !== formatNumber(nextQuantity)) {
+      nextCurrentQuantity = formatNumber(nextQuantity)
+    }
+
+    if(nextQuantity < 0) {
       nextCurrentQuantity = 0 
     }
 
@@ -51,7 +55,7 @@ const InventoryItem = React.createClass({
               current_quantity
             }
          </td>
-         <td className="quantity-ordered">{quantity_ordered}</td>
+         <td className="quantity-ordered">{formatNumber(quantity_ordered)}</td>
          <td className="unit-text">{unit}</td>
          <td className="unit-price"><Currency value={unit_price} symbol={symbol}/></td>
       </tr>

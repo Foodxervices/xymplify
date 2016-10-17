@@ -5,6 +5,7 @@ const Utils = {
     Utils.initSelectPicker()
     Utils.initTaggable()
     Utils.disableSubmittingForm()
+    Utils.initInputNumber()
   },
   initConfirmation: () => {
     $('[data-toggle="confirmation"]').each(function() {
@@ -62,6 +63,12 @@ const Utils = {
               event.preventDefault();
         });
       });
+    })
+  },
+  initInputNumber:() => {
+    $('input[type=number]:not(.jnumber)').change(function() {
+      $(this).addClass('jnumber')
+      $(this).val(parseFloat($(this).val()).toFixed(2))
     })
   },
   formatPrice: (price, symbol='$',decimal=2) => {

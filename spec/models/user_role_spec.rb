@@ -12,6 +12,7 @@ describe UserRole do
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :role }
     it { is_expected.to belong_to :restaurant }
+
     it { is_expected.to have_and_belong_to_many :kitchens }
   end
 end

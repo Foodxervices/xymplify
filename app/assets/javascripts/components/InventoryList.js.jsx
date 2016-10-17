@@ -1,3 +1,7 @@
+function formatNumber(num) {
+  return Math.round(num * 100) / 100
+}
+
 const InventoryList = React.createClass({
   render: function() {
     const { groups, restaurant_currency_symbol } = this.props

@@ -38,8 +38,9 @@ describe FoodItemsController, :type => :controller do
       post :create, restaurant_id: restaurant.id, food_item: food_item.attributes
     end
 
-    let!(:kitchen)  { create(:kitchen, restaurant_id: restaurant.id) }
-    let(:food_item) { build(:food_item, kitchen_id: kitchen.id) }
+    let!(:kitchen)  { create(:kitchen,  restaurant_id: restaurant.id) }
+    let!(:supplier) { create(:supplier, restaurant_id: restaurant.id) }
+    let(:food_item) { build(:food_item, kitchen_id: kitchen.id, supplier_id: supplier.id) }
 
     it 'creates a food item' do 
       expect{ do_request }.to change{ [FoodItem.count] }.from([0]).to([1])

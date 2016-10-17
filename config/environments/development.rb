@@ -43,7 +43,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :letter_opener
 
   config.after_initialize do
-    Bullet.enable = true
+    Bullet.enable = Rails.application.secrets.bullet_enable || false
     Bullet.console = true
     Bullet.n_plus_one_query_enable = true
     Bullet.bullet_logger = true
