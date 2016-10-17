@@ -25,13 +25,15 @@ const Utils = {
   initFileInput: () => {
     $('input[type=file]:not(.initialized)').each(function() {
       let extensions = $(this).attr('data-allowed-file-extensions')
-      
+      let showUpload = $(this).attr('data-show-upload') || false
+
       if(extensions) {
         extensions = `["${extensions.replace(/,/g, '","')}"]`
       }
 
       $(this).attr('data-allowed-file-extensions', extensions)
-      $(this).addClass('initialized').fileinput()
+
+      $(this).addClass('initialized').fileinput({ showUpload: showUpload })
     })
   },
   initSelectPicker: () => {

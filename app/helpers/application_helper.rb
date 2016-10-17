@@ -23,6 +23,7 @@ module ApplicationHelper
 
   def kitchen_dropdown(form, include_blank: true, action: :read, kitchens: Kitchen.all) 
     kitchens = kitchens.accessible_by(current_ability, action).includes(:restaurant)
+    kitchens = kitchens.where(restaurant: current_restaurant) if current_restaurant.present?
     restaurants = {}
     kitchens.each do |kitchen|
       restaurants[kitchen.restaurant_id] ||= Restaurant.new(name: kitchen.restaurant&.name)

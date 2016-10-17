@@ -17,8 +17,6 @@ Rails.application.routes.draw do
 
   resources :versions,    only: [:show]
 
-  resources :food_item_imports, only: [:new, :create]
-
   resources :orders,      only: [:show, :edit, :update, :destroy] do 
     member do 
       patch :mark_as_shipped 
@@ -32,6 +30,8 @@ Rails.application.routes.draw do
     resources :food_items,  only: [:index, :new, :create]
     resources :categories,  only: [:index]
     resources :orders,      only: [:index]
+    resources :food_item_imports, only: [:new, :create]
+    
     get 'archived_pos' => 'orders#index', :as => :archived_pos, :defaults => { status: 'archived' }
 
     resources :carts,       only: [:new] do 

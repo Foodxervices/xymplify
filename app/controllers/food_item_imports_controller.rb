@@ -1,4 +1,6 @@
 class FoodItemImportsController < ApplicationController
+  load_and_authorize_resource :restaurant
+
   def new
     @food_item_import = FoodItemImport.new
   end
@@ -16,7 +18,7 @@ class FoodItemImportsController < ApplicationController
       :file
     )
     if data[:kitchen_id].present?
-      kitchen = Kitchen.find(data[:kitchen_id])
+      kitchen = current_restaurant.kitchens.find(data[:kitchen_id])
       authorize! :import, kitchen
       data[:kitchen_id] = kitchen.id
     end

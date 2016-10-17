@@ -6,10 +6,10 @@
           = f.input         :code
           = f.input         :name
           = f.input         :brand
-          = f.association   :supplier
+          = f.association   :supplier, collection: current_restaurant.suppliers.accessible_by(current_ability)
           = kitchen_dropdown(f)
           = image_tag food_item.image.url(:thumb)
-          = f.input         :image
+          = f.input         :image, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg"} }
         .col-md-6
           = f.input         :unit
           = f.input         :unit_price
