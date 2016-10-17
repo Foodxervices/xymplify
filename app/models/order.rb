@@ -80,7 +80,7 @@ class Order < ActiveRecord::Base
       if latest_order_in_current_month.nil?
         no = "0001"
       else
-        no = (latest_order_in_current_month.code[-4..-1].to_i + 1).to_s.rjust(4,"0")
+        no = (latest_order_in_current_month.name[-4..-1].to_i + 1).to_s.rjust(4,"0")
       end
       
       self.name = "Q" + current_month + '/' + no
