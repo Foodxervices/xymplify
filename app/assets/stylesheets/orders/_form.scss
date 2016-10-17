@@ -5,12 +5,17 @@
     }
   }
 
-  .order_items_quantity {
+  .order_items_quantity, .order_items_unit_price {
     input {
       margin: 0 auto;
       padding-left: 22px;
-      width: 100px;
       text-align: center;
+    }
+  }
+
+  .order_items_quantity {
+    input {
+      width: 100px;
     }
   }
 }

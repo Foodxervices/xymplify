@@ -3,7 +3,7 @@ class OrderGst < ActiveRecord::Base
 
   monetize :amount_cents
   
-  belongs_to :order, :counter_cache => true
+  belongs_to :order, :counter_cache => :gsts_count
   belongs_to :restaurant
 
   before_save :cache_restaurant
