@@ -1,3 +1,7 @@
+function formatNumber(num) {
+  return Math.round(num * 100) / 100
+}
+
 const Utils = {
   init: () => {
     Utils.initFileInput()
@@ -68,7 +72,7 @@ const Utils = {
   initInputNumber:() => {
     $('input[type=number]:not(.jnumber)').change(function() {
       $(this).addClass('jnumber')
-      $(this).val(parseFloat($(this).val()).toFixed(2))
+      $(this).val(formatNumber($(this).val()))
     })
   },
   formatPrice: (price, symbol='$',decimal=2) => {
