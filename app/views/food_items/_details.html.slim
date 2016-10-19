@@ -1,41 +1,40 @@
 .food_items-details-container
-  table.table.table-bordered
-    tr 
-      th = FoodItem.human_attribute_name(:code)
-      td = food_item.code
-    tr 
-      th = FoodItem.human_attribute_name(:name)
-      td = food_item.name
-    tr 
-      th = FoodItem.human_attribute_name(:image)
-      td.text-center = image_tag food_item.image.url(:medium)
-    tr 
-      th = FoodItem.human_attribute_name(:brand)
-      td = food_item.brand
-    tr 
-      th = FoodItem.human_attribute_name(:tag_list)
-      td = food_item.tag_list
-    tr 
-      th = FoodItem.human_attribute_name(:supplier)
-      td = link_to food_item.supplier&.name, food_item.supplier, remote: true
-    tr 
-      th = FoodItem.human_attribute_name(:kitchen)
-      td = link_to food_item.kitchen&.name, food_item.kitchen, remote: true
-    tr 
-      th = FoodItem.human_attribute_name(:unit)
-      td = food_item.unit
-    tr 
-      th = FoodItem.human_attribute_name(:unit_price)
-      td = humanized_money_with_symbol(food_item.unit_price)
-    tr 
-      th = FoodItem.human_attribute_name(:unit_price_currency)
-      td = food_item.unit_price_currency
-    tr 
-      th = FoodItem.human_attribute_name(:current_quantity)
-      td = food_item.current_quantity
-    tr 
-      th = FoodItem.human_attribute_name(:quantity_ordered)
-      td = food_item.quantity_ordered
+  .table-responsive
+    .row
+      .col-sm-6
+        .text-center = image_tag food_item.image.url(:medium) 
+      .col-sm-6
+        table.table.table-bordered
+          tr 
+            th = FoodItem.human_attribute_name(:code)
+            td = food_item.code
+          tr 
+            th = FoodItem.human_attribute_name(:tag_list)
+            td = food_item.tag_list
+          tr 
+            th = FoodItem.human_attribute_name(:brand)
+            td = food_item.brand
+          tr 
+            th = FoodItem.human_attribute_name(:supplier)
+            td = link_to food_item.supplier&.name, food_item.supplier, remote: true
+          tr 
+            th = FoodItem.human_attribute_name(:kitchen)
+            td = link_to food_item.kitchen&.name, food_item.kitchen, remote: true
+          tr 
+            th = FoodItem.human_attribute_name(:unit)
+            td = food_item.unit
+          tr 
+            th = FoodItem.human_attribute_name(:unit_price)
+            td = humanized_money_with_symbol(food_item.unit_price)
+          tr 
+            th = FoodItem.human_attribute_name(:unit_price_currency)
+            td = food_item.unit_price_currency
+          tr 
+            th = FoodItem.human_attribute_name(:current_quantity)
+            td = food_item.current_quantity
+          tr 
+            th = FoodItem.human_attribute_name(:quantity_ordered)
+            td = food_item.quantity_ordered
   .text-right
     .btn-group
       - if can?(:update, food_item)
