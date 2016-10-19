@@ -2,7 +2,8 @@
   .table-responsive
     table.table.table-striped
       tr
-        th Kitchen
+        th width="100" Code
+        th Food Item
         th Supplier
         th.text-center UOM
         th.text-center Unit Price
@@ -10,7 +11,8 @@
         th
       - @food_items.each do |food_item|
         tr.cart-item data={id: food_item.id, restaurant_id: @restaurant.id}
-          td = food_item.kitchen&.name
+          td = food_item.code
+          td = food_item.name
           td = food_item.supplier&.name
           td.text-center = food_item.unit
           td.text-center = humanized_money_with_symbol(food_item.unit_price)
