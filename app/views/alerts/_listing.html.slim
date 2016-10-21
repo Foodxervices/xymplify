@@ -1,5 +1,5 @@
 .alerts-listing-container
-  table.table.table-striped
+  table.table.table-bordered
     - alerts.each do |alert|
       tr
         td = format_date(alert.created_at)

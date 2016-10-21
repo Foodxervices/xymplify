@@ -1,5 +1,7 @@
 en:
   activerecord:
+    models:
+      order_gst: TAX
     attributes:
       food_item:
         code: "Item Code"
