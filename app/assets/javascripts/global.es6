@@ -13,3 +13,11 @@ $( document ).ajaxComplete(function() {
   Utils.init()
   $('body').removeClass('submitting')
 })
+
+$( document ).ready(function() {
+  Utils.paddingMain()
+})
+
+$( window ).resize(function() {
+  Utils.paddingMain()
+})

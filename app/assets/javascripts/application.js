@@ -7,6 +7,7 @@
 //= require bootstrap-tooltip
 //= require bootstrap-confirmation
 //= require bootstrap-fileinput/js/fileinput
+//= require datepicker/js/bootstrap-datepicker
 //= require turbolinks
 //= require masonry.pkgd
 //= require jquery.remotipart

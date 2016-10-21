@@ -87,7 +87,8 @@ class OrdersController < ApplicationController
   def order_filter_params
     order_filter = ActionController::Parameters.new(params[:order_filter])
     order_filter.permit(
-      :keyword
+      :keyword,
+      :month
     )
   end
 

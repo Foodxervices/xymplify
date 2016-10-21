@@ -6,6 +6,7 @@ class Order < ActiveRecord::Base
   before_create :cache_restaurant
   before_create :set_name
   
+  before_save :set_status_updated_at
   before_save :set_placed_at
   before_save :set_delivery_at
   
@@ -85,6 +86,10 @@ class Order < ActiveRecord::Base
     end
     
     self.name = "Q" + current_month + '/' + no
+  end
+
+  def set_status_updated_at
+    self.status_updated_at = Time.zone.now if status_changed?
   end
 
   def set_delivery_at

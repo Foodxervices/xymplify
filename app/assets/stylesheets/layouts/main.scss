@@ -5,12 +5,10 @@
     left: $main_padding;
     right: 0;
     z-index: 2;
-    height: $menu_height;
   }
 
   main {
     position: absolute;
-    top: $menu_height;
     left: $main_padding;
     right: 0;
     padding: 0 15px;

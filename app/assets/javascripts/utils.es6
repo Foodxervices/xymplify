@@ -10,6 +10,8 @@ const Utils = {
     Utils.initTaggable()
     Utils.disableSubmittingForm()
     Utils.initInputNumber()
+    Utils.initDatePicker()
+    Utils.paddingMain()
   },
   initConfirmation: () => {
     $('[data-toggle="confirmation"]').each(function() {
@@ -51,6 +53,7 @@ const Utils = {
   initTaggable:() => {
     $('input.taggable:not(.taggable-initialized)').each(function() {
       $(this).addClass('taggable-initialized')
+
       $(this).tokenfield({
         autocomplete: {
           source: $(this).data('source'),
@@ -68,6 +71,9 @@ const Utils = {
         });
       });
     })
+  },
+  initDatePicker:() => {
+    $('input.date_picker').datepicker()
   },
   initInputNumber:() => {
     $('input[type=number]:not(.jnumber)').change(function() {
@@ -89,5 +95,8 @@ const Utils = {
   
       $('body').addClass('submitting')
     })
+  },
+  paddingMain: () => {
+    $('main').css('top', $('#menu').outerHeight())
   }
 }
