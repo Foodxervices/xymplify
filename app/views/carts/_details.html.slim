@@ -1,6 +1,4 @@
 .carts-details-container
-  h3 Request
-  hr
   - current_orders.includes(:supplier, :gsts).each do |order|
     table.table.table-striped
       thead

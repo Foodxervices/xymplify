@@ -36,7 +36,5 @@
           td = food_item.quantity_ordered
   .text-right
     .btn-group
-      - if can?(:update, food_item)
-        = link_to 'Edit', [:edit, food_item], class: 'btn btn-primary'
-      - if can?(:destroy, food_item)
-        = link_to 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete btn btn-danger'
+      - if can?(:order, food_item)
+        = link_to 'Add to cart', [:new, current_restaurant, :cart, ids: food_item.id], remote: true, class: 'delete btn btn-info'

@@ -7,6 +7,8 @@
   .row
     .col-md-4.col-md-push-8
       #cart-details
+        h3 Request
+        hr
         = render 'carts/details', orders: @orders
     .col-md-8.col-md-pull-4
       - @categories.each do |name, category|
