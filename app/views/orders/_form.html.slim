@@ -24,7 +24,7 @@
       tbody#gsts_form
         = f.simple_fields_for :gsts, :wrapper => false, defaults: { label: false } do |gst_form|
           tr.fields
-            td.text-right GST
+            td.text-right Tax
             td = gst_form.input :name
             td.text-right Percent
             td.text-center = gst_form.input :percent
@@ -33,6 +33,6 @@
 
     .text-right
       .btn-group
-        = f.link_to_add "Add GST", :gsts, data: { target: "#gsts_form" }, class: 'btn btn-default'
+        = f.link_to_add "Add Tax", :gsts, data: { target: "#gsts_form" }, class: 'btn btn-default'
         = f.button :submit
             

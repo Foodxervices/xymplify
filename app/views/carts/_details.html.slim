@@ -31,7 +31,7 @@
     .text-right
       .btn-group
         = link_to 'Delete', '#', data: { toggle: "confirmation", href: order_path(order) }, class: 'delete btn btn-default'
-        = link_to 'Edit', [:edit, order], remote: true, class: 'btn btn-default'   
+        = link_to 'Edit | Add Tax', [:edit, order], remote: true, class: 'btn btn-default'   
     hr
 
   .text-right
