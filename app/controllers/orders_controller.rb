@@ -33,7 +33,10 @@ class OrdersController < ApplicationController
     @success = @order.update_attributes(order_params)
     
     if @success
+      @order_id = @order.id
+      @restaurant = @order.restaurant
       @order.destroy if @order.items.empty?
+      @order = Order.find_by_id(@order.id)
     end
   end
 
