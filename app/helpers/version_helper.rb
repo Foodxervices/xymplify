@@ -1,6 +1,6 @@
 module VersionHelper
   def version_value(field, value) 
-    if ['kitchen_id', 'supplier_id', 'user_id', 'role_id', 'restaurant_id', 'user_role_id', 'category_id'].include?(field)
+    if ['kitchen_id', 'supplier_id', 'user_id', 'role_id', 'restaurant_id', 'user_role_id', 'category_id', 'order_id'].include?(field)
       field = field.gsub("_id", "")
 
       kclass = field.classify.constantize
@@ -8,7 +8,7 @@ module VersionHelper
       object = kclass.find_by_id(value)
 
       if object.present?
-        if ['category_id'].include?(field)
+        if ['category'].include?(field)
           value = object&.name
         else
           object = object.becomes(User) if object.kind_of?(Admin)
