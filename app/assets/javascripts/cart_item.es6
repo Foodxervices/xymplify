@@ -8,12 +8,14 @@ const CartItem = function(item) {
 
   this.addToCartBtn.confirmation({
     onConfirm: () => {
-      if(this.quantity() == 0) {
-        return false
-      }
-      
       this.submit()
       return false
+    }
+  })
+
+  this.addToCartBtn.click((e) => {
+    if(this.quantity() == 0) {
+      this.addToCartBtn.confirmation('hide')
     }
   })
 }
