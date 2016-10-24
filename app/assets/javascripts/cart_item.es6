@@ -6,13 +6,15 @@ const CartItem = function(item) {
   this.quantityInput = this.item.find('.quantity-input').first()
   this.addToCartBtn = this.item.find('.btn-add').first()
 
-  this.addToCartBtn.click(() => {
-    if(this.quantity() == 0) {
+  this.addToCartBtn.confirmation({
+    onConfirm: () => {
+      if(this.quantity() == 0) {
+        return false
+      }
+      
+      this.submit()
       return false
     }
-    
-    this.submit()
-    return false
   })
 }
 
