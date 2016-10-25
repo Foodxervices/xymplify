@@ -18,7 +18,7 @@
           li.avatar
             = image_tag(current_user.avatar.url(:thumb))
             - if alert_count > 0
-              span = alert_count
+              = link_to alert_count, [:dashboard, current_restaurant], id: 'alert-count'
           = active_link_to "Hi #{current_user.name}!!!", user_path(current_user), remote: true, :wrap_tag => :li
           = active_link_to 'Settings', edit_profile_path, remote: true, :wrap_tag => :li
           - if @restaurant

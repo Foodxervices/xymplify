@@ -36,10 +36,16 @@ class OrdersController < ApplicationController
     @success = @order.update_attributes(order_params)
     
     if @success
-      @order_id = @order.id
+      order_name = @order.name
       @restaurant = @order.restaurant
       @order.destroy if @order.items.empty?
       @order = Order.find_by_id(@order.id)
+
+      return redirect_to :back, notice: "#{order_name} has been deleted." if @order.nil?
+    end
+
+    if @order.status.wip?
+      render :update_wip
     end
   end
 

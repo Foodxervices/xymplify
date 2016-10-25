@@ -20,6 +20,7 @@
 //= require utils
 //= require sidebar
 //= require cart_item
+//= require alert_listing
 //= require global
 
 //= require pages/food_items 

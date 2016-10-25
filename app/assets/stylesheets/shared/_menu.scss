@@ -2,8 +2,9 @@
   .avatar {
     position: relative;
 
-    span {
+    a#alert-count {
       position: absolute;
+      z-index: 2;
       top: 0;
       right: -9px;
       display: inline-block;
@@ -15,6 +16,8 @@
       height: 20px;
       line-height: 20px;
       font-size: 12px;
+      text-decoration: none;
+      padding: 0;
     }
   }
 

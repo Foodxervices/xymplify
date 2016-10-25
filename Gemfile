@@ -39,6 +39,8 @@ gem 'google_currency'
 gem 'acts-as-taggable-on'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'redis'
+gem 'redis-namespace'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

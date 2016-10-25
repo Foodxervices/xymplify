@@ -1,6 +1,10 @@
 Foodxervices.restaurants = {
   dashboard: {
-    init: () => {
+    init: function() {
+      new AlertListing('#alert-listing')
+      this.initCostGraph()
+    },
+    initCostGraph: () => {
       google.charts.load('current', {packages: ['corechart']});
       google.charts.setOnLoadCallback(drawStacked);
 

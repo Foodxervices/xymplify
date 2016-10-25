@@ -49,10 +49,11 @@ class ApplicationController < ActionController::Base
   end
 
   def alert_count
+    return 0 if current_restaurant.nil?
     return @alert_count if @alert_count.present?
-    alert_cacher = AlertCacher.new(current_restaurant.id, current_user.id)
-    @alert_count ||= alert_cacher.total_alert
-  end
+    notification = Notification.new(current_ability, current_restaurant.id, current_user.id)
+    @alert_count ||= notification.count
+  end 
 
   def resource
     eval("@#{controller_name.classify.underscore.to_sym}")

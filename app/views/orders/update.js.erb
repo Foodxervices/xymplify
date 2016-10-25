@@ -1,6 +1,5 @@
 <% if @success %>
-  $('#cart-details').html("<%= j render 'carts/details' %>")
-  $('.orders-details-container[rel=<%= @order_id %>]').html("<%= j(render 'orders/details', order: @order) if @order.present? %>")
+  $('.orders-details-container[rel=<%= @order.id %>]').html("<%= j(render 'orders/details', order: @order) if @order.present? %>")
   $('#popup').modal('hide');
 <% else %>
   <%= open_popup(title: "#{@order.name} - #{@order.supplier&.name}", partial: 'orders/form', locals: { order: @order }) %> 
