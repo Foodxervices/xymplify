@@ -28,7 +28,6 @@ describe RestaurantsController, :type => :controller do
     it 'renders the :show view' do
       do_request
       expect(assigns(:restaurant)).to match restaurant
-      expect(assigns(:activities).size).to eq 1
     end
   end
 
@@ -102,6 +101,20 @@ describe RestaurantsController, :type => :controller do
       expect{ do_request }.to change{ Restaurant.count }.from(1).to(0)
       expect(flash[:notice]).to eq('Restaurant has been deleted.')
       expect(response).to redirect_to "where_i_came_from"
+    end
+  end
+
+  describe '#dashboard' do
+    def do_request
+      get :dashboard, id: restaurant.id
+    end
+
+    let!(:restaurant) { create(:restaurant) }
+
+    it 'renders the :dashboard view' do
+      do_request
+      expect(assigns(:restaurant)).to match restaurant
+      expect(assigns(:activities).size).to eq 1
     end
   end
 end

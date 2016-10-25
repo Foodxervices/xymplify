@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require chart
 //= require bootstrap-sprockets
 //= require bootstrap_select/bootstrap_select
 //= require bootstrap_taggable/jquery-ui
@@ -23,5 +24,6 @@
 
 //= require pages/food_items 
 //= require pages/orders
+//= require pages/restaurants
 
 

@@ -47,6 +47,10 @@ Rails.application.routes.draw do
         patch :update_current_quantity
       end
     end
+
+    member do 
+      get :dashboard
+    end
   end
 
   resources :kitchens,  only: [:show]

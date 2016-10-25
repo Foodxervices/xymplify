@@ -31,8 +31,13 @@
     }
 
     &.sb-dashboard:before {
-      content: "\f015";
-      right: 12px;
+      content: "\f201";
+      right: 9px;
+    }
+
+    &.sb-restaurants:before {
+      content: "\f0ca";
+      right: 11px;
     }
 
     &.sb-restaurant:before {

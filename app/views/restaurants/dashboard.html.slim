@@ -1,0 +1,12 @@
+#restaurants-dashboard-container
+  .table-responsive
+    #cost-graph
+  .row
+    .col-md-6
+      - if @activities.present?
+        h2 Recent Activities  
+        = render 'activities/listing', activities: @activities
+    .col-md-6
+      - if @alerts.present?
+        h2 Alert for pending orders and inventory
+        = render 'alerts/listing', alerts: @alerts
