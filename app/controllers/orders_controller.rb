@@ -6,9 +6,12 @@ class OrdersController < ApplicationController
     @order_filter = OrderFilter.new(@orders, order_filter_params)
 
     @orders = @order_filter.result
+                           .select('orders.*, suppliers.name')
                            .includes(:supplier, :gsts)
                            .where(status: status)
-                           .order(id: :desc)
+                           .order('suppliers.name asc, status_updated_at desc')
+                           .paginate(:page => params[:page])
+    @grouped_orders = @orders.group_by{|order| order.supplier&.name}
   end
 
   def show
