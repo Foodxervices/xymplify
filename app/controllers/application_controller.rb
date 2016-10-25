@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_orders
 
+  helper_method :alert_count
+
   before_action :set_paper_trail_whodunnit
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -44,6 +46,12 @@ class ApplicationController < ActionController::Base
 
   def current_orders
     @current_orders ||= Order.where(user_id: current_user.id, kitchen_id: current_restaurant.kitchens, status: :wip)
+  end
+
+  def alert_count
+    return @alert_count if @alert_count.present?
+    alert_cacher = AlertCacher.new(current_restaurant.id, current_user.id)
+    @alert_count ||= alert_cacher.total_alert
   end
 
   def resource

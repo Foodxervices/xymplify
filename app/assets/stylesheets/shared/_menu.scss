@@ -1,4 +1,23 @@
 .shared-menu-container {
+  .avatar {
+    position: relative;
+
+    span {
+      position: absolute;
+      top: 0;
+      right: -9px;
+      display: inline-block;
+      border-radius: 50%;
+      background: red;
+      color: #fff;
+      text-align: center;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      font-size: 12px;
+    }
+  }
+
   img {
     margin: 0 0 0 15px;
     height: 50px;
