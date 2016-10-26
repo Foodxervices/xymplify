@@ -58,6 +58,9 @@ class RestaurantsController < ApplicationController
                    .includes(:alertable)
                    .paginate(:page => params[:alert_page], :per_page => 5)
                    .order(id: :desc)
+
+    @graph_data = CostGraph.new(@restaurant).result
+    @currency_symbol = Money::Currency.new(@restaurant.currency).symbol
   end
 
   private 

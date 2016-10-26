@@ -1,6 +1,10 @@
 #restaurants-dashboard-container
-  .table-responsive
-    #cost-graph
+  .row
+    .col-md-4.col-md-push-8
+      #graph-filter
+    .col-md-8.col-md-pull-4
+      .table-responsive
+        #cost-graph data-graph=@graph_data data-currency-symbol=@currency_symbol
   .row
     .col-md-6
       - if @activities.present?

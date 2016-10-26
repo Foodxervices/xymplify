@@ -4,32 +4,128 @@ Foodxervices.restaurants = {
       new AlertListing('#alert-listing')
       this.initCostGraph()
     },
-    initCostGraph: () => {
-      google.charts.load('current', {packages: ['corechart']});
-      google.charts.setOnLoadCallback(drawStacked);
+    initCostGraph: function() {
+      google.charts.load('current', {packages: ['corechart', 'controls']});
+      google.charts.setOnLoadCallback(this.drawStacked);
+    },
+    drawStacked: () => {
+      var data = getData()
 
-      function drawStacked() {
-        var data = google.visualization.arrayToDataTable([
-          ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-          ['Feb',  165,      938,         522,             998,           450,      614.6],
-          ['Mar',  135,      1120,        599,             1268,          288,      682],
-          ['Apr',  157,      1167,        587,             807,           397,      623],
-          ['May',  139,      1110,        615,             968,           215,      609.4],
-          ['Jun',  136,      691,         629,             1026,          366,      569.6]
-        ]);
+      if(data.length < 2) {
+        data = [
+          ['', ' ', { role: 'annotation' }],
+          ['', 0, 'Not enough data to draw the cost graph.']
+        ]
+        $('#graph-filter').hide()
+      }
 
-        var options = {
-          title : 'Your Cost/Revenue/Profit',
-          height: 300,
-          legend: { position: 'bottom', maxLines: 10 },
-          bar: { groupWidth: '30%' },
-          seriesType: 'bars',
-          series: {5: {type: 'line'}},
-          isStacked: true
+      var dataTable = google.visualization.arrayToDataTable(data);
+      var currencySymbol = $('#cost-graph').data('currency-symbol')
+      var options = {
+        title : `Your Cost/Revenue/Profit`,
+        height: 300,
+        legend: { position: 'bottom', maxLines: 10 },
+        bar: { groupWidth: '30%' },
+        seriesType: 'bars',
+        // series: {5: {type: 'line'}},
+        isStacked: true,
+        vAxis: {
+          format: `#${currencySymbol}`
+        }
+      };
+
+      var columnsTable = new google.visualization.DataTable();
+      columnsTable.addColumn('number', 'colIndex');
+      columnsTable.addColumn('string', 'colLabel');
+      var initState= {selectedValues: []};
+      
+      for (var i = 1; i < dataTable.getNumberOfColumns(); i++) {
+          columnsTable.addRow([i, dataTable.getColumnLabel(i)]);
+          initState.selectedValues.push(dataTable.getColumnLabel(i));
+      }
+
+      var chart = new google.visualization.ChartWrapper({
+        'chartType': 'ComboChart',
+        'containerId': 'cost-graph',
+        'dataTable': dataTable,
+        'options': options
+      })
+      chart.draw();
+
+      var filter = new google.visualization.ControlWrapper({
+        controlType: 'CategoryFilter',
+        containerId: 'graph-filter',
+        dataTable: columnsTable,
+        options: {
+            filterColumnLabel: 'colLabel',
+            ui: {
+                label: 'Item',
+                allowTyping: false,
+                allowMultiple: true,
+                allowNone: false,
+                labelStacking: 'vertical'
+            }
+        },
+        state: initState
+      });
+
+      google.visualization.events.addListener(filter, 'statechange', setChartView);
+      
+      setChartView();
+      filter.draw();
+      
+
+      function getData() {
+        var monthArray = []
+        var data = $('#cost-graph').data('graph')
+        var res = [[]]
+
+        $.each(data, function(month, monthData) {
+          $.each(monthData, function(tag, total_price) {
+            res[0].push(tag)
+          })
+        })
+
+        res[0] = $.unique(res[0])
+
+        $.each(data, function(month, monthData) {
+          month = new Date(month).toLocaleString('en-us', { month: "short", year: "numeric" })
+          monthArray = [month]
+
+          $.each(res[0], function(i, headTag) {
+            monthArray.push(null)
+
+            $.each(monthData, function(tag, total_price) {
+              if(headTag == tag) {
+                monthArray[monthArray.length - 1] = total_price
+                return false 
+              }
+            })
+          })
+          res.push(monthArray)
+        })
+
+        res[0].unshift('Month')
+        
+        return res
+      }
+
+      function setChartView () {
+        var state = filter.getState();
+        var row;
+        var view = {
+            columns: [0]
         };
-
-        var chart = new google.visualization.ComboChart(document.getElementById('cost-graph'));
-        chart.draw(data, options);
+        for (var i = 0; i < state.selectedValues.length; i++) {
+            row = columnsTable.getFilteredRows([{column: 1, value: state.selectedValues[i]}])[0];
+            view.columns.push(columnsTable.getValue(row, 0));
+        }
+        // sort the indices into their original order
+        view.columns.sort(function (a, b) {
+            return (a - b);
+        });
+        chart.setView(view);
+        chart.draw();
       }
     }
   }
