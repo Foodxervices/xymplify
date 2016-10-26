@@ -6,10 +6,16 @@
       #cost-graph data-graph=@graph_data data-currency-symbol=@currency_symbol
   .row
     .col-md-6
+      h2 Recent Activities  
       - if @activities.present?
-        h2 Recent Activities  
         = render 'activities/listing', activities: @activities
+      - else
+        h4 
+          i The data doesn't exist yet
     .col-md-6
+      h2 Alert for pending orders and inventory
       - if @alerts.present?
-        h2 Alert for pending orders and inventory
         = render 'alerts/listing', alerts: @alerts
+      - else
+        h4
+          i The data doesn't exist yet
