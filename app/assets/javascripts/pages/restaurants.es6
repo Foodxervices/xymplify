@@ -31,6 +31,7 @@ Foodxervices.restaurants = {
         isStacked: true,
         vAxis: {
           format: `${currencySymbol}#`,
+          minValue: 0.1,
           textStyle : { 
             fontSize: 14 
           }
