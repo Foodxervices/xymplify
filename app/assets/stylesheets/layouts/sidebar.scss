@@ -1,7 +1,7 @@
 #sidebar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: $sidebar_collapsed_left;
   width: $sidebar_width;
   height: 100vh;
   background: #0296e0;
