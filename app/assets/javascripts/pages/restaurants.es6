@@ -21,17 +21,41 @@ Foodxervices.restaurants = {
 
       var dataTable = google.visualization.arrayToDataTable(data);
       var currencySymbol = $('#cost-graph').data('currency-symbol')
+      var graphWidth = dataTable.getNumberOfRows() * 160
       var options = {
         title : `Your Cost`,
+        titleTextStyle: { fontSize: 30 },
+        width: graphWidth > 900 ? graphWidth : 900,
         height: 300,
-        legend: { position: 'bottom', maxLines: 10 },
-        bar: { groupWidth: '30%' },
         seriesType: 'bars',
-        // series: {5: {type: 'line'}},
         isStacked: true,
         vAxis: {
-          format: `${currencySymbol}#`
-        }
+          format: `${currencySymbol}#`,
+          textStyle : { 
+            fontSize: 14 
+          }
+        },
+        hAxis : { 
+          textStyle : { 
+            fontSize: 14 
+          }
+        },
+        tooltip: {
+          textStyle: { 
+            fontSize: 14 
+          }
+        },
+        legend:{
+          textStyle:{
+            fontSize: 14
+          },
+          position: 'bottom'
+        },
+        bar: {
+          groupWidth: 90
+        },
+        chartArea: {left:'50'},
+        // series: {5: {type: 'line'}},
       };
 
       var columnsTable = new google.visualization.DataTable();
@@ -93,14 +117,16 @@ Foodxervices.restaurants = {
           monthArray = [month]
 
           $.each(res[0], function(i, headTag) {
-            monthArray.push(null)
+            var price = null
 
             $.each(monthData, function(tag, total_price) {
               if(headTag == tag) {
-                monthArray[monthArray.length - 1] = total_price
+                price = total_price
                 return false 
               }
             })
+
+            monthArray.push(price)
           })
           res.push(monthArray)
         })
@@ -126,6 +152,7 @@ Foodxervices.restaurants = {
         });
         chart.setView(view);
         chart.draw();
+
       }
     }
   }
