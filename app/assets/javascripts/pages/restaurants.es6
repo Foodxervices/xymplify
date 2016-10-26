@@ -14,7 +14,7 @@ Foodxervices.restaurants = {
       if(data.length < 2) {
         data = [
           ['', ' ', { role: 'annotation' }],
-          ['', 0, 'Not enough data to draw the cost graph.']
+          ['', 0, "The data doesn't exist yet"]
         ]
         $('#graph-filter').hide()
       }
