@@ -23,7 +23,7 @@ Foodxervices.restaurants = {
       var currencySymbol = $('#cost-graph').data('currency-symbol')
       var graphWidth = dataTable.getNumberOfRows() * 90
       var options = {
-        title : `Your Cost`,
+        title : `Your Costs`,
         titleTextStyle: { fontSize: 30 },
         width: graphWidth > 900 ? graphWidth : 900,
         height: 300,
