@@ -2,7 +2,11 @@ Foodxervices.restaurants = {
   dashboard: {
     init: function() {
       new AlertListing('#alert-listing')
-      this.initCostGraph()
+
+      setTimeout(() => {
+        this.initCostGraph()  
+      }, 200)
+      
     },
     initCostGraph: function() {
       google.charts.load('current', {packages: ['corechart', 'controls']});
@@ -99,7 +103,6 @@ Foodxervices.restaurants = {
       setChartView();
       filter.draw();
       
-
       function getData() {
         var monthArray = []
         var data = $('#cost-graph').data('graph')
@@ -142,19 +145,18 @@ Foodxervices.restaurants = {
         var state = filter.getState();
         var row;
         var view = {
-            columns: [0]
+          columns: [0]
         };
         for (var i = 0; i < state.selectedValues.length; i++) {
             row = columnsTable.getFilteredRows([{column: 1, value: state.selectedValues[i]}])[0];
             view.columns.push(columnsTable.getValue(row, 0));
         }
-        // sort the indices into their original order
+    
         view.columns.sort(function (a, b) {
             return (a - b);
         });
         chart.setView(view);
         chart.draw();
-
       }
     }
   }
