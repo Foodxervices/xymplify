@@ -103,6 +103,7 @@ Foodxervices.restaurants = {
         var monthArray = []
         var data = $('#cost-graph').data('graph')
         var res = [[]]
+        var currencySymbol = $('#cost-graph').data('currency-symbol')
 
         $.each(data, function(month, monthData) {
           $.each(monthData, function(tag, total_price) {
@@ -126,7 +127,7 @@ Foodxervices.restaurants = {
               }
             })
 
-            monthArray.push(price)
+            monthArray.push({ v: price, f: `${currencySymbol}${price}` })
           })
           res.push(monthArray)
         })
