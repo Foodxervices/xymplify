@@ -22,7 +22,7 @@ Foodxervices.restaurants = {
       var dataTable = google.visualization.arrayToDataTable(data);
       var currencySymbol = $('#cost-graph').data('currency-symbol')
       var options = {
-        title : `Your Cost/Revenue/Profit`,
+        title : `Your Cost`,
         height: 300,
         legend: { position: 'bottom', maxLines: 10 },
         bar: { groupWidth: '30%' },
@@ -30,7 +30,7 @@ Foodxervices.restaurants = {
         // series: {5: {type: 'line'}},
         isStacked: true,
         vAxis: {
-          format: `#${currencySymbol}`
+          format: `${currencySymbol}#`
         }
       };
 
