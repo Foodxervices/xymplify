@@ -13,8 +13,6 @@
         tr 
           th = Restaurant.human_attribute_name(:name)
           th = Restaurant.human_attribute_name(:logo)
-          th = Restaurant.human_attribute_name(:site_address)
-          th = Restaurant.human_attribute_name(:billing_address)
           th = Restaurant.human_attribute_name(:contact_person)
           th = Restaurant.human_attribute_name(:telephone)
           th = Restaurant.human_attribute_name(:email)
@@ -24,12 +22,10 @@
       tbody 
         - @restaurants.each do |restaurant|
           tr 
-            td = link_to restaurant.name, restaurant
+            td = link_to_if can?(:dashboard, restaurant), restaurant.name, [:dashboard, restaurant]
             td 
               - if restaurant.logo.exists?
                 = image_tag restaurant.logo.url(:thumb) 
-            td = restaurant.site_address
-            td = restaurant.billing_address
             td = restaurant.contact_person
             td = restaurant.telephone
             td = restaurant.email
