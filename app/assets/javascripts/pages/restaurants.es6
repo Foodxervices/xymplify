@@ -21,7 +21,7 @@ Foodxervices.restaurants = {
 
       var dataTable = google.visualization.arrayToDataTable(data);
       var currencySymbol = $('#cost-graph').data('currency-symbol')
-      var graphWidth = dataTable.getNumberOfRows() * 160
+      var graphWidth = dataTable.getNumberOfRows() * 90
       var options = {
         title : `Your Cost`,
         titleTextStyle: { fontSize: 30 },
@@ -52,7 +52,7 @@ Foodxervices.restaurants = {
           position: 'bottom'
         },
         bar: {
-          groupWidth: 90
+          groupWidth: 50
         },
         chartArea: {left:'50'},
         // series: {5: {type: 'line'}},
