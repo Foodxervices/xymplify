@@ -28,8 +28,8 @@ class Notification
   end
 
   def clear
-    $redis.del(seen_at_key)
-    $redis.del(count_key)
+    $redis.expire(seen_at_key, 1.seconds)
+    $redis.expire(count_key, 1.seconds)
   end
 
   private
