@@ -6,7 +6,6 @@ Foodxervices.restaurants = {
       setTimeout(() => {
         this.initCostGraph()  
       }, 200)
-      
     },
     initCostGraph: function() {
       google.charts.load('current', {packages: ['corechart', 'controls']});

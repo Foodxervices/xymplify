@@ -1,0 +1,25 @@
+#users-sessions-new-container {
+  .title {
+    text-align: center;
+  }
+
+  h1 {
+    padding: 10px 65px;
+    display: inline-block;
+    background: url(image_path("logo.png")) no-repeat 0 center;
+  }
+
+  .user_remember_me {
+    margin: 0;
+
+    .checkbox {
+      margin: 0;
+    }
+  }
+  
+  .user_remember_me label, a.forgot-password {
+    line-height: 20px;
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+}

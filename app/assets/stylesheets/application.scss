@@ -9,12 +9,14 @@
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 @import 'theme';
+@import 'devise';
 @import 'search';
 @import 'selectpicker';
 
 @import 'layouts/main';
 @import 'layouts/sidebar';
 
+@import 'users/sessions/new';
 @import 'users/shared/_links';
 
 @import 'inventories/index';

@@ -26,3 +26,5 @@ en:
         bank_swift_code: "Bank SWIFT code"
       role:
         name: "Position"
+      user:
+        remember_me: "Keep me logged in"
