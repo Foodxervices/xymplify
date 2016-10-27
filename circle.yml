@@ -1,0 +1,14 @@
+database:
+  override:
+    - bundle exec rake db:create db:schema:load
+
+machine:
+  environment:
+    SECRET_KEY_BASE: test_secret
+
+deployment:
+  production:
+    branch: origin
+    commands:
+      - git push git@heroku.com:foodhub-ror.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate 
