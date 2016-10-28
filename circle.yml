@@ -7,7 +7,7 @@ dependencies:
     - gem install bundler
 
 deployment:
-  production:
+  staging:
     branch: master
     heroku:
       appname: foodhub-ror
