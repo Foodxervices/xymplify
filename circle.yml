@@ -1,10 +1,6 @@
 database:
   override:
-    - RAILS_ENV=test bundle exec rspec -r rspec_junit_formatter --format progress --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
-
-machine:
-  environment:
-    SECRET_KEY_BASE: test_secret
+    - bundle exec rake db:create db:schema:load
 
 dependencies:
   pre:

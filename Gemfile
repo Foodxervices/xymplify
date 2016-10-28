@@ -48,7 +48,6 @@ group :development, :test do
   gem 'shoulda'
   gem 'pry-rails'
   gem 'dotenv-rails'
-  gem 'rspec_junit_formatter'
 end
 
 group :development do
