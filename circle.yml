@@ -6,6 +6,10 @@ machine:
   environment:
     SECRET_KEY_BASE: test_secret
 
+dependencies:
+  pre:
+    - gem install bundler
+
 deployment:
   production:
     branch: master
