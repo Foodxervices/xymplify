@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_restaurant
+    return if @restaurant.try(:new_record?)
     @current_restaurant ||= (@restaurant || resource.try(:restaurant))
   end
 
