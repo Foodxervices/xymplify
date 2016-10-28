@@ -1,3 +1,7 @@
+database:
+  override:
+    - rake db:test:prepare
+
 dependencies:
   pre:
     - gem install bundler
@@ -7,5 +11,6 @@ deployment:
     branch: master
     commands:
       - git push git@heroku.com:foodhub-ror.git master
-      - heroku run rake db:migrate
+      - heroku run --app foodhub-ror
+      - heroku run rake db:migrate 
       - heroku restart
