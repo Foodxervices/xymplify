@@ -7,7 +7,20 @@ class FoodItemImportsController < ApplicationController
 
   def create
     @food_item_import = FoodItemImport.new(food_item_import_params)
-    @success = @food_item_import.save
+
+    begin
+      ActiveRecord::Base.transaction do
+        if @food_item_import.save
+        redirect_to :back
+        else
+          @errors = @food_item_import.errors[:import]
+          render :new
+        end
+      end
+    rescue Exception => error
+      @food_item_import.errors[:file] = error
+      render :new
+    end
   end
 
   private

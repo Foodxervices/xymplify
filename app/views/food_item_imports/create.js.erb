@@ -1,7 +1,0 @@
-<% if @success %>
-  window.location = "<%= request.env['HTTP_REFERER'] %>"
-<% else %>
-  <%= open_popup(title: 'Import', partial: 'food_item_imports/form', locals: { food_item_import: @food_item_import }) %> 
-  
-  $('#errors').html("<%= j render(partial: 'food_item_imports/errors', locals: {errors: @food_item_import.errors[:import]}) %>")
-<% end %> 

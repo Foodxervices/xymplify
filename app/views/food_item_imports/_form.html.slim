@@ -2,4 +2,6 @@
   = simple_form_for [current_restaurant, food_item_import], remote: true do |f|
     = kitchen_dropdown(f, action: :import)
     = f.input :file, as: :file, input_html: { data: {'allowed-file-extensions' => "csv", 'show-upload' => 'true'} }
-  #errors
+  - if @errors.present?
+    = render 'food_item_imports/errors', errors: @errors
+

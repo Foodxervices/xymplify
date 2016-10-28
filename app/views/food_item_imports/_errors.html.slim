@@ -1,13 +1,12 @@
 .food_item-imports-errors
-  - if errors.present?
-    h4 File upload with #{errors.size} failed entries
-    table.table.table-striped.bordered
-      thead
+  h4 File upload with #{errors.size} failed entries
+  table.table.table-striped.bordered
+    thead
+      tr
+        th Row
+        th Message
+    tbody    
+      - errors.each do |error|
         tr
-          th Row
-          th Message
-      tbody    
-        - errors.each do |error|
-          tr
-            td = error[:row]
-            td = error[:message]
+          td = error[:row]
+          td = error[:message]
