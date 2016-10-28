@@ -29,7 +29,7 @@ Foodxervices.restaurants = {
         title : `Your Costs`,
         titleTextStyle: { fontSize: 30 },
         width: graphWidth > 900 ? graphWidth : 900,
-        height: 300,
+        height: 500,
         seriesType: 'bars',
         isStacked: true,
         vAxis: {
@@ -58,7 +58,7 @@ Foodxervices.restaurants = {
         bar: {
           groupWidth: 50
         },
-        chartArea: {left:'50'},
+        chartArea: {left:'40', right: '15'},
         // series: {5: {type: 'line'}},
       };
 
