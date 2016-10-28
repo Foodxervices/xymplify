@@ -7,9 +7,11 @@ machine:
     version: rbx-2.3.1
   environment:
     SECRET_KEY_BASE: test_secret
-  commands:
+dependencies:
+  pre:
     - rvm install 2.3.1
-    - gem install bundler
+    - gem uninstall bundler # use a custom version of bundler
+    - gem install bundler --pre
 
 deployment:
   production:
