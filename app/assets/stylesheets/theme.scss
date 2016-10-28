@@ -138,7 +138,7 @@ table.table-striped {
 }
 
 table.table-bordered {
-  .form-group {
+  .form-group, .bootstrap-select.btn-group:not(.input-group-btn), .bootstrap-select.btn-group[class*=span], .bootstrap-select.btn-group[class*=col-] {
     margin-bottom: 0;
   }
 }

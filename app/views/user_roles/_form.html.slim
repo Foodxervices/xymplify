@@ -1,12 +1,10 @@
 .user_roles-form-container
-  = simple_nested_form_for [@restaurant, user_role], wrapper: :table_form do |f|
-    .row
-      .col-md-6
-        table.table.table-bordered
-          = f.association :user
-          = f.association :role
-          = f.association :kitchens, collection: user_role.restaurant.kitchens
+  = simple_nested_form_for [@restaurant, user_role], wrapper: :table_form, remote: true do |f|
+    table.table.table-bordered
+      = f.association :user
+      = f.association :role
+      = f.association :kitchens, collection: user_role.restaurant.kitchens
 
-        .text-right
-          .btn-group
-            = f.button :submit
+    .text-right
+      .btn-group
+        = f.button :submit

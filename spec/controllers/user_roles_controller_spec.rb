@@ -22,7 +22,7 @@ describe UserRolesController, :type => :controller do
 
   describe '#new' do 
     def do_request
-      get :new, restaurant_id: restaurant.id
+      get :new, restaurant_id: restaurant.id, format: :js
     end
 
     it 'assigns a new user_role and renders the :new view' do 
@@ -47,7 +47,7 @@ describe UserRolesController, :type => :controller do
 
   describe '#edit' do 
     def do_request
-      get :edit, id: user_role.id
+      get :edit, id: user_role.id, format: :js
     end
 
     let!(:user_role) { create(:user_role) }

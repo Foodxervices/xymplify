@@ -4,7 +4,7 @@
   .pull-right
     .btn-group
       - if can?(:update, UserRole.new(restaurant_id: @restaurant.id))
-        = link_to 'Create New User Role', [:new, @restaurant, :user_role], class: 'btn btn-default'
+        = link_to 'Create New User Role', [:new, @restaurant, :user_role], remote: true, class: 'btn btn-default'
         
   h1 User Roles
   .table-responsive
@@ -25,7 +25,7 @@
             td.text-center
               ul.actions
                 li = link_to 'View', user_role, remote: true 
-                li = link_to_if can?(:update, user_role), 'Edit', [:edit, user_role]
+                li = link_to_if can?(:update, user_role), 'Edit', [:edit, user_role], remote: true
                 li = link_to_if can?(:destroy, user_role), 'Delete', '#', data: { toggle: "confirmation", href: user_role_path(user_role) }, class: 'delete'
   .text-center          
     = will_paginate @user_roles, renderer: BootstrapPagination::Rails
