@@ -2,41 +2,41 @@
   table.table.table-bordered
     - if @supplier.logo.exists?
       tr 
-        th = Supplier.human_attribute_name(:logo)
+        td = Supplier.human_attribute_name(:logo)
         td = image_tag supplier.logo.url(:thumb) 
     tr 
-      th = Supplier.human_attribute_name(:country)
+      td = Supplier.human_attribute_name(:country)
       td = supplier.country
     tr 
-      th = Supplier.human_attribute_name(:address)
+      td = Supplier.human_attribute_name(:address)
       td = supplier.address
     tr 
-      th = Supplier.human_attribute_name(:contact)
+      td = Supplier.human_attribute_name(:contact)
       td = supplier.contact
     tr 
-      th = Supplier.human_attribute_name(:telephone)
+      td = Supplier.human_attribute_name(:telephone)
       td = supplier.telephone
     tr 
-      th = Supplier.human_attribute_name(:email)
+      td = Supplier.human_attribute_name(:email)
       td = supplier.email
     tr 
-      th = Supplier.human_attribute_name(:currency)
+      td = Supplier.human_attribute_name(:currency)
       td = supplier.currency
     tr 
-      th = Supplier.human_attribute_name(:company_registration_no)
+      td = Supplier.human_attribute_name(:company_registration_no)
       td = supplier.company_registration_no
     tr 
-      th = Supplier.human_attribute_name(:bank_name)
+      td = Supplier.human_attribute_name(:bank_name)
       td = supplier.bank_name
     tr 
-      th = Supplier.human_attribute_name(:bank_address)
+      td = Supplier.human_attribute_name(:bank_address)
       td = supplier.bank_address
     tr 
-      th = Supplier.human_attribute_name(:bank_swift_code)
+      td = Supplier.human_attribute_name(:bank_swift_code)
       td = supplier.bank_swift_code
     tr 
-      th = Supplier.human_attribute_name(:bank_account_name)
+      td = Supplier.human_attribute_name(:bank_account_name)
       td = supplier.bank_account_name
     tr 
-      th = Supplier.human_attribute_name(:bank_account_number)
+      td = Supplier.human_attribute_name(:bank_account_number)
       td = supplier.bank_account_number

@@ -74,6 +74,32 @@ table {
       content: "\f077";  
     }
   }
+
+  &.table-bordered {
+    > tbody > tr > th, > tbody > tr > td {
+      vertical-align: middle;
+    }
+
+    label.control-label {
+      font-weight: normal;
+    }
+  }
+
+  &.table-striped {
+    border: 1px solid #ddd;
+
+    > thead > tr > th {
+      border-bottom: none;
+      background: #ECEFF1;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-weight: normal;
+    }
+  }
+}
+
+.table > tbody + tbody {
+  border: none;
 }
 /* TABLE */
 

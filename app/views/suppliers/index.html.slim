@@ -12,7 +12,6 @@
       thead
         tr 
           th = Supplier.human_attribute_name(:name)
-          th = Supplier.human_attribute_name(:address)
           th = Supplier.human_attribute_name(:country)
           th = Supplier.human_attribute_name(:contact)
           th = Supplier.human_attribute_name(:telephone)
@@ -23,7 +22,6 @@
         - @suppliers.each do |supplier|
           tr 
             td = link_to supplier.name, supplier, remote: true
-            td = supplier.address
             td = supplier.country_name
             td = supplier.contact
             td = supplier.telephone

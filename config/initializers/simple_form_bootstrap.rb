@@ -143,7 +143,7 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
 
-    b.use :label, class: 'control-label', wrap_with: {tag: :th}
+    b.use :label, class: 'control-label', wrap_with: {tag: :td}
 
     b.wrapper :tag => :td do |ba|
       ba.use :input, class: 'form-control'

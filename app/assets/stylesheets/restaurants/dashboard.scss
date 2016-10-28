@@ -1,8 +1,13 @@
 #restaurants-dashboard-container {
+  h1 {
+    margin-bottom: 0;
+    font-size: 30px;
+  }
+
   #cost-graph {
     overflow-x: scroll;
-    overflow-y: hidden;     
+    overflow-y: hidden;    
     width: 100%;
-    height: 500px;
+    height: 300px;
   }
 }

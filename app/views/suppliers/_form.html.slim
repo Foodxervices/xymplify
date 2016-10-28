@@ -2,11 +2,12 @@
   = simple_form_for [@restaurant, supplier], wrapper: :table_form do |f|
     .form-inputs
       .row
-        .col-md-8
+        .col-md-7
           table.table.table-bordered
             = f.input :name
             tr 
-              th Logo
+              th width=200
+                label.control-label Logo
               td = f.input :logo, label: false, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg"} }
             = f.input :address
             = f.input :country
