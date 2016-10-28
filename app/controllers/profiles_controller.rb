@@ -2,10 +2,10 @@ class ProfilesController < ApplicationController
   def edit; end
 
   def update
-    @success = current_user.update_with_password(profile_params)
-    
-    if @success
-      flash[:notice] = 'Profile has been updated.'
+    if current_user.update_with_password(profile_params)
+      redirect_to root_url, notice: 'Profile has been updated.'
+    else
+      render :edit
     end
   end
 

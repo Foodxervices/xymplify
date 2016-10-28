@@ -26,7 +26,6 @@ describe ProfilesController, :type => :controller do
       do_request
       expect(user.reload.email).to eq new_email
       expect(flash[:notice]).to eq 'Profile has been updated.'
-      expect(response).to render_template :update
     end
   end
 end
