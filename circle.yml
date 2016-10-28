@@ -7,3 +7,6 @@ deployment:
     branch: master
     heroku:
       appname: foodhub-ror
+    commands:
+      - heroku run rake db:migrate 
+      - heroku restart
