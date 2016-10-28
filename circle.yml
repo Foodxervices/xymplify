@@ -11,6 +11,5 @@ deployment:
     branch: master
     commands:
       - git push git@heroku.com:foodhub-ror.git master
-      - heroku apps:default foodhub-ror
-      - heroku run rake db:migrate
-      - heroku restart
+      - heroku run rake db:migrate --app foodhub-ror
+      - heroku restart --app foodhub-ror
