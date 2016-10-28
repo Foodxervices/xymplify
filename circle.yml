@@ -5,8 +5,7 @@ dependencies:
 deployment:
   staging:
     branch: master
-    heroku:
-      appname: foodhub-ror
     commands:
-      - heroku run rake db:migrate 
+      - git push git@heroku.com:foodhub-ror.git master
+      - heroku run rake db:migrate
       - heroku restart
