@@ -16,11 +16,11 @@
     table.table.table-striped.text-center
       thead
         tr 
-          th = sortable(:code)
+          th width=100 = sortable(:code)
           th.text-left = sortable(:name)
           th = FoodItem.human_attribute_name(:image)
           th = sortable(:unit)
-          th = sortable(:unit_price_cents)
+          th width=120 = sortable(:unit_price_cents)
           th = sortable(:unit_price_currency)
           th = sortable(:supplier_name)
           th = sortable(:kitchen_name)

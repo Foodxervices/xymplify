@@ -5,7 +5,7 @@
     .col-sm-8
       table.table.table-bordered
         tr 
-          th = FoodItem.human_attribute_name(:code)
+          th width=150 = FoodItem.human_attribute_name(:code)
           td = food_item.code
         tr 
           th = FoodItem.human_attribute_name(:tag_list)
