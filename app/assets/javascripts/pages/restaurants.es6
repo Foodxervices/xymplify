@@ -57,7 +57,7 @@ Foodxervices.restaurants = {
         bar: {
           groupWidth: 50
         },
-        chartArea: {left:'40', right: '15'},
+        chartArea: {left:'100', right: '15'},
         // series: {5: {type: 'line'}},
       };
 
