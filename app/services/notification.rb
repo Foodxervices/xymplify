@@ -1,55 +1,51 @@
 class Notification
-  attr_accessor :current_ability, :restaurant_id, :user_id 
+  attr_accessor :current_ability, :restaurant, :user
 
-  def initialize(current_ability, restaurant_id, user_id)
+  def initialize(current_ability, restaurant, user)
     @current_ability = current_ability
-    @restaurant_id = restaurant_id
-    @user_id   = user_id
+    @restaurant = restaurant
+    @user   = user
   end
 
   def count
-    cache(count_key) {
-      alerts = Alert.accessible_by(current_ability, restaurant: restaurant_id)
+    $redis.del(redis_key(:count)) if seen_at < alert_updated_at
+    
+    cache(:count) {
+      alerts = Alert.accessible_by(current_ability, restaurant: restaurant)
       alerts = alerts.where('created_at > ?', seen_at) if seen_at.present?
       alerts.count
     }.to_i
   end
 
   def seen_at
-    cache(seen_at_key) {
-      Seen.where(restaurant_id: restaurant_id, user_id: user_id).first&.at 
-    }
+    $redis.get(redis_key(:seen_at))&.to_datetime || 10.years.ago
   end
 
   def seen
-    seen = Seen.where(restaurant_id: restaurant_id, user_id: user_id).first_or_create 
-    seen.update_column(:at, Time.zone.now)
-    clear
+    $redis.set(redis_key(:seen_at), Time.zone.now)
+    $redis.expire(redis_key(:count), 1.seconds)
   end
 
-  def clear
-    $redis.expire(seen_at_key, 1.seconds)
-    $redis.expire(count_key, 1.seconds)
+  def alert_updated_at
+    restaurant.redis(:alert_updated_at)&.to_datetime || Time.zone.now
   end
 
   private
 
-  def seen_at_key
-    "seen_at_#{restaurant_id}_#{user_id}"
+  def redis_key(str)
+    "notification:#{restaurant.id}:#{user.id}:#{str}"
   end
 
-  def count_key
-    "alert_count_#{restaurant_id}_#{user_id}"
-  end
-
-  def cache(key, expire = 1.minutes)
+  def cache(key, expire = 1.hour)
+    key = redis_key(key)
     result = $redis.get(key)
 
-    if result.nil?
+    if result.blank?
       result = yield
       $redis.set(key, result)
       $redis.expire(key, expire)
     end
+
     result
   end
 end

@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   def alert_count
     return 0 if current_restaurant.nil?
     return @alert_count if @alert_count.present?
-    notification = Notification.new(current_ability, current_restaurant.id, current_user.id)
+    notification = Notification.new(current_ability, current_restaurant, current_user)
     @alert_count ||= notification.count
   end 
 

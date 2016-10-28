@@ -42,3 +42,9 @@
     }
   }
 }
+
+html[data-turbolinks-preview] {
+  #alert-count {
+    opacity: 0;
+  }
+}

@@ -3,6 +3,8 @@ class Alert < ActiveRecord::Base
   
   validates :title, presence: true
 
+  after_save :cache_redis
+
   def self.accessible_by(current_ability, restaurant: nil)
     food_items = FoodItem.accessible_by(current_ability)
     orders = Order.accessible_by(current_ability)
@@ -16,5 +18,10 @@ class Alert < ActiveRecord::Base
           (alerts.alertable_type='FoodItem' AND alerts.alertable_id IN (:food_item_ids)) OR
           (alerts.alertable_type='Order' AND alerts.alertable_id IN (:order_ids))
         ", food_item_ids: food_items.ids , order_ids: orders.ids)
+  end
+
+  private 
+  def cache_redis
+    alertable.restaurant.set_redis(:alert_updated_at, Time.zone.now)
   end
 end

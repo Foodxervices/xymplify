@@ -20,4 +20,21 @@ class Restaurant < ActiveRecord::Base
   def to_param
     "#{id}-#{name.parameterize}"
   end
+
+  def alert_updated_at
+    key = "alert_restaurant_#{id}_updated_at"
+    $redis.get(key).to_date
+  end
+
+  def redis(key)
+    $redis.get(redis_key(key))
+  end
+
+  def set_redis(key, value)
+    $redis.set(redis_key(key), value)
+  end
+
+  def redis_key(str)
+    "restaurant:#{id}:#{str}"
+  end
 end

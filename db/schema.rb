@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025090823) do
+ActiveRecord::Schema.define(version: 20161028135455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,15 +145,6 @@ ActiveRecord::Schema.define(version: 20161025090823) do
     t.string "name"
     t.string "permissions"
   end
-
-  create_table "seens", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "restaurant_id"
-    t.datetime "at"
-  end
-
-  add_index "seens", ["restaurant_id"], name: "index_seens_on_restaurant_id", using: :btree
-  add_index "seens", ["user_id"], name: "index_seens_on_user_id", using: :btree
 
   create_table "suppliers", force: :cascade do |t|
     t.string   "name"
