@@ -4,6 +4,7 @@ en:
       permissions:
         restaurant__manage:                   "Restaurant :: Manage"
         restaurant__read:                     "Restaurant :: Read"
+        restaurant__dashboard:                "Restaurant :: Dashboard"
         restaurant__create:                   "Restaurant :: Create"
         restaurant__update:                   "Restaurant :: Update"
         restaurant__destroy:                  "Restaurant :: Destroy"
