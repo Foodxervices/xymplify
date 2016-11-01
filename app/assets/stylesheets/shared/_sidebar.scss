@@ -45,6 +45,11 @@
       right: 9px;
     }
 
+    &.sb-version:before {
+      content: "\f1da";
+      right: 14px;
+    }
+
     &.sb-user:before {
       content: "\f007";
     }

@@ -12,6 +12,7 @@
         = active_link_to 'Dashboard', [:dashboard, current_restaurant], :wrap_tag => :li, :active => :exact, class: 'sb-dashboard', title: 'Dashboard'
       - if can?(:read, current_restaurant)
         = active_link_to 'Restaurant', current_restaurant, :wrap_tag => :li, :active => :exact, class: 'sb-restaurant', title: 'Restaurant'
+      = active_link_to 'History', [current_restaurant, :versions], :wrap_tag => :li, class: 'sb-version', title: 'History'
       - if can?(:index, UserRole)
         = active_link_to 'User Role', [current_restaurant, :user_roles], :wrap_tag => :li, class: 'sb-user_role',  title: 'User Role'
       - if can?(:index, Supplier)
