@@ -4,6 +4,10 @@ module ApplicationHelper
   def format_date(date)
     date.try(:strftime, '%a, %d %b %Y')
   end
+
+  def format_datetime(date_time)
+    date_time.try(:strftime, '%d %b %Y %I:%M %p')
+  end
   
   def currency_codes
     currencies = []

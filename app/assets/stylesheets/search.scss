@@ -9,6 +9,7 @@
 
     > .form-group {
       flex-grow: 6;
+      min-width: 150px;
 
       input[type=text] {
         width: 100%;

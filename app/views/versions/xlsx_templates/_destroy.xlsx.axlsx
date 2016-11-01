@@ -1,0 +1,5 @@
+sheet.add_row ['', '', '', 'Field', 'Value']
+version.reify.attributes.each do |field, value|
+  sheet.add_row ['', '', '', kclass.human_attribute_name(field), version_value(field, value, linkable: false)]
+end
+sheet.add_row []

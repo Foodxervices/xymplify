@@ -1,0 +1,13 @@
+wb = xlsx_package.workbook
+
+@versions.group_by(&:item_type).each do |item_type, versions|
+  wb.add_worksheet(name: item_type.constantize.model_name.human) do |sheet|
+    sheet.add_row ['Date Time', 'User', 'Item']
+
+    versions.each do |version|
+      kclass = version.item_type.constantize
+      sheet.add_row [format_datetime(version.created_at), version.user&.name, version.item&.name]
+      render "versions/xlsx_templates/#{version.event}", sheet: sheet, version: version, kclass: kclass
+    end
+  end
+end

@@ -1,0 +1,5 @@
+sheet.add_row ['', '', '', 'Field', 'Previous Version', 'Current Version']
+version.changeset.each do |field, value|
+  sheet.add_row ['', '', '', kclass.human_attribute_name(field), version_value(field, value[0], linkable: false), version_value(field, value[1], linkable: false)]
+end
+sheet.add_row []

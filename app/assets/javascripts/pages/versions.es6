@@ -3,17 +3,28 @@ Foodxervices.versions = {
     init: function() {
       this.item_type   = $('#version_filter_item_type')
       this.attributes  = $('#version_filter_attributes') 
+      this.event       = $('#version_filter_event')
       this.initSearch()
       this.initDateRange()
     },
     initSearch: function() {
-      let { item_type, attributes } = this
+      let { item_type, attributes, event } = this
       
       this.itemTypeTrigger()
 
       item_type.change(() => {
         this.itemTypeTrigger()
         attributes.selectpicker('val', '')
+      })
+
+      event.on('change', (e, clickedIndex, newValue, oldValue) => {
+        if(e.target.value == 'update') {
+          attributes.selectpicker('show');
+        } 
+        else {
+          attributes.selectpicker('val', null);
+          attributes.selectpicker('hide');
+        }
       })
     },
     itemTypeTrigger: function() {
