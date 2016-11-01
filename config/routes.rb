@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
 
   resources :restaurants, only: [:index, :show, :new, :create, :edit, :update, :destroy] do 
+    resources :versions,    only: [:index]
     resources :suppliers,   only: [:index, :new, :create]
     resources :user_roles,  only: [:index, :new, :create]
     resources :food_items,  only: [:index, :new, :create]

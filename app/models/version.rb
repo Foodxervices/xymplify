@@ -1,9 +1,9 @@
 class Version < PaperTrail::Version
   default_scope { order(created_at: :desc) }
 
-  def user
-    User.find_by_id(whodunnit) if whodunnit
-  end  
+  belongs_to :user, foreign_key: :whodunnit
+  belongs_to :order_gst, -> { includes(:versions).where(versions: { item_type: 'OrderGst' }) }, foreign_key: :item_id
+  belongs_to :order_item, -> { includes(:versions).where(versions: { item_type: 'OrderItem' }) }, foreign_key: :item_id
 
   def self.by_restaurant(restaurant_id)
     where("

@@ -51,7 +51,7 @@ class RestaurantsController < ApplicationController
 
   def dashboard
     @activities = Version.by_restaurant(@restaurant.id)
-                             .includes(:item)
+                             .includes(:item, :user)
                              .paginate(:page => params[:activity_page], :per_page => 5)
 
     @alerts = Alert.accessible_by(current_ability, restaurant: @restaurant)
@@ -61,6 +61,7 @@ class RestaurantsController < ApplicationController
 
     @graph_data = CostGraph.new(@restaurant).result
     @currency_symbol = Money::Currency.new(@restaurant.currency).symbol
+    @display_more_activity_link = true
   end
 
   private 

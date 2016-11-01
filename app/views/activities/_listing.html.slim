@@ -4,5 +4,9 @@
       tr
         td = activity_message(activity)
         td.text-center = link_to_if can?(:read, activity), "History", activity, remote: true
+    - if @display_more_activity_link
+      tr
+        td.text-right colspan="2"
+          = link_to 'More Information', [current_restaurant, :versions]
   .text-center
     = will_paginate activities, inner_window: 1, outer_window: 2, renderer: BootstrapPagination::Rails, param_name: "activity_page"

@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require moment
 //= require chart
 //= require bootstrap-sprockets
 //= require bootstrap_select/bootstrap_select
@@ -9,6 +10,7 @@
 //= require bootstrap-confirmation
 //= require bootstrap-fileinput/js/fileinput
 //= require datepicker/js/bootstrap-datepicker
+//= require daterangepicker/daterangepicker
 //= require turbolinks
 //= require masonry.pkgd
 //= require jquery.remotipart
@@ -26,5 +28,6 @@
 //= require pages/food_items 
 //= require pages/orders
 //= require pages/restaurants
+//= require pages/versions
 
 
