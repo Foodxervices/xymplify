@@ -49,7 +49,7 @@ class Ability
     end
 
     cannot [:mark_as_cancelled], Order do |order|
-      !order.status.placed? || !order.status.accepted?
+      !order.status.placed? && !order.status.accepted?
     end
   end
 end
