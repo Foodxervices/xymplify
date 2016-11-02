@@ -8,7 +8,7 @@ Foodxervices.versions = {
       this.initDateRange()
     },
     initSearch: function() {
-      let { item_type, event } = this
+      let { item_type, event, attributes } = this
       
       this.itemTypeTrigger()
 
