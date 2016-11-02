@@ -1,6 +1,8 @@
 class VersionFilter
   include ActiveModel::Model
 
+  DATE_FORMAT = '%m/%d/%Y'
+
   attr_accessor :item_type
   attr_accessor :item_types
   attr_accessor :events
@@ -21,6 +23,8 @@ class VersionFilter
 
     @item_types = @item_types.uniq.map{|kclass| [kclass.constantize.model_name.human, kclass.constantize]}
     @events = @events.uniq.map{|event| [event.humanize, event]}
+
+    @date_range = default_date_range if !date_range.present?
   end
 
 
@@ -49,7 +53,7 @@ class VersionFilter
 
     if date_range.present?
       from, to = date_range.split(' - ')
-      @versions = @versions.where(created_at: (Date.strptime(from, '%m/%d/%Y').beginning_of_day..Date.strptime(to, '%m/%d/%Y').end_of_day))
+      @versions = @versions.where(created_at: (Date.strptime(from, DATE_FORMAT).beginning_of_day..Date.strptime(to, DATE_FORMAT).end_of_day))
     end
 
     @versions 
@@ -57,6 +61,12 @@ class VersionFilter
 
   def attribute_values
     attributes.map{|attr| attr.split(':')[1]}
+  end
+
+  def default_date_range
+    from = Time.zone.now.beginning_of_month.strftime(DATE_FORMAT)
+    to = Time.zone.now.end_of_month.strftime(DATE_FORMAT)
+    "#{from} - #{to}"
   end
 
   def persisted?

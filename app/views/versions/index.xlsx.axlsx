@@ -1,13 +1,21 @@
 wb = xlsx_package.workbook
 
-@versions.group_by(&:item_type).each do |item_type, versions|
-  wb.add_worksheet(name: item_type.constantize.model_name.human) do |sheet|
-    sheet.add_row ['Date Time', 'User', 'Item']
+style = {}
+style[:item] = wb.styles.add_style(:bg_color => "0296e0", :fg_color=>"ffffff", :sz=>12, alignment: { horizontal: :left, vertical: :center }, border: { style: :thin, color: "dedede" })
+style[:title] = wb.styles.add_style(:bg_color => "51afdb", :fg_color=>"ffffff", :sz=>12, alignment: { horizontal: :left, vertical: :center }, border: { style: :thin, color: "dedede" })
+style[:field] = wb.styles.add_style(:sz=>12, alignment: { horizontal: :left, vertical: :center })
 
+@versions.group_by(&:item_type).each do |item_type, versions|
+  wb.add_worksheet(name: item_type.constantize.model_name.human, page_setup: { fit_to_width: 1 }, page_margins: {left: 0.1, top: 0.1, right: 0.1, bottom: 0.1}, print_options: { horizontal_centered: true }) do |sheet|
     versions.each do |version|
       kclass = version.item_type.constantize
-      sheet.add_row [format_datetime(version.created_at), version.user&.name, version.item&.name]
-      render "versions/xlsx_templates/#{version.event}", sheet: sheet, version: version, kclass: kclass
+      sheet.add_row [format_datetime(version.created_at), version.user&.name, version.item&.name], style: style[:item]
+      render "versions/xlsx_templates/#{version.event}", sheet: sheet, version: version, kclass: kclass, style: style
+    end
+
+    sheet.column_widths 28, 80, 80
+    sheet.rows.each do |row|
+      row.height = 28
     end
   end
 end

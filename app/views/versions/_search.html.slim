@@ -5,5 +5,5 @@
     = f.input :item_type, collection: version_filter.item_types
     = f.input :attributes, collection: version_filter.attribute_list, as: :grouped_select, group_method: :second, input_html: {multiple: true}
     = f.button :submit, 'Submit'
-    = link_to "Export", {:format => :xlsx }, class: 'btn btn-default'
     = link_to 'Reset', url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default' 
+    = link_to "Export", url_for({format: :xlsx}.merge(params.except(:action, :controller, :subdomain))), class: 'btn btn-default'

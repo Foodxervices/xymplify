@@ -1,5 +1,5 @@
-sheet.add_row ['', '', '', 'Field', 'Value']
+sheet.add_row ['Destroy', 'Value'], style: style[:title]
 version.reify.attributes.each do |field, value|
-  sheet.add_row ['', '', '', kclass.human_attribute_name(field), version_value(field, value, linkable: false)]
+  sheet.add_row [kclass.human_attribute_name(field), version_value(field, value, linkable: false)], style: style[:field]
 end
 sheet.add_row []

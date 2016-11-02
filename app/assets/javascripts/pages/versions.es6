@@ -8,7 +8,7 @@ Foodxervices.versions = {
       this.initDateRange()
     },
     initSearch: function() {
-      let { item_type, attributes, event } = this
+      let { item_type, event } = this
       
       this.itemTypeTrigger()
 
@@ -16,16 +16,23 @@ Foodxervices.versions = {
         this.itemTypeTrigger()
         attributes.selectpicker('val', '')
       })
+      
+      this.updateEvenTrigger()
 
       event.on('change', (e, clickedIndex, newValue, oldValue) => {
-        if(e.target.value == 'update') {
-          attributes.selectpicker('show');
-        } 
-        else {
-          attributes.selectpicker('val', null);
-          attributes.selectpicker('hide');
-        }
+        this.updateEvenTrigger()
       })
+    },
+    updateEvenTrigger: function() {
+      let { event, attributes } = this 
+
+      if(event.val() == 'update') {
+        attributes.selectpicker('show');
+      } 
+      else {
+        attributes.selectpicker('val', null);
+        attributes.selectpicker('hide');
+      }
     },
     itemTypeTrigger: function() {
       let { item_type, attributes } = this
