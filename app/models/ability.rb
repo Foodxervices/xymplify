@@ -2,6 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    user = (user ||= User.new)
+
     @kitchens = {}
 
     if user.kind_of?(Admin) 
@@ -38,8 +40,16 @@ class Ability
       end
     end
 
-    cannot [:mark_as_delivered, :mark_as_cancelled], Order do |order|
-      !order.status.placed?
+    can [:mark_as_accepted, :mark_as_declined], Order do |order|
+      order.status.placed?
+    end
+
+    cannot [:mark_as_delivered], Order do |order|
+      !order.status.accepted?
+    end
+
+    cannot [:mark_as_cancelled], Order do |order|
+      !order.status.placed? || !order.status.accepted?
     end
   end
 end

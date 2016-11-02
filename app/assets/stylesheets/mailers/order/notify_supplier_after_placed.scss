@@ -1,0 +1,32 @@
+#mailers-order-notify_supplier_after_placed-container {
+  #supplier-name {
+    text-transform: uppercase;
+  }
+
+  .clearfix {
+    clear: both;
+  }
+
+  #header {
+    margin: 20px 0;
+    
+    #logo {
+      float: left; 
+      padding-right: 20px;
+    }
+
+    #restaurant {
+      h2 {
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+      }
+
+      p {
+        margin: 0;
+        padding: 0; 
+        font-size: 14px;
+      }
+    }
+  }
+}

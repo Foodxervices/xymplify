@@ -17,6 +17,13 @@ Rails.application.routes.draw do
 
   resources :versions,    only: [:show]
 
+  resources :supplier_requests, only: [] do 
+    member do 
+      get :mark_as_accepted
+      get :mark_as_declined
+    end
+  end
+
   resources :orders,      only: [:show, :edit, :update, :destroy] do 
     member do 
       patch :mark_as_delivered 

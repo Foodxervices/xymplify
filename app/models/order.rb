@@ -92,10 +92,10 @@ class Order < ActiveRecord::Base
         when ["accepted", "delivered"] 
           food_item.current_quantity = food_item.current_quantity + item.quantity
           food_item.quantity_ordered = food_item.quantity_ordered - item.quantity
-        when ["placed", "cancelled"], ["accepted", "cancelled"]
+        when ["placed", "cancelled"], ["accepted", "cancelled"], ["placed", "declined"]
           food_item.quantity_ordered = food_item.quantity_ordered - item.quantity
       end
-
+      
       food_item.save if food_item.changed?
     end
   end

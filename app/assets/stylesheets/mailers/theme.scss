@@ -1,0 +1,29 @@
+.mailers-theme-container {
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 2px;
+  border: 1px solid #dedede;
+  line-height: 150%;
+  color: #737373;
+  
+  main {
+    padding: 15px;
+  }
+
+  h1 {
+    background: #ffb726;
+    color: #ffffff;
+    margin: 0;
+    padding: 28px 24px;
+    display: block;
+    font-family: Arial;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+}

@@ -26,7 +26,10 @@ class CartsController < ApplicationController
   def purchase
     ActiveRecord::Base.transaction do
       current_orders.each do |order|
-        order.update(status: :placed)
+        if order.update(status: :placed)
+          order.update_column(:token, SecureRandom.urlsafe_base64)
+          Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_placed(order)).deliver_now
+        end
       end
     end
 
