@@ -80,6 +80,8 @@ Rails.application.configure do
   config.react.variant = :production
 
   config.action_mailer.default_url_options = { :host => Rails.application.secrets.host }
+  config.action_mailer.default_options = { from: Rails.application.secrets.domain_name,
+                                           return_path: Rails.application.secrets.return_email_path }
 
   ActionMailer::Base.smtp_settings = {
     :address => "smtp.sendgrid.net",
