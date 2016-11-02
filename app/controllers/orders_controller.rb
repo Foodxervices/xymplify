@@ -59,9 +59,9 @@ class OrdersController < ApplicationController
     redirect_to :back
   end
 
-  def mark_as_shipped
+  def mark_as_delivered
     ActiveRecord::Base.transaction do
-      @order.status = :shipped
+      @order.status = :delivered
       @order.save
     end
 
@@ -105,6 +105,6 @@ class OrdersController < ApplicationController
   end
 
   def status
-    params[:status] == 'archived' ? [:shipped, :cancelled] : :placed
+    params[:status] == 'archived' ? [:delivered, :cancelled] : :placed
   end
 end

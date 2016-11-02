@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   resources :orders,      only: [:show, :edit, :update, :destroy] do 
     member do 
-      patch :mark_as_shipped 
+      patch :mark_as_delivered 
       patch :mark_as_cancelled
     end
   end

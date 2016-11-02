@@ -38,7 +38,7 @@ class Ability
       end
     end
 
-    cannot [:mark_as_shipped, :mark_as_cancelled], Order do |order|
+    cannot [:mark_as_delivered, :mark_as_cancelled], Order do |order|
       !order.status.placed?
     end
   end

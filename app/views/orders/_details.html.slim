@@ -26,8 +26,8 @@
     .btn-group 
       - if can?("update_#{order.status}".to_sym, order) && !params['alert']
         = link_to 'Edit PO', [:edit, order], remote: true, class: 'btn btn-default'   
-      - if can?(:mark_as_shipped, order)
-        = link_to 'Mark as Shipped', '#', data: { toggle: "confirmation", href: mark_as_shipped_order_path(order), link_method: 'patch' }, class: 'btn btn-primary'
+      - if can?(:mark_as_delivered, order)
+        = link_to 'Mark as Delivered', '#', data: { toggle: "confirmation", href: mark_as_delivered_order_path(order), link_method: 'patch' }, class: 'btn btn-primary'
       - if can?(:mark_as_cancelled, order)
         = link_to 'Mark as Cancelled', '#', data: { toggle: "confirmation", href: mark_as_cancelled_order_path(order), link_method: 'patch' }, class: 'btn btn-warning'
       = link_to 'Download', [order, format: :pdf], class: 'btn btn-success', target: :_blank

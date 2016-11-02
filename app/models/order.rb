@@ -7,8 +7,6 @@ class Order < ActiveRecord::Base
   before_create :set_name
   
   before_save :set_status_updated_at
-  before_save :set_placed_at
-  before_save :set_delivery_at
   
   after_save :set_item_price
 
@@ -27,7 +25,7 @@ class Order < ActiveRecord::Base
   validates :supplier_id,  presence: true
   validates :kitchen_id,   presence: true
 
-  enumerize :status, in: [:wip, :placed, :shipped, :cancelled], default: :wip
+  enumerize :status, in: [:wip, :placed, :accepted, :declined, :delivered, :cancelled], default: :wip
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :gsts,  reject_if: :all_blank, allow_destroy: true
@@ -58,17 +56,6 @@ class Order < ActiveRecord::Base
     all.map(&:price_with_gst).inject(0, :+)
   end
 
-  def changed_status_at
-    case status.to_s
-    when 'placed'
-      return placed_at
-    when 'shipped'
-      return delivery_at
-    else
-      return updated_at
-    end
-  end
-
   private 
   def cache_restaurant
     self.restaurant_id = kitchen.restaurant_id 
@@ -89,18 +76,9 @@ class Order < ActiveRecord::Base
   end
 
   def set_status_updated_at
-    self.status_updated_at = Time.zone.now if status_changed?
-  end
-
-  def set_delivery_at
-    if status_change == ["placed", "shipped"]
-      self.delivery_at = Time.zone.now
-    end
-  end
-
-  def set_placed_at
-    if status_change == ["wip", "placed"]
-      self.placed_at = Time.zone.now
+    if status_changed?
+      self.status_updated_at = Time.zone.now 
+      self.send("#{status}_at=", status_updated_at) if !status.wip?
     end
   end
 
@@ -110,12 +88,15 @@ class Order < ActiveRecord::Base
       
       case status_change 
         when ["wip", "placed"]
-          food_item.update_column(:quantity_ordered, food_item.quantity_ordered + item.quantity)
-        when ["placed", "shipped"] 
-          food_item.update_columns(current_quantity: food_item.current_quantity + item.quantity, quantity_ordered: food_item.quantity_ordered - item.quantity)
-        when ["placed", "cancelled"]
-          food_item.update_columns(quantity_ordered: food_item.quantity_ordered - item.quantity)
+          food_item.quantity_ordered = food_item.quantity_ordered + item.quantity
+        when ["accepted", "delivered"] 
+          food_item.current_quantity = food_item.current_quantity + item.quantity
+          food_item.quantity_ordered = food_item.quantity_ordered - item.quantity
+        when ["placed", "cancelled"], ["accepted", "cancelled"]
+          food_item.quantity_ordered = food_item.quantity_ordered - item.quantity
       end
+
+      food_item.save if food_item.changed?
     end
   end
 end

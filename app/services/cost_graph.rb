@@ -10,11 +10,11 @@ class CostGraph
     items = restaurant.order_items
                       .joins(:order)
                       .includes(:tags, :order)
-                      .where(orders: { status: :shipped })
-                      .order('orders.delivery_at asc')
+                      .where(orders: { status: :delivered })
+                      .order('orders.delivered_at asc')
     items.each do |item|
       item.tags.each do |tag|
-        month = item.order.delivery_at.beginning_of_month
+        month = item.order.delivered_at.beginning_of_month
         res[month] ||= {}
         res[month][tag.name] ||= 0
         res[month][tag.name] += item.total_price.exchange_to(restaurant.currency).to_f

@@ -5,6 +5,7 @@ describe Order do
     it { is_expected.to validate_presence_of :supplier_id }
     it { is_expected.to validate_presence_of :kitchen_id }
     it { is_expected.to validate_presence_of :user_id }
+    it { is_expected.to enumerize(:status).in(:wip, :placed, :accepted, :declined, :delivered, :cancelled) }
   end
 
   context 'associations' do 
@@ -34,12 +35,12 @@ describe Order do
     end
   end
 
-  describe '#changed_status_at' do 
+  describe '#status_updated_at' do 
     let!(:order) { create(:order, status: :wip) }
 
     context 'status: wip' do
       it 'returns updated at' do
-        expect(order.changed_status_at).to eq order.updated_at
+        expect(order.status_updated_at.to_date).to eq order.updated_at.to_date
       end
     end
 
@@ -50,19 +51,19 @@ describe Order do
       end
 
       it 'returns placed at' do
-        expect(order.changed_status_at).to eq order.placed_at
+        expect(order.status_updated_at).to eq order.placed_at
       end
     end
 
-    context 'status: shipped' do
+    context 'status: delivered' do
       before do 
         order.status = :placed 
-        order.status = :shipped 
+        order.status = :delivered 
         order.save 
       end
 
-      it 'returns placed at' do
-        expect(order.changed_status_at).to eq order.delivery_at
+      it 'returns delivered at' do
+        expect(order.status_updated_at).to eq order.delivered_at
       end
     end
   end
