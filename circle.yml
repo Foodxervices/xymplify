@@ -2,9 +2,9 @@ database:
   override:
     - bundle exec rake db:test:prepare
 
-dependencies:
-  pre:
-    - gem install bundler
+# dependencies:
+#   pre:
+#     - gem install bundler
 
 deployment:
   staging:
