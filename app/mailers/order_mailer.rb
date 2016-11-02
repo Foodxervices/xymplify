@@ -4,6 +4,9 @@ class OrderMailer < ActionMailer::Base
   def notify_supplier_after_placed(order)
     @order = order
     @supplier = @order.supplier
+    
+    return if @supplier.email.blank?
+
     @restaurant = @order.restaurant
     @kitchen = @order.kitchen
     @items = @order.items

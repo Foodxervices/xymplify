@@ -5,9 +5,8 @@ html
 
   body
     #mailers-order-notify_supplier_after_placed-container.mailers-theme-container
-      header
-        h1 Purchase Order No: #{@order.name}
-      main
+      h1 Purchase Order No: #{@order.name}
+      #main
         p Hi <span id="supplier-name">#{@supplier.name}</span>,
         p 
           | You got a Purchase Order from #{@restaurant.name}, <br />
