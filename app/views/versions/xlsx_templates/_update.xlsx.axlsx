@@ -1,7 +1,7 @@
 sheet.add_row ['Update', 'Previous Version', 'Current Version'], style: style[:title]
 version.changeset.each do |field, value|
-  if (@version_filter.attributes.blank? && version.item_type.constantize.column_names.include?(field)) || @version_filter.attribute_values.include?(field)
-    sheet.add_row [kclass.human_attribute_name(field), version_value(field, value[0], linkable: false), version_value(field, value[1], linkable: false)], style: style[:field]
-  end
+  next if @version_filter.attributes.present? && !@version_filter.attribute_values.include?(field)
+  next if @version_filter.attributes.blank? && !version.item_type.constantize.column_names.include?(field)
+  sheet.add_row [kclass.human_attribute_name(field), version_value(field, value[0], linkable: false), version_value(field, value[1], linkable: false)], style: style[:field]
 end
 sheet.add_row []
