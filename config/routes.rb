@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root 'restaurants#index'
+  root 'home#index'
 
   resource :profile, only: [:edit, :update]
 
@@ -17,17 +17,12 @@ Rails.application.routes.draw do
 
   resources :versions,    only: [:show]
 
-  resources :supplier_requests, only: [] do 
+  resources :orders,      only: [:show, :edit, :update, :destroy] do 
     member do 
       get :mark_as_accepted
       get :mark_as_declined
-    end
-  end
-
-  resources :orders,      only: [:show, :edit, :update, :destroy] do 
-    member do 
       patch :mark_as_delivered 
-      patch :mark_as_cancelled
+      patch :mark_as_cancelled 
     end
   end
 

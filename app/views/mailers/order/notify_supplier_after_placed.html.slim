@@ -25,7 +25,7 @@ html
         = render 'orders/info', supplier: @supplier, kitchen: @kitchen, restaurant: @restaurant, order: @order, items: @items
 
         .text-center
-          p#actions Please <strong>#{link_to 'accept', mark_as_accepted_supplier_request_url(@order.id, token: @order.token), target: :_blank}</strong> or <strong>#{link_to 'decline', mark_as_declined_supplier_request_url(@order.id, token: @order.token), target: :_blank}</strong> the order.
+          p#actions Please <strong>#{link_to 'accept', mark_as_accepted_order_url(@order.id, token: @order.token), target: :_blank}</strong> or <strong>#{link_to 'decline', mark_as_declined_order_url(@order.id, token: @order.token), target: :_blank}</strong> the order.
           
           
           p#replying-to Please kindly acknowledge receipt by replying to #{mail_to Rails.application.secrets.return_email_path}

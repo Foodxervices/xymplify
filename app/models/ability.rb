@@ -8,7 +8,7 @@ class Ability
 
     if user.kind_of?(Admin) 
       can :manage, :all
-    else
+    elsif user.persisted?
       can :show, User
       can :read, Restaurant, { id: [] }
       can :read, Version

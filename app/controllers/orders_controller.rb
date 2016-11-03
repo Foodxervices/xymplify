@@ -1,9 +1,13 @@
-class OrdersController < PublicController
-  before_action :authenticate_user!, except: [:show]
+class OrdersController < ApplicationController
+  AUTHORIZE_TOKEN_ACTIONS = [:show, :mark_as_accepted, :mark_as_declined]
+  
   load_resource :restaurant
   load_resource :order, :through => :restaurant, :shallow => true
-  authorize_resource :restaurant, except: [:show]
-  authorize_resource :order, :through => :restaurant, :shallow => true, except: [:show]
+
+  authorize_resource :restaurant, except: AUTHORIZE_TOKEN_ACTIONS
+  authorize_resource :order, :through => :restaurant, :shallow => true, except: AUTHORIZE_TOKEN_ACTIONS
+
+  before_action :authorize_token, only: AUTHORIZE_TOKEN_ACTIONS
 
   def index
     @order_filter = OrderFilter.new(@orders, order_filter_params)
@@ -19,15 +23,8 @@ class OrdersController < PublicController
 
   def show
     respond_to do |format|
-      format.js do 
-        authorize! :show, @order
-      end
+      format.js
       format.pdf do 
-        if !params[:token]
-          authorize! :show, @order 
-        else
-          redirect_to root_url, notice: 'Invalid Token' if params[:token] != @order.token
-        end
         @supplier     = @order.supplier
         @kitchen      = @order.kitchen
         @restaurant   = @kitchen.restaurant
@@ -86,6 +83,34 @@ class OrdersController < PublicController
     redirect_to :back
   end
 
+  def mark_as_accepted
+    if @order.status.placed?
+      ActiveRecord::Base.transaction do
+        @order.status = :accepted
+        
+        flash[:notice] = "#{@order.name} has been accepted." if @order.save
+      end
+    else
+      flash[:notice] = "#{@order.name} was #{@order.status}." 
+    end
+
+    redirect_to root_url
+  end
+
+  def mark_as_declined
+    if @order.status.placed?
+      ActiveRecord::Base.transaction do
+        @order.status = :declined
+        
+        flash[:notice] = "#{@order.name} has been declined." if @order.save
+      end
+    else
+      flash[:notice] = "#{@order.name} was #{@order.status}." 
+    end
+
+    redirect_to root_url
+  end
+
   private
 
   def order_params
@@ -115,5 +140,13 @@ class OrdersController < PublicController
 
   def status
     params[:status] == 'archived' ? [:delivered, :cancelled, :declined] : [:placed, :accepted]
+  end
+
+  def authorize_token
+    if !params[:token]
+      authorize! :show, @order 
+    else
+      redirect_to root_url, notice: 'Invalid Token' if params[:token] != @order.token
+    end
   end
 end
