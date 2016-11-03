@@ -13,7 +13,11 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to main_app.root_url, alert: exception.message
+    if !user_signed_in?
+      authenticate_user!
+    else
+      redirect_to main_app.root_url, alert: exception.message
+    end
   end
 
   protected
