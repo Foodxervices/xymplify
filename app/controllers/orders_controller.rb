@@ -91,8 +91,10 @@ class OrdersController < ApplicationController
     if @order.status.placed?
       ActiveRecord::Base.transaction do
         @order.status = :accepted
-        
-        flash[:notice] = "#{@order.name} has been accepted." if @order.save
+        if @order.save
+          flash[:notice] = "#{@order.name} has been accepted." 
+          @order.alerts.create(title: flash[:notice])
+        end
       end
     else
       flash[:notice] = "#{@order.name} was #{@order.status}." 
@@ -105,8 +107,11 @@ class OrdersController < ApplicationController
     if @order.status.placed?
       ActiveRecord::Base.transaction do
         @order.status = :declined
-        
-        flash[:notice] = "#{@order.name} has been declined." if @order.save
+
+        if @order.save
+          flash[:notice] = "#{@order.name} has been declined." 
+          @order.alerts.create(title: flash[:notice])
+        end
       end
     else
       flash[:notice] = "#{@order.name} was #{@order.status}." 
