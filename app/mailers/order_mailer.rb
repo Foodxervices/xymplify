@@ -15,7 +15,7 @@ class OrderMailer < ActionMailer::Base
     @user = @order.user
     @mailer = true
     
-    attachments[@order.name] = open(order_url(order, format: :pdf, token: @order.token)).read if !Rails.env.development?
+    attachments["#{@order.name}.pdf"] = open(order_url(order, format: :pdf, token: @order.token)).read if !Rails.env.development?
 
     mail(
       to: @supplier.email,
