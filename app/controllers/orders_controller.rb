@@ -68,7 +68,9 @@ class OrdersController < ApplicationController
   def mark_as_delivered
     ActiveRecord::Base.transaction do
       @order.status = :delivered
-      @order.save
+      if @order.save
+        Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_delivered(@order)).deliver_later
+      end
     end
 
     redirect_to :back

@@ -21,13 +21,13 @@
       tr 
         td.text-right colspan="3" Total
         td.text-right = humanized_money_with_symbol(order.price_with_gst)
-  - if !@mailer
-    .text-right 
-      .btn-group 
-        - if can?("update_#{order.status}".to_sym, order) && !params['alert']
-          = link_to 'Edit PO', [:edit, order], remote: true, class: 'btn btn-default'   
-        - if can?(:mark_as_delivered, order)
-          = link_to 'Mark as Delivered', '#', data: { toggle: "confirmation", href: mark_as_delivered_order_path(order), link_method: 'patch' }, class: 'btn btn-primary'
-        - if can?(:mark_as_cancelled, order)
-          = link_to 'Mark as Cancelled', '#', data: { toggle: "confirmation", href: mark_as_cancelled_order_path(order), link_method: 'patch' }, class: 'btn btn-warning'
-        = link_to 'Download', [order, format: :pdf], class: 'btn btn-success', target: :_blank
+  
+  .text-right 
+    .btn-group 
+      - if can?("update_#{order.status}".to_sym, order) && !params['alert']
+        = link_to 'Edit PO', [:edit, order], remote: true, class: 'btn btn-default'   
+      - if can?(:mark_as_delivered, order)
+        = link_to 'Mark as Delivered', '#', data: { toggle: "confirmation", href: mark_as_delivered_order_path(order), link_method: 'patch' }, class: 'btn btn-primary'
+      - if can?(:mark_as_cancelled, order)
+        = link_to 'Mark as Cancelled', '#', data: { toggle: "confirmation", href: mark_as_cancelled_order_path(order), link_method: 'patch' }, class: 'btn btn-warning'
+      = link_to 'Download', [order, format: :pdf], class: 'btn btn-success', target: :_blank

@@ -3,10 +3,6 @@
     text-transform: uppercase;
   }
 
-  .clearfix {
-    clear: both;
-  }
-
   #header {
     margin: 20px 0;
     
@@ -35,15 +31,6 @@
 
     strong {
       text-transform: uppercase;
-    }
-  }
-
-  #replying-to {
-    color: #ef7c80;
-    text-align: center;
-
-    a {
-      color: #15c;
     }
   }
 }

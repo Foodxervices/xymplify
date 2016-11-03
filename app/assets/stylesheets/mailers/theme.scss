@@ -39,4 +39,17 @@
     display: inline-block;
     background: url(image_path("logo.png")) no-repeat left center;
   }
+
+  .clearfix {
+    clear: both;
+  }
+
+  #replying-to {
+    color: #ef7c80;
+    text-align: center;
+
+    a {
+      color: #15c;
+    }
+  }
 }
