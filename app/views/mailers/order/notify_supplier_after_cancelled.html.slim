@@ -4,11 +4,11 @@ html
     = render 'mailers/shared/head'
 
   body
-    #mailers-order-notify_supplier_after_delivered-container.mailers-theme-container
+    #mailers-order-notify_supplier_after_cancelled-container.mailers-theme-container
       h1 Purchase Order No: #{@order.name}
       #main
         p Hi <span id="supplier-name">#{@supplier.name}</span>,
-        p This Purchase Order from #{@restaurant.name} has been marked as <strong>delivered</strong> on <strong>#{format_date(@order.delivered_at)}</strong>.
+        p This Purchase Order from #{@restaurant.name} has been marked as <strong>cancelled</strong> on <strong>#{format_date(@order.cancelled_at)}</strong>.
 
         hr style="border-top:dotted 1px"
 

@@ -23,6 +23,16 @@ class OrderMailer < ActionMailer::Base
     )
   end
 
+  def notify_supplier_after_cancelled(order)
+    init(order)
+
+    mail(
+      to: @supplier.email,
+      subject: "[Cancelled Order] #{@order.name}, #{@restaurant&.name}",
+      template_path: 'mailers/order'
+    )
+  end
+
   private
   def init(order)
     @order = order

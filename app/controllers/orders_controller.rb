@@ -79,7 +79,9 @@ class OrdersController < ApplicationController
   def mark_as_cancelled
     ActiveRecord::Base.transaction do
       @order.status = :cancelled
-      @order.save
+      if @order.save
+        Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_cancelled(@order)).deliver_later
+      end
     end
 
     redirect_to :back
