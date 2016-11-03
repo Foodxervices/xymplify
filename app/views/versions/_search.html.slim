@@ -3,7 +3,7 @@
     = f.input :date_range
     = f.input :event, collection: version_filter.events, include_blank: 'All'
     = f.input :item_type, collection: version_filter.item_types, include_blank: 'All'
-    = f.input :attributes, collection: version_filter.attribute_list, as: :grouped_select, group_method: :second, input_html: {multiple: true}, include_blank: 'All'
+    = f.input :attributes, collection: version_filter.attribute_list, as: :grouped_select, group_method: :second, input_html: {multiple: true, title: "All"}
     = f.button :submit, 'Submit'
     = link_to 'Reset', url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default' 
     = link_to "Export", url_for({format: :xlsx}.merge(params.except(:action, :controller, :subdomain))), class: 'btn btn-default'

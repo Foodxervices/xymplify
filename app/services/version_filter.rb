@@ -9,6 +9,8 @@ class VersionFilter
   attr_accessor :event
   attr_accessor :attributes
   attr_accessor :date_range
+  attr_accessor :start_date
+  attr_accessor :end_date
 
   def initialize(versions, attrs = {})
     @versions = versions
@@ -25,6 +27,9 @@ class VersionFilter
     @events = @events.uniq.map{|event| [event.humanize, event]}
 
     @date_range = default_date_range if !date_range.present?
+    from, to    = date_range.split(' - ')
+    @start_date = Date.strptime(from, DATE_FORMAT)
+    @end_date   = Date.strptime(to, DATE_FORMAT)
   end
 
 
@@ -51,10 +56,7 @@ class VersionFilter
       @versions = @versions.where(conditions.join("OR"))
     end
 
-    if date_range.present?
-      from, to = date_range.split(' - ')
-      @versions = @versions.where(created_at: (Date.strptime(from, DATE_FORMAT).beginning_of_day..Date.strptime(to, DATE_FORMAT).end_of_day))
-    end
+    @versions = @versions.where(created_at: (start_date.beginning_of_day..end_date.end_of_day))
 
     @versions 
   end

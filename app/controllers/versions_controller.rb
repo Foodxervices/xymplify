@@ -15,7 +15,8 @@ class VersionsController < ApplicationController
       end
 
       format.xlsx do 
-        render filename: "history.xlsx"
+        filename = "#{@version_filter.start_date} - #{@version_filter.end_date}"
+        render xlsx: "index", filename: filename
       end
     end
   end 
