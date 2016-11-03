@@ -5,7 +5,9 @@ database:
 dependencies:
   pre:
     - gem install bundler
-
+machine:
+  services:
+    - redis
 deployment:
   staging:
     branch: master
