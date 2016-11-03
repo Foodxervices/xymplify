@@ -1,6 +1,9 @@
-class OrdersController < ApplicationController
-  load_and_authorize_resource :restaurant
-  load_and_authorize_resource :order, :through => :restaurant, :shallow => true
+class OrdersController < PublicController
+  before_action :authenticate_user!, except: [:show]
+  load_resource :restaurant
+  load_resource :order, :through => :restaurant, :shallow => true
+  authorize_resource :restaurant, except: [:show]
+  authorize_resource :order, :through => :restaurant, :shallow => true, except: [:show]
 
   def index
     @order_filter = OrderFilter.new(@orders, order_filter_params)
@@ -16,8 +19,15 @@ class OrdersController < ApplicationController
 
   def show
     respond_to do |format|
-      format.js
+      format.js do 
+        authorize! :show, @order
+      end
       format.pdf do 
+        if !params[:token]
+          authorize! :show, @order 
+        else
+          redirect_to root_url, notice: 'Invalid Token' if params[:token] != @order.token
+        end
         @supplier     = @order.supplier
         @kitchen      = @order.kitchen
         @restaurant   = @kitchen.restaurant

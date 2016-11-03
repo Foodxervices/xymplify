@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class OrderMailer < ActionMailer::Base
   add_template_helper(ApplicationHelper)
 
@@ -12,6 +14,8 @@ class OrderMailer < ActionMailer::Base
     @items = @order.items
     @user = @order.user
     @mailer = true
+    
+    attachments[@order.name] = open(order_url(order, format: :pdf, token: @order.token)).read 
 
     mail(
       to: @supplier.email,
