@@ -33,8 +33,7 @@ class OrdersController < PublicController
         @restaurant   = @kitchen.restaurant
         @items        = @order.items.includes(:food_item)
 
-        render pdf: @order.name,
-               layout: 'main'
+        render pdf: @order.name, layout: 'main'
       end
     end
   end 

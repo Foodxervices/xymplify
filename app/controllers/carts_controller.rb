@@ -24,13 +24,18 @@ class CartsController < ApplicationController
   end
 
   def purchase
+    order_ids = []
     ActiveRecord::Base.transaction do
       current_orders.each do |order|
         if order.update(status: :placed)
           order.update_column(:token, SecureRandom.urlsafe_base64)
-          Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_placed(order)).deliver_now
+          order_ids << order.id
         end
       end
+    end
+
+    Order.where(id: order_ids).each do |order|
+      Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_placed(order)).deliver_later
     end
 
     redirect_to [current_restaurant, :orders], notice: "Your request was submitted successfully."
