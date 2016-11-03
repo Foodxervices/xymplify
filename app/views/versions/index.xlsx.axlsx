@@ -9,7 +9,7 @@ style[:field] = wb.styles.add_style(:sz=>12, alignment: { horizontal: :left, ver
   wb.add_worksheet(name: item_type.constantize.model_name.human, page_setup: { fit_to_width: 1 }, page_margins: {left: 0.1, top: 0.1, right: 0.1, bottom: 0.1}, print_options: { horizontal_centered: true }) do |sheet|
     versions.each do |version|
       kclass = version.item_type.constantize
-      sheet.add_row [format_datetime(version.created_at), version.user&.name, version.item&.name], style: style[:item]
+      sheet.add_row [format_datetime(version.created_at), version.user&.name, version_title(version)], style: style[:item]
       render "versions/xlsx_templates/#{version.event}", sheet: sheet, version: version, kclass: kclass, style: style
     end
 

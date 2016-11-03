@@ -25,4 +25,10 @@ module VersionHelper
 
     value
   end
+
+  def version_title(version)
+    currency_code = version.item.try(:unit_price_currency) || version.item.try(:amount_currency)
+    currency_code = "(#{currency_code})" if currency_code.present?
+    "#{version.item&.name} #{currency_code}"
+  end
 end
