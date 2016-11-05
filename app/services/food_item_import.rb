@@ -66,7 +66,12 @@ class FoodItemImport
 
     food_items = []
     restaurant = Kitchen.find(kitchen_id).restaurant
-    supplier = Supplier.find_or_create_by(name: supplier_name, restaurant_id: restaurant.id)
+    supplier = Supplier.where(name: supplier_name, restaurant_id: restaurant.id).first
+    
+    if supplier.nil?
+      supplier = Supplier.create(name: supplier_name, restaurant_id: restaurant.id, email: Rails.application.secrets.return_email_path)
+    end
+    
     category = Category.find_by_name('Others')
 
     (2..spreadsheet.last_row).each do |i|
