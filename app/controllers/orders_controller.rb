@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  include ApplicationHelper
+
   AUTHORIZE_TOKEN_ACTIONS = [:show, :mark_as_accepted, :mark_as_declined]
   
   load_resource :restaurant
@@ -44,10 +46,14 @@ class OrdersController < ApplicationController
     if @success
       order_name = @order.name
       @restaurant = @order.restaurant
-      @order.destroy if @order.items.empty?
-      @order = Order.find_by_id(@order.id)
 
-      return redirect_to :back, notice: "#{order_name} has been deleted." if @order.nil?
+      if ['placed', 'accepted'].include?(@order.status)
+        Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_updated(@order)).deliver_later
+      end
+      
+      if @order.items.empty? && @order.destroy 
+        return redirect_to :back, notice: "#{order_name} has been deleted." 
+      end
     end
 
     if @order.status.wip?
@@ -97,7 +103,7 @@ class OrdersController < ApplicationController
         end
       end
     else
-      flash[:notice] = "#{@order.name} was #{@order.status}." 
+      invalid_status_notice
     end
 
     redirect_to root_url
@@ -114,7 +120,7 @@ class OrdersController < ApplicationController
         end
       end
     else
-      flash[:notice] = "#{@order.name} was #{@order.status}." 
+      invalid_status_notice
     end
 
     redirect_to root_url
@@ -153,9 +159,13 @@ class OrdersController < ApplicationController
 
   def authorize_token
     if !params[:token]
-      authorize! :show, @order 
+      authorize! action_name, @order 
     else
       redirect_to root_url, notice: 'Invalid Token' if params[:token] != @order.token
     end
+  end
+
+  def invalid_status_notice
+    flash[:notice] = "#{@order.name} was #{@order.status} at #{format_datetime(@order.status_updated_at)}." 
   end
 end
