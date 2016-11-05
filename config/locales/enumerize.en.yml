@@ -30,5 +30,7 @@ en:
         order__mark_as_delivered:             "Order      :: Mark as Delivered"
         order__mark_as_cancelled:             "Order      :: Mark as Cancelled"
         order__update_placed:                 "Order      :: Update Placed PO"
+        order__update_accepted:               "Order      :: Update Accepted PO"
+        order__update_declined:               "Order      :: Update Declined PO"
         order__update_delivered:              "Order      :: Update Delivered PO"
         order__update_cancelled:              "Order      :: Update Cancelled PO"
