@@ -6,6 +6,10 @@
   border: 1px solid #dedede;
   line-height: 150%;
   color: #737373;
+
+  #supplier-name {
+    text-transform: capitalize;
+  }
   
   #main {
     padding: 20px;
