@@ -34,5 +34,5 @@
     .text-right
       .btn-group
         = f.link_to_add "Add Tax", :gsts, data: { target: "#gsts_form" }, class: 'btn btn-default'
-        = f.button :submit
+        = f.button :submit, :data => { disable_with: 'Processing...' }
             
