@@ -29,9 +29,11 @@ module Foodxervices
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    
+    config.active_job.queue_adapter = :sidekiq
+
     WillPaginate.per_page = 16
     Money::Bank::GoogleCurrency.ttl_in_seconds = 86400
     Money.default_bank = Money::Bank::GoogleCurrency.new
-    
   end
 end

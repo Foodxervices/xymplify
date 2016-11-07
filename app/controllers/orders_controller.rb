@@ -47,8 +47,12 @@ class OrdersController < ApplicationController
       order_name = @order.name
       @restaurant = @order.restaurant
 
+      @message = []
+      @message << "#{order_name} has been updated. "
+
       if ['placed', 'accepted'].include?(@order.status)
         Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_updated(@order)).deliver_later
+        @message << "An email notification has been sent to the supplier." 
       end
       
       if @order.items.empty? && @order.destroy 
