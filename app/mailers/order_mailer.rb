@@ -26,14 +26,23 @@ class OrderMailer < ActionMailer::Base
     )
   end
 
-  def notify_supplier_after_delivered(order)
+  def notify_supplier_after_accepted(order)
     init(order)
     @message = "This Purchase Order from #{@restaurant.name} has been marked as 
-                <strong>delivered</strong> at <strong>#{format_datetime(@order.delivered_at)}</strong>."
-
+                <strong>accepted</strong> at <strong>#{format_datetime(@order.accepted_at)}</strong>."
     mail(
       to: @supplier.email,
-      subject: "[Delivered Order] #{@order.name}, #{@restaurant&.name}"
+      subject: "[Accepted Order] #{@order.name}, #{@restaurant&.name}"
+    )
+  end
+
+  def notify_supplier_after_declined(order)
+    init(order)
+    @message = "This Purchase Order from #{@restaurant.name} has been marked as 
+                <strong>declined</strong> at <strong>#{format_datetime(@order.declined_at)}</strong>."
+    mail(
+      to: @supplier.email,
+      subject: "[Declined Order] #{@order.name}, #{@restaurant&.name}"
     )
   end
 
@@ -48,6 +57,17 @@ class OrderMailer < ActionMailer::Base
     )
   end
 
+  def notify_supplier_after_delivered(order)
+    init(order)
+    @message = "This Purchase Order from #{@restaurant.name} has been marked as 
+                <strong>delivered</strong> at <strong>#{format_datetime(@order.delivered_at)}</strong>."
+
+    mail(
+      to: @supplier.email,
+      subject: "[Delivered Order] #{@order.name}, #{@restaurant&.name}"
+    )
+  end
+
   private
   def init(order)
     @order = order
@@ -56,6 +76,6 @@ class OrderMailer < ActionMailer::Base
     @kitchen = @order.kitchen
     @items = @order.items
     @user = @order.user
-    attachments["#{@order.name}.pdf"] = open(order_url(order, format: :pdf, token: @order.token)).read if !Rails.env.development?
+    attachments["#{@order.name}.pdf"] = open(order_url(order, format: :pdf, token: @order.token)).read if !Rails.env.development? && !Rails.env.test?
   end
 end

@@ -90,6 +90,40 @@ describe OrdersController, :type => :controller do
         expect(order.reload.status.declined?).to eq true
       end
     end
+
+    describe '#mark_as_cancelled' do 
+      def do_request
+        get :mark_as_cancelled, id: order.id
+      end
+
+      let!(:order) { create(:order, status: :accepted) }
+      before do
+        request.env["HTTP_REFERER"] = "where_i_came_from"
+      end
+
+      it 'changes status to cancelled' do
+        do_request
+        expect(order.reload.status.cancelled?).to eq true
+        expect(response).to redirect_to "where_i_came_from"
+      end
+    end
+
+    describe '#mark_as_delivered' do 
+      def do_request
+        get :mark_as_delivered, id: order.id
+      end
+
+      let!(:order) { create(:order, status: :accepted) }
+      before do
+        request.env["HTTP_REFERER"] = "where_i_came_from"
+      end
+
+      it 'changes status to delivered' do
+        do_request
+        expect(order.reload.status.delivered?).to eq true
+        expect(response).to redirect_to "where_i_came_from"
+      end
+    end
   end
 
   context 'Public' do 

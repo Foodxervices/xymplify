@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
       @restaurant = @order.restaurant
 
       @message = []
-      @message << "#{order_name} has been updated. "
+      @message << "#{order_name} has been updated."
 
       if ['placed', 'accepted'].include?(@order.status)
         Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_updated(@order)).deliver_later
@@ -74,17 +74,6 @@ class OrdersController < ApplicationController
 
     redirect_to :back
   end
-  
-  def mark_as_delivered
-    ActiveRecord::Base.transaction do
-      @order.status = :delivered
-      if @order.save
-        Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_delivered(@order)).deliver_later
-      end
-    end
-
-    redirect_to :back
-  end
 
   def mark_as_cancelled
     ActiveRecord::Base.transaction do
@@ -104,6 +93,7 @@ class OrdersController < ApplicationController
         if @order.save
           flash[:notice] = "#{@order.name} has been accepted." 
           @order.alerts.create(title: flash[:notice])
+          Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_accepted(@order)).deliver_later
         end
       end
     else
@@ -121,6 +111,7 @@ class OrdersController < ApplicationController
         if @order.save
           flash[:notice] = "#{@order.name} has been declined." 
           @order.alerts.create(title: flash[:notice])
+          Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_declined(@order)).deliver_later
         end
       end
     else
@@ -128,6 +119,17 @@ class OrdersController < ApplicationController
     end
 
     redirect_to root_url
+  end
+
+  def mark_as_delivered
+    ActiveRecord::Base.transaction do
+      @order.status = :delivered
+      if @order.save
+        Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_delivered(@order)).deliver_later
+      end
+    end
+
+    redirect_to :back
   end
 
   private
