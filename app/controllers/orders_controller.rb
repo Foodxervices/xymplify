@@ -78,11 +78,13 @@ class OrdersController < ApplicationController
   def mark_as_cancelled
     ActiveRecord::Base.transaction do
       @order.status = :cancelled
-      if @order.save
-        Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_cancelled(@order)).deliver_later
-      end
+      @success = @order.save 
     end
 
+    if @success
+      Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_cancelled(@order)).deliver_later
+    end
+    
     redirect_to :back
   end
 
@@ -90,11 +92,13 @@ class OrdersController < ApplicationController
     if @order.status.placed?
       ActiveRecord::Base.transaction do
         @order.status = :accepted
-        if @order.save
-          flash[:notice] = "#{@order.name} has been accepted." 
-          @order.alerts.create(title: flash[:notice])
-          Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_accepted(@order)).deliver_later
-        end
+        @success = @order.save  
+      end
+
+      if @success
+        flash[:notice] = "#{@order.name} has been accepted." 
+        @order.alerts.create(title: flash[:notice])
+        Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_accepted(@order)).deliver_later
       end
     else
       invalid_status_notice
@@ -107,12 +111,13 @@ class OrdersController < ApplicationController
     if @order.status.placed?
       ActiveRecord::Base.transaction do
         @order.status = :declined
+        @success = @order.save
+      end
 
-        if @order.save
-          flash[:notice] = "#{@order.name} has been declined." 
-          @order.alerts.create(title: flash[:notice])
-          Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_declined(@order)).deliver_later
-        end
+      if @success
+        flash[:notice] = "#{@order.name} has been declined." 
+        @order.alerts.create(title: flash[:notice])
+        Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_declined(@order)).deliver_later
       end
     else
       invalid_status_notice
@@ -122,12 +127,15 @@ class OrdersController < ApplicationController
   end
 
   def mark_as_delivered
+    @order.status = :delivered
+
     ActiveRecord::Base.transaction do
-      @order.status = :delivered
-      if @order.save
-        flash[:notice] = "#{@order.name} has been delivered." 
-        Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_delivered(@order)).deliver_later
-      end
+      @success = @order.save
+    end
+
+    if @success
+      flash[:notice] = "#{@order.name} has been delivered." 
+      Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_delivered(@order)).deliver_later
     end
 
     redirect_to :back
