@@ -115,8 +115,8 @@ class RestaurantsController < ApplicationController
       { count: total_kitchens,    description: "Kitchens" },
       { count: total_suppliers,   description: "Suppliers" },
       { count: total_food_items,  description: "Food Items" },
-      { count: shipped_orders.size,  description: "WORTH #{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" },
-      { count: pending_orders.size,  description: "WORTH #{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" },
+      { count: "#{shipped_orders.size} <small>Purchase Orders</small>",  description: "WORTH #{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" },
+      { count: "#{pending_orders.size} <small>Purchase Orders</small>",  description: "WORTH #{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" },
     ]
 
     @summary.unshift({ count: total_restaurants, description: "Restaurants" }) if total_restaurants != 1
