@@ -7,6 +7,7 @@ require "sprockets/railtie"
 require 'sprockets/es6'
 require 'money'
 require 'money/bank/google_currency'
+require 'sidekiq/web'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -31,6 +32,10 @@ module Foodxervices
     config.active_record.raise_in_transactional_callbacks = true
     
     config.active_job.queue_adapter = :sidekiq
+
+    Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
+      [user, password] == ["admin", "123123a1@"]
+    end
 
     WillPaginate.per_page = 16
     Money::Bank::GoogleCurrency.ttl_in_seconds = 86400
