@@ -1,5 +1,5 @@
 class RestaurantsController < ApplicationController
-  before_action :disable_bullet, only: [:show]
+  before_action :disable_bullet, only: [:show, :index]
   load_and_authorize_resource 
 
   def index
@@ -8,7 +8,11 @@ class RestaurantsController < ApplicationController
         @restaurant_filter = RestaurantFilter.new(restaurant_filter_params)
         @restaurants  = @restaurant_filter.result
                                           .accessible_by(current_ability)
-        redirect_to [:dashboard, @restaurants.first] if @restaurants.size == 1                                          
+        if @restaurants.size == 1 && !params[:restaurant_filter]                                                                                   
+          redirect_to [:dashboard, @restaurants.first]     
+        else
+          load_summary(@restaurants.ids)
+        end
       end
 
       format.js  do
@@ -62,6 +66,7 @@ class RestaurantsController < ApplicationController
     @graph_data = CostGraph.new(@restaurant).result
     @currency_symbol = Money::Currency.new(@restaurant.currency).symbol
     @display_more_activity_link = true
+    load_summary([@restaurant.id])
   end
 
   private 
@@ -96,5 +101,24 @@ class RestaurantsController < ApplicationController
                     :bank_account_number
                   ]
     )
+  end
+
+  def load_summary(restaurant_ids)
+    total_restaurants = restaurant_ids.size
+    total_kitchens    = Kitchen.where(restaurant_id: restaurant_ids).count
+    total_suppliers   = Supplier.where(restaurant_id: restaurant_ids).count
+    total_food_items  = FoodItem.where(restaurant_id: restaurant_ids).count
+    pending_orders = Order.where(restaurant_id: restaurant_ids).where(status: [:placed, :accepted])
+    shipped_orders = Order.where(restaurant_id: restaurant_ids).where(status: [:delivered])
+
+    @summary = [
+      { count: total_kitchens,    description: "Kitchens" },
+      { count: total_suppliers,   description: "Suppliers" },
+      { count: total_food_items,  description: "Food Items" },
+      { count: shipped_orders.size,  description: "WORTH #{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" },
+      { count: pending_orders.size,  description: "WORTH #{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" },
+    ]
+
+    @summary.unshift({ count: total_restaurants, description: "Restaurants" }) if total_restaurants != 1
   end
 end

@@ -31,7 +31,7 @@ class OrderMailer < ActionMailer::Base
   def notify_restaurant_after_accepted(order)
     init(order)
     @receiver = @restaurant
-    @message = "This Purchase Order from #{@supplier.name} has been marked as 
+    @message = "This Purchase Order for #{@supplier.name} has been marked as 
                 <strong>accepted</strong> at <strong>#{format_datetime(@order.accepted_at)}</strong>."
     mail(
       to: [@restaurant.email, @user.email],
@@ -42,7 +42,7 @@ class OrderMailer < ActionMailer::Base
   def notify_restaurant_after_declined(order)
     init(order)
     @receiver = @restaurant
-    @message = "This Purchase Order from #{@supplier.name} has been marked as 
+    @message = "This Purchase Order for #{@supplier.name} has been marked as 
                 <strong>declined</strong> at <strong>#{format_datetime(@order.declined_at)}</strong>."
     mail(
       to: [@restaurant.email, @user.email],

@@ -1,0 +1,41 @@
+.shared-summary-container {
+  .item {
+    .content {
+      padding: 20px;
+      margin: 20px 0;
+      height: 120px;
+      background-image: linear-gradient(-180deg, #F774B2 0%, #EC407A 99%);
+      
+      border-radius: 2px;
+      color: #FFFFFF;
+
+      p.count {
+        font-weight: bold;
+        font-size: 36px;
+        line-height: 48px;
+      }
+
+      p.description {
+        font-weight: bold;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+    }
+
+    &:nth-child(2) .content {
+      background-image: linear-gradient(-180deg, #4ED2CA 0%, #26A69A 100%);
+    }
+
+    &:nth-child(3) .content {
+      background-image: linear-gradient(-180deg, #FFD34E 0%, #FFA726 100%);
+    }
+
+    &:nth-child(4) .content {
+      background-image: linear-gradient(-180deg, #77D1FB 0%, #42A5F5 100%);
+    }
+
+    &:nth-child(5) .content {
+      background-image: linear-gradient(-180deg, #C32AFF 0%, #9013FE 100%);
+    }
+  }
+}
