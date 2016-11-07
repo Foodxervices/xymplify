@@ -7,7 +7,7 @@ html
     #mailers-order-template-container.mailers-theme-container
       h1 Purchase Order No: #{@order.name}
       #main
-        p Hi <span id="supplier-name">#{@supplier.name}</span>,
+        p Hi <span id="receiver-name">#{@receiver.name}</span>,
         p == @message
 
         hr style="border-top:dotted 1px"

@@ -9,62 +9,68 @@ class OrderMailer < ActionMailer::Base
 
   def notify_supplier_after_updated(order)
     init(order)
+    @receiver = @supplier
     @message = "This Purchase Order from #{@restaurant.name} has been 
                 <strong>updated</strong> at <strong>#{format_datetime(@order.updated_at)}</strong>."
     mail(
       to: @supplier.email,
-      subject: "[Updated Order] #{@order.name}, #{@restaurant&.name}"
+      subject: "[Updated Order] #{@order.name}, #{@restaurant.name}"
     )
   end
 
   def notify_supplier_after_placed(order)
     init(order)
+    @receiver = @supplier
     @message = "You got a Purchase Order from <strong>#{@restaurant.name}</strong> for delivery at <strong>#{format_datetime(@order.placed_at)}</strong>."
     mail(
       to: @supplier.email,
-      subject: "[New Order] #{@order.name}, #{@restaurant&.name}"
+      subject: "[New Order] #{@order.name}, #{@restaurant.name}"
     )
   end
 
-  def notify_supplier_after_accepted(order)
+  def notify_restaurant_after_accepted(order)
     init(order)
-    @message = "This Purchase Order from #{@restaurant.name} has been marked as 
+    @receiver = @restaurant
+    @message = "This Purchase Order from #{@supplier.name} has been marked as 
                 <strong>accepted</strong> at <strong>#{format_datetime(@order.accepted_at)}</strong>."
     mail(
-      to: @supplier.email,
-      subject: "[Accepted Order] #{@order.name}, #{@restaurant&.name}"
+      to: [@restaurant.email, @user.email],
+      subject: "[Accepted Order] #{@order.name}, #{@supplier.name}"
     )
   end
 
-  def notify_supplier_after_declined(order)
+  def notify_restaurant_after_declined(order)
     init(order)
-    @message = "This Purchase Order from #{@restaurant.name} has been marked as 
+    @receiver = @restaurant
+    @message = "This Purchase Order from #{@supplier.name} has been marked as 
                 <strong>declined</strong> at <strong>#{format_datetime(@order.declined_at)}</strong>."
     mail(
-      to: @supplier.email,
-      subject: "[Declined Order] #{@order.name}, #{@restaurant&.name}"
+      to: [@restaurant.email, @user.email],
+      subject: "[Declined Order] #{@order.name}, #{@supplier.name}"
     )
   end
 
   def notify_supplier_after_cancelled(order)
     init(order)
+    @receiver = @supplier
     @message = "This Purchase Order from #{@restaurant.name} has been marked as 
                 <strong>cancelled</strong> at <strong>#{format_datetime(@order.cancelled_at)}</strong>."
 
     mail(
       to: @supplier.email,
-      subject: "[Cancelled Order] #{@order.name}, #{@restaurant&.name}"
+      subject: "[Cancelled Order] #{@order.name}, #{@restaurant.name}"
     )
   end
 
   def notify_supplier_after_delivered(order)
     init(order)
+    @receiver = @supplier
     @message = "This Purchase Order from #{@restaurant.name} has been marked as 
                 <strong>delivered</strong> at <strong>#{format_datetime(@order.delivered_at)}</strong>."
 
     mail(
       to: @supplier.email,
-      subject: "[Delivered Order] #{@order.name}, #{@restaurant&.name}"
+      subject: "[Delivered Order] #{@order.name}, #{@restaurant.name}"
     )
   end
 
