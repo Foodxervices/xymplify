@@ -125,6 +125,7 @@ class OrdersController < ApplicationController
     ActiveRecord::Base.transaction do
       @order.status = :delivered
       if @order.save
+        flash[:notice] = "#{@order.name} has been delivered." 
         Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_delivered(@order)).deliver_later
       end
     end
