@@ -11,6 +11,7 @@ describe OrderItem do
   context 'associations' do 
     it { is_expected.to belong_to :order }
     it { is_expected.to belong_to :food_item }
+    it { is_expected.to belong_to :category }
   end
 
   describe '#total_price' do 

@@ -5,11 +5,11 @@ class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :food_item
   belongs_to :restaurant
+  belongs_to :category
 
-  before_save :cache_restaurant
-  before_save :cache_name
+  before_create :set_info
+
   before_save :update_quantity_ordered
-  before_save :set_tags
 
   monetize :unit_price_cents
 
@@ -24,16 +24,11 @@ class OrderItem < ActiveRecord::Base
   end
 
   private 
-  def cache_restaurant
-    self.restaurant_id = order.restaurant_id if restaurant_id.nil?
-  end
-
-  def cache_name
-    self.name = food_item&.name if name.blank?
-  end
-
-  def set_tags
-    self.tags = food_item.tags if food_item.present?
+  def set_info
+    self.restaurant_id = order.restaurant_id 
+    self.name = food_item.name
+    self.category_id = food_item.category_id 
+    self.tags = food_item.tags 
   end
 
   def update_quantity_ordered
