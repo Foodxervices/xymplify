@@ -116,7 +116,7 @@ Foodxervices.restaurants = {
         res[0] = $.unique(res[0])
 
         $.each(data, function(month, monthData) {
-          month = new Date(month).toLocaleString('en-us', { month: "short", year: "numeric" })
+          month = new Date(month).toLocaleString('en-us', { month: "short", year: "numeric", timeZone: "Asia/Singapore" })
           monthArray = [month]
 
           $.each(res[0], function(i, headTag) {

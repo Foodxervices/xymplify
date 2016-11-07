@@ -14,7 +14,7 @@ class CostGraph
                       .order('orders.delivered_at asc')
 
     items.each do |item|
-      month = item.order.delivered_at.beginning_of_month + 8.hours
+      month = item.order.delivered_at.beginning_of_month
       res[month] ||= {}
       res[month][item.category&.name] ||= 0
       res[month][item.category&.name] = item.total_price.exchange_to(restaurant.currency).to_f
