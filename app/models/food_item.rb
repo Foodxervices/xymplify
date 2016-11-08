@@ -6,7 +6,8 @@ class FoodItem < ActiveRecord::Base
   
   monetize :unit_price_cents
 
-  before_save :cache_restaurant
+  before_create :cache_restaurant
+  before_save :set_category_and_tags
 
   belongs_to :supplier
   belongs_to :user
@@ -23,7 +24,6 @@ class FoodItem < ActiveRecord::Base
   validates :unit_price,  presence: true
   validates :brand,       presence: true
   validates :supplier_id, presence: true
-  validates :category_id, presence: true
   validates :user_id,     presence: true
   validates :kitchen_id,  presence: true
   validates :unit_price_currency, presence: true
@@ -42,6 +42,16 @@ class FoodItem < ActiveRecord::Base
   end
 
   def cache_restaurant
-    self.restaurant_id = kitchen.restaurant_id if kitchen_id_changed?
+    self.restaurant_id = kitchen.restaurant_id
+  end
+
+  def set_category_and_tags
+    if category_id.blank?
+      self.category_id = Category.find_or_create_by(name: 'Uncategorised').id 
+    end
+
+    if tag_list.blank?
+      self.tag_list = 'Others'
+    end
   end
 end

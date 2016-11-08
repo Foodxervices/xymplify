@@ -8,7 +8,6 @@ describe FoodItem do
     it { is_expected.to validate_presence_of :supplier_id }
     it { is_expected.to validate_presence_of :user_id }
     it { is_expected.to validate_presence_of :kitchen_id }
-    it { is_expected.to validate_presence_of :category_id }
     it { is_expected.to validate_presence_of :current_quantity }
     it { is_expected.to validate_presence_of :quantity_ordered }
     it { is_expected.to monetize :unit_price }

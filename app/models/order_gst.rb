@@ -6,7 +6,7 @@ class OrderGst < ActiveRecord::Base
   belongs_to :order, :counter_cache => :gsts_count
   belongs_to :restaurant
 
-  before_save :cache_restaurant
+  before_create :cache_restaurant
   before_save :cache_amount
 
   validates :name,      presence: true
@@ -18,7 +18,7 @@ class OrderGst < ActiveRecord::Base
 
   private 
   def cache_restaurant
-    self.restaurant_id = order.restaurant_id if restaurant_id.nil?
+    self.restaurant_id = order.restaurant_id 
   end
 
   def cache_amount
