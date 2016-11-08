@@ -5,6 +5,7 @@
       th Field
       th Value
     - version.changeset.each do |field, value|
-      tr
-        th = kclass.human_attribute_name(field)
-        td == version_value(field, value[1])
+      - if version.item_type.constantize.column_names.include?(field)
+        tr
+          th = kclass.human_attribute_name(field)
+          td == version_value(field, value[1])
