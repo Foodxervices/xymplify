@@ -1,0 +1,25 @@
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+@media #{$large-and-up} {
+  .container {
+    width: 1170px;
+    max-width: 100%;
+  }
+}
+
+h1, h2, h3 {
+  
+  font-weight: 300;
+}
+
+h1, h2 {
+  font-size: 40px;
+  color: #304FFE;
+}
+
+h3 {
+  font-size: 22px;
+  color: #424242;
+}

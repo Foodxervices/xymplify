@@ -9,4 +9,5 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( pdf.css )
-Rails.application.config.assets.precompile += %w( mailers/global.css )
+Rails.application.config.assets.precompile += %w( mailers/global.css public.css public.js )
+Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/

@@ -1,0 +1,41 @@
+.public-shared-menu-container {
+  background: #FFFFFF;
+  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.12), 0px 4px 4px 0px rgba(0,0,0,0.24);
+
+  a:not(.btn) {
+    color: #757575;
+  }
+
+  nav {
+    background: none;
+    box-shadow: none;
+    height: 80px;
+    line-height: 80px;
+
+    a.brand-logo {
+      font-family: 'Proxima Nova Lt';
+      position: relative;
+      font-size: 24px;
+      color: #304FFE !important;
+      padding-left: 52px;
+
+      img {
+        position: absolute;
+        left: 0;
+        top: 15px;
+      }
+    }
+
+    ul a {
+      font-family: "Roboto", sans-serif;
+      font-size: 16px;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .button-collapse i {
+      line-height: 80px;
+      height: 80px;
+    }
+  }
+}

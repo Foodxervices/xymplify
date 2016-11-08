@@ -1,0 +1,11 @@
+doctype html
+html
+  head = render 'public/layouts/head'
+  body#public-layouts-main-container class=page_class
+    #menu = render 'public/shared/menu'
+
+    main 
+      = yield
+
+    = javascript_tag open_message(flash)
+    = javascript_initialization

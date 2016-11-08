@@ -48,6 +48,7 @@ gem 'premailer-rails'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'foreman'
+gem 'materialize-sass'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
