@@ -12,6 +12,14 @@ body.home.index {
     background: none;
   }
 
+  h1 {
+    font-size: calc(1em + 3vmin);
+  }
+
+  h3 {
+    font-size: calc(0.9em + 1vmin); 
+  }
+
   .card {
     text-align: center;
     text-transform: uppercase;

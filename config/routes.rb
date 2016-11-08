@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  get 'retailers' => 'home#retailers', :as => :retailers 
+
   resource :profile, only: [:edit, :update]
 
   resources :roles,       only: [:index, :new, :create, :edit, :update, :destroy]
