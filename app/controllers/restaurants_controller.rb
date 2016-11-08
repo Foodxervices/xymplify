@@ -112,11 +112,11 @@ class RestaurantsController < ApplicationController
     shipped_orders = Order.where(restaurant_id: restaurant_ids).where(status: [:delivered])
 
     @summary = [
-      { count: total_kitchens,    description: "Kitchens" },
-      { count: total_suppliers,   description: "Suppliers" },
-      { count: total_food_items,  description: "Food Items" },
       { count: "#{shipped_orders.size} <small>Purchase Orders</small>",  description: "WORTH #{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" },
+      { count: total_food_items,  description: "Food Items" },
+      { count: total_kitchens,    description: "Kitchens" },
       { count: "#{pending_orders.size} <small>Purchase Orders</small>",  description: "WORTH #{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" },
+      { count: total_suppliers,   description: "Suppliers" } 
     ]
 
     @summary.unshift({ count: total_restaurants, description: "Restaurants" }) if total_restaurants != 1
