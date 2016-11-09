@@ -1,4 +1,4 @@
-@mixin background_retina_detection($path, $extention, $options, $size: auto auto) {
+@mixin background_retina_detection($path, $extention, $options, $size) {
   $path2x: $path + '-2x.' + $extention;
   $path: $path + '.' + $extention;
   background: url(image_path($path)) $options;
