@@ -24,11 +24,16 @@
       position: relative;
       padding-bottom: 180px;
       background: #FFFFFF;
+      transition:all 0.5s ;
 
       &:not(.pro-plan) {
         height: 562px;
         margin: 60px 0;
         box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.12), 0px 4px 4px 0px rgba(0,0,0,0.24);
+
+        &:hover {
+          box-shadow: 0px 0px 24px 0px rgba(0,0,0,0.12), 0px 4px 15px 0px rgba(0,0,0,0.24);  
+        }
 
         .plan-footer .btn {
           background: #fff;
@@ -40,6 +45,10 @@
         height: 650px;
         margin: 20px 0;
         box-shadow: 0px 0px 24px 0px rgba(0,0,0,0.12), 0px 24px 24px 0px rgba(0,0,0,0.24);
+
+        &:hover {
+          box-shadow: 0px 0px 24px 0px rgba(0,0,0,0.12), 0px 35px 35px 0px rgba(0,0,0,0.24);  
+        }
 
         .title {
           font-weight: 500;
