@@ -7,9 +7,14 @@ footer.page-footer.public-shared-menu_footer-container {
     background: #fff;
     height: 80px;
 
-    .material-icons {
-      color: #304FFE;
-      line-height: 80px;
+    .button-collapse {
+      margin-left: 0;
+      margin-right: 0;
+
+      i {
+        color: #304FFE;
+        line-height: 80px;
+      }
     }
   }
 
