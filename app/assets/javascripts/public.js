@@ -4,3 +4,4 @@
 //= require materialize-sprockets
 //= require bootstrap/modal
 //= require public/global
+//= require turbolinks
