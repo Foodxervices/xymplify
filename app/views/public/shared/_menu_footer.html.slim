@@ -1,0 +1,10 @@
+footer.page-footer.public-shared-menu_footer-container
+  nav
+    .nav-wrapper.container
+      span.copy-right Copyright © 2016 FoodHub Pte Ltd. All rights reserved.
+      a.right.button-collapse data-activates="mobile-menu-footer" href="#" 
+        i.material-icons menu
+      ul.right.hide-on-med-and-down
+        = render 'public/shared/menu_footer_item'
+      ul#mobile-menu-footer.side-nav
+        = render 'public/shared/menu_footer_item'
