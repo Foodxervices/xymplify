@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107073449) do
+ActiveRecord::Schema.define(version: 20161109080633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 20161107073449) do
 
   create_table "order_gsts", force: :cascade do |t|
     t.string  "name",                                    default: "GST"
-    t.decimal "percent",         precision: 4, scale: 2, default: 0.0
+    t.decimal "percent",         precision: 4, scale: 2, default: 7.0
     t.integer "amount_cents",                            default: 0,     null: false
     t.string  "amount_currency",                         default: "SGD", null: false
     t.integer "order_id"
