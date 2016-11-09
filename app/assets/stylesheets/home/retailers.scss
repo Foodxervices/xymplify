@@ -1,9 +1,4 @@
 #home-retailers-container {
-  .container {
-    max-width: 970px;
-    margin: 80px auto;
-  }
-
   .image {
     margin: 10px 0;
     overflow: hidden;
@@ -23,18 +18,23 @@
     }
   }
 
-  h2 {
-    font-size: calc(1em + 5vmin);
-  }
+  #main {
+    max-width: 970px;
+    margin: 80px auto;
+    
+    h2 {
+      font-size: calc(1em + 5vmin);
+    }
 
-  p {
-    font-weight: 300;
-    font-size: 16px;
-    color: #757575;
-    line-height: 24px;
-  }
+    p {
+      font-weight: 300;
+      font-size: 16px;
+      color: #757575;
+      line-height: 24px;
+    }
 
-  .row {
-    margin-top: 20px;
+    .row {
+      margin-top: 20px;
+    }
   }
 }

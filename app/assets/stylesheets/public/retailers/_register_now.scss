@@ -1,0 +1,107 @@
+.public-retailers-register_now-container {
+  text-align: center;
+  background: url(image_path("public/register-now.png")) no-repeat center center;
+  background-size: 100% 100%;
+  height: 560px;
+
+  h2 {
+    color: #FFFFFF;
+    font-size: calc(0.8em + 3.5vmin);
+    padding-top: 72px;
+    font-weight: 400;
+  }
+
+  p {
+    font-size: calc(0.8em + 1vmin);
+    color: #FFFFFF;
+    font-weight: 300;
+  }
+
+  #plans {
+    padding: 50px 0;
+
+    .plan {
+      position: relative;
+      padding-bottom: 180px;
+      background: #FFFFFF;
+
+      &:not(.pro-plan) {
+        height: 562px;
+        margin: 60px 0;
+        box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.12), 0px 4px 4px 0px rgba(0,0,0,0.24);
+
+        .plan-footer .btn {
+          background: #fff;
+          color: #304FFE;
+        }
+      }
+
+      &.pro-plan {
+        height: 650px;
+        margin: 20px 0;
+        box-shadow: 0px 0px 24px 0px rgba(0,0,0,0.12), 0px 24px 24px 0px rgba(0,0,0,0.24);
+
+        .title {
+          font-weight: 500;
+        }
+      }
+    }
+
+    .plan-header {
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+    .description {
+      font-size: 14px;
+      color: #757575;
+      padding-bottom: 10px;
+    }
+
+    .title {
+      margin: 0;
+      padding: 40px 0 25px 0;
+      font-size: 40px;
+      line-height: 40px;
+      font-weight: 300;
+      color: #304FFE;
+    }
+
+    .price {
+      margin: 0;
+      font-size: 30px;
+      line-height: 30px;
+      font-weight: 500;
+      color: #424242;
+    }
+
+    .details {
+      margin: 20px 0;
+
+      p {
+        font-size: 16px;
+        color: #424242;
+        line-height: 40px;
+        margin: 0;
+
+        &:nth-child(even) {
+          background: #F5F5F5;
+        }
+      }
+    }
+
+    .plan-footer {
+      height: 180px;
+      position: absolute;
+      text-align: center;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+
+      .btn {
+        margin-top: 100px;
+        font-size: 18px;
+        letter-spacing: 0.64px;
+      }
+    }
+  }
+} 
