@@ -6,7 +6,7 @@ body.home.index {
 
 #home-index-container {
   padding: 50px 0;
-  background: url(image_path("public/macbook.png")) no-repeat right 70px;
+  @include background_retina_detection('public/macbook', 'png', no-repeat right 70px, $size: 739px 524px);
 
   @media #{$medium-and-down} {
     background: none;

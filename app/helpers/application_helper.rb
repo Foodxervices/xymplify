@@ -35,4 +35,9 @@ module ApplicationHelper
     end
     form.input :kitchen_id, collection: restaurants.values, as: :grouped_select, group_method: :kitchens, include_blank: include_blank
   end
+
+  def image_tag_retina_detection(name_at_1x, options={})
+    name_at_2x = name_at_1x.gsub(%r{\.\w+$}, '-2x\0')
+    image_tag(name_at_1x, options.merge("data-at2x" => ActionController::Base.helpers.asset_path(name_at_2x)))
+  end
 end
