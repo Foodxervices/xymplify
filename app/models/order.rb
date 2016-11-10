@@ -2,6 +2,7 @@ class Order < ActiveRecord::Base
   has_paper_trail
 
   extend Enumerize
+  monetize :price_cents
 
   before_create :cache_restaurant
   before_create :set_name
@@ -11,7 +12,7 @@ class Order < ActiveRecord::Base
   after_save :set_item_price
 
   has_many :items, class_name: "OrderItem", dependent: :destroy
-  has_many :gsts,  class_name: "OrderGst",  dependent: :destroy
+  has_many :gsts, -> { includes :order },  class_name: "OrderGst",  dependent: :destroy
   has_many :alerts, as: :alertable
   
   belongs_to :supplier 
@@ -31,10 +32,6 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :gsts,  reject_if: :all_blank, allow_destroy: true
 
   delegate :currency, to: :supplier, allow_nil: true
-
-  def price 
-    items.includes(:food_item).map(&:total_price).inject(0, :+)
-  end
 
   def self.price 
     all.map(&:price).inject(0, :+)

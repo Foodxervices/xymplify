@@ -10,6 +10,7 @@ class OrderItem < ActiveRecord::Base
   before_create :set_info
 
   before_save :update_quantity_ordered
+  after_save :cache_order_amount
 
   monetize :unit_price_cents
 
@@ -34,6 +35,13 @@ class OrderItem < ActiveRecord::Base
   def update_quantity_ordered
     if quantity_changed? && !order.status_changed? && order.status.placed? 
       food_item.update_column(:quantity_ordered, food_item.quantity_ordered + (quantity - quantity_was))
+    end
+  end
+
+  def cache_order_amount
+    if unit_price_cents_changed? || unit_price_currency_changed? || quantity_changed?
+      order.price = order.items.map(&:total_price).inject(0, :+) 
+      order.save
     end
   end
 end

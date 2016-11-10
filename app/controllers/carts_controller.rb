@@ -14,11 +14,21 @@ class CartsController < ApplicationController
 
     authorize! :order, @food_item
 
-    order = Order.find_or_create_by(user_id: current_user.id, kitchen_id: @food_item.kitchen_id, supplier_id: @food_item.supplier_id, status: :wip)
-    item = order.items.find_or_create_by(food_item_id: @food_item.id)
-    item.unit_price = @food_item.unit_price
-    item.quantity += params[:quantity].to_f
-    item.save
+    options = { user_id: current_user.id, kitchen_id: @food_item.kitchen_id, supplier_id: @food_item.supplier_id, status: :wip }
+    
+    order = Order.where(options).first
+    
+    ActiveRecord::Base.transaction do
+      if order.nil?
+        order = Order.create(options)
+        order.gsts.create(name: 'GST', percent: 7)
+      end
+
+      item = order.items.find_or_create_by(food_item_id: @food_item.id)
+      item.unit_price = @food_item.unit_price
+      item.quantity += params[:quantity].to_f
+      item.save
+    end
   
     order.destroy if order.price_with_gst == 0
   end

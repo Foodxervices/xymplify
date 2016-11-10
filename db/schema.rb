@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109080633) do
+ActiveRecord::Schema.define(version: 20161110041807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,10 +81,8 @@ ActiveRecord::Schema.define(version: 20161109080633) do
   add_index "kitchens_user_roles", ["user_role_id"], name: "index_kitchens_user_roles_on_user_role_id", using: :btree
 
   create_table "order_gsts", force: :cascade do |t|
-    t.string  "name",                                    default: "GST"
-    t.decimal "percent",         precision: 4, scale: 2, default: 7.0
-    t.integer "amount_cents",                            default: 0,     null: false
-    t.string  "amount_currency",                         default: "SGD", null: false
+    t.string  "name",                                  default: "GST"
+    t.decimal "percent",       precision: 4, scale: 2, default: 0.0
     t.integer "order_id"
     t.integer "restaurant_id"
   end
@@ -125,6 +123,8 @@ ActiveRecord::Schema.define(version: 20161109080633) do
     t.datetime "declined_at"
     t.datetime "cancelled_at"
     t.string   "token"
+    t.integer  "price_cents",       default: 0,     null: false
+    t.string   "price_currency",    default: "SGD", null: false
   end
 
   add_index "orders", ["kitchen_id"], name: "index_orders_on_kitchen_id", using: :btree

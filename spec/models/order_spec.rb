@@ -22,7 +22,7 @@ describe Order do
       let!(:order) { create(:order) }
 
       it 'returns price' do
-        expect(order.price.to_i).to eq 40
+        expect(order.reload.price.to_i).to eq 40
       end
     end
 
@@ -30,7 +30,7 @@ describe Order do
       let!(:order) { create(:order, status: :placed) }
 
       it 'returns price' do
-        expect(order.price.to_i).to eq 40
+        expect(order.reload.price.to_i).to eq 40
       end
     end
   end
