@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110041807) do
+ActiveRecord::Schema.define(version: 20161110051817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20161110041807) do
   add_index "kitchens_user_roles", ["user_role_id"], name: "index_kitchens_user_roles_on_user_role_id", using: :btree
 
   create_table "order_gsts", force: :cascade do |t|
-    t.string  "name",                                  default: "GST"
+    t.string  "name",                                  default: ""
     t.decimal "percent",       precision: 4, scale: 2, default: 0.0
     t.integer "order_id"
     t.integer "restaurant_id"
