@@ -1,7 +1,7 @@
 ruby '2.3.1'
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.7'
+gem 'rails', '4.2.7.1'
 gem 'pg', '~> 0.15'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.6'
@@ -68,6 +68,7 @@ group :development do
   gem 'quiet_assets'
   gem 'meta_request'
   gem 'bullet'
+  gem 'brakeman'
 end
 
 gem 'rails_12factor', group: :staging

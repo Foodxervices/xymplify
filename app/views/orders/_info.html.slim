@@ -80,7 +80,9 @@
       h3 Payment details
       p
         - [:bank_name, :bank_address, :bank_swift_code, :bank_account_name, :bank_account_number].each do |field|
-          == "#{Kitchen.human_attribute_name(field)}: #{kitchen.send(field)} <br/>" if kitchen.send(field).present?
+          - if kitchen.send(field).present?
+            = "#{Kitchen.human_attribute_name(field)}: #{kitchen.send(field)}"
+            br 
         
   #remarks  
     h3 Eatery remarks:
