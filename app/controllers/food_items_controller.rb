@@ -39,13 +39,15 @@ class FoodItemsController < ApplicationController
           end
 
           if @food_item.present?
-            @food_item.assign_attributes(food_item_params.merge(kitchen_id: kitchen.id))
-
-            if @food_item.save
-              applied_count += 1
-            else
-              @food_item.kitchen_id = food_item_params[:kitchen_id]
-              return render :new
+            if (@food_item.new_record? && can?(:create, @food_item)) || (@food_item.persisted? && can?(:update, @food_item))
+              @food_item.assign_attributes(food_item_params.merge(kitchen_id: kitchen.id))
+              
+              if @food_item.save
+                applied_count += 1
+              else
+                @food_item.kitchen_id = food_item_params[:kitchen_id]
+                return render :new
+              end
             end
           end
         end
