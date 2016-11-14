@@ -3,6 +3,7 @@ class FoodItemsController < ApplicationController
 
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :food_item, :through => :restaurant, :shallow => true, except: [:new]
+  
 
   def index
     @food_item_filter = FoodItemFilter.new(@food_items, food_item_filter_params)
@@ -20,20 +21,52 @@ class FoodItemsController < ApplicationController
   end
 
   def create
-    if @food_item.save
-      redirect_to [@restaurant, :food_items], notice: 'Food Item has been created.'
-    else
-      render :new
+    kitchens = current_restaurant.kitchens.accessible_by(current_ability)
+    if food_item_params[:kitchen_id].to_i > 0
+      kitchens = kitchens.where(id: food_item_params[:kitchen_id])
     end
+
+    applied_count = 0
+
+    if food_item_params[:code].present?
+      ActiveRecord::Base.transaction do
+        kitchens.includes(:restaurant).each do |kitchen|
+          case food_item_params[:kitchen_id]
+          when 'existed_food_items_only'
+            @food_item = current_restaurant.food_items.where(code: food_item_params[:code], kitchen_id: kitchen).first
+          else
+            @food_item = current_restaurant.food_items.find_or_initialize_by(code: food_item_params[:code], kitchen_id: kitchen)
+          end
+
+          if @food_item.present?
+            @food_item.assign_attributes(food_item_params.merge(kitchen_id: kitchen.id))
+
+            if @food_item.save
+              applied_count += 1
+            else
+              @food_item.kitchen_id = food_item_params[:kitchen_id]
+              return render :new
+            end
+          end
+        end
+      end
+    end
+
+    redirect_to [@restaurant, :food_items], notice: "Your request was applied to #{applied_count} items."
   end
 
   def edit; end
 
   def update
-    if @food_item.update_attributes(food_item_params)
-      redirect_to [@food_item.restaurant, :food_items], notice: 'Food Item has been updated.'
+    if ['all_kitchens', 'existed_food_items_only'].include?(food_item_params[:kitchen_id])
+      @restaurant = @food_item.restaurant
+      create
     else
-      render :edit
+      if @food_item.update_attributes(food_item_params)
+        redirect_to [@food_item.restaurant, :food_items], notice: 'Food Item has been updated.'
+      else
+        render :edit
+      end
     end
   end
 
@@ -71,7 +104,6 @@ class FoodItemsController < ApplicationController
     
     data[:unit_price]  = data[:unit_price_without_promotion] if data[:unit_price].to_f == 0
     data[:supplier_id] = current_restaurant.suppliers.accessible_by(current_ability).find(data[:supplier_id]).id if data[:supplier_id].present?
-    data[:kitchen_id]  = current_restaurant.kitchens.accessible_by(current_ability).find(data[:kitchen_id]).id if data[:kitchen_id].present?
     data[:user_id] = current_user.id
     data
   end

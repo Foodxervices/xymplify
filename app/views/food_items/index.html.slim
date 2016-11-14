@@ -10,7 +10,7 @@
           - if can?(:import, Kitchen)
             = link_to 'Import', [:new, current_restaurant, :food_item_import], remote: true, class: 'btn btn-default'
           - if can?(:create, FoodItem)
-            = link_to 'Create New Food Item', [:new, @restaurant, :food_item], class: 'btn btn-default'
+            = link_to 'Create / Update Food Item', [:new, @restaurant, :food_item], class: 'btn btn-default'
 
   .table-responsive
     table.table.table-striped.text-center

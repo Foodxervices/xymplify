@@ -20,7 +20,7 @@ class FoodItem < ActiveRecord::Base
   
   validates_associated :supplier, :user, :kitchen, :category
 
-  validates :code,        presence: true
+  validates :code,        presence: true, uniqueness: {scope: [:kitchen_id]}
   validates :name,        presence: true 
   validates :brand,       presence: true
   validates :supplier_id, presence: true

@@ -1,13 +1,13 @@
 .food_items-form-container
-  = simple_form_for [@restaurant, food_item] do |f|
+  = simple_form_for food_item.new_record? ? [@restaurant, food_item] : food_item do |f|
     .form-inputs
       .row
         .col-md-6
+          = f.association   :kitchen, collection: kitchen_list, include_blank: false
           = f.input         :code
           = f.input         :name
           = f.input         :brand
           = f.association   :supplier, collection: current_restaurant.suppliers.accessible_by(current_ability)
-          = kitchen_dropdown(f)
           = image_tag food_item.image.url(:thumb)
           = f.input         :image, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg"} }
         .col-md-6
