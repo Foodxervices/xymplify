@@ -5,6 +5,7 @@ class FoodItem < ActiveRecord::Base
   self.inheritance_column = :_type_disabled
   
   monetize :unit_price_cents
+  monetize :unit_price_without_promotion_cents
 
   before_create :cache_restaurant
   before_save :set_category_and_tags
@@ -21,12 +22,14 @@ class FoodItem < ActiveRecord::Base
 
   validates :code,        presence: true
   validates :name,        presence: true 
-  validates :unit_price,  presence: true
   validates :brand,       presence: true
   validates :supplier_id, presence: true
   validates :user_id,     presence: true
   validates :kitchen_id,  presence: true
-  validates :unit_price_currency, presence: true
+  validates :unit_price,  presence: true, numericality: { greater_than: 0 }
+  validates :unit_price_currency,                    presence: true
+  validates :unit_price_without_promotion,           presence: true, numericality: { greater_than: 0 }
+  validates :unit_price_without_promotion_currency,  presence: true
   validates :current_quantity,  presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :quantity_ordered,  presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :low_quantity,                      numericality: { greater_than_or_equal_to: 0 }, :allow_blank => true
@@ -34,11 +37,16 @@ class FoodItem < ActiveRecord::Base
   has_attached_file :image, styles: { thumb: "80x80#", medium: "400x400#" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
-  before_validation :set_currency, if: 'unit_price_currency.blank?'
+  before_validation :set_currency
+
+  def has_special_price?
+    unit_price != unit_price_without_promotion
+  end
 
   private 
   def set_currency
-    self.unit_price_currency = supplier&.currency 
+    self.unit_price_currency = supplier&.currency if unit_price_currency.blank?
+    self.unit_price_without_promotion_currency = unit_price_currency if unit_price_without_promotion_currency != unit_price_currency
   end
 
   def cache_restaurant

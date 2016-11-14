@@ -20,7 +20,7 @@
           th.text-left = sortable(:name)
           th = FoodItem.human_attribute_name(:image)
           th = sortable(:unit)
-          th width=127 = sortable(:unit_price_cents)
+          th width=127 = sortable(:unit_price_cents, title: FoodItem.human_attribute_name(:both_prices))
           th = sortable(:unit_price_currency)
           th = sortable(:supplier_name)
           th = sortable(:kitchen_name)
@@ -34,7 +34,7 @@
             td.text-left = food_item.name
             td = image_tag food_item.image.url(:thumb)
             td = food_item.unit
-            td = humanized_money_with_symbol(food_item.unit_price)
+            td = both_prices(food_item)
             td = food_item.unit_price_currency
             td = link_to_if can?(:read, food_item.supplier), food_item.supplier_name, supplier_path(food_item.supplier_id), remote: true
             td = link_to food_item.kitchen&.name, food_item.kitchen, remote: true 

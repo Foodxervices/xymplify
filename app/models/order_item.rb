@@ -13,12 +13,17 @@ class OrderItem < ActiveRecord::Base
   after_save :cache_order_amount
 
   monetize :unit_price_cents
+  monetize :unit_price_without_promotion_cents
 
   validates_associated :order, :food_item
 
   validates :order_id,      presence: true
   validates :food_item_id,  presence: true
   validates :quantity,      presence: true, numericality: { greater_than: 0 }
+  validates :unit_price,    presence: true, numericality: { greater_than: 0 }
+  validates :unit_price_currency,                    presence: true
+  validates :unit_price_without_promotion,           presence: true, numericality: { greater_than: 0 }
+  validates :unit_price_without_promotion_currency,  presence: true
 
   def total_price
     unit_price * quantity

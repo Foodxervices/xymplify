@@ -10,7 +10,10 @@ describe FoodItem do
     it { is_expected.to validate_presence_of :kitchen_id }
     it { is_expected.to validate_presence_of :current_quantity }
     it { is_expected.to validate_presence_of :quantity_ordered }
+    it { is_expected.to validate_presence_of :unit_price_currency }
+    it { is_expected.to validate_presence_of :unit_price_without_promotion_currency }
     it { is_expected.to monetize :unit_price }
+    it { is_expected.to monetize :unit_price_without_promotion }
     it { is_expected.to validate_numericality_of(:current_quantity).is_greater_than_or_equal_to(0) }
     it { is_expected.to validate_numericality_of(:quantity_ordered).is_greater_than_or_equal_to(0) }
     it { is_expected.to validate_numericality_of(:low_quantity).is_greater_than_or_equal_to(0) }

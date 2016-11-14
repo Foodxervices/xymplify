@@ -58,6 +58,7 @@ class FoodItemsController < ApplicationController
       :name,
       :unit,
       :unit_price,
+      :unit_price_without_promotion,
       :unit_price_currency,
       :supplier_id,
       :kitchen_id,
@@ -67,6 +68,8 @@ class FoodItemsController < ApplicationController
       :tag_list,
       :low_quantity
     )
+    
+    data[:unit_price]  = data[:unit_price_without_promotion] if data[:unit_price].to_f == 0
     data[:supplier_id] = current_restaurant.suppliers.accessible_by(current_ability).find(data[:supplier_id]).id if data[:supplier_id].present?
     data[:kitchen_id]  = current_restaurant.kitchens.accessible_by(current_ability).find(data[:kitchen_id]).id if data[:kitchen_id].present?
     data[:user_id] = current_user.id

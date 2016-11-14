@@ -3,6 +3,7 @@ FactoryGirl.define do
     sequence(:code)     { |n| "CODE#{n}" }
     sequence(:name)     { |n| "Food Item #{n}" }
     unit                'pack'
+    unit_price_without_promotion 25
     unit_price          20
     supplier
     kitchen

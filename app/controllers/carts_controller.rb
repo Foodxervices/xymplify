@@ -26,6 +26,8 @@ class CartsController < ApplicationController
 
       item = order.items.find_or_create_by(food_item_id: @food_item.id)
       item.unit_price = @food_item.unit_price
+      item.unit_price_without_promotion = @food_item.unit_price_without_promotion
+      
       item.quantity += params[:quantity].to_f
       item.save
     end

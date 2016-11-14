@@ -40,4 +40,13 @@ module ApplicationHelper
     name_at_2x = name_at_1x.gsub(%r{\.\w+$}, '-2x\0')
     image_tag(name_at_1x, options.merge("data-at2x" => ActionController::Base.helpers.asset_path(name_at_2x)))
   end
+
+  def both_prices(food_item)
+    arr = []
+    if food_item.has_special_price?
+      arr << "<i><strike>#{humanized_money_with_symbol(food_item.unit_price_without_promotion)}</strike></i>"
+    end
+    arr << humanized_money_with_symbol(food_item.unit_price)
+    arr.join(' / ').html_safe
+  end
 end

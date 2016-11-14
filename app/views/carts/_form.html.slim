@@ -15,6 +15,6 @@
           td = food_item.name
           td = food_item.supplier&.name
           td.text-center = food_item.unit
-          td.text-center = humanized_money_with_symbol(food_item.unit_price)
+          td.text-center = both_prices(food_item)
           td = number_field_tag :quantity, 0, class: 'form-control quantity-input', id: nil
           td = link_to 'Add to cart', '#', class: 'btn btn-default btn-add'

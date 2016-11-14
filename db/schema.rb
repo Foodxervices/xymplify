@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110051817) do
+ActiveRecord::Schema.define(version: 20161114042139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,11 +36,11 @@ ActiveRecord::Schema.define(version: 20161110051817) do
     t.string   "unit"
     t.integer  "supplier_id"
     t.integer  "user_id"
-    t.decimal  "current_quantity",    precision: 8, scale: 2, default: 0.0
-    t.decimal  "quantity_ordered",    precision: 8, scale: 2, default: 0.0
+    t.decimal  "current_quantity",                      precision: 8, scale: 2, default: 0.0
+    t.decimal  "quantity_ordered",                      precision: 8, scale: 2, default: 0.0
     t.string   "brand"
-    t.integer  "unit_price_cents",                            default: 0,   null: false
-    t.string   "unit_price_currency",                                       null: false
+    t.integer  "unit_price_cents",                                              default: 0,     null: false
+    t.string   "unit_price_currency",                                                           null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -48,8 +48,10 @@ ActiveRecord::Schema.define(version: 20161110051817) do
     t.integer  "kitchen_id"
     t.integer  "restaurant_id"
     t.integer  "category_id"
-    t.string   "cached_tag_list",                             default: ""
-    t.decimal  "low_quantity",        precision: 8, scale: 2
+    t.string   "cached_tag_list",                                               default: ""
+    t.decimal  "low_quantity",                          precision: 8, scale: 2
+    t.integer  "unit_price_without_promotion_cents",                            default: 0,     null: false
+    t.string   "unit_price_without_promotion_currency",                         default: "SGD", null: false
   end
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree
@@ -91,14 +93,16 @@ ActiveRecord::Schema.define(version: 20161110051817) do
   add_index "order_gsts", ["restaurant_id"], name: "index_order_gsts_on_restaurant_id", using: :btree
 
   create_table "order_items", force: :cascade do |t|
-    t.integer "unit_price_cents",                            default: 0,     null: false
-    t.string  "unit_price_currency",                         default: "SGD", null: false
-    t.decimal "quantity",            precision: 8, scale: 2, default: 0.0
+    t.integer "unit_price_cents",                                              default: 0,     null: false
+    t.string  "unit_price_currency",                                           default: "SGD", null: false
+    t.decimal "quantity",                              precision: 8, scale: 2, default: 0.0
     t.integer "order_id"
     t.integer "food_item_id"
     t.integer "restaurant_id"
     t.string  "name"
     t.integer "category_id"
+    t.integer "unit_price_without_promotion_cents",                            default: 0,     null: false
+    t.string  "unit_price_without_promotion_currency",                         default: "SGD", null: false
   end
 
   add_index "order_items", ["category_id"], name: "index_order_items_on_category_id", using: :btree

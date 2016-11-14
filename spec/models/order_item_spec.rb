@@ -5,6 +5,10 @@ describe OrderItem do
     it { is_expected.to validate_presence_of :order_id }
     it { is_expected.to validate_presence_of :food_item_id }
     it { is_expected.to validate_presence_of :quantity }
+    it { is_expected.to validate_presence_of :unit_price_currency }
+    it { is_expected.to validate_presence_of :unit_price_without_promotion_currency }
+    it { is_expected.to monetize :unit_price }
+    it { is_expected.to monetize :unit_price_without_promotion }
     it { is_expected.to validate_numericality_of(:quantity).is_greater_than(0) }
   end
 
