@@ -29,7 +29,12 @@ class CartsController < ApplicationController
       item.unit_price_without_promotion = @food_item.unit_price_without_promotion
       
       item.quantity += params[:quantity].to_f
-      item.save
+      
+      @success = item.save
+      
+      if !@success
+        @message = item.errors.full_messages.join("<br />")
+      end
     end
   
     order.destroy if order.price_with_gst == 0

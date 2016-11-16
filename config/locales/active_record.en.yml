@@ -18,6 +18,8 @@ en:
         tag_list: "Item tags"
         cached_tag_list: "Item tags"
         kitchen_ids: "Kitchens"
+        min_order_price: "Minimum Order Quantity"
+        max_order_price: "Maximum Order Quantity"
       supplier:
         name: "Company Name"
         contact: "Contact Person"

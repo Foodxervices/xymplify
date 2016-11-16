@@ -24,6 +24,7 @@ class OrderItem < ActiveRecord::Base
   validates :unit_price_currency,                    presence: true
   validates :unit_price_without_promotion,           presence: true, numericality: { greater_than: 0 }
   validates :unit_price_without_promotion_currency,  presence: true
+  validate :validate_order_quantity
 
   def total_price
     unit_price * quantity
@@ -48,5 +49,27 @@ class OrderItem < ActiveRecord::Base
       order.price = order.items.map(&:total_price).inject(0, :+) 
       order.save
     end
+  end
+
+  def validate_order_quantity
+    if order&.status&.wip?
+      unit_price_dollars = unit_price.dollars.to_f
+
+      if unit_price_dollars > 0
+        min_quantity = food_item.min_order_price / unit_price_dollars
+        min_quantity = (min_quantity * 100).ceil / 100.0
+        errors.add(:quantity, "can't be lesser than #{number_format(min_quantity)}") if quantity < min_quantity
+
+        if food_item.max_order_price.present?
+          max_quantity = food_item.max_order_price / unit_price_dollars
+          max_quantity = (max_quantity * 100).floor / 100.0
+          errors.add(:quantity, "can't be more than #{number_format(max_quantity)}") if quantity > max_quantity
+        end
+      end
+    end
+  end
+
+  def number_format(num)
+    ActionController::Base.helpers.number_with_delimiter(num)
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114042139) do
+ActiveRecord::Schema.define(version: 20161116144049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,11 +36,11 @@ ActiveRecord::Schema.define(version: 20161114042139) do
     t.string   "unit"
     t.integer  "supplier_id"
     t.integer  "user_id"
-    t.decimal  "current_quantity",                      precision: 8, scale: 2, default: 0.0
-    t.decimal  "quantity_ordered",                      precision: 8, scale: 2, default: 0.0
+    t.decimal  "current_quantity",                      precision: 8,  scale: 2, default: 0.0
+    t.decimal  "quantity_ordered",                      precision: 8,  scale: 2, default: 0.0
     t.string   "brand"
-    t.integer  "unit_price_cents",                                              default: 0,     null: false
-    t.string   "unit_price_currency",                                                           null: false
+    t.integer  "unit_price_cents",                                               default: 0,     null: false
+    t.string   "unit_price_currency",                                                            null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -48,10 +48,12 @@ ActiveRecord::Schema.define(version: 20161114042139) do
     t.integer  "kitchen_id"
     t.integer  "restaurant_id"
     t.integer  "category_id"
-    t.string   "cached_tag_list",                                               default: ""
-    t.decimal  "low_quantity",                          precision: 8, scale: 2
-    t.integer  "unit_price_without_promotion_cents",                            default: 0,     null: false
-    t.string   "unit_price_without_promotion_currency",                         default: "SGD", null: false
+    t.string   "cached_tag_list",                                                default: ""
+    t.decimal  "low_quantity",                          precision: 8,  scale: 2
+    t.integer  "unit_price_without_promotion_cents",                             default: 0,     null: false
+    t.string   "unit_price_without_promotion_currency",                          default: "SGD", null: false
+    t.decimal  "min_order_price",                       precision: 12, scale: 2, default: 0.0
+    t.decimal  "max_order_price",                       precision: 12, scale: 2
   end
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree

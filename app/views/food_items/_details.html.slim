@@ -5,7 +5,7 @@
     .col-sm-8
       table.table.table-bordered
         tr 
-          th width=150 = FoodItem.human_attribute_name(:code)
+          th width=230 = FoodItem.human_attribute_name(:code)
           td = food_item.code
         tr 
           th = FoodItem.human_attribute_name(:tag_list)
@@ -23,11 +23,17 @@
           th = FoodItem.human_attribute_name(:unit)
           td = food_item.unit
         tr 
+          th = FoodItem.human_attribute_name(:unit_price_currency)
+          td = food_item.unit_price_currency
+        tr 
           th = FoodItem.human_attribute_name(:both_prices)
           td = both_prices(food_item)
         tr 
-          th = FoodItem.human_attribute_name(:unit_price_currency)
-          td = food_item.unit_price_currency
+          th = FoodItem.human_attribute_name(:min_order_price)
+          td = format_price(food_item.min_order_price, food_item.unit_price_currency)
+        tr 
+          th = FoodItem.human_attribute_name(:max_order_price)
+          td = format_price(food_item.max_order_price, food_item.unit_price_currency)   
         tr 
           th = FoodItem.human_attribute_name(:current_quantity)
           td = food_item.current_quantity

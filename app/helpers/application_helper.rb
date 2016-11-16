@@ -49,4 +49,8 @@ module ApplicationHelper
     arr << humanized_money_with_symbol(food_item.unit_price)
     arr.join(' / ').html_safe
   end
+
+  def format_price(price, currency_code)
+    humanized_money_with_symbol(Money.new(price, currency_code))
+  end
 end

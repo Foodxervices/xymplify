@@ -1,2 +1,6 @@
-$('#cart-details').html("<%= j render 'carts/details' %>")
-<%= open_popup(title: 'Cart', partial: 'carts/details') %> 
+<% if @success %>
+  $('#cart-details').html("<%= j render 'carts/details' %>")
+  <%= open_popup(title: 'Cart', partial: 'carts/details') %> 
+<% else %>
+  alert("<%= @message.html_safe %>")
+<% end %>
