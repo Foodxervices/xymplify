@@ -33,23 +33,9 @@ describe FoodItemsController, :type => :controller do
     end
   end
 
-  describe '#create' do 
-    def do_request
-      post :create, restaurant_id: restaurant.id, food_item: attributes_for(:food_item, kitchen_id: kitchen.id, supplier_id: supplier.id)
-    end
-
-    let!(:kitchen)  { create(:kitchen,  restaurant_id: restaurant.id) }
-    let!(:supplier) { create(:supplier, restaurant_id: restaurant.id) }
-
-    it 'creates a food item' do 
-      expect{ do_request }.to change{ [FoodItem.count] }.from([0]).to([1])
-      expect(response).to redirect_to [restaurant, :food_items]
-    end
-  end
-
   describe '#edit' do 
     def do_request
-      get :edit, id: food_item.id
+      get :edit, restaurant_id: food_item.restaurant_id, id: food_item.id
     end
 
     let!(:food_item) { create(:food_item) }
@@ -61,19 +47,33 @@ describe FoodItemsController, :type => :controller do
     end
   end
 
-  describe '#update' do 
+  describe '#create_or_update' do 
     def do_request
-      patch :update, id: food_item.id, food_item: { code: new_code, unit_price: 20 }
+      post :create_or_update, restaurant_id: restaurant.id, food_item: attributes_for(:food_item, code: food_item.code, supplier_id: supplier.id).merge(kitchen_ids: [kitchen_A.id, kitchen_B.id])
+    end
+
+    let!(:kitchen_A) { create(:kitchen,  restaurant_id: restaurant.id) }
+    let!(:kitchen_B) { create(:kitchen,  restaurant_id: restaurant.id) }
+    let!(:supplier)  { create(:supplier, restaurant_id: restaurant.id) }
+    let!(:food_item) { create(:food_item, kitchen: kitchen_A, supplier: supplier) }
+
+    it 'updates or creates a food item (if not existed)' do 
+      expect{ do_request }.to change{ [FoodItem.count] }.from([1]).to([2])
+      expect(response).to redirect_to [restaurant, :food_items]
+    end
+  end
+
+  describe '#auto_populate' do 
+    def do_request
+      get :auto_populate, restaurant_id: food_item.restaurant_id, code: food_item.code, format: :js
     end
 
     let!(:food_item) { create(:food_item) }
-    let!(:new_code)  { 'KL30902' }
 
-    it 'updates food item' do
+    it 'returns food_item' do
       do_request
-      expect(food_item.reload.code).to eq new_code
-      expect(flash[:notice]).to eq 'Food Item has been updated.'
-      expect(response).to redirect_to [food_item.restaurant, :food_items]
+      expect(assigns(:food_item)).to match food_item
+      expect(response).to render_template :auto_populate
     end
   end
 

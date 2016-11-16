@@ -1,0 +1,5 @@
+<% if @food_item.present? %>
+  $('#food_item-form').replaceWith("<%= j render 'food_items/form', { food_item: @food_item } %>")
+<% else %>
+  <%= open_message(notice: "Food Item is not found. The code is not correct.") %>
+<% end %>

@@ -20,32 +20,28 @@ class FoodItemsController < ApplicationController
     @food_item = FoodItem.new(unit_price_currency: "")
   end
 
-  def create
+  def edit 
+    @food_item.kitchen_ids = [@food_item.kitchen_id]
+  end
+
+  def create_or_update
     kitchens = current_restaurant.kitchens.accessible_by(current_ability)
-    if food_item_params[:kitchen_id].to_i > 0
-      kitchens = kitchens.where(id: food_item_params[:kitchen_id])
-    end
+                                 .where(id: food_item_params[:kitchen_ids])
 
     applied_count = 0
-
+    
     if food_item_params[:code].present?
       ActiveRecord::Base.transaction do
         kitchens.includes(:restaurant).each do |kitchen|
-          case food_item_params[:kitchen_id]
-          when 'existed_food_items_only'
-            @food_item = current_restaurant.food_items.where(code: food_item_params[:code], kitchen_id: kitchen).first
-          else
-            @food_item = current_restaurant.food_items.find_or_initialize_by(code: food_item_params[:code], kitchen_id: kitchen)
-          end
+          @food_item = current_restaurant.food_items.find_or_initialize_by(code: food_item_params[:code], kitchen_id: kitchen)
 
           if @food_item.present?
             if (@food_item.new_record? && can?(:create, @food_item)) || (@food_item.persisted? && can?(:update, @food_item))
               @food_item.assign_attributes(food_item_params.merge(kitchen_id: kitchen.id))
               
-              if @food_item.save
-                applied_count += 1
-              else
-                @food_item.kitchen_id = food_item_params[:kitchen_id]
+              applied_count += 1 if @food_item.changed?
+
+              if !@food_item.save
                 return render :new
               end
             end
@@ -54,22 +50,14 @@ class FoodItemsController < ApplicationController
       end
     end
 
-    redirect_to [@restaurant, :food_items], notice: "Your request was applied to #{applied_count} items."
+    redirect_to [@restaurant, :food_items], 
+              notice: "Your request was applied to #{applied_count} items. <br/> 
+                       Visit <a href='#{restaurant_versions_path(current_restaurant)}'>history</a> to get more details."
   end
 
-  def edit; end
-
-  def update
-    if ['all_kitchens', 'existed_food_items_only'].include?(food_item_params[:kitchen_id])
-      @restaurant = @food_item.restaurant
-      create
-    else
-      if @food_item.update_attributes(food_item_params)
-        redirect_to [@food_item.restaurant, :food_items], notice: 'Food Item has been updated.'
-      else
-        render :edit
-      end
-    end
+  def auto_populate
+    @food_item = current_restaurant.food_items.accessible_by(current_ability).find_by_code(params[:code])
+    @food_item.kitchen_ids = [@food_item.kitchen_id] if @food_item.present?
   end
 
   def destroy
@@ -96,12 +84,12 @@ class FoodItemsController < ApplicationController
       :unit_price_without_promotion,
       :unit_price_currency,
       :supplier_id,
-      :kitchen_id,
       :category_id,
       :brand,
       :image,
       :tag_list,
-      :low_quantity
+      :low_quantity,
+      kitchen_ids: []
     )
     
     data[:unit_price]  = data[:unit_price_without_promotion] if data[:unit_price].to_f == 0

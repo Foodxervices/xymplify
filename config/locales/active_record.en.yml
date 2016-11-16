@@ -17,6 +17,7 @@ en:
         type: "Item type"
         tag_list: "Item tags"
         cached_tag_list: "Item tags"
+        kitchen_ids: "Kitchens"
       supplier:
         name: "Company Name"
         contact: "Contact Person"

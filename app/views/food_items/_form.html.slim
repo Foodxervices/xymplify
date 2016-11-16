@@ -1,10 +1,10 @@
-.food_items-form-container
-  = simple_form_for food_item.new_record? ? [@restaurant, food_item] : food_item do |f|
+#food_item-form.food_items-form-container
+  = simple_form_for [:create_or_update, @restaurant, food_item], url: [:create_or_update, @restaurant, :food_items], method: :post do |f|
     .form-inputs
       .row
         .col-md-6
-          = f.association   :kitchen, collection: kitchen_list, include_blank: false
-          = f.input         :code
+          = f.input         :code, hint: "#{link_to 'Auto populate', '#', ref: auto_populate_restaurant_food_items_path(current_restaurant), id: 'auto-populate'}".html_safe
+          = f.input         :kitchen_ids, collection: current_restaurant.kitchens.accessible_by(current_ability), input_html: {multiple: true}
           = f.input         :name
           = f.input         :brand
           = f.association   :supplier, collection: current_restaurant.suppliers.accessible_by(current_ability)
@@ -21,3 +21,6 @@
 
     .form-actions
       = f.button :submit
+
+javascript:
+  Foodxervices.food_items.form.init();
