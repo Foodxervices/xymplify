@@ -174,7 +174,7 @@ class OrdersController < ApplicationController
 
   def authorize_token
     if !params[:token]
-      authorize! action_name, @order 
+      authorize! action_name.to_sym, @order 
     else
       redirect_to root_url, notice: 'Invalid Token' if params[:token] != @order.token
     end
