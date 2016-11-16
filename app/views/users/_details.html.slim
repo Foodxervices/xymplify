@@ -21,3 +21,6 @@
           td = user_role.restaurant&.name
           th Role
           td = link_to_if can?(:read, user_role.role), user_role.role&.name, user_role.role, remote: true
+  - if user == current_user
+    .text-right
+      = link_to 'Edit Profile', edit_profile_path, remote: true, class: 'btn btn-default'
