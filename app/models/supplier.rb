@@ -5,6 +5,7 @@ class Supplier < ActiveRecord::Base
 
   belongs_to :restaurant
   has_many :food_items
+  has_many :orders
 
   validates :name,            presence: true
   validates :restaurant_id,   presence: true

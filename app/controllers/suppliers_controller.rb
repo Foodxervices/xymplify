@@ -64,7 +64,8 @@ class SuppliersController < ApplicationController
       :bank_address,
       :bank_swift_code,
       :bank_account_name,
-      :bank_account_number
+      :bank_account_number,
+      :cut_off_timing
     )
   end
 end

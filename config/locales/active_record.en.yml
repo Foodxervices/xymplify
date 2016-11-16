@@ -25,6 +25,7 @@ en:
         contact: "Contact Person"
         bank_swift_code: "Bank SWIFT code"
         company_registration_no: "Company ID"
+        cut_off_timing: "Cut-off timing (days)"
       restaurant: 
         company_registration_no: "Company ID"
       kitchen:

@@ -10,15 +10,20 @@ task :update_alerts => :environment do
   puts "done."
 end
 
-task :random_group => :environment do 
-  FoodItem.all.includes(:restaurant).each do |food_item|
-    random_supplier = food_item.restaurant.suppliers.sample
-    random_category = Category.all.sample
-    food_item.update_attributes(
-        category_id: random_category.id, 
-        tag_list: "#{random_category.name} #{rand(1..4)}",
-        supplier_id: random_supplier.id,
-        unit_price_currency: random_supplier.currency
-      )
+task :check_cut_off_timing => :environment do 
+  puts "Checking cut off timing..."
+  Supplier.where('cut_off_timing > 0').includes(:orders).each do |supplier|
+    supplier.orders.each do |order|
+      if order.status.placed? && order.placed_at < supplier.cut_off_timing.days.ago
+        ActiveRecord::Base.transaction do
+          order.status = :cancelled
+          if order.save
+            order.alerts.create(title: "#{order.name} has been cancelled.")
+            Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_cancelled(order)).deliver_later
+          end
+        end
+      end
+    end
   end
+  puts "done."
 end
