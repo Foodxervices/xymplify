@@ -5,7 +5,7 @@
         td = Supplier.human_attribute_name(:logo)
         td = image_tag supplier.logo.url(:thumb) 
     tr 
-      td = Supplier.human_attribute_name(:country)
+      td width=160 = Supplier.human_attribute_name(:country)
       td = supplier.country
     tr 
       td = Supplier.human_attribute_name(:address)
@@ -25,6 +25,9 @@
     tr 
       td = Supplier.human_attribute_name(:company_registration_no)
       td = supplier.company_registration_no
+    tr 
+      td = Supplier.human_attribute_name(:cut_off_timing)
+      td = supplier.cut_off_timing
     tr 
       td = Supplier.human_attribute_name(:bank_name)
       td = supplier.bank_name
