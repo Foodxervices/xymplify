@@ -20,7 +20,7 @@
           th.text-left = sortable(:name)
           th = FoodItem.human_attribute_name(:image)
           th = sortable(:unit)
-          th width=127 = sortable(:unit_price_cents, title: FoodItem.human_attribute_name(:both_prices))
+          th width=250 = sortable(:unit_price_cents, title: FoodItem.human_attribute_name(:both_prices))
           th = sortable(:unit_price_currency)
           th = sortable(:supplier_name)
           th = sortable(:kitchen_name)

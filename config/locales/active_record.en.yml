@@ -8,7 +8,7 @@ en:
         name: "Item Name"
         unit_price_without_promotion: "Price per Unit"
         unit_price_without_promotion_cents: "Price per Unit"
-        both_prices: "Price per Unit"
+        both_prices: "Regular price / Special price"
         unit_price: "Special Price"
         unit_price_cents: "Special Price"
         unit_price_currency: "Currency"
