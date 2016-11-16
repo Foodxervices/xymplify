@@ -7,7 +7,7 @@
         tr
           th colspan="30" = controller_name
         
-        - action_names.in_groups_of(4).each do |action_name_groups|
+        - action_names.in_groups_of(5).each do |action_name_groups|
           tr
             - action_name_groups.each do |action_name, active|
               td.action active=active 
