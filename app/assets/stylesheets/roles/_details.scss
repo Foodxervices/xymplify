@@ -1,0 +1,22 @@
+.roles-details-container {
+  .action {
+    span {
+      position: relative;
+      display: inline-block;
+      padding-left: 35px;
+      color: #afafaf;
+    }
+
+    &[active] span {
+      color: #000;
+
+      &:before {
+        font-family: "FontAwesome";
+        position: absolute;
+        top: 0px;
+        left: 14px;
+        content: "\f00c";
+      }
+    }
+  }
+}

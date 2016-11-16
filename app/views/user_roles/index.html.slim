@@ -20,7 +20,7 @@
           tr
             td 
               = link_to_if can?(:show, user_role.user), user_role.user&.name, user_path(user_role.user), remote: true if user_role.user.present?
-            td = user_role.role&.name
+            td = link_to_if can?(:read, user_role.role), user_role.role&.name, user_role.role, remote: true
             td = comma_seperated_links_for_kitchens(user_role.kitchens)
             td.text-center
               ul.actions

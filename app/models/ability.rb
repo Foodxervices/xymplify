@@ -14,12 +14,13 @@ class Ability
       can :read, Version
       can :update, Order
       can [:update_wip, :destroy], Order, { user_id: user.id, status: :wip }
-      
+      can :read, Role
+
       user.user_roles.includes(:role).each do |user_role|
         kitchen_ids = user_role.kitchens.any? ? user_role.kitchens.ids : Kitchen.where(restaurant_id: user_role.restaurant_id).ids
         
         can :read, Kitchen, { id: kitchen_ids }
-
+      
         user_role.role.permissions.each do |permission|
           clazz, action = permission.split('__')
           action = action.to_sym

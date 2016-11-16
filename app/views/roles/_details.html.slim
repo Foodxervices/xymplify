@@ -1,0 +1,14 @@
+- permissions = get_permissions(@role)
+
+.roles-details-container
+  .table-responsive
+    - permissions.each do |controller_name, action_names|
+      table.table.table-striped.table-bordered
+        tr
+          th colspan="30" = controller_name
+        
+        - action_names.in_groups_of(4).each do |action_name_groups|
+          tr
+            - action_name_groups.each do |action_name, active|
+              td.action active=active 
+                span = action_name

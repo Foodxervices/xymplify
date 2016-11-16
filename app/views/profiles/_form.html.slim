@@ -15,7 +15,7 @@
           - else
             - current_user.user_roles.joins(:restaurant, :role).each do |user_role|
               p Restaurant: #{user_role.restaurant&.name}
-              p Role: #{user_role.role&.name}
+              p Role: #{link_to_if can?(:read, user_role.role), user_role.role&.name, user_role.role, remote: true}
               hr
               
       .row

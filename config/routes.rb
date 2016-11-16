@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resource :profile, only: [:edit, :update]
 
-  resources :roles,       only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :roles,       only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   resources :food_items,  only: [:show, :destroy]
   

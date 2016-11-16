@@ -29,6 +29,8 @@
 
 @import 'alerts/_listing';
 
+@import 'roles/_details';
+
 @import 'categories/index';
 
 @import 'orders/index';
@@ -49,3 +51,4 @@
 @import 'popups/carts/_form';
 @import 'popups/orders/_form';
 @import 'popups/food_items/_details';
+@import 'popups/roles/_details';
