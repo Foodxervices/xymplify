@@ -9,7 +9,6 @@ const CartItem = function(item) {
   this.addToCartBtn.confirmation({
     onConfirm: () => {
       this.submit()
-      return false
     }
   })
 
@@ -39,6 +38,7 @@ CartItem.prototype.submit = function() {
     success: () => {
       this.quantityInput.val(0)
       this.submitting = false
+      this.addToCartBtn.confirmation('hide')
     }
   });
 }
