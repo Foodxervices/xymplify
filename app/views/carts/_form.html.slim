@@ -4,6 +4,7 @@
       tr
         th width="100" Code
         th Food Item
+        th Kitchen
         th Supplier
         th.text-center UOM
         th.text-center width=100 Unit Price
@@ -13,6 +14,7 @@
         tr.cart-item data={id: food_item.id, restaurant_id: @restaurant.id}
           td = food_item.code
           td = food_item.name
+          td = food_item.kitchen&.name
           td = food_item.supplier&.name
           td.text-center = food_item.unit
           td.text-center = both_prices(food_item)
