@@ -141,6 +141,15 @@ class OrdersController < ApplicationController
     redirect_to :back
   end
 
+  def history
+    respond_to do |format|
+      format.js do 
+        @version = @order.versions.last.becomes(Version)
+        render 'versions/show'
+      end
+    end
+  end
+
   private
 
   def order_params

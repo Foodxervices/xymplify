@@ -2,7 +2,11 @@
   table.table.table-striped.table-bordered
     tbody
       tr 
-        td colspan="10" = link_to_if can?(:read, order.supplier), order.supplier&.name, order.supplier, remote: true
+        td colspan="10" 
+          = link_to_if can?(:read, order.supplier), order.supplier&.name, order.supplier, remote: true
+          - if can?(:history, order)
+            .pull-right
+              = link_to 'History', [:history, order], remote: true
       - order.items.includes(:food_item).each do |item|
         tr 
           td = link_to_if can?(:read, item.food_item), item.food_item&.name, item.food_item, remote: true

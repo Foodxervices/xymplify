@@ -1,1 +1,1 @@
-<%= open_popup(title: version_title(@version), partial: 'versions/details', locals: { version: @version }) %> 
+<%= open_popup(title: "#{version_title(@version)}<br /> <small>#{format_datetime(@version.created_at)}</small>".html_safe, partial: 'versions/details', locals: { version: @version }) %> 

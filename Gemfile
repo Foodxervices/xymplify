@@ -49,6 +49,7 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'foreman'
 gem 'materialize-sass'
+gem 'paranoia'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

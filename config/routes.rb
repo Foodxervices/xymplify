@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   resources :orders,      only: [:show, :edit, :update, :destroy] do 
     member do 
+      get :history
       get :mark_as_accepted
       get :mark_as_declined
       patch :mark_as_delivered 
