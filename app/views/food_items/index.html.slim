@@ -1,10 +1,11 @@
 - content_for :navbar_form do 
   = render 'food_items/search', food_item_filter: @food_item_filter, url: [@restaurant, :food_items]
 #food_items-index-container
-  .row.vertical-align
-    .col-xs-6
+  .row
+    .col-sm-4
       h1 Food Item
-    .col-xs-6
+    .col-sm-8
+      br
       .text-right
         .btn-group
           - if can?(:import, Kitchen)
