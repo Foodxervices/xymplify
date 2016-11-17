@@ -17,4 +17,15 @@
       background-color: #efecec;
     }
   }
+
+  .sidebar-outer {
+    position: relative;
+  }
+
+  @media(min-width: $screen-md-min){
+    #cart-details {
+      position: fixed;
+      padding-right: 15px;
+    }
+  }
 }

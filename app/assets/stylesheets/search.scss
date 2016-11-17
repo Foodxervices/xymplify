@@ -1,10 +1,12 @@
 .search-container {
   form {
     display: flex;
+    flex-wrap: wrap;
     margin: 0 -5px;
+    width: calc(100% + 10px);
 
     > .form-group, > input[type=submit], > a.btn { 
-      margin: 0 5px;
+      margin: 0 5px 10px 5px;
     }
 
     > .form-group {

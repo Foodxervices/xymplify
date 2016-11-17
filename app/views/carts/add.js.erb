@@ -1,5 +1,11 @@
 <% if @success %>
-  $('#cart-details').html("<%= j render 'carts/details' %>")
+  if($('#cart-details').length > 0) {
+    $('#cart-details').html("<%= j render 'carts/details' %>")
+    $('.h-scroll').first().scrollTop($('.table-order[rel=<%= @order.id %>]').first().offset().top)
+  }
+  else {
+    <%= open_popup(title: 'Cart', partial: 'carts/details') %> 
+  }
 <% else %>
   alert("<%= @message.html_safe %>")
 <% end %>

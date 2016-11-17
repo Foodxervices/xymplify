@@ -1,6 +1,15 @@
 .carts-details-container {
+  width: 100%;
+
   tbody a {
     color: #333333;
     text-decoration: underline;
+  }
+
+  @media(min-width: $screen-md-min) {
+    .h-scroll {
+      max-height: 70vh;
+      overflow-y: scroll;
+    }
   }
 }

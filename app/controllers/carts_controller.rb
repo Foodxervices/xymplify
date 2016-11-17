@@ -16,15 +16,15 @@ class CartsController < ApplicationController
 
     options = { user_id: current_user.id, kitchen_id: @food_item.kitchen_id, supplier_id: @food_item.supplier_id, status: :wip }
     
-    order = Order.where(options).first
+    @order = Order.where(options).first
     
     ActiveRecord::Base.transaction do
-      if order.nil?
-        order = Order.create(options)
-        order.gsts.create(name: 'GST', percent: 7)
+      if @order.nil?
+        @order = Order.create(options)
+        @order.gsts.create(name: 'GST', percent: 7)
       end
 
-      item = order.items.find_or_create_by(food_item_id: @food_item.id)
+      item = @order.items.find_or_create_by(food_item_id: @food_item.id)
       item.unit_price = @food_item.unit_price
       item.unit_price_without_promotion = @food_item.unit_price_without_promotion
       
@@ -36,8 +36,8 @@ class CartsController < ApplicationController
         @message = item.errors.full_messages.join("<br />")
       end
     end
-  
-    order.destroy if order.price_with_gst == 0
+    
+    @order.destroy if @order.reload.price_with_gst == 0
   end
 
   def purchase

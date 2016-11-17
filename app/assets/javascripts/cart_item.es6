@@ -9,6 +9,7 @@ const CartItem = function(item) {
   this.addToCartBtn.confirmation({
     onConfirm: () => {
       this.submit()
+      return false
     }
   })
 

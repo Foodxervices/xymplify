@@ -4,18 +4,14 @@
   .row
     .col-md-8
       = render 'food_items/search', food_item_filter: @food_item_filter, url: [@restaurant, :categories]
-  .row
-    .col-md-4.col-md-push-8
-      #cart-details
-        h3 Request
-        hr
-        = render 'carts/details', orders: @orders
-    .col-md-8.col-md-pull-4
       - @categories.each do |name, category|
         h4 = name
         .row
           - category.each do |tag, ids|
             .col-md-4
               = link_to tag, [:new, @restaurant, :cart, ids: ids], remote: true, class: 'item-tag'
+    .col-md-4
+      #cart-details
+        = render 'carts/details', orders: @orders
     
 

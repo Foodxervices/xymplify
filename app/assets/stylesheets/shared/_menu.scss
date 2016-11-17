@@ -26,9 +26,14 @@
     height: 50px;
   }
 
-  @media all and (min-width: 900px) {
+  @media(min-width: $screen-md-min){
     .container-fluid {
       padding-left: 0;
+    }
+
+    .navbar-default .navbar-form {
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 
@@ -36,9 +41,9 @@
     border: none;
   }
 
-  @media all and (min-width: 1350px) {
+  @media(min-width: $screen-lg-min){
     .navbar-left {
-      width: 800px;
+      width: 700px;
     }
   }
 }
