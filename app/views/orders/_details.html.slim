@@ -25,7 +25,7 @@
       tr 
         td.text-right colspan="3" Total
         td.text-right = humanized_money_with_symbol(order.price_with_gst)
-  p == "This PO is #{order.delivered_to_kitchen? ? '<b>NOT</b> ': ''}linked to your food inventory"
+  p == "This PO is #{order.delivered_to_kitchen? ? '' : '<b>NOT</b> '}linked to your food inventory"
   
   .text-right 
     .btn-group 
