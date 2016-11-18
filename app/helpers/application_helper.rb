@@ -51,6 +51,6 @@ module ApplicationHelper
   end
 
   def format_price(price, currency_code)
-    humanized_money_with_symbol(Money.new(price, currency_code))
+    humanized_money_with_symbol(Money.from_amount(price, currency_code))
   end
 end

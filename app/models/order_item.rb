@@ -58,18 +58,18 @@ class OrderItem < ActiveRecord::Base
       if unit_price_dollars > 0
         min_quantity = food_item.min_order_price / unit_price_dollars
         min_quantity = (min_quantity * 100).ceil / 100.0
-        errors.add(:quantity, "can't be lesser than #{number_format(min_quantity)}") if quantity < min_quantity
+        errors.add(:base, "The Minimum Order Quantity is #{price_format(food_item.min_order_price)}") if quantity < min_quantity
 
         if food_item.max_order_price.present?
           max_quantity = food_item.max_order_price / unit_price_dollars
           max_quantity = (max_quantity * 100).floor / 100.0
-          errors.add(:quantity, "can't be more than #{number_format(max_quantity)}") if quantity > max_quantity
+          errors.add(:base, "The Maximum Order Quantity is #{price_format(food_item.max_order_price)}") if quantity > max_quantity
         end
       end
     end
   end
 
-  def number_format(num)
-    ActionController::Base.helpers.number_with_delimiter(num)
+  def price_format(price)
+    ActionController::Base.helpers.humanized_money_with_symbol(Money.from_amount(price, unit_price_currency))
   end
 end

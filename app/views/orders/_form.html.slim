@@ -13,7 +13,9 @@
         = f.simple_fields_for :items, :wrapper => false, defaults: { label: false } do |item_form|
           tr.fields
             - item = item_form.object
-            td = item.food_item&.name
+            td 
+              = item.food_item&.name
+              = item_form.error :base
             td.text-center = item.unit_price_currency
             td.text-right = item_form.input :unit_price, as: :float
             td.text-center = item_form.input :quantity
