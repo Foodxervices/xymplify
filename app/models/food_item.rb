@@ -28,15 +28,15 @@ class FoodItem < ActiveRecord::Base
   validates :supplier_id, presence: true
   validates :user_id,     presence: true
   validates :kitchen_id,  presence: true
-  validates :unit_price,  presence: true, numericality: { greater_than: 0 }
-  validates :min_order_price,  presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :max_order_price,  numericality: { greater_than_or_equal_to: 0 }, if: 'max_order_price.present?'
+  validates :unit_price,  presence: true, numericality: { greater_than: 0, less_than: 9999999999 }
+  validates :min_order_price,  presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
+  validates :max_order_price,  numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }, if: 'max_order_price.present?'
   validates :unit_price_currency,                    presence: true
-  validates :unit_price_without_promotion,           presence: true, numericality: { greater_than: 0 }
+  validates :unit_price_without_promotion,           presence: true, numericality: { greater_than: 0, less_than: 9999999999 }
   validates :unit_price_without_promotion_currency,  presence: true
-  validates :current_quantity,  presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :quantity_ordered,  presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :low_quantity,                      numericality: { greater_than_or_equal_to: 0 }, :allow_blank => true
+  validates :current_quantity,  presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 99999999 }
+  validates :quantity_ordered,  presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 99999999 }
+  validates :low_quantity,                      numericality: { greater_than_or_equal_to: 0, less_than: 99999999 }, :allow_blank => true
 
   has_attached_file :image, styles: { thumb: "80x80#", medium: "400x400#" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
