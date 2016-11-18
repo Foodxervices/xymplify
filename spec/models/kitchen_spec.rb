@@ -3,6 +3,8 @@ require 'rails_helper'
 describe Kitchen do 
   context 'validations' do 
     it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_presence_of :address }
+    it { is_expected.to validate_presence_of :phone }
   end
 
   context 'associations' do 

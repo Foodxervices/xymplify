@@ -1,0 +1,19 @@
+.carts-confirmation_form-container
+  = render 'carts/info', order: order
+
+  = simple_nested_form_for order, url: purchase_restaurant_cart_path(current_restaurant, order), method: :post, remote: true do |f|
+    = f.input :outlet_name
+    = f.input :outlet_address
+    = f.input :outlet_phone
+    label.control-label Request for delivery at
+    .row
+      .col-lg-7
+        .form-group.datetime-select
+          = f.date_select :request_for_delivery_at
+      .col-lg-5
+        .form-group.datetime-select
+          = f.time_select :request_for_delivery_at
+    = f.input :delivered_to_kitchen, label: 'Linked to Inventory (Food Inventory will be changed)'
+    .text-right
+      = f.submit 'Purchase', class: 'btn btn-primary btn-block', data: { :disable_with => "Purchasing..." }
+           

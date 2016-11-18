@@ -10,7 +10,9 @@ class Kitchen < ActiveRecord::Base
 
   validates_associated :restaurant
 
-  validates :name, presence: true
+  validates :name,    presence: true
+  validates :address, presence: true
+  validates :phone,   presence: true
 
   accepts_nested_attributes_for :bank
 end

@@ -1,3 +1,4 @@
+$('span.help-block').html('')
 <% if @success %>
   if($('#cart-details').length > 0) {
     $('#cart-details').html("<%= j render 'carts/details' %>")
@@ -7,5 +8,5 @@
     <%= open_popup(title: 'Cart', partial: 'carts/details') %> 
   }
 <% else %>
-  alert("<%= @message.html_safe %>")
+  $('span.help-block[rel=<%= @item.food_item_id %>]').html("<br /><%= @message.html_safe %>")
 <% end %>

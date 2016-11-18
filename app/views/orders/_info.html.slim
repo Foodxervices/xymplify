@@ -14,7 +14,7 @@
       td = order.name
     tr 
       th Date of Delivery
-      td = format_date order.delivered_at
+      td = format_datetime order.date_of_delivery
     tr
       th Currency
       td = order.currency
@@ -24,10 +24,10 @@
   #delivery-info
     h3 Delivery Address
     p 
-      = "Outlet: #{kitchen.name}" if kitchen.name.present?
+      = "Outlet: #{order.outlet_name}" if order.outlet_name.present?
       br
-      = "#{kitchen.address}. " if kitchen.address.present?
-      = "Phone: #{kitchen.phone}" if kitchen.phone.present?
+      = "#{order.outlet_address}. " if order.outlet_address.present?
+      = "Phone: #{order.outlet_phone}" if order.outlet_phone.present?
       br
       = "Order By: #{order.user&.name}" if order.user.present?
 

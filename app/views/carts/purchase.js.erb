@@ -1,0 +1,8 @@
+<% if @success %>
+  if($('#cart-details').length > 0) {
+    $('#cart-details').html("<%= j render 'carts/details' %>")
+  }
+  <%= open_message(notice: "Your request was submitted successfully.") %>
+<% else %>
+  <%= open_popup(title: "Confirmation for #{@order.name}", partial: 'carts/confirmation_form', locals: {order: @order}) %> 
+<% end %>

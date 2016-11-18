@@ -5,6 +5,10 @@ describe Order do
     it { is_expected.to validate_presence_of :supplier_id }
     it { is_expected.to validate_presence_of :kitchen_id }
     it { is_expected.to validate_presence_of :user_id }
+    it { is_expected.to validate_presence_of :outlet_name }
+    it { is_expected.to validate_presence_of :outlet_address }
+    it { is_expected.to validate_presence_of :outlet_phone }
+    it { is_expected.to validate_presence_of :request_for_delivery_at }
     it { is_expected.to enumerize(:status).in(:wip, :placed, :accepted, :declined, :delivered, :cancelled) }
   end
 

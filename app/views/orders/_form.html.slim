@@ -1,6 +1,22 @@
 .orders-form-container
   = simple_nested_form_for order, remote: true do |f|
-    table.table.table-bordered
+    .row
+      .col-md-6
+        = f.input :outlet_name
+      .col-md-6
+        = f.input :outlet_phone
+    = f.input :outlet_address
+    
+    label.control-label Request for delivery at
+    .row
+      .col-md-7
+        .form-group.datetime-select
+          = f.date_select :request_for_delivery_at
+      .col-md-5
+        .form-group.datetime-select
+          = f.time_select :request_for_delivery_at
+    hr
+    table.table.table-striped
       thead
         tr
           th Item Name
@@ -21,8 +37,8 @@
             td.text-center = item_form.input :quantity
             td.text-center = item.food_item&.unit
             td.text-center = item_form.link_to_remove "Remove"
-
-    table.table.table-bordered
+    hr
+    table.table.table-striped
       tbody#gsts_form
         = f.simple_fields_for :gsts, :wrapper => false, defaults: { label: false } do |gst_form|
           tr.fields

@@ -154,6 +154,10 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(
+      :outlet_name,
+      :outlet_address,
+      :outlet_phone,
+      :request_for_delivery_at,
       items_attributes: [
         :id,
         :unit_price,

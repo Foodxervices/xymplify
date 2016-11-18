@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  has_paper_trail
+  has_paper_trail :unless => Proc.new { |order| order.status.wip? }
 
   extend Enumerize
   monetize :price_cents
@@ -25,6 +25,10 @@ class Order < ActiveRecord::Base
   validates :user_id,      presence: true
   validates :supplier_id,  presence: true
   validates :kitchen_id,   presence: true
+  validates :outlet_name,    presence: true
+  validates :outlet_address, presence: true
+  validates :outlet_phone,   presence: true
+  validates :request_for_delivery_at, presence: true
 
   enumerize :status, in: [:wip, :placed, :accepted, :declined, :delivered, :cancelled], default: :wip
 
@@ -53,6 +57,9 @@ class Order < ActiveRecord::Base
     all.map(&:price_with_gst).inject(0, :+)
   end
 
+  def date_of_delivery
+    delivered_at.present? ? delivered_at : request_for_delivery_at
+  end
   private 
   def cache_restaurant
     self.restaurant_id = kitchen.restaurant_id 
@@ -80,20 +87,22 @@ class Order < ActiveRecord::Base
   end
 
   def set_item_price
-    items.includes(:food_item).each do |item|
-      food_item = item.food_item
-      
-      case status_change 
-        when ["wip", "placed"]
-          food_item.quantity_ordered = food_item.quantity_ordered + item.quantity
-        when ["accepted", "delivered"] 
-          food_item.current_quantity = food_item.current_quantity + item.quantity
-          food_item.quantity_ordered = food_item.quantity_ordered - item.quantity
-        when ["placed", "cancelled"], ["accepted", "cancelled"], ["placed", "declined"]
-          food_item.quantity_ordered = food_item.quantity_ordered - item.quantity
+    if delivered_to_kitchen?
+      items.includes(:food_item).each do |item|
+        food_item = item.food_item
+        
+        case status_change 
+          when ["wip", "placed"]
+            food_item.quantity_ordered = food_item.quantity_ordered + item.quantity
+          when ["accepted", "delivered"] 
+            food_item.current_quantity = food_item.current_quantity + item.quantity
+            food_item.quantity_ordered = food_item.quantity_ordered - item.quantity
+          when ["placed", "cancelled"], ["accepted", "cancelled"], ["placed", "declined"]
+            food_item.quantity_ordered = food_item.quantity_ordered - item.quantity
+        end
+        
+        food_item.save if food_item.changed?
       end
-      
-      food_item.save if food_item.changed?
     end
   end
 end

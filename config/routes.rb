@@ -52,6 +52,10 @@ Rails.application.routes.draw do
       collection do 
         get :show
         post :add
+      end
+
+      member do 
+        get :confirm
         post :purchase
       end
     end
