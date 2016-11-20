@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161118060515) do
+ActiveRecord::Schema.define(version: 20161120152122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "alerts", force: :cascade do |t|
-    t.string   "title"
     t.integer  "alertable_id"
     t.string   "alertable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
   add_index "alerts", ["alertable_type", "alertable_id"], name: "index_alerts_on_alertable_type_and_alertable_id", using: :btree

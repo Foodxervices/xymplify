@@ -96,8 +96,8 @@ class OrdersController < ApplicationController
       end
 
       if @success
-        flash[:notice] = "#{@order.name} has been accepted." 
-        @order.alerts.create(title: flash[:notice])
+        alert = @order.alerts.create(type: :accepted_order)
+        flash[:notice] = alert.title
         Premailer::Rails::Hook.perform(OrderMailer.notify_restaurant_after_accepted(@order)).deliver_later
       end
     else
@@ -115,8 +115,8 @@ class OrdersController < ApplicationController
       end
 
       if @success
-        flash[:notice] = "#{@order.name} has been declined." 
-        @order.alerts.create(title: flash[:notice])
+        alert = @order.alerts.create(type: :declined_order)
+        flash[:notice] = alert.title
         Premailer::Rails::Hook.perform(OrderMailer.notify_restaurant_after_declined(@order)).deliver_later
       end
     else

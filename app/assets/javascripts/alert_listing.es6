@@ -1,5 +1,5 @@
-const AlertListing = function(id) {
-  this.object = $(id)
+const AlertListing = function(object) {
+  this.object = object
   this.last_seen_at = new Date(this.object.data('last-seen-at'))
 
   this.object.find('.alert').each((index, alert) => {

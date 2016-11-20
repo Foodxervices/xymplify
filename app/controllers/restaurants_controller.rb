@@ -58,11 +58,16 @@ class RestaurantsController < ApplicationController
                              .includes(:item, :user)
                              .paginate(:page => params[:activity_page], :per_page => 5)
 
-    @alerts = Alert.accessible_by(current_ability, restaurant: @restaurant)
-                   .includes(:alertable)
-                   .paginate(:page => params[:alert_page], :per_page => 5)
-                   .order(id: :desc)
+    alerts = Alert.accessible_by(current_ability, restaurant: @restaurant)
+                                .includes(:alertable)
+                                .paginate(:page => params[:alert_page], :per_page => 5)
+                                .order(id: :desc)
 
+    @alerts              = alerts.where.not(type: :incoming_delivery)          
+    @incoming_deliveries = alerts.where(type: :incoming_delivery)
+
+    @notification = Notification.new(current_ability, current_restaurant, current_user)
+    
     @graph_data = CostGraph.new(@restaurant).result
     @currency_symbol = Money::Currency.new(@restaurant.currency).symbol
     @display_more_activity_link = true

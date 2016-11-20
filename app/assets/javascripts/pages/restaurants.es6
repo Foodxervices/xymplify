@@ -1,7 +1,9 @@
 Foodxervices.restaurants = {
   dashboard: {
     init: function() {
-      new AlertListing('#alert-listing')
+      $('.alert-listing').each(function() {
+        new AlertListing($(this))  
+      })
 
       setTimeout(() => {
         this.initCostGraph()  
