@@ -8,7 +8,7 @@ task :update_alerts => :environment do
     order.alerts.create(type: :pending_order)
   end
 
-  Order.where(status: [:placed, :accepted]).where(request_for_delivery_at: [1.day.ago..Time.zone.now]).each do |order|
+  Order.where(status: [:placed, :accepted]).where(request_for_delivery_at: [2.days.ago..1.day.ago]).each do |order|
     order.alerts.create(type: :incoming_delivery)
   end
   puts "done."
