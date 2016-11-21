@@ -35,3 +35,5 @@ en:
         order__update_declined:               "Order      :: Update Declined PO"
         order__update_delivered:              "Order      :: Update Delivered PO"
         order__update_cancelled:              "Order      :: Update Cancelled PO"
+        message__read:                        "Message    :: Read"
+        message__create:                      "Message    :: Create"

@@ -9,4 +9,4 @@
         td.text-right colspan="2"
           = link_to 'More Information', [current_restaurant, :versions]
   .text-center
-    = will_paginate activities, inner_window: 1, outer_window: 2, renderer: BootstrapPagination::Rails, param_name: "activity_page"
+    = will_paginate activities, inner_window: 0, outer_window: 0, renderer: BootstrapPagination::Rails, param_name: "activity_page"

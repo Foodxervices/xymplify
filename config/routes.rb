@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   resources :users,       only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   resources :versions,    only: [:show]
+  
+  resources :messages,    only: [:show]
 
   resources :orders,      only: [:show, :edit, :update, :destroy] do 
     member do 
@@ -45,6 +47,7 @@ Rails.application.routes.draw do
     resources :categories,  only: [:index]
     resources :orders,      only: [:index]
     resources :food_item_imports, only: [:new, :create]
+    resources :messages,          only: [:new, :create]
     
     get 'archived_pos' => 'orders#index', :as => :archived_pos, :defaults => { status: 'archived' }
 

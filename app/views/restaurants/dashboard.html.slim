@@ -3,10 +3,19 @@
   
   h1 Your Costs
   .row
-    .col-md-4.col-md-push-8
-      #graph-filter
-    .col-md-8.col-md-pull-4
+    .col-md-8
       #cost-graph data-graph=@graph_data data-currency-symbol=@currency_symbol
+      #graph-filter
+    .col-md-4
+      h2 Messages
+      - if @messages.present?
+        = render 'messages/listing', messages: @messages
+      - else
+        h4
+          i The data doesn't exist yet
+      - if can?(:create, Message.new(restaurant_id: current_restaurant.id))
+        .text-right
+          = link_to 'New Message', [:new, current_restaurant, :message], remote: true 
   .row
     .col-md-4
       h2 Recent Activities  

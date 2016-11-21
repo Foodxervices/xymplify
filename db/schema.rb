@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121052416) do
+ActiveRecord::Schema.define(version: 20161121125711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,16 @@ ActiveRecord::Schema.define(version: 20161121052416) do
 
   add_index "kitchens_user_roles", ["kitchen_id"], name: "index_kitchens_user_roles_on_kitchen_id", using: :btree
   add_index "kitchens_user_roles", ["user_role_id"], name: "index_kitchens_user_roles_on_user_role_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "restaurant_id"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["restaurant_id"], name: "index_messages_on_restaurant_id", using: :btree
 
   create_table "order_gsts", force: :cascade do |t|
     t.string  "name",                                  default: ""

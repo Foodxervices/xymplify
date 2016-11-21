@@ -28,7 +28,7 @@ class Ability
           case clazz 
             when 'restaurant'
               can action, clazz.camelize.constantize, { id: user_role.restaurant_id }
-            when 'supplier', 'user_role'
+            when 'supplier', 'user_role', 'message'
               can action, clazz.camelize.constantize, { restaurant_id: user_role.restaurant_id }
             when 'food_item'
               can action, clazz.camelize.constantize, { kitchen_id: kitchen_ids }

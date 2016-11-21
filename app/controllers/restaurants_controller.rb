@@ -66,6 +66,8 @@ class RestaurantsController < ApplicationController
     @alerts              = alerts.where.not(type: :incoming_delivery)          
     @incoming_deliveries = alerts.where(type: :incoming_delivery)
 
+    @messages = @restaurant.messages.accessible_by(current_ability).paginate(:page => params[:message_page], :per_page => 5)
+
     @notification = Notification.new(current_ability, current_restaurant, current_user)
     
     @graph_data = CostGraph.new(@restaurant).result

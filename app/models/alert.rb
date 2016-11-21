@@ -41,8 +41,12 @@ class Alert < ActiveRecord::Base
     end
   end
 
-  private 
+  def restaurant
+    alertable.restaurant
+  end
+
+  protected 
   def cache_redis
-    alertable.restaurant.set_redis(:alert_updated_at, Time.zone.now)
+    restaurant.set_redis(:alert_updated_at, Time.zone.now)
   end
 end

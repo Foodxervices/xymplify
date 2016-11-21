@@ -7,6 +7,7 @@ class Restaurant < ActiveRecord::Base
   has_many :orders, through: :kitchens
   has_many :order_items, through: :orders, source: :items
   has_many :food_items, through: :kitchens, dependent: :destroy
+  has_many :messages
 
   validates :name,        presence: true
   validates :currency,    presence: true
