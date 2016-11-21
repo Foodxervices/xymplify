@@ -12,7 +12,7 @@ end
 
 task :alert_incoming_deliveries do 
   puts "Checking incoming deliveries..."
-  Order.where(status: [:placed, :accepted]).where(request_for_delivery_at: [1.day.from_now.beginning_of_hour..1.day.from_now.end_of_hour]).each do |order|
+  Order.where(status: [:placed, :accepted]).where(request_for_delivery_at: [1.day.from_now.beginning_of_day..1.day.from_now.end_of_day]).each do |order|
     order.alerts.create(type: :incoming_delivery)
   end
   puts "done."
