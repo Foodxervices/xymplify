@@ -7,8 +7,12 @@ task :update_alerts => :environment do
   Order.where(status: :placed).where('placed_at <= ?', 7.days.ago).each do |order|
     order.alerts.create(type: :pending_order)
   end
+  puts "done."
+end
 
-  Order.where(status: [:placed, :accepted]).where(request_for_delivery_at: [2.days.ago..1.day.ago]).each do |order|
+task :alert_incoming_deliveries do 
+  puts "Checking incoming deliveries..."
+  Order.where(status: [:placed, :accepted]).where(request_for_delivery_at: [1.day.from_now.beginning_of_hour..1.day.from_now.end_of_hour]).each do |order|
     order.alerts.create(type: :incoming_delivery)
   end
   puts "done."
