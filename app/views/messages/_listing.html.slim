@@ -3,6 +3,6 @@
     - messages.each do |message|
       tr.alert data-created-at=message.created_at
         td width="140" = format_date(message.created_at)
-        td = link_to "#{truncate(message.content, :length => 37)}", message, remote: true
+        td = link_to "#{truncate(message.title, :length => 37)}", message, remote: true
   .text-center
     = will_paginate messages, inner_window: 0, outer_window: 0, renderer: BootstrapPagination::Rails, param_name: "message_page"
