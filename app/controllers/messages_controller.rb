@@ -26,7 +26,7 @@ class MessagesController < ApplicationController
       @mention_list << {
         id:     "supplier#{supplier.id}",
         name:   supplier.name,
-        avatar: get_thumb(supplier.logo),
+        avatar: ActionController::Base.helpers.asset_url(supplier.logo.url(:thumb)),
         type:   :contact
       }
     end
@@ -35,14 +35,10 @@ class MessagesController < ApplicationController
       @mention_list << {
         id:     "user#{user.id}",
         name:   user.name,
-        avatar: get_thumb(user.avatar),
+        avatar: ActionController::Base.helpers.asset_url(user.avatar.url(:thumb)),
         type:   :contact
       }
     end
-  end
-
-  def get_thumb(src)
-    src.exists? ? src.url(:thumb) : '/assets/' + src.url(:thumb)
   end
 
   def message_params
