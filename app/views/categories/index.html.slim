@@ -3,7 +3,10 @@
 #categories-index-container
   .row
     .col-md-8
-      = render 'food_items/search', food_item_filter: @food_item_filter, url: [@restaurant, :categories]
+      = render 'food_items/search', food_item_filter: @food_item_filter, url: url_for(params)
+      .btn-group
+        = active_link_to 'Go by Category', url_for(params.merge(action: :index)), :active => :exclusive, class: "btn btn-default"
+        = active_link_to 'Go by Supplier', url_for(params.merge(action: :by_supplier)), :active => :exclusive, class: "btn btn-default"
       - @categories.each do |name, category|
         h4 = name
         .row

@@ -44,7 +44,11 @@ Rails.application.routes.draw do
         post :create_or_update
       end
     end
-    resources :categories,  only: [:index]
+    resources :categories,  only: [:index] do 
+      collection do 
+        get :by_supplier
+      end
+    end
     resources :orders,      only: [:index]
     resources :food_item_imports, only: [:new, :create]
     resources :messages,          only: [:new, :create]
