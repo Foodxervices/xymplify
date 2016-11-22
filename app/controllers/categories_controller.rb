@@ -1,6 +1,5 @@
 class CategoriesController < ApplicationController
   load_and_authorize_resource :restaurant
-  load_and_authorize_resource :food_item, :through => :restaurant, :parent => false
 
   def index
     init
@@ -35,7 +34,7 @@ class CategoriesController < ApplicationController
   private
 
   def init
-    @food_item_filter = FoodItemFilter.new(@food_items, food_item_filter_params)
+    @food_item_filter = FoodItemFilter.new(FoodItem.where(restaurant: @restaurant), food_item_filter_params)
     @food_items = @food_item_filter.result
                                  .accessible_by(current_ability, :order)
                                  .joins("LEFT JOIN (SELECT id, name as category_name, CASE name WHEN 'Uncategorised' THEN 2 WHEN 'Others' THEN 1 ELSE 0 END category_ordered 
