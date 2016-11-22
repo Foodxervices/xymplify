@@ -12,6 +12,7 @@ const Utils = {
     Utils.initInputNumber()
     Utils.initDatePicker()
     Utils.paddingMain()
+    Utils.initMentionsInput()
   },
   initConfirmation: () => {
     $('[data-toggle="confirmation"]').each(function() {
@@ -98,5 +99,16 @@ const Utils = {
   },
   paddingMain: () => {
     $('main').css('top', $('#menu').outerHeight())
+  },
+  initMentionsInput: () => {
+    $('.mention-input').mentionsInput({
+      onDataRequest:function (mode, query, callback) {
+        var data = $(this).data('collection')
+
+        data = _.filter(data, function(item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1 });
+
+        callback.call(this, data);
+      }
+    });
   }
 }

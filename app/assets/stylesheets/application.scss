@@ -9,6 +9,7 @@
 @import 'daterangepicker/daterangepicker';
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
+@import 'jquery-mentions-input/jquery.mentionsInput.scss';
 @import 'theme';
 @import 'devise';
 @import 'search';
@@ -42,6 +43,8 @@
 @import 'carts/_form';
 @import 'carts/_details';
 @import 'carts/_info';
+
+@import 'messages/_form';
 
 @import 'shared/_menu';
 @import 'shared/_sidebar';

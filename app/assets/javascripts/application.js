@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require underscore/underscore
 //= require moment
 //= require chart
 //= require bootstrap-sprockets
@@ -11,6 +12,8 @@
 //= require bootstrap-fileinput/js/fileinput
 //= require datepicker/js/bootstrap-datepicker
 //= require daterangepicker/daterangepicker
+//= require jquery-mentions-input/lib/jquery.elastic
+//= require jquery-mentions-input/jquery.mentionsInput
 //= require turbolinks
 //= require masonry.pkgd
 //= require jquery.remotipart

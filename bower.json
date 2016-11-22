@@ -7,7 +7,8 @@
   "vendor": {
     "name": "bower-rails generated vendor assets",
     "dependencies": {
-      "bootstrap-fileinput"    : "latest"
+      "bootstrap-fileinput"    : "latest",
+      "jquery-mentions-input"  : "latest"
     }
   }
 }

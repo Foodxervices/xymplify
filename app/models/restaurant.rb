@@ -3,6 +3,7 @@ class Restaurant < ActiveRecord::Base
   
   has_many :suppliers
   has_many :user_roles
+  has_many :users, -> { uniq }, :through => :user_roles
   has_many :kitchens, dependent: :destroy
   has_many :orders, through: :kitchens
   has_many :order_items, through: :orders, source: :items
