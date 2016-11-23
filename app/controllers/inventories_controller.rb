@@ -6,7 +6,7 @@ class InventoriesController < ApplicationController
     @food_item_filter = FoodItemFilter.new(@food_items, food_item_filter_params)
     @food_items  = @food_item_filter.result
                                     .where('current_quantity > 0')
-                                    .includes(:supplier, :kitchen)
+                                    .includes(:supplier, :kitchen, :category)
                                     .order(:name, :id)
                                     .paginate(:page => params[:page])
     @groups = {}
