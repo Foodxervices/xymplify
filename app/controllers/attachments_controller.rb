@@ -11,7 +11,10 @@ class AttachmentsController < ApplicationController
 
   def destroy
     @attachment = Attachment.find(params[:id])
-    authorize!(@attachment.food_item, :update) if @attachment.food_item.present?
+    
+    if @attachment.food_item.present? && cannot?(:update, @attachment.food_item)
+      return render json: 'You are not authorized to delete this file.', status: 403
+    end
 
     render json: { success: @attachment.destroy }
   end
