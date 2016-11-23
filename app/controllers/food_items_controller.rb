@@ -39,6 +39,10 @@ class FoodItemsController < ApplicationController
             if (@food_item.new_record? && can?(:create, @food_item)) || (@food_item.persisted? && can?(:update, @food_item))
               @food_item.assign_attributes(food_item_params.merge(kitchen_id: kitchen.id))
 
+              if kitchens.size == 1
+                @food_item.attachment_ids = updating_attachments.pluck(:id)
+              end
+
               if !@food_item.save
                 return render :new
               else
@@ -93,7 +97,6 @@ class FoodItemsController < ApplicationController
       :low_quantity,
       :min_order_price,
       :max_order_price,
-      :attachment_ids,
       kitchen_ids: [],
       files: []
     )
@@ -101,8 +104,11 @@ class FoodItemsController < ApplicationController
     data[:unit_price]  = data[:unit_price_without_promotion] if data[:unit_price].to_f == 0
     data[:supplier_id] = current_restaurant.suppliers.accessible_by(current_ability).find(data[:supplier_id]).id if data[:supplier_id].present?
     data[:user_id] = current_user.id
-    data[:attachment_ids] = Attachment.where(id: data[:attachment_ids].split(',')).pluck(:id) if data[:attachment_ids].present?
     @food_item_params ||= data
+  end
+
+  def updating_attachments
+    @updating_attachments ||= Attachment.where(id: params[:attachment_ids].split(','))
   end
   
   def sort_column

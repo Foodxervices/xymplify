@@ -1,5 +1,5 @@
 class Attachment < ActiveRecord::Base
-  has_paper_trail :if => Proc.new { |attachment| attachment.food_item_id.present? }
+  has_paper_trail :if => Proc.new { |attachment| attachment.restaurant_id.present? }
 
   belongs_to :restaurant
   belongs_to :food_item

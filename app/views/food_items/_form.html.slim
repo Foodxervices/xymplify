@@ -1,6 +1,6 @@
 #food_item-form.food_items-form-container
   = simple_form_for [:create_or_update, @restaurant, food_item], url: [:create_or_update, @restaurant, :food_items], method: :post do |f|
-    = f.hidden_field :attachment_ids, value: food_item.attachments.map(&:id).join(',')
+    = hidden_field_tag :attachment_ids, food_item.attachments.map(&:id).join(',')
     .form-inputs
       .row
         .col-md-6

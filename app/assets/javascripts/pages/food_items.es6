@@ -18,7 +18,17 @@ Foodxervices.food_items = {
         return false
       })
 
-      new MultiUpload('#food_item_files', '#food_item_attachment_ids')
+      new MultiUpload('#food_item_files', '#attachment_ids')
+
+      Utils.initSelectPicker()
+      $('#food_item_kitchen_ids').change(function() {
+        if($(this).selectpicker('val').length > 1) {
+          $('.form-group.food_item_files').first().hide()
+        }
+        else {
+          $('.form-group.food_item_files').first().show()
+        }
+      })
     }
   }
 }
