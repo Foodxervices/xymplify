@@ -17,6 +17,7 @@ class InventoriesController < ApplicationController
         id: food_item.id,
         name: food_item.name,
         supplier_name: food_item.supplier&.name,
+        category_name: food_item.category&.name,
         current_quantity: food_item.current_quantity,
         quantity_ordered: food_item.quantity_ordered,
         unit: food_item.unit,
