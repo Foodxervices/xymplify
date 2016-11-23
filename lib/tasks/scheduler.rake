@@ -37,5 +37,7 @@ task :check_cut_off_timing => :environment do
 end
 
 task :empty_trash => :environment do 
+  puts "Removing..."
   Attachment.where(food_item_id: nil).where('updated_at < ?', 1.hour.ago).destroy_all
+  puts "done."
 end
