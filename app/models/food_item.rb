@@ -1,5 +1,6 @@
 class FoodItem < ActiveRecord::Base
   attr_accessor :kitchen_ids
+  attr_accessor :files
   acts_as_taggable
   has_paper_trail
   acts_as_paranoid
@@ -19,6 +20,7 @@ class FoodItem < ActiveRecord::Base
   belongs_to :category
 
   has_many :alerts, as: :alertable
+  has_many :attachments
   
   validates_associated :supplier, :user, :kitchen, :category
 

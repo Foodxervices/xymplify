@@ -1,5 +1,6 @@
 #food_item-form.food_items-form-container
   = simple_form_for [:create_or_update, @restaurant, food_item], url: [:create_or_update, @restaurant, :food_items], method: :post do |f|
+    = f.hidden_field :attachment_ids, value: food_item.attachments.map(&:id).join(',')
     .form-inputs
       .row
         .col-md-6
@@ -8,11 +9,10 @@
           = f.input         :name
           = f.input         :brand
           = f.association   :supplier, collection: current_restaurant.suppliers.accessible_by(current_ability)
+          = f.input         :image, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg", 'initial-preview' => asset_url(food_item.image.url(:medium))} }
+        .col-md-6
           = f.association   :category
           = f.input         :tag_list, input_html: { class: 'taggable', value: f.object.tag_list.to_s, data: {source: ActsAsTaggableOn::Tag.most_used.pluck(:name).uniq} }
-          = image_tag food_item.image.url(:thumb)
-          = f.input         :image, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg"} }
-        .col-md-6
           = f.input         :unit
           = f.input         :unit_price_without_promotion, as: :numeric
           = f.input         :unit_price, as: :numeric
@@ -20,6 +20,7 @@
           = f.input         :low_quantity
           = f.input         :min_order_price
           = f.input         :max_order_price
+      = f.input         :files, as: :file, input_html: { name: 'attachment[file]', data: {'allowed-file-extensions' => "png,jpg,jpeg,pdf", 'initial-preview' => attachments_preview(food_item.attachments), 'initial-preview-config' => attachments_preview_config(food_item.attachments), 'overwrite-initial' => false, 'upload-url' => attachments_url}, multiple: true }
 
     .form-actions
       = f.button :submit

@@ -10,7 +10,9 @@ module ActivityHelper
       item_link = activity.reify.name if activity.reify.present?
     else
       if ['OrderItem', 'OrderGst'].include?(activity.item_type)
-        item_link = link_to_if(can?(:read, activity.item.order), activity.item&.name, activity.item.order, remote: true)  
+        item_link = "#{activity.item&.name} and added to #{link_to_if(can?(:read, activity.item.order), activity.item&.order&.name, activity.item.order, remote: true)}"
+      elsif activity.item_type == 'Attachment'
+        item_link = link_to activity.item&.name, activity.item&.file&.url, target: :_blank
       else
         item_link = link_to_if(can?(:read, activity.item), activity.item&.name, activity.item, remote: true) if activity.item 
       end

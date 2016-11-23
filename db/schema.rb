@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121125711) do
+ActiveRecord::Schema.define(version: 20161122084005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,18 @@ ActiveRecord::Schema.define(version: 20161121125711) do
   end
 
   add_index "alerts", ["alertable_type", "alertable_id"], name: "index_alerts_on_alertable_type_and_alertable_id", using: :btree
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer  "restaurant_id"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.integer  "food_item_id"
+  end
+
+  add_index "attachments", ["food_item_id"], name: "index_attachments_on_food_item_id", using: :btree
+  add_index "attachments", ["restaurant_id"], name: "index_attachments_on_restaurant_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string "name"

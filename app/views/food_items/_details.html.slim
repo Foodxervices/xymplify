@@ -40,6 +40,13 @@
         tr 
           th = FoodItem.human_attribute_name(:quantity_ordered)
           td = food_item.quantity_ordered
+        - if food_item.attachments.any?
+          tr
+            th = FoodItem.human_attribute_name(:attachments)
+            td 
+              ul
+                - food_item.attachments.each do |attachment|
+                  li = link_to attachment.name, attachment.file.url, target: :_blank
   .text-right
     .btn-group
       - if can?(:order, food_item)

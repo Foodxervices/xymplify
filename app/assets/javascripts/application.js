@@ -23,6 +23,7 @@
 //= require react_ujs
 //= require components
 //= require utils
+//= require multi_upload
 //= require sidebar
 //= require cart_item
 //= require alert_listing

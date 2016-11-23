@@ -28,7 +28,7 @@ class FoodItemsController < ApplicationController
     kitchens = current_restaurant.kitchens.accessible_by(current_ability)
                                  .where(id: food_item_params[:kitchen_ids])
 
-    applied_count = 0
+    applied_kitchens = []
     
     if food_item_params[:code].present?
       ActiveRecord::Base.transaction do
@@ -38,11 +38,11 @@ class FoodItemsController < ApplicationController
           if @food_item.present?
             if (@food_item.new_record? && can?(:create, @food_item)) || (@food_item.persisted? && can?(:update, @food_item))
               @food_item.assign_attributes(food_item_params.merge(kitchen_id: kitchen.id))
-              
-              applied_count += 1 if @food_item.changed?
 
               if !@food_item.save
                 return render :new
+              else
+                applied_kitchens << kitchen.name
               end
             end
           end
@@ -51,7 +51,7 @@ class FoodItemsController < ApplicationController
     end
 
     redirect_to [@restaurant, :food_items], 
-              notice: "Your request was applied to #{applied_count} items. <br/> 
+              notice: "Your request was applied to #{applied_kitchens.join(', ')}. <br/> 
                        Visit <a href='#{restaurant_versions_path(current_restaurant)}'>history</a> to get more details."
   end
 
@@ -76,6 +76,8 @@ class FoodItemsController < ApplicationController
   end
 
   def food_item_params
+    return @food_item_params if @food_item_params.present?
+
     data = params.require(:food_item).permit(
       :code,
       :name,
@@ -91,13 +93,16 @@ class FoodItemsController < ApplicationController
       :low_quantity,
       :min_order_price,
       :max_order_price,
-      kitchen_ids: []
+      :attachment_ids,
+      kitchen_ids: [],
+      files: []
     )
     
     data[:unit_price]  = data[:unit_price_without_promotion] if data[:unit_price].to_f == 0
     data[:supplier_id] = current_restaurant.suppliers.accessible_by(current_ability).find(data[:supplier_id]).id if data[:supplier_id].present?
     data[:user_id] = current_user.id
-    data
+    data[:attachment_ids] = Attachment.where(id: data[:attachment_ids].split(',')).pluck(:id) if data[:attachment_ids].present?
+    @food_item_params ||= data
   end
   
   def sort_column

@@ -6,7 +6,7 @@ Foodxervices.food_items = {
   },
   form: {
     init: () => {
-      $('#auto-populate').click(function() {
+      $('#auto-populate:not(.initialized)').addClass('initialized').click(function() {
         let code = $('#food_item_code').val()
 
         if(code) {
@@ -17,6 +17,8 @@ Foodxervices.food_items = {
 
         return false
       })
+
+      new MultiUpload('#food_item_files', '#food_item_attachment_ids')
     }
   }
 }

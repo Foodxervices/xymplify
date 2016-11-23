@@ -24,6 +24,12 @@ Rails.application.routes.draw do
   
   resources :messages,    only: [:show]
 
+  resources :attachments, only: [:create] do 
+    member do 
+      post :destroy
+    end
+  end
+
   resources :orders,      only: [:show, :edit, :update, :destroy] do 
     member do 
       get :history

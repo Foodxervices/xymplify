@@ -40,5 +40,10 @@ module Foodxervices
     WillPaginate.per_page = 16
     Money::Bank::GoogleCurrency.ttl_in_seconds = 86400
     Money.default_bank = Money::Bank::GoogleCurrency.new
+
+    config.upload_file_type = [
+                    /\Aimage\/.*\Z/,
+                    "application/pdf"
+                  ]
   end
 end
