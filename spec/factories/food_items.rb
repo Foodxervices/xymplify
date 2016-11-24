@@ -6,9 +6,9 @@ FactoryGirl.define do
     unit_price_without_promotion 25
     unit_price          20
     supplier
-    kitchen
     category
     tag_list              'Banana'
+    restaurant
     sequence(:brand)    { |n| "Brand #{n}" }
     association :user ,   factory: :admin
   end

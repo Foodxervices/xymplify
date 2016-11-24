@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
 
   def update
     if current_user.update_with_password(profile_params)
-      redirect_to root_url, notice: 'Profile has been updated.'
+      redirect_to :back, notice: 'Profile has been updated.'
     else
       render :edit
     end

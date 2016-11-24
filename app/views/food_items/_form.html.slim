@@ -1,11 +1,11 @@
 #food_item-form.food_items-form-container
-  = simple_form_for [:create_or_update, @restaurant, food_item], url: [:create_or_update, @restaurant, :food_items], method: :post do |f|
+  = simple_form_for [@restaurant, food_item] do |f|
     = hidden_field_tag :attachment_ids, food_item.attachments.map(&:id).join(',')
     .form-inputs
       .row
         .col-md-6
-          = f.input         :code, hint: "#{link_to 'Auto populate', '#', ref: auto_populate_restaurant_food_items_path(current_restaurant), id: 'auto-populate'}".html_safe
-          = f.input         :kitchen_ids, collection: current_restaurant.kitchens.accessible_by(current_ability), input_html: {multiple: true}
+          = f.input         :code
+          = f.association   :kitchens, collection: current_restaurant.kitchens
           = f.input         :name
           = f.input         :brand
           = f.association   :supplier, collection: current_restaurant.suppliers.accessible_by(current_ability)

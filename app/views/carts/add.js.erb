@@ -8,5 +8,5 @@ $('span.help-block').html('')
     <%= open_popup(title: 'Cart', partial: 'carts/details') %> 
   }
 <% else %>
-  $('span.help-block[rel=<%= @item.food_item_id %>]').html("<br /><%= @message.html_safe %>")
+  $('span.help-block[rel=<%= "#{@order.kitchen_id}-#{@item.food_item_id}" %>]').html("<br /><%= @message.html_safe %>")
 <% end %>

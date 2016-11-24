@@ -3,6 +3,7 @@ const CartItem = function(item) {
   this.item = $(item)
   this.foodItemId = this.item.data('id')
   this.restaurantId = this.item.data('restaurant-id')
+  this.kitchenId = this.item.data('kitchen-id')
   this.quantityInput = this.item.find('.quantity-input').first()
   this.addToCartBtn = this.item.find('.btn-add').first()
 
@@ -33,6 +34,7 @@ CartItem.prototype.submit = function() {
   $.post({
     url: `/restaurants/${this.restaurantId}/carts/add.js`,
     data: { 
+      kitchen_id: this.kitchenId,
       food_item_id: this.foodItemId,
       quantity: this.quantity()
     },

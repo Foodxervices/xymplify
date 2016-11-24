@@ -6,13 +6,8 @@
     = f.input :outlet_address
     = f.input :outlet_phone
     label.control-label Request for delivery at
-    .row
-      .col-lg-7
-        .form-group.datetime-select
-          = f.date_select :request_for_delivery_at
-      .col-lg-5
-        .form-group.datetime-select
-          = f.time_select :request_for_delivery_at
+    .form-group.datetime-select
+      = f.datetime_select :request_for_delivery_at, date_separator: '', time_separator: ':', datetime_separator: ''
     = f.input :delivered_to_kitchen, label: 'Linked to Inventory (Food Inventory will be changed)'
     .text-right
       = f.submit 'Purchase', class: 'btn btn-primary btn-block', data: { :disable_with => "Purchasing..." }

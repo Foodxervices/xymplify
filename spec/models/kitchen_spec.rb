@@ -9,8 +9,8 @@ describe Kitchen do
 
   context 'associations' do 
     it { is_expected.to belong_to :restaurant }
-    it { is_expected.to have_many :food_items }
     it { is_expected.to have_many :orders }
+    it { is_expected.to have_and_belong_to_many :food_items }
     it { is_expected.to have_and_belong_to_many :user_roles }
   end
 end

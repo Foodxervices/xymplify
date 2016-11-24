@@ -3,7 +3,8 @@ class FoodItemImport
   include ActiveModel::Validations
 
   attr_accessor :user_id
-  attr_accessor :kitchen_id
+  attr_accessor :restaurant_id
+  attr_accessor :kitchen_ids
   attr_accessor :supplier_name
   attr_accessor :file
 
@@ -13,8 +14,13 @@ class FoodItemImport
   end
 
   def valid?
-    if kitchen_id.blank?
-      errors.add :kitchen_id, "please select a kitchen."
+    if restaurant_id.blank?
+      errors.add :base, "Restaurant need to be set."
+      return false
+    end
+
+    if kitchen_ids.blank?
+      errors.add :kitchen_ids, "please select a kitchen."
       return false
     end
 
@@ -65,11 +71,10 @@ class FoodItemImport
     header = food_item_attributes
 
     food_items = []
-    restaurant = Kitchen.find(kitchen_id).restaurant
-    supplier = Supplier.where(name: supplier_name, restaurant_id: restaurant.id).first
+    supplier = Supplier.where(name: supplier_name, restaurant_id: restaurant_id).first
     
     if supplier.nil?
-      supplier = Supplier.create(name: supplier_name, restaurant_id: restaurant.id, email: Rails.application.secrets.return_email_path)
+      supplier = Supplier.create(name: supplier_name, restaurant_id: restaurant_id, email: Rails.application.secrets.return_email_path)
     end
 
     (2..spreadsheet.last_row).each do |i|
@@ -78,12 +83,12 @@ class FoodItemImport
       category_name = row["category"]
       row.delete('category')
 
-      food_item = FoodItem.find_or_initialize_by(code: row["code"], kitchen_id: kitchen_id)
+      food_item = FoodItem.find_or_initialize_by(code: row["code"], restaurant_id: restaurant_id)
       food_item.attributes  = row.to_hash.slice(*row.to_hash.keys)
       food_item.unit        = get_unit(food_item.name)
       food_item.supplier    = supplier if food_item.new_record?
       food_item.user_id     = user_id
-      food_item.kitchen_id  = kitchen_id
+      food_item.kitchen_ids = kitchen_ids
       food_item.unit_price_currency = supplier.currency if food_item.new_record?
       food_item.category_id = Category.find_or_create_by(name: category_name).id if category_name.present?
       food_items << food_item 

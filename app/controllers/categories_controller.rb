@@ -19,8 +19,8 @@ class CategoriesController < ApplicationController
 
   def by_supplier
     init
-    @food_items = @food_items.select("food_items.id, suppliers.name as supplier_name, category_name, category_ordered")
-                             .order("suppliers.name, category_ordered ASC")
+    @food_items = @food_items.select("food_items.id, s.name as supplier_name, category_name, category_ordered")
+                             .order("s.name, category_ordered ASC")
 
     @food_items.each do |food_item|
       @categories[food_item.supplier_name] ||= {}
@@ -46,9 +46,12 @@ class CategoriesController < ApplicationController
 
   def food_item_filter_params
     food_item_filter = ActionController::Parameters.new(params[:food_item_filter])
-    food_item_filter.permit(
+    data = food_item_filter.permit(
       :keyword,
-      :kitchen_id,
+      :kitchen_ids,
     )
+    data[:kitchen_ids] ||= params[:kitchen_id]
+    data[:kitchen_ids] = [data[:kitchen_ids].to_i] if data[:kitchen_ids].present?
+    data
   end
 end

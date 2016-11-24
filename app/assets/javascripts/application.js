@@ -33,5 +33,6 @@
 //= require pages/orders
 //= require pages/restaurants
 //= require pages/versions
+//= require pages/carts
 
 

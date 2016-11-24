@@ -1,7 +1,7 @@
 class FoodItemFilter
   include ActiveModel::Model
   attr_accessor :keyword
-  attr_accessor :kitchen_id
+  attr_accessor :kitchen_ids
 
   def initialize(food_items, attributes = {})
     @food_items = food_items
@@ -9,8 +9,7 @@ class FoodItemFilter
   end
 
   def result
-    @food_items = @food_items.uniq.joins("LEFT JOIN suppliers ON food_items.supplier_id = suppliers.id")
-    @food_items = @food_items.where('food_items.kitchen_id = ?', kitchen_id) if kitchen_id.present?
+    @food_items = @food_items.uniq.joins("LEFT JOIN suppliers s ON food_items.supplier_id = s.id")
 
     if keyword.present?
       @food_items = @food_items.where("
@@ -18,9 +17,13 @@ class FoodItemFilter
                                         food_items.name             ILIKE :keyword OR 
                                         food_items.brand            ILIKE :keyword OR 
                                         food_items.cached_tag_list  ILIKE :keyword OR 
-                                        suppliers.name   ILIKE :keyword OR
-                                        kitchens.name    ILIKE :keyword
+                                        s.name   ILIKE :keyword
                                       ", keyword: "%#{keyword}%") 
+    end
+
+    if kitchen_ids.present?
+      @food_items = @food_items.joins("LEFT JOIN food_items_kitchens fk ON food_items.id = fk.food_item_id")
+                               .where(fk: { kitchen_id: kitchen_ids}) 
     end
 
     @food_items

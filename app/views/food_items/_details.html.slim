@@ -18,7 +18,7 @@
           td = link_to food_item.supplier&.name, food_item.supplier, remote: true
         tr 
           th = FoodItem.human_attribute_name(:kitchen)
-          td = link_to food_item.kitchen&.name, food_item.kitchen, remote: true
+          td = comma_seperated_links_for_kitchens food_item.kitchens
         tr 
           th = FoodItem.human_attribute_name(:unit)
           td = food_item.unit
@@ -31,15 +31,10 @@
         tr 
           th = FoodItem.human_attribute_name(:min_order_price)
           td = format_price(food_item.min_order_price, food_item.unit_price_currency)
-        tr 
-          th = FoodItem.human_attribute_name(:max_order_price)
-          td = format_price(food_item.max_order_price, food_item.unit_price_currency)   
-        tr 
-          th = FoodItem.human_attribute_name(:current_quantity)
-          td = food_item.current_quantity
-        tr 
-          th = FoodItem.human_attribute_name(:quantity_ordered)
-          td = food_item.quantity_ordered
+        - if food_item.max_order_price.to_f > 0
+          tr 
+            th = FoodItem.human_attribute_name(:max_order_price)
+            td = format_price(food_item.max_order_price, food_item.unit_price_currency)   
         - if food_item.attachments.any?
           tr
             th = FoodItem.human_attribute_name(:attachments)

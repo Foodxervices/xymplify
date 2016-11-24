@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :roles,       only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
-  resources :food_items,  only: [:show, :destroy]
+  resources :food_items,  only: [:show, :edit, :update, :destroy]
   
   resources :suppliers,   only: [:show, :edit, :update, :destroy]
 
@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   resources :versions,    only: [:show]
   
   resources :messages,    only: [:show]
+
+  resources :inventories, only: [:show]
 
   resources :attachments, only: [:create] do 
     member do 
@@ -44,11 +46,13 @@ Rails.application.routes.draw do
     resources :versions,    only: [:index]
     resources :suppliers,   only: [:index, :new, :create]
     resources :user_roles,  only: [:index, :new, :create]
-    resources :food_items,  only: [:index, :new, :edit] do
+    resources :food_items,  only: [:index, :new, :create] do
       collection do 
         get :auto_populate
-        post :create_or_update
       end
+    end
+    resources :kitchens, only: [] do 
+      resources :food_items, only: [:index]
     end
     resources :categories,  only: [:index] do 
       collection do 
@@ -75,7 +79,7 @@ Rails.application.routes.draw do
 
     resources :inventories, only: [:index] do 
       member do 
-        patch :update_current_quantity
+        patch :update
       end
     end
 

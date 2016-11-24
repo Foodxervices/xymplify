@@ -42,7 +42,7 @@ class OrdersController < ApplicationController
   def update
     authorize! "update_#{@order.status}".to_sym, @order
     @success = @order.update_attributes(order_params)
-    
+  
     if @success
       order_name = @order.name
       @restaurant = @order.restaurant
@@ -153,7 +153,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(
+    data = params.require(:order).permit(
       :outlet_name,
       :outlet_address,
       :outlet_phone,
@@ -171,6 +171,7 @@ class OrdersController < ApplicationController
         :_destroy
       ]
     )
+    data
   end
 
   def order_filter_params

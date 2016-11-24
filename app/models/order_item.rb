@@ -30,6 +30,10 @@ class OrderItem < ActiveRecord::Base
     unit_price * quantity
   end
 
+  def inventory
+    Inventory.where(food_item_id: food_item_id, kitchen_id: order.kitchen_id, restaurant_id: order.restaurant_id).first_or_create
+  end
+
   private 
   def set_info
     self.restaurant_id = order.restaurant_id 
@@ -39,8 +43,9 @@ class OrderItem < ActiveRecord::Base
   end
 
   def update_quantity_ordered
-    if quantity_changed? && !order.status_changed? && order.status.placed? 
-      food_item.update_column(:quantity_ordered, food_item.quantity_ordered + (quantity - quantity_was))
+    # Order must be linked to the kitchen to update quantity_ordered here
+    if quantity_changed? && order.delivered_to_kitchen? && !order.status_changed? && order.status.placed? 
+      inventory.update_column(:quantity_ordered, inventory.quantity_ordered + (quantity - quantity_was))
     end
   end
 

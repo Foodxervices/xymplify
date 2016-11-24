@@ -5,7 +5,7 @@ const InventoryGroup = React.createClass({
       quantityOrdered: 0,
       unitPrice: 0,
       showItems: true,
-      foodItems: this.props.foodItems,
+      inventories: this.props.inventories,
     }
   },
   componentDidMount: function() {
@@ -15,42 +15,42 @@ const InventoryGroup = React.createClass({
       unitPrice: this.getUnitPrice()
     })
   },
-  updateCurrentQuantity: function(foodItemId, current_quantity) {
-    let foodItems = []
+  updateCurrentQuantity: function(inventoryId, current_quantity) {
+    let inventories = []
 
-    $.map(this.state.foodItems, function(foodItem, index) {
-      if(foodItem.id == foodItemId) {
-        foodItem.current_quantity = current_quantity
+    $.map(this.state.inventories, function(inventory, index) {
+      if(inventory.id == inventoryId) {
+        inventory.current_quantity = current_quantity
       }
 
-      foodItems.push(foodItem)
+      inventories.push(inventory)
     })
     
-    this.setState({foodItems: foodItems, currentQuantity: this.getCurrentQuantity(), quantityOrdered: this.getQuantityOrdered(), unitPrice: this.getUnitPrice()})
+    this.setState({inventories: inventories, currentQuantity: this.getCurrentQuantity(), quantityOrdered: this.getQuantityOrdered(), unitPrice: this.getUnitPrice()})
   },
   getUnitPrice: function() {
     let totalPrice, quantity, currentQuantity
     totalPrice = quantity = 0
 
-    $.map(this.state.foodItems, function(foodItem, index) {
-      currentQuantity = formatNumber(foodItem.current_quantity)
+    $.map(this.state.inventories, function(inventory, index) {
+      currentQuantity = formatNumber(inventory.current_quantity)
       quantity += currentQuantity
-      totalPrice += currentQuantity * foodItem.default_unit_price
+      totalPrice += currentQuantity * inventory.default_unit_price
     })
 
     return totalPrice / quantity
   },
   getCurrentQuantity: function() {
     let currentQuantity = 0
-    $.map(this.state.foodItems, function(foodItem, index) {
-      currentQuantity += formatNumber(foodItem.current_quantity)
+    $.map(this.state.inventories, function(inventory, index) {
+      currentQuantity += formatNumber(inventory.current_quantity)
     })
     return currentQuantity
   },
   getQuantityOrdered: function() {
     let quantityOrdered = 0
-    $.map(this.state.foodItems, function(foodItem, index) {
-      quantityOrdered += formatNumber(foodItem.quantity_ordered)
+    $.map(this.state.inventories, function(inventory, index) {
+      quantityOrdered += formatNumber(inventory.quantity_ordered)
     })
     return quantityOrdered
   },
@@ -61,8 +61,8 @@ const InventoryGroup = React.createClass({
   },
   render: function() {
     const { name, restaurant_currency_symbol } = this.props
-    const { currentQuantity, quantityOrdered, unitPrice, foodItems } = this.state
-
+    const { currentQuantity, quantityOrdered, unitPrice, inventories } = this.state
+    
     return (
       <tbody>
         <tr className='sub-header' onClick={this.toggleItems}>
@@ -77,8 +77,8 @@ const InventoryGroup = React.createClass({
         </tr>
         {
           this.state.showItems &&
-          $(foodItems).map((index, foodItem) => {
-            return <InventoryItem key={foodItem.id} {...foodItem} onCurrentQuantityChange={this.updateCurrentQuantity} />
+          $(inventories).map((index, inventory) => {
+            return <InventoryItem key={inventory.id} {...inventory} onCurrentQuantityChange={this.updateCurrentQuantity} />
           })
         }
       </tbody>

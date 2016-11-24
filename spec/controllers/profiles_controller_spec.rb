@@ -22,10 +22,15 @@ describe ProfilesController, :type => :controller do
 
     let!(:new_email)  { 'new_email@gmail.com' }
 
+    before do
+      request.env["HTTP_REFERER"] = "where_i_came_from"
+    end
+
     it 'updates user' do
       do_request
       expect(user.reload.email).to eq new_email
       expect(flash[:notice]).to eq 'Profile has been updated.'
+      expect(response).to redirect_to "where_i_came_from"
     end
   end
 end

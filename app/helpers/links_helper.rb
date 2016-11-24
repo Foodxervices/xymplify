@@ -24,6 +24,6 @@ module LinksHelper
 
   def chicken_link(kitchen, cancan = true)
     return if kitchen.nil?
-    link_to_if(!cancan || can?(:read, kitchen), kitchen.name, restaurant_food_items_url(kitchen.restaurant, food_item_filter: { kitchen_id: kitchen.id }))
+    link_to_if(!cancan || can?(:read, kitchen), kitchen.name, [kitchen.restaurant, kitchen, :food_items])
   end
 end

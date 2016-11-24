@@ -26,11 +26,11 @@ const InventoryItem = React.createClass({
     this.updateCurrentQuantityTimeOut = setTimeout(() => {
       $.ajax({
         type: 'PATCH',
-        url: `/restaurants/${this.props.restaurant_id}/inventories/${this.props.id}/update_current_quantity`,
-        data: { food_item: { current_quantity: nextCurrentQuantity } },
+        url: `/restaurants/${this.props.restaurant_id}/inventories/${this.props.id}`,
+        data: { inventory: { current_quantity: nextCurrentQuantity } },
         success: (data) => {
           if(!data.success) {
-            const { id, current_quantity } = data.food_item
+            const { id, current_quantity } = data.inventory
             this.props.onCurrentQuantityChange(id, current_quantity)
           }
         }
@@ -38,7 +38,7 @@ const InventoryItem = React.createClass({
     }, 500)  
   },
   render: function() {
-    const { name, supplier_name, category_name, kitchen_name, current_quantity, quantity_ordered, unit, unit_price, symbol, can_update_current_quantity, tag_list } = this.props
+    const { name, supplier_name, category_name, kitchen_name, current_quantity, quantity_ordered, unit, unit_price, symbol, can_update, tag_list } = this.props
   
     return (
       <tr className="item">
@@ -47,7 +47,7 @@ const InventoryItem = React.createClass({
          <td className="text-center">{category_name}</td>
          <td className="text-left">{kitchen_name}</td>
          <td className="current-quantity">
-            { (can_update_current_quantity &&
+            { (can_update &&
               <div className="form-inline">
                 <a className="btn btn-minus form-control" onClick={this.minusQuantity}>-</a> 
                 <input ref='currentQuantity' className="form-control" type="number" value={current_quantity} onChange={(event) => this.updateCurrentQuantity(event.target.value)}/>

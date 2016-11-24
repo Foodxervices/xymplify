@@ -1,61 +1,74 @@
 class InventoriesController < ApplicationController
   load_and_authorize_resource :restaurant
-  load_and_authorize_resource :food_item, :through => :restaurant, :shallow => true, :parent => false
+  load_and_authorize_resource :through => :restaurant, :shallow => true
 
   def index
-    @food_item_filter = FoodItemFilter.new(@food_items, food_item_filter_params)
-    @food_items  = @food_item_filter.result
-                                    .where('current_quantity > 0')
-                                    .includes(:supplier, :kitchen, :category)
-                                    .order(:name, :id)
+    @kitchens = @restaurant.kitchens.accessible_by(current_ability)
+    @inventory_filter = InventoryFilter.new(@inventories, filter_params)
+    @inventories = @inventory_filter.result 
                                     .paginate(:page => params[:page])
+                                    .select('
+                                        inventories.id as id, inventories.current_quantity, inventories.quantity_ordered, inventories.food_item_id, inventories.kitchen_id,
+                                        s.name as supplier_name,
+                                        c.name as category_name,
+                                        k.name as kitchen_name
+                                        ')
+                                    .includes(:food_item)
+                                    .order(id: :asc)
+
     @groups = {}
-    
-    @food_items.each do |food_item|
+
+    @inventories.each do |i|
+      food_item = i.food_item
       @groups[food_item.name] ||= []
+
       @groups[food_item.name] << {
-        id: food_item.id,
+        id: i.id,
         name: food_item.name,
-        supplier_name: food_item.supplier&.name,
-        category_name: food_item.category&.name,
-        current_quantity: food_item.current_quantity,
-        quantity_ordered: food_item.quantity_ordered,
+        supplier_name: i.supplier_name,
+        category_name: i.category_name,
+        current_quantity: i.current_quantity,
+        quantity_ordered: i.quantity_ordered,
         unit: food_item.unit,
         unit_price: food_item.unit_price.dollars,
         default_unit_price: food_item.unit_price.exchange_to(current_restaurant.currency).dollars,
         symbol: food_item.unit_price.symbol,
-        kitchen_name: food_item.kitchen&.name,
-        restaurant_id: food_item.kitchen&.restaurant_id,
-        can_update_current_quantity: can?(:update_current_quantity, food_item)
+        kitchen_name: i.kitchen_name,
+        kitchen_id: i.kitchen_id,
+        restaurant_id: @restaurant.id,
+        can_update: can?(:update, i)
       }
     end
   end
 
-  def update_current_quantity
-    if @food_item.update_attributes(update_current_quantity_params)
+  def show
+    @kitchen = @inventory.kitchen
+    @food_item = @inventory.food_item
+  end
+
+  def update
+    if @inventory.update_attributes(inventory_params)
       render json: { success: true }
     else
-      render json: { food_item: @food_item.reload, success: false }
+      render json: { inventory: @inventory.reload, success: false }
     end
   end
 
   private 
 
-  def update_current_quantity_params
-    params.require(:food_item).permit(
+  def inventory_params
+    params.require(:inventory).permit(
       :current_quantity
     )
   end
 
-  def food_item_filter_params
-    food_item_filter = ActionController::Parameters.new(params[:food_item_filter])
-    food_item_filter.permit(
-      :keyword,
-      :kitchen_id,
-    )
-  end
+  def filter_params
+    return @filter_params if @filter_params.present?
 
-  def resource
-    @food_item
+    filter_params = ActionController::Parameters.new(params[:inventory_filter])
+    @filter_params ||= filter_params.permit(
+      :keyword,
+      :kitchen_id
+    )
   end
 end

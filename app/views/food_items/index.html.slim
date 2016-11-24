@@ -11,7 +11,7 @@
           - if can?(:import, Kitchen)
             = link_to 'Import', [:new, current_restaurant, :food_item_import], remote: true, class: 'btn btn-default'
           - if can?(:create, FoodItem)
-            = link_to 'Create / Update Food Item', [:new, @restaurant, :food_item], class: 'btn btn-default'
+            = link_to 'Create Food Item', [:new, @restaurant, :food_item], class: 'btn btn-default'
 
   .table-responsive
     table.table.table-striped.text-center
@@ -24,7 +24,7 @@
           th width=250 = sortable(:unit_price_cents, title: FoodItem.human_attribute_name(:both_prices))
           th = sortable(:unit_price_currency)
           th = sortable(:supplier_name)
-          th = sortable(:kitchen_name)
+          th = FoodItem.human_attribute_name(:kitchens)
           th = sortable(:brand)
           th width=130 = sortable(:cached_tag_list)
           th Action
@@ -38,13 +38,13 @@
             td = both_prices(food_item)
             td = food_item.unit_price_currency
             td = link_to_if can?(:read, food_item.supplier), food_item.supplier_name, supplier_path(food_item.supplier_id), remote: true
-            td = link_to food_item.kitchen&.name, food_item.kitchen, remote: true 
+            td = comma_seperated_links_for_kitchens(food_item.kitchens)
             td = food_item.brand
             td = food_item.tag_list
             td
               ul.actions
                 li = link_to 'View', food_item, remote: true
-                li = link_to_if can?(:update, food_item), 'Edit', [:edit, current_restaurant, food_item]
+                li = link_to_if can?(:update, food_item), 'Edit', [:edit, food_item]
                 li = link_to_if can?(:destroy, food_item), 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete'
   .text-center          
     = will_paginate @food_items, renderer: BootstrapPagination::Rails

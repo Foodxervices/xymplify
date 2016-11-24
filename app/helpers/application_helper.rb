@@ -24,18 +24,7 @@ module ApplicationHelper
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     link_to title, params.merge(:sort => column, :direction => direction), {:class => css_class}
   end
-
-  def kitchen_dropdown(form, include_blank: true, action: :read, kitchens: Kitchen.all) 
-    kitchens = kitchens.accessible_by(current_ability, action).includes(:restaurant)
-    kitchens = kitchens.where(restaurant: current_restaurant) if current_restaurant.present?
-    restaurants = {}
-    kitchens.each do |kitchen|
-      restaurants[kitchen.restaurant_id] ||= Restaurant.new(name: kitchen.restaurant&.name)
-      restaurants[kitchen.restaurant_id].kitchens << kitchen
-    end
-    form.input :kitchen_id, collection: restaurants.values, as: :grouped_select, group_method: :kitchens, include_blank: include_blank
-  end
-
+  
   def image_tag_retina_detection(name_at_1x, options={})
     name_at_2x = name_at_1x.gsub(%r{\.\w+$}, '-2x\0')
     image_tag(name_at_1x, options.merge("data-at2x" => ActionController::Base.helpers.asset_path(name_at_2x)))

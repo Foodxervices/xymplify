@@ -10,14 +10,14 @@ const InventoryList = React.createClass({
              <th className="text-left">Supplier</th>
              <th className="text-center">Category</th>
              <th className="text-left">Kitchen</th>
-             <th>Current Quantity</th>
+             <th width="150">Current Quantity</th>
              <th>Quantity Ordered</th>
              <th>Unit</th>
              <th>Price per Unit</th>
           </tr>
         </thead>
-        {$.map(groups, function(foodItems, name){
-          return <InventoryGroup key={name} name={name} foodItems={foodItems} restaurant_currency_symbol={restaurant_currency_symbol}/>
+        {$.map(groups, function(inventories, name){
+          return <InventoryGroup key={name} name={name} inventories={inventories} restaurant_currency_symbol={restaurant_currency_symbol}/>
         })}
       </table>
     );

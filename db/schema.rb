@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124022729) do
+ActiveRecord::Schema.define(version: 20161124104144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,8 +50,6 @@ ActiveRecord::Schema.define(version: 20161124022729) do
     t.string   "unit"
     t.integer  "supplier_id"
     t.integer  "user_id"
-    t.decimal  "current_quantity",                      precision: 8,  scale: 2, default: 0.0
-    t.decimal  "quantity_ordered",                      precision: 8,  scale: 2, default: 0.0
     t.string   "brand"
     t.integer  "unit_price_cents",                                               default: 0,     null: false
     t.string   "unit_price_currency",                                                            null: false
@@ -59,7 +57,6 @@ ActiveRecord::Schema.define(version: 20161124022729) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.integer  "kitchen_id"
     t.integer  "restaurant_id"
     t.integer  "category_id"
     t.string   "cached_tag_list",                                                default: ""
@@ -73,10 +70,26 @@ ActiveRecord::Schema.define(version: 20161124022729) do
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree
   add_index "food_items", ["deleted_at"], name: "index_food_items_on_deleted_at", using: :btree
-  add_index "food_items", ["kitchen_id"], name: "index_food_items_on_kitchen_id", using: :btree
   add_index "food_items", ["restaurant_id"], name: "index_food_items_on_restaurant_id", using: :btree
   add_index "food_items", ["supplier_id"], name: "index_food_items_on_supplier_id", using: :btree
   add_index "food_items", ["user_id"], name: "index_food_items_on_user_id", using: :btree
+
+  create_table "food_items_kitchens", force: :cascade do |t|
+    t.integer "food_item_id"
+    t.integer "kitchen_id"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.integer "restaurant_id"
+    t.integer "kitchen_id"
+    t.integer "food_item_id"
+    t.decimal "current_quantity", precision: 8, scale: 2, default: 0.0
+    t.decimal "quantity_ordered", precision: 8, scale: 2, default: 0.0
+  end
+
+  add_index "inventories", ["food_item_id"], name: "index_inventories_on_food_item_id", using: :btree
+  add_index "inventories", ["kitchen_id"], name: "index_inventories_on_kitchen_id", using: :btree
+  add_index "inventories", ["restaurant_id"], name: "index_inventories_on_restaurant_id", using: :btree
 
   create_table "kitchens", force: :cascade do |t|
     t.string  "name"

@@ -4,9 +4,10 @@ class CartsController < ApplicationController
   def show; end 
   
   def new
-    @food_items = @restaurant.food_items
+    @food_items = @restaurant.food_items.includes(:kitchens)
                              .accessible_by(current_ability)
                              .where(id: params[:ids])
+    @kitchens = @restaurant.kitchens.accessible_by(current_ability)
   end
 
   def add
@@ -14,7 +15,7 @@ class CartsController < ApplicationController
 
     authorize! :order, @food_item
 
-    kitchen = @food_item.kitchen
+    kitchen = @restaurant.kitchens.accessible_by(current_ability).find(params[:kitchen_id])
 
     options = { user_id: current_user.id, kitchen_id: kitchen.id, supplier_id: @food_item.supplier_id, status: :wip }
     

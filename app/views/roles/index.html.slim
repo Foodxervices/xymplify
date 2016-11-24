@@ -1,9 +1,10 @@
 - content_for :navbar_form do 
   = render 'roles/search', role_filter: @role_filter, url: roles_path
 #roles-index-container
-  .pull-right
-    .btn-group
-      = link_to 'Create New Role', new_role_path, class: 'btn btn-default'
+  - if can?(:create, Role)
+    .pull-right
+      .btn-group
+        = link_to 'Create New Role', new_role_path, class: 'btn btn-default'
     
   h1 Roles
   .table-responsive
@@ -19,7 +20,7 @@
             td.text-center
               ul.actions
                 li = link_to_if can?(:read, role), 'View', role, remote: true
-                li = active_link_to 'Edit', [:edit, role]
-                li = link_to 'Delete', '#', data: { toggle: "confirmation", href: role_path(role) }, class: 'delete'
+                li = link_to_if can?(:update, role), 'Edit', [:edit, role]
+                li = link_to_if can?(:destroy, role), 'Delete', '#', data: { toggle: "confirmation", href: role_path(role) }, class: 'delete'
   .text-center          
     = will_paginate @roles, renderer: BootstrapPagination::Rails

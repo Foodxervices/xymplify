@@ -60,6 +60,7 @@ class Order < ActiveRecord::Base
   def date_of_delivery
     delivered_at.present? ? delivered_at : request_for_delivery_at
   end
+
   private 
   def cache_restaurant
     self.restaurant_id = kitchen.restaurant_id 
@@ -88,20 +89,20 @@ class Order < ActiveRecord::Base
 
   def set_item_price
     if delivered_to_kitchen?
-      items.includes(:food_item).each do |item|
-        food_item = item.food_item
+      items.includes(:food_item, :order).each do |item|
+        inventory = item.inventory
         
         case status_change 
           when ["wip", "placed"]
-            food_item.quantity_ordered = food_item.quantity_ordered + item.quantity
+            inventory.quantity_ordered = inventory.quantity_ordered + item.quantity
           when ["accepted", "delivered"] 
-            food_item.current_quantity = food_item.current_quantity + item.quantity
-            food_item.quantity_ordered = food_item.quantity_ordered - item.quantity
+            inventory.current_quantity = inventory.current_quantity + item.quantity
+            inventory.quantity_ordered = inventory.quantity_ordered - item.quantity
           when ["placed", "cancelled"], ["accepted", "cancelled"], ["placed", "declined"]
-            food_item.quantity_ordered = food_item.quantity_ordered - item.quantity
+            inventory.quantity_ordered = inventory.quantity_ordered - item.quantity
         end
         
-        food_item.save if food_item.changed?
+        inventory.save if inventory.changed?
       end
     end
   end

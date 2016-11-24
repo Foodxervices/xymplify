@@ -16,7 +16,11 @@ class ApplicationController < ActionController::Base
     if !user_signed_in?
       authenticate_user!
     else
-      redirect_to main_app.root_url, alert: exception.message
+      if !js_request?
+        redirect_to restaurants_url, alert: exception.message
+      else
+        open_message(message: exception.message)
+      end
     end
   end
 

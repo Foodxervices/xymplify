@@ -8,13 +8,8 @@
     = f.input :outlet_address
     
     label.control-label Request for delivery at
-    .row
-      .col-md-7
-        .form-group.datetime-select
-          = f.date_select :request_for_delivery_at
-      .col-md-5
-        .form-group.datetime-select
-          = f.time_select :request_for_delivery_at
+    .form-group.datetime-select
+      = f.datetime_select :request_for_delivery_at, date_separator: '', time_separator: ':', datetime_separator: ''
     hr
     table.table.table-striped
       thead
