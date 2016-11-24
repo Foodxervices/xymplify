@@ -1,7 +1,7 @@
 class VersionsController < ApplicationController
-  before_action :disable_bullet, only: [:index]
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :version, :through => :restaurant, :shallow => true, except: [:index]
+  before_filter :detect_format, only: [:index]
 
   def index
     @versions = Version.by_restaurant(@restaurant.id)
@@ -35,5 +35,9 @@ class VersionsController < ApplicationController
     )
     version_filter[:attributes] = version_filter[:attributes].compact.reject(&:blank?) if version_filter[:attributes].present?
     version_filter
+  end
+
+  def detect_format
+    request.format = "xlsx" if params[:commit] == 'Export'
   end
 end
