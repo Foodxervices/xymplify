@@ -50,6 +50,7 @@ gem 'sinatra', require: false
 gem 'foreman'
 gem 'materialize-sass'
 gem 'paranoia'
+gem 'lograge'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
