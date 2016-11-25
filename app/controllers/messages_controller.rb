@@ -17,11 +17,23 @@ class MessagesController < ApplicationController
     end
   end
 
+  def edit
+    load_mention_list
+  end
+
+  def update
+    if @message.update_attributes(message_params)
+      redirect_to :back, notice: 'Message has been updated.'
+    else
+      render :edit
+    end
+  end
+
   protected
 
   def load_mention_list
     @mention_list = []
-
+    
     @restaurant.suppliers.accessible_by(current_ability).each do |supplier|
       @mention_list << {
         id:     "supplier#{supplier.id}",

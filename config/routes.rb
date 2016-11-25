@@ -61,7 +61,7 @@ Rails.application.routes.draw do
     end
     resources :orders,      only: [:index]
     resources :food_item_imports, only: [:new, :create]
-    resources :messages,          only: [:new, :create]
+    resources :messages,          only: [:new, :create, :edit, :update]
     
     get 'archived_pos' => 'orders#index', :as => :archived_pos, :defaults => { status: 'archived' }
 

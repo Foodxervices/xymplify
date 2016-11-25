@@ -102,14 +102,20 @@ const Utils = {
     $('main').css('top', $('#menu').outerHeight())
   },
   initMentionsInput: () => {
-    $('.mention-input').mentionsInput({
-      onDataRequest:function (mode, query, callback) {
-        var data = $(this).data('collection')
+    $('.mention-input').each(function() {
+      let content = $(this).val()
 
-        data = _.filter(data, function(item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1 });
+      $(this).mentionsInput({
+        onDataRequest:function (mode, query, callback) {
+          var data = $(this).data('collection')
 
-        callback.call(this, data);
-      }
-    });
+          data = _.filter(data, function(item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1 });
+
+          callback.call(this, data);
+        }
+      });
+
+      $(this).val(content)
+    })
   }
 }

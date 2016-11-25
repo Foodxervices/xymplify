@@ -1,2 +1,6 @@
 .messages-details-container
   = simple_format message.content
+
+  - if can?(:update, message)
+    .text-right
+      = link_to 'Edit', [:edit, current_restaurant, message], class: 'btn btn-default', remote: true
