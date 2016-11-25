@@ -4,9 +4,10 @@ class CartsController < ApplicationController
   def show; end 
   
   def new
-    @food_items = @restaurant.food_items.includes(:kitchens)
-                             .accessible_by(current_ability)
+    @food_items = @restaurant.food_items
                              .where(id: params[:ids])
+                             .accessible_by(current_ability)
+                             .includes(:kitchens)
     @kitchens = @restaurant.kitchens.accessible_by(current_ability)
   end
 

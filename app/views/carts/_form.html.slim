@@ -13,7 +13,7 @@
         th.text-center width=100 Unit Price
         th.text-center Quantity
         th
-      - @food_items.each do |food_item|
+      - food_items.each do |food_item|
         - food_item.kitchens.each do |kitchen|
           - if can? :read, kitchen
             tr.cart-item class="kitchen#{kitchen.id}" data={id: food_item.id, restaurant_id: @restaurant.id, kitchen_id: kitchen.id}

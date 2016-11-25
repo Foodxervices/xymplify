@@ -45,4 +45,4 @@
   .text-right
     .btn-group
       - if can?(:order, food_item)
-        = link_to 'Add to cart', [:new, current_restaurant, :cart, ids: food_item.id], remote: true, class: 'delete btn btn-info'
+        = link_to 'Add to cart', [:new, current_restaurant, :cart, ids: [food_item.id]], remote: true, class: 'delete btn btn-info'
