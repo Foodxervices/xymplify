@@ -7,7 +7,7 @@ class VersionsController < ApplicationController
     @versions = Version.by_restaurant(@restaurant.id)
     @version_filter = VersionFilter.new(@versions, version_filter_params)
     @versions = @version_filter.result
-                              .includes(:user, :item, order_gst: :order, order_item: :order)
+                              .includes(:user, :item, inventory: :food_item, order_gst: :order, order_item: :order)
                               
     respond_to do |format|
       format.html do
