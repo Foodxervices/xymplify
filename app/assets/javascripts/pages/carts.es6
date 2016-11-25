@@ -9,7 +9,8 @@ Foodxervices.carts = {
 
       function filter() {
         let kitchen_id = $('#kitchen_id').selectpicker('val')
-        if(kitchen_id == '') {
+        
+        if(!kitchen_id) {
           $('.cart-item').show()
         }
         else {
