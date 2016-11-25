@@ -2,7 +2,7 @@ class Attachment < ActiveRecord::Base
   has_paper_trail :if => Proc.new { |attachment| attachment.food_item_id.present? }
 
   belongs_to :restaurant
-  belongs_to :food_item
+  belongs_to :food_item, :counter_cache => :attachments_count
   has_attached_file :file
   validates_attachment :file,
                        :content_type => { :content_type => Rails.application.config.upload_file_type },

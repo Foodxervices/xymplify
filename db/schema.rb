@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124104144) do
+ActiveRecord::Schema.define(version: 20161125041337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20161124104144) do
     t.decimal  "min_order_price",                       precision: 12, scale: 2, default: 0.0
     t.decimal  "max_order_price",                       precision: 12, scale: 2
     t.datetime "deleted_at"
+    t.integer  "attachments_count",                                              default: 0
   end
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree
