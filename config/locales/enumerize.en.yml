@@ -37,5 +37,6 @@ en:
         order__update_cancelled:              "Order      :: Update Cancelled PO"
         message__read:                        "Message    :: Read"
         message__create:                      "Message    :: Create"
+        message__update:                      "Message    :: Update"
         inventory__read:                      "Inventory  :: Read"
         inventory__update:                    "Inventory  :: Update"
