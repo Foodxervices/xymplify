@@ -2,5 +2,6 @@
   = simple_form_for inventory_filter, url: [current_restaurant, :inventories], method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
     = f.input :keyword
     = f.input :kitchen_id, collection: @kitchens
-    = f.button :submit, 'Search'
+    = f.button :submit, 'Search', data: { :disable_with => "Search" }
+    = f.button :submit, 'Export', data: { :disable_with => "Export" }
     = link_to 'Reset', url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default' 

@@ -2,11 +2,12 @@ class InventoriesController < ApplicationController
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :through => :restaurant, :shallow => true
 
+  before_filter :detect_format, only: [:index]
+
   def index
     @kitchens = @restaurant.kitchens.accessible_by(current_ability)
     @inventory_filter = InventoryFilter.new(@inventories, filter_params)
     @inventories = @inventory_filter.result 
-                                    .paginate(:page => params[:page])
                                     .select('
                                         inventories.id as id, inventories.current_quantity, inventories.quantity_ordered, inventories.food_item_id, inventories.kitchen_id,
                                         s.name as supplier_name,
@@ -16,29 +17,54 @@ class InventoriesController < ApplicationController
                                     .includes(:food_item)
                                     .order(id: :asc)
 
-    @groups = {}
+    respond_to do |format|
+      format.html do 
+        @inventories = @inventories.paginate(:page => params[:page])
 
-    @inventories.each do |i|
-      food_item = i.food_item
-      @groups[food_item.name] ||= []
+        @groups = {}
 
-      @groups[food_item.name] << {
-        id: i.id,
-        name: food_item.name,
-        supplier_name: i.supplier_name,
-        category_name: i.category_name,
-        current_quantity: i.current_quantity,
-        quantity_ordered: i.quantity_ordered,
-        unit: food_item.unit,
-        unit_price: food_item.unit_price.dollars,
-        default_unit_price: food_item.unit_price.exchange_to(current_restaurant.currency).dollars,
-        symbol: food_item.unit_price.symbol,
-        kitchen_name: i.kitchen_name,
-        kitchen_id: i.kitchen_id,
-        restaurant_id: @restaurant.id,
-        can_update: can?(:update, i)
-      }
-    end
+        @inventories.each do |i|
+          food_item = i.food_item
+          @groups[food_item.name] ||= []
+
+          @groups[food_item.name] << {
+            id: i.id,
+            name: food_item.name,
+            supplier_name: i.supplier_name,
+            category_name: i.category_name,
+            current_quantity: i.current_quantity,
+            quantity_ordered: i.quantity_ordered,
+            unit: food_item.unit,
+            unit_price: food_item.unit_price.dollars,
+            default_unit_price: food_item.unit_price.exchange_to(current_restaurant.currency).dollars,
+            symbol: food_item.unit_price.symbol,
+            kitchen_name: i.kitchen_name,
+            kitchen_id: i.kitchen_id,
+            restaurant_id: @restaurant.id,
+            can_update: can?(:update, i)
+          }
+        end
+      end
+
+      format.csv do 
+        csv_result = CSV.generate({}) do |csv|
+          csv << ['Food Item', 'Category', 'Current quantity', 'Quantity ordered', 'Actual quantity', 'Remarks']
+          @inventories.each do |i|
+            food_item = i.food_item
+
+            csv << [
+              food_item.name,
+              i.category_name,
+              i.current_quantity,
+              i.quantity_ordered,
+              '',
+              ''
+            ]
+          end
+        end
+        send_data csv_result.encode('gb2312', :invalid => :replace, :undef => :replace, :replace => "?"), filename: "inventory-#{Date.today}.csv"
+      end
+    end 
   end
 
   def show
@@ -70,5 +96,9 @@ class InventoriesController < ApplicationController
       :keyword,
       :kitchen_id
     )
+  end
+
+  def detect_format
+    request.format = "csv" if params[:commit] == 'Export'
   end
 end
