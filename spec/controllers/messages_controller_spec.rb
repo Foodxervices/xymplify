@@ -63,4 +63,22 @@ describe MessagesController, :type => :controller do
       expect(response).to redirect_to "where_i_came_from"
     end
   end
+
+  describe '#destroy' do 
+    def do_request
+      delete :destroy, id: message.id
+    end
+
+    let!(:message) { create(:message) }
+
+    before do
+      request.env["HTTP_REFERER"] = "where_i_came_from"
+    end
+
+    it 'deletes message' do 
+      expect{ do_request }.to change{ Message.count }.from(1).to(0)
+      expect(flash[:notice]).to eq('Message has been deleted.')
+      expect(response).to redirect_to "where_i_came_from"
+    end
+  end
 end

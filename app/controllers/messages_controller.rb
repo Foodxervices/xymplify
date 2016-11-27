@@ -29,6 +29,16 @@ class MessagesController < ApplicationController
     end
   end
 
+  def destroy
+    if @message.destroy
+      flash[:notice] = 'Message has been deleted.'
+    else
+      flash[:notice] = @message.errors.full_messages.join("<br />")
+    end
+
+    redirect_to :back
+  end
+
   protected
 
   def load_mention_list

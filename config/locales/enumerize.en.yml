@@ -38,5 +38,6 @@ en:
         message__read:                        "Message    :: Read"
         message__create:                      "Message    :: Create"
         message__update:                      "Message    :: Update"
+        message__destroy:                     "Message    :: Delete"
         inventory__read:                      "Inventory  :: Read"
         inventory__update:                    "Inventory  :: Update"

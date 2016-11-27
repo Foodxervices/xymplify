@@ -1,6 +1,9 @@
 .messages-details-container
   = simple_format message.content
 
-  - if can?(:update, message)
-    .text-right
-      = link_to 'Edit', [:edit, current_restaurant, message], class: 'btn btn-default', remote: true
+  .text-right
+    .btn-group
+      - if can?(:update, message)
+        = link_to 'Edit', [:edit, current_restaurant, message], class: 'btn btn-default', remote: true
+      - if can?(:destroy, message)
+        = link_to 'Delete', '#', data: { toggle: "confirmation", href: message_path(message) }, class: 'delete btn btn-default'

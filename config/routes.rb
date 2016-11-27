@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :versions,    only: [:show]
   
-  resources :messages,    only: [:show]
+  resources :messages,    only: [:show, :destroy]
 
   resources :inventories, only: [:show]
 
