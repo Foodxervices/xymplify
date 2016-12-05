@@ -1,7 +1,5 @@
 .shared-sidebar-container
   ul
-    / - if Restaurant.accessible_by(current_ability).count != 1
-    /   = active_link_to 'Listing', restaurants_path, :wrap_tag => :li, :active => :exact, class: 'sb-restaurants', title: 'Listing'
     - if current_kitchen&.id.present?
       = render 'shared/sidebar/kitchen'
     - elsif current_restaurant&.id.present?

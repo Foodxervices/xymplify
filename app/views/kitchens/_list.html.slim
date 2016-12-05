@@ -8,5 +8,5 @@
           = link_to [:dashboard, kitchen], class: 'kitchen'
             = kitchen.name
             br
-            .role = user_role_link(current_user, kitchen, linkable: false)
+            .role = user_role_link(user, kitchen, linkable: false)
     br

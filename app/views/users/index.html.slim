@@ -24,7 +24,8 @@
             td = user.type_text
             td.text-center
               ul.actions
-                li = active_link_to 'Edit', edit_user_path(user)
+                li = link_to 'View', user_path(user), remote: true
+                li = link_to 'Edit', edit_user_path(user)
                 li = link_to 'Delete', '#', data: { toggle: "confirmation", href: user_path(user) }, class: 'delete'
   .text-center          
     = will_paginate @users, renderer: BootstrapPagination::Rails

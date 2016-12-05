@@ -11,5 +11,5 @@
 - if can?(:index, FoodItem)
   = active_link_to 'Food Item', [current_restaurant, :food_items], :wrap_tag => :li, class: 'sb-food_item', title: 'Food Item'
 hr
-= active_link_to 'Switch Kitchen', :kitchens, :wrap_tag => :li, :active => :exact, class: 'sb-kitchen', title: 'Switch Kitchen', remote: true
+= active_link_to 'Switch Kitchen', current_user.kind_of?(Admin) ? [current_restaurant, :kitchens] : :kitchens, :wrap_tag => :li, :active => :exact, class: 'sb-kitchen', title: 'Switch Kitchen', remote: true
 hr
