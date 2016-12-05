@@ -67,6 +67,7 @@ class MessagesController < ApplicationController
   def message_params
     data = params.require(:message).permit(:content, :kitchen_id)
     data[:kitchen_id] = Kitchen.accessible_by(current_ability).where(restaurant_id: @restaurant.id).find(data[:kitchen_id]).id if data[:kitchen_id].present?
+    data[:restaurant_id] = @restaurant.id if @restaurant.present?
     data
   end
 end

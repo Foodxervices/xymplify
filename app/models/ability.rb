@@ -28,10 +28,8 @@ class Ability
           case clazz 
             when 'restaurant'
               can action, clazz.camelize.constantize, { id: user_role.restaurant_id }
-            when 'supplier', 'user_role', 'message'
+            when 'supplier', 'user_role', 'message', 'food_item'
               can action, clazz.camelize.constantize, { restaurant_id: user_role.restaurant_id }
-            when 'food_item'
-              can action, clazz.camelize.constantize, { id: FoodItemsKitchen.where(kitchen_id: kitchen_ids).pluck(:food_item_id) }
             when 'order', 'inventory'
               can action, clazz.camelize.constantize, { kitchen_id: kitchen_ids }
             when 'kitchen'

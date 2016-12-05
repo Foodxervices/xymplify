@@ -33,6 +33,10 @@
         td.text-right Total
         td.text-right = humanized_money_with_symbol(order.price_with_gst)
   .btn-toolbar.pull-right
+    - if can?(:mark_as_accepted, order)
+      = link_to 'Mark as Accepted', '#', data: { toggle: "confirmation", href: mark_as_accepted_order_path(order), link_method: 'patch' }, class: 'btn btn-accepted'
+    - if can?(:mark_as_declined, order)
+      = link_to 'Mark as Declined', '#', data: { toggle: "confirmation", href: mark_as_declined_order_path(order), link_method: 'patch' }, class: 'btn btn-declined'
     - if can?(:mark_as_delivered, order)
       = link_to 'Mark as Delivered', '#', data: { toggle: "confirmation", href: mark_as_delivered_order_path(order), link_method: 'patch' }, class: 'btn btn-delivered'
     - if can?(:mark_as_cancelled, order)

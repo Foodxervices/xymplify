@@ -83,6 +83,7 @@ class FoodItemsController < ApplicationController
     data[:unit_price]  = data[:unit_price_without_promotion] if data[:unit_price].to_f == 0
     data[:supplier_id] = current_restaurant.suppliers.accessible_by(current_ability).find(data[:supplier_id]).id if data[:supplier_id].present?
     data[:kitchen_ids] = current_restaurant.kitchens.where(id: data[:kitchen_ids]).ids if data[:kitchen_ids].present?
+    data[:restaurant_id] = current_restaurant.id if current_restaurant.present?
     data[:user_id] = current_user.id
     data[:attachment_ids] = Attachment.where(id: params[:attachment_ids].split(',')).pluck(:id) if params[:attachment_ids].present?
     @food_item_params ||= data

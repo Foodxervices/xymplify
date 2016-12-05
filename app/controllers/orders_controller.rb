@@ -104,7 +104,11 @@ class OrdersController < ApplicationController
       invalid_status_notice
     end
 
-    redirect_to root_url
+    if params[:_method] == 'patch'
+      redirect_to :back
+    else
+      redirect_to root_url
+    end
   end
 
   def mark_as_declined
@@ -123,7 +127,11 @@ class OrdersController < ApplicationController
       invalid_status_notice
     end
 
-    redirect_to root_url
+    if params[:_method] == 'patch'
+      redirect_to :back
+    else
+      redirect_to root_url
+    end
   end
 
   def mark_as_delivered
