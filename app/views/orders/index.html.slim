@@ -10,13 +10,6 @@
               .btn.btn-default.status class="status-#{order.status}" = order.status_text
               h4 = order.name
               small = format_date(order.status_updated_at)
-            .text-right
-              ul.list-inline
-                - if can?("update_#{order.status}".to_sym, order) && !params['alert']
-                  li = link_to 'Edit PO', [:edit, order], remote: true
-                li = link_to 'Download', [order, format: :pdf], target: :_blank
-                - if can?(:history, order)
-                  li= link_to 'History', [:history, order], remote: true
             = render 'orders/details', order: order
   .text-center          
     = will_paginate @orders, renderer: BootstrapPagination::Rails

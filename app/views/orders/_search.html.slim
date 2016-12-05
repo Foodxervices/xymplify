@@ -2,5 +2,5 @@
   = simple_form_for order_filter, url: url, method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
     = f.input :keyword
     = f.input :month, as: :month_picker, placeholder: 'Month'
-    = f.button :submit, 'Search'
+    = f.button :submit, 'Search', class: 'btn-primary'
     = link_to 'Reset', url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default' 

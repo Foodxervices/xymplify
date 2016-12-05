@@ -1,4 +1,11 @@
 .orders-details-container rel=order.id
+  .text-right
+    ul.list-inline
+      - if can?("update_#{order.status}".to_sym, order) && !params['alert']
+        li = link_to 'Edit PO', [:edit, order], remote: true
+      li = link_to 'Download', [order, format: :pdf], target: :_blank
+      - if can?(:history, order)
+        li= link_to 'History', [:history, order], remote: true
   table.table.table-striped
     tbody
       - order.items.includes(:food_item).each do |item|

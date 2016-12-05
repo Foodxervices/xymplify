@@ -3,5 +3,5 @@
     = f.input :keyword
     - if current_kitchen.nil?
       = kitchen_dropdown(f, include_blank: 'All', multiple: false)
-    = f.button :submit, 'Search'
+    = f.button :submit, 'Search', class: 'btn-primary'
     = link_to 'Reset', url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default' 

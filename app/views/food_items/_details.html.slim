@@ -49,4 +49,4 @@
               td = link_to_if can?(:dashboard, kitchen), kitchen.name, [:dashboard, kitchen]
               td.text-center
                 - if can?(:order, food_item)
-                  = link_to 'Add to cart', [:new, kitchen, :cart, ids: [food_item.id]], remote: true, class: 'delete btn btn-info'
+                  = link_to 'Add to cart', [:new, kitchen, :cart, ids: [food_item.id]], remote: true, class: 'delete btn btn-add'

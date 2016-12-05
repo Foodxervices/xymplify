@@ -168,8 +168,16 @@ table.table-bordered, table.table-striped {
 /* POPUP */
 
 /* BUTTONS */
-.btn-placed, .btn-accepted, .btn-declined, .btn-cancelled, .btn-delivered {
+.btn-primary, .btn-placed, .btn-accepted, .btn-declined, .btn-cancelled, .btn-delivered, .btn-add {
   color: #fff;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.btn-primary, .btn-add {
+  background: #304FFE;
 }
 
 .btn-placed {

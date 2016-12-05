@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
 
     @orders = @order_filter.result
                            .select('orders.*, suppliers.name as supplier_name')
-                           .includes(:supplier, :gsts)
+                           .includes(:gsts)
                            .where(status: status)
                            .order('supplier_name asc, status_updated_at desc')
                            .paginate(:page => params[:page])

@@ -22,20 +22,22 @@
     position: relative;
   }
 
-  #go-by {
-    margin: 10px -20px 20px -20px;
+  ul.list-inline {
+    margin: 0 -10px;
+
+    li {
+      padding: 0 10px;
+
+      &:first-child {
+        border-right: 1px solid #5e5e5e;
+      }
+    }
 
     a {
-      font-size: 26px;
-      color: #B2B4C0;
-      padding: 0 20px;
-
-      &:not(:first-child) {
-        border-left: 2px solid #B2B4C0;
-      }
+      color: #5e5e5e;
 
       &.active, &:hover {
-        color: #304FFE;
+        color: #393838;
         text-decoration: underline;
       }
     }
