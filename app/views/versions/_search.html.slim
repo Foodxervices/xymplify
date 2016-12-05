@@ -4,6 +4,6 @@
     = f.input :event, collection: version_filter.events, include_blank: 'All'
     = f.input :item_type, collection: version_filter.item_types, include_blank: 'All'
     = f.input :attributes, collection: version_filter.attribute_list, as: :grouped_select, group_method: :second, input_html: {multiple: true, title: "All"}
-    = f.button :submit, 'Submit', data: { :disable_with => "Submit" }
+    = f.button :submit, 'Submit', data: { :disable_with => "Submit" }, class: 'btn-primary'
     = f.button :submit, 'Export', data: { :disable_with => "Export" }
     = link_to 'Reset', url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default' 

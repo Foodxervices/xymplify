@@ -1,5 +1,5 @@
 .users-search-container.search-container
   = simple_form_for user_filter, url: url, method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
     = f.input :keyword
-    = f.button :submit, 'Search'
+    = f.button :submit, 'Search', class: 'btn-primary'
     = link_to "Reset", users_url, class: 'btn btn-default'
