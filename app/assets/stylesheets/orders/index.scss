@@ -13,9 +13,10 @@
     }
 
     & > div {
-      border: 1px solid #dedede;
       padding: 15px;
       margin: 20px 10px 0 10px;
+      background: #FFFFFF;
+      box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
     }
   }
 
@@ -25,10 +26,67 @@
     .btn {
       float: right;
     }
+
+    small {
+      font-size: 12px;
+      color: #424242;
+      letter-spacing: 0;
+    }
   }
 
   h4 {
     margin: 0;
     padding: 0;
+    font-size: 20px;
+    color: #424242;
+    letter-spacing: 0;
+  }
+
+  ul.list-inline {
+    margin-top: 0;
+
+    li:last-child {
+      padding-right: 0;
+    }
+
+    a {
+      color: #5e5e5e;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .status {
+    border: none;
+    border-radius: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 12px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    cursor: auto;
+  }
+
+  .status-placed {
+    background: $placed_color;
+  }
+
+  .status-accepted {
+    background: $accepted_color;
+  }
+
+  .status-declined {
+    background: $declined_color;
+  }
+
+  .status-cancelled {
+    background: $cancelled_color;
+  }
+
+  .status-delivered {
+    background: $delivered_color;
   }
 }

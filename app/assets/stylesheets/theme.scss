@@ -165,3 +165,30 @@ table.table-bordered, table.table-striped {
 .popover-content {
   min-width: 121px;
 }
+/* POPUP */
+
+/* BUTTONS */
+.btn-placed, .btn-accepted, .btn-declined, .btn-cancelled, .btn-delivered {
+  color: #fff;
+}
+
+.btn-placed {
+  background: $placed_color;
+}
+
+.btn-accepted {
+  background: $accepted_color;
+}
+
+.btn-declined {
+  background: $declined_color;
+}
+
+.btn-cancelled {
+  background: $cancelled_color;
+}
+
+.btn-delivered {
+  background: $delivered_color;
+}
+/* BUTTONS */

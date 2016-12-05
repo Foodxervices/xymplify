@@ -1,39 +1,33 @@
 .orders-details-container rel=order.id
-  table.table.table-striped.table-bordered
+  table.table.table-striped
     tbody
-      tr 
-        td colspan="10" 
-          = link_to_if can?(:read, order.supplier), order.supplier&.name, order.supplier, remote: true
-          - if can?(:history, order)
-            .pull-right
-              = link_to 'History', [:history, order], remote: true
-            .clearfix
       - order.items.includes(:food_item).each do |item|
         tr 
           td = link_to_if can?(:read, item.food_item), item.food_item&.name, item.food_item, remote: true
-          td = "#{item.quantity} x #{item.food_item&.unit}"
           td.text-right = humanized_money_with_symbol(item.unit_price)
-          td.text-right = humanized_money_with_symbol(item.total_price)
+          td.text-center = "#{item.quantity} x #{item.food_item&.unit}"
+          td.text-right 
+            strong = humanized_money_with_symbol(item.total_price)
     tfoot
       - if order.gsts_count != 0
         tr
-          td.text-right colspan="3" Subtotal
-          td.text-right = humanized_money_with_symbol(order.price)
+          td colspan="2" 
+          td.text-right Subtotal
+          td.text-right 
+            strong = humanized_money_with_symbol(order.price)
         - order.gsts.each do |gst|
           tr
             td.text-right colspan="3" = "#{gst.name} #{gst.percent}%"
-            td.text-right = humanized_money_with_symbol(gst.amount)
+            td.text-right 
+              strong = humanized_money_with_symbol(gst.amount)
       tr 
-        td.text-right colspan="3" Total
+        td.link2inventory colspan="2" 
+          == "This PO is #{order.delivered_to_kitchen? ? '' : '<b>NOT</b> '}linked to your food inventory"
+        td.text-right Total
         td.text-right = humanized_money_with_symbol(order.price_with_gst)
-  p == "This PO is #{order.delivered_to_kitchen? ? '' : '<b>NOT</b> '}linked to your food inventory"
-  
-  .text-right 
-    .btn-group 
-      - if can?("update_#{order.status}".to_sym, order) && !params['alert']
-        = link_to 'Edit PO', [:edit, order], remote: true, class: 'btn btn-default'   
-      - if can?(:mark_as_delivered, order)
-        = link_to 'Mark as Delivered', '#', data: { toggle: "confirmation", href: mark_as_delivered_order_path(order), link_method: 'patch' }, class: 'btn btn-primary'
-      - if can?(:mark_as_cancelled, order)
-        = link_to 'Mark as Cancelled', '#', data: { toggle: "confirmation", href: mark_as_cancelled_order_path(order), link_method: 'patch' }, class: 'btn btn-warning'
-      = link_to 'Download', [order, format: :pdf], class: 'btn btn-success', target: :_blank
+  .btn-toolbar.pull-right
+    - if can?(:mark_as_delivered, order)
+      = link_to 'Mark as Delivered', '#', data: { toggle: "confirmation", href: mark_as_delivered_order_path(order), link_method: 'patch' }, class: 'btn btn-delivered'
+    - if can?(:mark_as_cancelled, order)
+      = link_to 'Mark as Cancelled', '#', data: { toggle: "confirmation", href: mark_as_cancelled_order_path(order), link_method: 'patch' }, class: 'btn btn-cancelled'
+  .clearfix

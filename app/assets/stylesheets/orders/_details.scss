@@ -1,7 +1,36 @@
 .orders-details-container {
+  table.table-striped {
+    border: none;
+    margin-left: -15px;
+    margin-right: -15px;
+    width: calc(100% + 30px);
+    max-width: none;
+
+    tr td {
+      border-top: none;
+      color: #5e5e5e;
+
+      a {
+        color: #5e5e5e;
+      }
+
+      &:first-child {
+        padding-left: 15px;
+      }
+
+      &:last-child {
+        padding-right: 15px;
+      }
+    }
+  }
+
   .btn-group {
     .btn {
       font-size: 12px;
     }
+  }
+
+  .link2inventory {
+    color: #9E9E9E;
   }
 }
