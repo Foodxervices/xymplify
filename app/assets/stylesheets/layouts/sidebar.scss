@@ -1,39 +1,17 @@
 #sidebar {
-  position: fixed;
   top: 0;
-  left: $sidebar_collapsed_left;
-  width: $sidebar_width;
-  height: 100vh;
-  background: #0296e0;
-  overflow: hidden;
+  bottom: 0;
+  position: fixed;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  left: 0;
+  width: $sidebar_expanded_width;
   z-index: 4;
+  transition: width 0.5s;
+  background: #FFFFFF;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 0 2px 0 rgba(0,0,0,0.24);
+}
 
-  > i {
-    font-family: "FontAwesome";
-    position: absolute;
-    top: 3px;
-    right: 10px;
-    font-size: 30px;
-    color: #fff;
-    cursor: pointer;
-    font-style: normal;
-  }
-
-  &.collapsed {
-    left: $sidebar_collapsed_left;
-    transition: left 0.5s;
-
-    > i:before {
-      content: "\f0c9";
-    }
-  }
-
-  &.expanded {
-    left: 0;
-    transition: left 0.5s;
-
-    > i:before {
-      content: "\f00d";
-    }
-  }
+body.sidebar-collapsed #sidebar {
+  width: $sidebar_collapsed_width;
 }

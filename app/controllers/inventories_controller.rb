@@ -6,13 +6,13 @@ class InventoriesController < ApplicationController
 
   def index
     @kitchens = @restaurant.kitchens.accessible_by(current_ability)
+    @kitchens = @kitchens.where(id: params[:kitchen_id])
     @inventory_filter = InventoryFilter.new(@inventories, filter_params)
     @inventories = @inventory_filter.result 
                                     .select('
                                         inventories.id as id, inventories.current_quantity, inventories.quantity_ordered, inventories.food_item_id, inventories.kitchen_id,
                                         s.name as supplier_name,
-                                        c.name as category_name,
-                                        k.name as kitchen_name
+                                        c.name as category_name
                                         ')
                                     .includes(:food_item)
                                     .order(id: :asc)
@@ -38,7 +38,6 @@ class InventoriesController < ApplicationController
             unit_price: food_item.unit_price.dollars,
             default_unit_price: food_item.unit_price.exchange_to(current_restaurant.currency).dollars,
             symbol: food_item.unit_price.symbol,
-            kitchen_name: i.kitchen_name,
             kitchen_id: i.kitchen_id,
             restaurant_id: @restaurant.id,
             can_update: can?(:update, i)

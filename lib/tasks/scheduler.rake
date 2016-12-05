@@ -1,7 +1,7 @@
 task :update_alerts => :environment do
   puts "Updating alerts..."
-  FoodItem.where('current_quantity <= low_quantity').each do |food_item| 
-    food_item.alerts.create(type: :low_quantity)
+  Inventory.joins(:food_item).where('inventories.current_quantity <= food_items.low_quantity').each do |inventory| 
+    inventory.alerts.create(type: :low_quantity)
   end
 
   Order.where(status: :placed).where('placed_at <= ?', 7.days.ago).each do |order|

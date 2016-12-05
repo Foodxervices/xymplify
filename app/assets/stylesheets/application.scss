@@ -1,6 +1,8 @@
+@import 'fonts';
 @import 'variables';
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import 'mdi/scss/materialdesignicons';
 @import 'bootstrap_select/bootstrap_select';
 @import 'bootstrap_taggable/jquery-ui';
 @import 'bootstrap_taggable/bootstrap-tokenfield';
@@ -15,6 +17,9 @@
 @import 'search';
 @import 'selectpicker';
 
+@import 'modules/block';
+@import 'modules/pagination';
+
 @import 'layouts/main';
 @import 'layouts/sidebar';
 
@@ -24,6 +29,7 @@
 @import 'inventories/index';
 
 @import 'food_items/index';
+@import 'food_items/_details';
 
 @import 'restaurants/dashboard';
 @import 'restaurants/_list';
@@ -44,11 +50,14 @@
 @import 'carts/_details';
 @import 'carts/_info';
 
+@import 'kitchens/_list';
+
 @import 'messages/_form';
 
 @import 'shared/_menu';
 @import 'shared/_sidebar';
 @import 'shared/_summary';
+@import 'shared/_cost_graph';
 
 @import 'popups/_message';
 @import 'popups/restaurants/_details';

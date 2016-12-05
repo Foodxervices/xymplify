@@ -2,15 +2,14 @@ require 'rails_helper'
 
 describe CategoriesController, :type => :controller do 
   let!(:admin)      { create(:admin) }
-  let!(:restaurant) { create(:restaurant) }
-  let!(:kitchen)    { create(:kitchen, restaurant: restaurant) }
-  let!(:food_items) { create_list(:food_item, 2, restaurant: restaurant, kitchen_ids: [kitchen.id], tag_list: 'Drink') }
+  let!(:kitchen)    { create(:kitchen) }
+  let!(:food_items) { create_list(:food_item, 2, kitchen_ids: kitchen.id, tag_list: 'Drink') }
 
   before       { sign_in admin }  
 
   describe '#index' do
     def do_request
-      get :index, restaurant_id: restaurant.id
+      get :index, kitchen_id: kitchen.id
     end
 
     it 'renders the :index view' do
@@ -22,7 +21,7 @@ describe CategoriesController, :type => :controller do
 
   describe '#by_supplier' do
     def do_request
-      get :by_supplier, restaurant_id: kitchen.restaurant_id
+      get :by_supplier, kitchen_id: kitchen.id
     end
 
     it 'renders the :index view' do

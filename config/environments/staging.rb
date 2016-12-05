@@ -97,7 +97,7 @@ Rails.application.configure do
     s3_protocol: 'https',
     url: ':s3_domain_url',
     path: '/:class/:attachment/:id_partition/:style/:filename',
-    default_url: ":class/:attachment/:style/missing.jpg",
+    default_url: ":class/:attachment/:style/missing",
     s3_credentials: {
       bucket:             Rails.application.secrets.aws_bucket,
       access_key_id:      Rails.application.secrets.aws_access_key_id,

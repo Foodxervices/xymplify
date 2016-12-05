@@ -7,7 +7,7 @@ describe OrdersController, :type => :controller do
 
     describe '#index' do 
       def do_request
-        get :index, restaurant_id: placed_order.restaurant.id
+        get :index, kitchen_id: placed_order.kitchen_id
       end
 
       let!(:placed_order) { create(:order, status: :placed) }

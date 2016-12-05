@@ -3,11 +3,11 @@ class OrdersController < ApplicationController
 
   AUTHORIZE_TOKEN_ACTIONS = [:show, :mark_as_accepted, :mark_as_declined]
   
-  load_resource :restaurant
-  load_resource :order, :through => :restaurant, :shallow => true
+  load_resource :kitchen
+  load_resource :order, :through => :kitchen, :shallow => true
 
-  authorize_resource :restaurant, except: AUTHORIZE_TOKEN_ACTIONS
-  authorize_resource :order, :through => :restaurant, :shallow => true, except: AUTHORIZE_TOKEN_ACTIONS
+  authorize_resource :kitchen, except: AUTHORIZE_TOKEN_ACTIONS
+  authorize_resource :order, :through => :kitchen, :shallow => true, except: AUTHORIZE_TOKEN_ACTIONS
 
   before_action :authorize_token, only: AUTHORIZE_TOKEN_ACTIONS
 

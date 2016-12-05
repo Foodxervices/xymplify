@@ -1,0 +1,12 @@
+.kitchens-list-container
+  - kitchens.includes(:restaurant).group_by(&:restaurant).each do |restaurant, group|
+    h2 = link_to restaurant.name, restaurant
+
+    .row
+      - group.each do |kitchen| 
+        .col-sm-6
+          = link_to [:dashboard, kitchen], class: 'kitchen'
+            = kitchen.name
+            br
+            .role = user_role_link(current_user, kitchen, linkable: false)
+    br

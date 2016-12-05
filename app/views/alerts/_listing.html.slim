@@ -1,8 +1,8 @@
+- page_type = defined?(page) ? page : 'alert_page'
 .alerts-listing-container
   table.alert-listing.table.table-striped data-last-seen-at=@notification.seen_at
     - alerts.each do |alert|
       tr.alert data-created-at=alert.created_at
-        td width="140" = format_date(alert.created_at)
+        td width="160" = format_date(alert.created_at)
         td = link_to_if can?(:read, alert.alertable), alert.title, [alert.alertable, alert: true], remote: true
-  .text-center
-    = will_paginate alerts, inner_window: 0, outer_window: 0, renderer: BootstrapPagination::Rails, param_name: "alert_page"
+  = will_paginate alerts, inner_window: 3, outer_window: 1, param_name: page_type

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125041337) do
+ActiveRecord::Schema.define(version: 20161130010320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,8 +119,10 @@ ActiveRecord::Schema.define(version: 20161125041337) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "kitchen_id"
   end
 
+  add_index "messages", ["kitchen_id"], name: "index_messages_on_kitchen_id", using: :btree
   add_index "messages", ["restaurant_id"], name: "index_messages_on_restaurant_id", using: :btree
 
   create_table "order_gsts", force: :cascade do |t|
@@ -128,8 +130,10 @@ ActiveRecord::Schema.define(version: 20161125041337) do
     t.decimal "percent",       precision: 4, scale: 2, default: 0.0
     t.integer "order_id"
     t.integer "restaurant_id"
+    t.integer "kitchen_id"
   end
 
+  add_index "order_gsts", ["kitchen_id"], name: "index_order_gsts_on_kitchen_id", using: :btree
   add_index "order_gsts", ["order_id"], name: "index_order_gsts_on_order_id", using: :btree
   add_index "order_gsts", ["restaurant_id"], name: "index_order_gsts_on_restaurant_id", using: :btree
 
@@ -144,10 +148,12 @@ ActiveRecord::Schema.define(version: 20161125041337) do
     t.integer "category_id"
     t.integer "unit_price_without_promotion_cents",                            default: 0,     null: false
     t.string  "unit_price_without_promotion_currency",                         default: "SGD", null: false
+    t.integer "kitchen_id"
   end
 
   add_index "order_items", ["category_id"], name: "index_order_items_on_category_id", using: :btree
   add_index "order_items", ["food_item_id"], name: "index_order_items_on_food_item_id", using: :btree
+  add_index "order_items", ["kitchen_id"], name: "index_order_items_on_kitchen_id", using: :btree
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
   add_index "order_items", ["restaurant_id"], name: "index_order_items_on_restaurant_id", using: :btree
 

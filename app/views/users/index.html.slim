@@ -1,11 +1,11 @@
-- content_for :navbar_form do 
-  = render 'users/search', user_filter: @user_filter, url: users_path
+= render 'users/search', user_filter: @user_filter, url: users_path
 #users-index-container
   .pull-right
     .btn-group
       = link_to 'Create New User', new_user_path, class: 'btn btn-default'
       
   h1 User
+  .clearfix
   .table-responsive
     table.table.table-striped
       thead

@@ -1,5 +1,4 @@
-- content_for :navbar_form do 
-  = render 'user_roles/search', user_role_filter: @user_role_filter, url: [@restaurant, :user_roles]
+= render 'user_roles/search', user_role_filter: @user_role_filter, url: [@restaurant, :user_roles]
 #user_roles-index-container
   .pull-right
     .btn-group
@@ -7,6 +6,7 @@
         = link_to 'Create New User Role', [:new, @restaurant, :user_role], remote: true, class: 'btn btn-default'
         
   h1 User Roles
+  .clearfix
   .table-responsive
     table.table.table-striped
       thead

@@ -9,7 +9,6 @@ const InventoryList = React.createClass({
              <th className="text-left">Item Name</th>
              <th className="text-left">Supplier</th>
              <th className="text-center">Category</th>
-             <th className="text-left">Kitchen</th>
              <th width="150">Current Quantity</th>
              <th>Quantity Ordered</th>
              <th>Unit</th>

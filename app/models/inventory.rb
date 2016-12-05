@@ -3,6 +3,8 @@ class Inventory < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :kitchen
   belongs_to :food_item
+
+  has_many :alerts, as: :alertable
   
   validates :restaurant_id,   presence: true
   validates :kitchen_id,      presence: true

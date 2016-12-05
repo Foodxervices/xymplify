@@ -1,30 +1,26 @@
 class CartsController < ApplicationController
-  load_and_authorize_resource :restaurant
+  load_and_authorize_resource :kitchen
 
   def show; end 
   
   def new
-    @food_items = @restaurant.food_items
+    @food_items = @kitchen.food_items
                              .where(id: params[:ids])
                              .accessible_by(current_ability)
-                             .includes(:kitchens)
-    @kitchens = @restaurant.kitchens.accessible_by(current_ability)
   end
 
   def add
-    @food_item = @restaurant.food_items.find(params[:food_item_id])
+    @food_item = @kitchen.food_items.find(params[:food_item_id])
 
     authorize! :order, @food_item
 
-    kitchen = @restaurant.kitchens.accessible_by(current_ability).find(params[:kitchen_id])
-
-    options = { user_id: current_user.id, kitchen_id: kitchen.id, supplier_id: @food_item.supplier_id, status: :wip }
+    options = { user_id: current_user.id, kitchen_id: @kitchen.id, supplier_id: @food_item.supplier_id, status: :wip }
     
     @order = Order.where(options).first
     
     ActiveRecord::Base.transaction do
       if @order.nil?
-        @order = Order.create(options.merge(outlet_name: kitchen.name, outlet_address: kitchen.address, outlet_phone: kitchen.phone, request_for_delivery_at: 1.days.from_now.beginning_of_day + 10.hours))
+        @order = Order.create(options.merge(outlet_name: @kitchen.name, outlet_address: @kitchen.address, outlet_phone: @kitchen.phone, request_for_delivery_at: 1.days.from_now.beginning_of_day + 10.hours))
         @order.gsts.create(name: 'GST', percent: 7)
       end
 

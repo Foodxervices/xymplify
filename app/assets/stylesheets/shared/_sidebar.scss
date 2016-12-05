@@ -1,5 +1,9 @@
 .shared-sidebar-container {
-  padding: 48px 0;
+  padding: 20px 0;
+
+  hr {
+    margin: 5px 0;
+  }
 
   ul {
     list-style: none;
@@ -9,79 +13,99 @@
 
   a {
     position: relative;
-    padding: 0 15px;
+    padding: 0 15px 0 60px;
     display: block;
-    line-height: 40px;
+    line-height: 46px;
     font-size: 16px;
-    color: #82d4fa;
+    color: #757575;
+    white-space: nowrap;
 
     &.active, &:hover {
-      color: #fff;
-      background: #059eee;
+      font-weight: 500;
+      color: #424242;
+      background: rgba(232,234,246,0.50);
+
+      i {
+        color: #304FFE;
+      }
     }
 
-    &:before {
-      font-family: "FontAwesome";
+    i {
       position: absolute;
       top: 0px;
-      right: 14px;
-      cursor: pointer;
-      font-size: 22px;
+      left: 10px;
       text-align: center;
+      display: inline-block;
+      width: 40px;
+      font-style: normal;
+      transition: all 0.5s;
+
+      &:before {
+        cursor: pointer;
+        @extend .mdi;
+        font-size: 22px;
+        line-height: inherit;
+      }
     }
 
-    &.sb-dashboard:before {
-      content: "\f201";
-      right: 9px;
+    &.sb-dashboard i:before {
+      @extend .mdi-home;
     }
 
-    &.sb-restaurants:before {
-      content: "\f0ca";
-      right: 11px;
+    &.sb-restaurants i:before {
+      @extend .mdi-home; 
     }
 
-    &.sb-restaurant:before {
-      content: "\f19c";
-      right: 9px;
+    &.sb-restaurant i:before {
+      @extend .mdi-information;  
     }
 
-    &.sb-version:before {
-      content: "\f1da";
-      right: 14px;
+    &.sb-version i:before {
+      @extend .mdi-history;
     }
 
-    &.sb-user:before {
-      content: "\f007";
+    &.sb-user i:before {
+      @extend .mdi-account-multiple;
     }
 
-    &.sb-supplier:before {
-      right: 13px;
-      content: "\f21b";
+    &.sb-supplier i:before {
+      @extend .mdi-store;
     }
 
-    &.sb-food_item:before {
-      content: "\f0f5";
-      font-size: 20px;
-      right: 16px;
+    &.sb-food_item i:before {
+      @extend .mdi-food;
     }
 
-    &.sb-inventory:before {
-      content: "\f044";
-      right: 11px;
+    &.sb-kitchen i:before {
+      @extend .mdi-silverware-variant;
     }
 
-    &.sb-purchase_orders:before {
-      content: "\f298";
+    &.sb-inventory i:before {
+      @extend .mdi-folder-outline;
     }
 
-    &.sb-user_role:before {
-      content: "\f0c0";
-      right: 11px;
+    &.sb-pending_pos i:before {
+      @extend .mdi-calendar-text;
+    } 
+
+    &.sb-create_new_request i:before {
+      @extend .mdi-cart-outline;
+    } 
+
+    &.sb-archived_pos i:before {
+      @extend .mdi-calendar-check;
+    } 
+
+    &.sb-user_role i:before {
+      @extend .mdi-account-multiple;
     }
 
-    &.sb-role:before {
-      content: "\f023";
-      right: 16px;
+    &.sb-role i:before {
+      @extend .mdi-security;
     }
   }
+}
+
+body.sidebar-collapsed .shared-sidebar-container a i {
+  left: 5px;
 }

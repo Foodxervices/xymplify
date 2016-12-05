@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require cookie
 //= require underscore/underscore
 //= require moment
 //= require chart
@@ -27,12 +28,13 @@
 //= require sidebar
 //= require cart_item
 //= require alert_listing
+//= require cost_graph
 //= require global
 
 //= require pages/food_items 
 //= require pages/orders
 //= require pages/restaurants
+//= require pages/kitchens
 //= require pages/versions
-//= require pages/carts
 
 

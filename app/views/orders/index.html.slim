@@ -1,11 +1,7 @@
-- content_for :navbar_left 
-  = render 'orders/menu'
 #orders-index-container
-  .row
-    .col-md-8
-      = render 'orders/search', order_filter: @order_filter, url: [@restaurant, params[:status] == 'archived' ?  :archived_pos : :orders]
+  = render 'orders/search', order_filter: @order_filter, url: [current_kitchen, params[:status] == 'archived' ?  :archived_pos : :orders]
   - @grouped_orders.each do |supplier_name, orders|
-    h3.text-center = supplier_name
+    h2 = supplier_name
     .grid
       - orders.each do |order|
         .po-wrap.grid-item

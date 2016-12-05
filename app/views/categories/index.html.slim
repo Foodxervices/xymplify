@@ -1,18 +1,16 @@
-- content_for :navbar_left 
-  = render 'orders/menu'
 #categories-index-container
+  = render 'food_items/search', food_item_filter: @food_item_filter, url: url_for(params)
   .row
     .col-md-8
-      = render 'food_items/search', food_item_filter: @food_item_filter, url: url_for(params)
-      .btn-group
-        = active_link_to 'Go by Category', url_for(params.merge(action: :index)), :active => :exclusive, class: "btn btn-default"
-        = active_link_to 'Go by Supplier', url_for(params.merge(action: :by_supplier)), :active => :exclusive, class: "btn btn-default"
+      #go-by
+        = active_link_to 'Go by Category', url_for(params.merge(action: :index)), :active => :exclusive
+        = active_link_to 'Go by Supplier', url_for(params.merge(action: :by_supplier)), :active => :exclusive
       - @categories.each do |name, category|
         h4 = name
         .row
           - category.each do |tag, ids|
             .col-md-4
-              = link_to tag, [:new, @restaurant, :cart, ids: ids], remote: true, class: 'item-tag'
+              = link_to tag, [:new, current_kitchen, :cart, ids: ids], remote: true, class: 'item-tag'
     .col-md-4
       #cart-details
         = render 'carts/details', orders: @orders

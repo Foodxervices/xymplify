@@ -10,5 +10,6 @@ describe OrderGst do
   context 'associations' do 
     it { is_expected.to belong_to :order }
     it { is_expected.to belong_to :restaurant }
+    it { is_expected.to belong_to :kitchen }
   end
 end

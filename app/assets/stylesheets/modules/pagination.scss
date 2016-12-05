@@ -1,0 +1,28 @@
+.pagination {
+  margin: 8px 0;
+
+  .previous_page {
+    margin-right: 2px;
+  }
+
+  .next_page {
+    margin-left: 2px;
+  }
+
+  em.current {
+    background: #2979FF;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
+    border-radius: 2px;
+    color: #fff;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    font-style: normal;
+    padding: 2px 6px;
+    margin: 0 2px;
+  }
+
+  a {
+    margin: 0 2px;
+  }
+}

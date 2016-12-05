@@ -2,17 +2,17 @@ require 'rails_helper'
 
 describe FoodItemsController, :type => :controller do
   let!(:restaurant) { create(:restaurant) }
+  let!(:kitchen)    { create(:kitchen, restaurant: restaurant) }
   let!(:supplier)   { create(:supplier, restaurant: restaurant) }
   let!(:user)       { create(:admin) }
   before { sign_in user }  
 
   describe '#index' do
     def do_request
-      get :index, restaurant_id: restaurant.id
+      get :index, restaurant_id: restaurant.id, kitchen_id: kitchen.id
     end
 
-    let!(:kitchen)          { create(:kitchen, restaurant_id: restaurant.id) }
-    let!(:food_items)       { create_list(:food_item, 2, restaurant_id: restaurant.id, kitchen_ids: [kitchen.id]) }
+    let!(:food_items)       { create_list(:food_item, 2, restaurant_id: restaurant.id, kitchen_ids: kitchen.id) }
     let!(:other_food_items) { create_list(:food_item, 1) }
 
     it 'renders the :index view' do
@@ -41,16 +41,16 @@ describe FoodItemsController, :type => :controller do
 
     it 'creates a food item' do 
       expect{ do_request }.to change{ [FoodItem.count] }.from([0]).to([1])
-      expect(response).to redirect_to [restaurant, :food_items]
+      expect(response).to redirect_to [:edit, restaurant, assigns(:food_item)]
     end
   end
 
   describe '#edit' do 
     def do_request
-      get :edit, id: food_item.id
+      get :edit, restaurant_id: restaurant.id, id: food_item.id
     end
 
-    let!(:food_item) { create(:food_item) }
+    let!(:food_item) { create(:food_item, restaurant: restaurant) }
 
     it 'returns edit page' do
       do_request
@@ -61,17 +61,21 @@ describe FoodItemsController, :type => :controller do
 
   describe '#update' do 
     def do_request
-      patch :update, id: food_item.id, food_item: attributes_for(:food_item, code: new_code)
+      patch :update, restaurant_id: restaurant.id, id: food_item.id, food_item: attributes_for(:food_item, code: new_code)
     end
 
     let!(:food_item) { create(:food_item, restaurant: restaurant) }
     let!(:new_code)  { 'KL30902' }
 
+    before do
+      request.env["HTTP_REFERER"] = "where_i_came_from"
+    end
+    
     it 'updates food item' do
       do_request
       expect(food_item.reload.code).to eq new_code
       expect(flash[:notice]).to eq 'Food Item has been updated.'
-      expect(response).to redirect_to [restaurant, :food_items]
+      expect(response).to redirect_to "where_i_came_from"
     end
   end
 

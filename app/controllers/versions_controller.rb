@@ -1,10 +1,18 @@
 class VersionsController < ApplicationController
-  load_and_authorize_resource :restaurant
-  load_and_authorize_resource :version, :through => :restaurant, :shallow => true, except: [:index]
-  before_filter :detect_format, only: [:index]
+  load_and_authorize_resource :version, only: [:show]
+  before_action :detect_format, only: [:index]
 
   def index
-    @versions = Version.by_restaurant(@restaurant.id)
+    if params[:kitchen_id]
+      @kitchen = Kitchen.find(params[:kitchen_id])
+      authorize! :history, @kitchen
+      @versions = Version.by_kitchen(@kitchen.id)
+    else
+      @restaurant = Restaurant.find(params[:restaurant_id])
+      authorize! :history, @restaurant
+      @versions = Version.by_restaurant(@restaurant.id)
+    end
+
     @version_filter = VersionFilter.new(@versions, version_filter_params)
     @versions = @version_filter.result
                               .includes(:user, :item, inventory: :food_item, order_gst: :order, order_item: :order)

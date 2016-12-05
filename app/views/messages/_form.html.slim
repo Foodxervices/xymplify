@@ -1,5 +1,6 @@
 .messages-form-container
-  = simple_nested_form_for [@restaurant, message], remote: true do |f|
+  = simple_nested_form_for [current_restaurant, current_kitchen, message], remote: true do |f|
+    = f.input :kitchen_id, collection: current_restaurant.kitchens.accessible_by(current_ability), prompt: 'All Kitchens'
     = f.input :content, input_html: { class: 'mention-input', data: {collection: @mention_list } }, hint: 'Add "@" to mention User, Supplier. ex: @ken'
 
     = f.button :submit, class: 'btn btn-primary btn-block', data: { :disable_with => "Submitting..." }

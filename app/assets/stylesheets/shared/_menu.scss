@@ -1,50 +1,155 @@
 .shared-menu-container {
-  .avatar {
+  background: #FFFFFF;
+  box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
+
+  #brand-logo, #toggle-sidebar, #current-page-info, #notification, #user-info {
+    line-height: 80px;
+    height: 80px;
+    display: block;
+    float: left;
+  }
+
+  #brand-logo {
+    font-family: 'Proxima Nova Lt';
+    font-size: 24px;
+    color: #304FFE;
+    min-width: 195px;
+    position: relative;
+    padding-left: 78px;
+
+    img {
+      position: absolute;
+      left: 20px;
+      top: 15px;
+    }
+  }
+
+  #toggle-sidebar {
+    width: 56px;
+    text-align: center;
+    cursor: pointer;
+
+    i {
+      font-size: 30px;
+      font-style: normal;
+      color: #757575;
+      @extend .mdi;
+      @extend .mdi-menu;
+    }
+  }
+
+  #current-page-info {
+    height: 80px;
+    padding: 0 15px;
+    cursor: pointer;
+
+    a {
+      display: block;
+      font-family: 'Proxima Nova Lt';
+    }
+
+    a.restaurant-name {
+      
+      font-size: 24px;
+      color: #304FFE;
+      font-weight: 600;
+      text-transform: uppercase; 
+      line-height: 80px;
+    }
+
+    &[has-kitchen] {
+      a.restaurant-name {
+        color: #424242;
+        line-height: 24px;
+        margin: 14px 0 8px;
+      }
+
+      a.kitchen-name {
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0;
+      }
+    }
+  }
+
+  #notification {
+    font-size: 28px;
+    width: 80px;
+    text-align: center;
+    color: #304FFE;
     position: relative;
 
-    a#alert-count {
+    #alert-count {
       position: absolute;
-      z-index: 2;
-      top: 0;
-      right: -9px;
-      display: inline-block;
+      font-size: 10px;
+      line-height: 14px;
+      display: block;
+      min-width: 14px;
+      height: 14px;
+      color: #FFFFFF;
+      top: 23px;
+      right: 24px;
+      background: #FF5252;
       border-radius: 50%;
-      background: red;
-      color: #fff;
-      text-align: center;
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-      font-size: 12px;
+    }
+  }
+
+  #user-info {
+    position: relative;
+    padding: 0 10px 0 65px;
+    line-height: 20px;
+
+    > img {
+      position: absolute;
+      left: 0;
+      top: 15px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      margin: 0 10px 0 0;
+    }
+
+    > a {
+      display: block;
+      font-size: 14px;
+      line-height: 14px;
+      color: #424242;
+      letter-spacing: 0;
+
+      .caret {
+        margin-left: 10px;
+      }
+
+      .user-name {
+        margin: 20px 0 5px 0;
+      }
+    }
+
+    .dropdown-menu {
+      left: auto;
+      right: 0;
+    }
+
+    .role {
+      font-family: 'Proxima Nova Lt';
       text-decoration: none;
-      padding: 0;
+      color: #fff;
+      background: #2979FF;
+      border-radius: 2px;
+      padding: 0 10px;
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0;
+      font-weight: bold;
+
+      a {
+        color: #fff;
+      }
     }
   }
 
-  img {
-    margin: 0 0 0 15px;
-    height: 50px;
-  }
-
-  @media(min-width: $screen-md-min){
-    .container-fluid {
-      padding-left: 0;
-    }
-
-    .navbar-default .navbar-form {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-
-  .navbar-default .navbar-form {
-    border: none;
-  }
-
-  @media(min-width: $screen-lg-min){
-    .navbar-left {
-      width: 700px;
-    }
+  .pull-right {
+    margin-right: 15px;
   }
 }
 

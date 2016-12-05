@@ -48,10 +48,10 @@ describe SuppliersController, :type => :controller do
 
   describe '#edit' do 
     def do_request
-      get :edit, id: supplier.id
+      get :edit, restaurant_id: restaurant.id, id: supplier.id
     end
 
-    let!(:supplier) { create(:supplier) }
+    let!(:supplier) { create(:supplier, restaurant: restaurant) }
 
     it 'returns edit page' do
       do_request
@@ -62,10 +62,10 @@ describe SuppliersController, :type => :controller do
 
   describe '#update' do 
     def do_request
-      patch :update, id: supplier.id, supplier: { name: new_name }
+      patch :update, restaurant_id: restaurant.id, id: supplier.id, supplier: { name: new_name }
     end
 
-    let!(:supplier)  { create(:supplier) }
+    let!(:supplier)  { create(:supplier, restaurant: restaurant) }
     let!(:new_name)  { 'Vinamilk' }
 
     it 'updates supplier' do

@@ -15,9 +15,9 @@ class FoodItem < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :category
 
-  has_many :alerts, as: :alertable
   has_many :attachments
   has_many :food_items_kitchens
+  has_many :inventories
   
   has_and_belongs_to_many :kitchens
   

@@ -8,13 +8,15 @@ class FoodItemsController < ApplicationController
   def index
     @food_item_filter = FoodItemFilter.new(@food_items, food_item_filter_params)
     @food_items =  @food_item_filter.result
-                                    .select('food_items.*, s.name as supplier_name')
-                                    .includes(:supplier, :taggings)
+                                    .select('food_items.*, s.name as supplier_name, c.name as category_name')
+                                    .includes(:supplier)
                                     .order(sort_column + ' ' + sort_direction)
                                     .paginate(:page => params[:page])
   end
 
-  def show; end
+  def show
+    @kitchens = @food_item.kitchens.accessible_by(current_ability).load
+  end
 
   def new 
     @food_item = FoodItem.new(unit_price_currency: "")
@@ -22,7 +24,7 @@ class FoodItemsController < ApplicationController
 
   def create
     if @food_item.save
-      redirect_to [current_restaurant, :food_items], notice: 'Food Item has been created.'
+      redirect_to [:edit, @food_item.restaurant, @food_item], notice: 'Food Item has been created.'
     else
       render :new
     end
@@ -32,7 +34,7 @@ class FoodItemsController < ApplicationController
 
   def update
     if @food_item.update_attributes(food_item_params)
-      redirect_to [current_restaurant, :food_items], notice: 'Food Item has been updated.'
+      redirect_to :back, notice: 'Food Item has been updated.'
     else
       render :edit
     end
@@ -89,7 +91,7 @@ class FoodItemsController < ApplicationController
   def sort_column
     FoodItem.column_names
             .push('supplier_name')
-            .push('kitchen_name')
+            .push('category_name')
             .include?(params[:sort]) ? params[:sort] : "name"
   end
   

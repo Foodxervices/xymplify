@@ -22,3 +22,10 @@ en:
         keyword: 'Keyword'
       user_role_filter: 
         keyword: 'Keyword'  
+      inventory_filter:
+        keyword: 'Keyword'  
+      role_filter:
+        keyword: 'Keyword'  
+    labels:
+      food_item_import: 
+        kitchen_ids: 'Kitchens'

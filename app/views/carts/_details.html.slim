@@ -7,7 +7,7 @@
           .btn-group
             = link_to 'Delete', '#', data: { toggle: "confirmation", href: order_path(order) }, class: 'delete btn btn-default'
             = link_to 'Edit | Add Tax', [:edit, order], remote: true, class: 'btn btn-default' 
-            = link_to 'Purchase', [:confirm, current_restaurant, :cart, id: order.id], class: 'btn btn-primary', remote: true
+            = link_to 'Purchase', [:confirm, current_kitchen, :cart, id: order.id], class: 'btn btn-primary', remote: true
         hr
     hr
     .text-right

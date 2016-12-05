@@ -13,4 +13,13 @@ class Version < PaperTrail::Version
         ", restaurant_id: restaurant_id)
     .order(created_at: :desc)
   end
+
+  def self.by_kitchen(kitchen_id)
+    where("
+          (versions.item_type='Kitchen' AND versions.item_id=:kitchen_id) OR
+          (versions.object_changes ILIKE '%kitchen_id:\n- \n- :kitchen_id%') OR
+          (versions.object ILIKE '%kitchen_id: :kitchen_id%')
+        ", kitchen_id: kitchen_id)
+    .order(created_at: :desc)
+  end
 end

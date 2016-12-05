@@ -24,9 +24,13 @@ describe MessagesController, :type => :controller do
 
     let(:message) { build(:message) }
 
+    before do
+      request.env["HTTP_REFERER"] = "where_i_came_from"
+    end
+
     it 'creates a message' do 
       expect{ do_request }.to change{ [Message.count] }.from([0]).to([1])
-      expect(response).to redirect_to [:dashboard, restaurant]
+      expect(response).to redirect_to "where_i_came_from"
     end
   end
 

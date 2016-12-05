@@ -6,9 +6,7 @@ class RolesController < ApplicationController
     @roles = @role_filter.result.paginate(:page => params[:page])
   end
 
-  def show
-    
-  end
+  def show; end
 
   def new; end
 

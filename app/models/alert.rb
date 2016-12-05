@@ -9,19 +9,24 @@ class Alert < ActiveRecord::Base
 
   after_save :cache_redis
 
-  def self.accessible_by(current_ability, restaurant: nil)
-    food_items = FoodItem.accessible_by(current_ability)
+  def self.accessible_by(current_ability, restaurant: nil, kitchen: nil)
+    inventories = Inventory.accessible_by(current_ability)
     orders = Order.accessible_by(current_ability)
 
     if(restaurant.present?)
-      food_items = food_items.where(restaurant: restaurant)
+      inventories = inventories.where(restaurant: restaurant)
       orders     = orders.where(restaurant: restaurant)
     end
 
+    if(kitchen.present?)
+      inventories = inventories.where(kitchen: kitchen)
+      orders     = orders.where(kitchen: kitchen)
+    end
+
     where("
-          (alerts.alertable_type='FoodItem' AND alerts.alertable_id IN (:food_item_ids)) OR
+          (alerts.alertable_type='Inventory' AND alerts.alertable_id IN (:inventory_ids)) OR
           (alerts.alertable_type='Order' AND alerts.alertable_id IN (:order_ids))
-        ", food_item_ids: food_items.ids , order_ids: orders.ids)
+        ", inventory_ids: inventories.ids , order_ids: orders.ids)
   end
 
   def title
@@ -41,12 +46,12 @@ class Alert < ActiveRecord::Base
     end
   end
 
-  def restaurant
-    alertable.restaurant
+  def kitchen
+    alertable.kitchen
   end
 
   protected 
   def cache_redis
-    restaurant.set_redis(:alert_updated_at, Time.zone.now)
+    kitchen.set_redis(:alert_updated_at, Time.zone.now)
   end
 end

@@ -1,5 +1,4 @@
-- content_for :navbar_form do 
-  = render 'suppliers/search', supplier_filter: @supplier_filter, url: [@restaurant, :suppliers]
+= render 'suppliers/search', supplier_filter: @supplier_filter, url: [@restaurant, :suppliers]
 #suppliers-index-container
   .pull-right
     .btn-group
@@ -7,6 +6,7 @@
         = link_to 'Create New Supplier', [:new, @restaurant, :supplier], class: 'btn btn-default'
         
   h1 Supplier
+  .clearfix
   .table-responsive
     table.table.table-striped
       thead
@@ -30,7 +30,7 @@
             td.text-center
               ul.actions
                 li = link_to 'View', supplier, remote: true
-                li = link_to_if can?(:update, supplier), 'Edit', [:edit, supplier]
+                li = link_to_if can?(:update, supplier), 'Edit', [:edit, supplier.restaurant, supplier]
                 li = link_to_if can?(:destroy, supplier), 'Delete', '#', data: { toggle: "confirmation", href: supplier_path(supplier) }, class: 'delete'
   .text-center          
     = will_paginate @suppliers, renderer: BootstrapPagination::Rails

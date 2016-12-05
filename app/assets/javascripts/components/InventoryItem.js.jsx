@@ -38,14 +38,13 @@ const InventoryItem = React.createClass({
     }, 500)  
   },
   render: function() {
-    const { name, supplier_name, category_name, kitchen_name, current_quantity, quantity_ordered, unit, unit_price, symbol, can_update, tag_list } = this.props
+    const { name, supplier_name, category_name, current_quantity, quantity_ordered, unit, unit_price, symbol, can_update, tag_list } = this.props
   
     return (
       <tr className="item">
          <td></td>
          <td className="text-left">{supplier_name}</td>
          <td className="text-center">{category_name}</td>
-         <td className="text-left">{kitchen_name}</td>
          <td className="current-quantity">
             { (can_update &&
               <div className="form-inline">

@@ -2,15 +2,21 @@
   #menu {
     position: fixed;
     top: 0;
-    left: $main_padding;
+    left: 0;
     right: 0;
-    z-index: 3;
+    z-index: 5;
   }
 
   main {
     position: absolute;
-    left: $main_padding;
+    left: $sidebar_expanded_width;
     right: 0;
-    padding: 0 15px;
+    padding: 28px 15px;
+    transition: left 1s;
+    min-width: 600px;
+  }
+
+  &.sidebar-collapsed main {
+    left: $sidebar_collapsed_width;  
   }
 }

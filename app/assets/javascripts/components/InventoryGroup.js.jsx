@@ -69,7 +69,6 @@ const InventoryGroup = React.createClass({
            <td className="text-left">{name}</td>
            <td className="text-left"></td>
            <td className="text-left"></td>
-           <td className="text-left"></td>
            <td>{formatNumber(currentQuantity)}</td>
            <td>{formatNumber(quantityOrdered)}</td>
            <td></td>

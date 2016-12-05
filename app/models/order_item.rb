@@ -5,6 +5,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :food_item, -> { with_deleted }
   belongs_to :restaurant
+  belongs_to :kitchen
   belongs_to :category
 
   before_create :set_info
@@ -37,6 +38,7 @@ class OrderItem < ActiveRecord::Base
   private 
   def set_info
     self.restaurant_id = order.restaurant_id 
+    self.kitchen_id = order.kitchen_id 
     self.name = food_item.name
     self.category_id = food_item.category_id 
     self.tags = food_item.tags 

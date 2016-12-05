@@ -1,5 +1,5 @@
 .versions-search-container.search-container
-  = simple_form_for version_filter, url: [current_restaurant, :versions], method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
+  = simple_form_for version_filter, url: [current_restaurant, current_kitchen, :versions], method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
     = f.input :date_range
     = f.input :event, collection: version_filter.events, include_blank: 'All'
     = f.input :item_type, collection: version_filter.item_types, include_blank: 'All'

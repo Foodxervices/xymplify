@@ -1,14 +1,14 @@
-- content_for :navbar_form do 
-  = render 'restaurants/search', restaurant_filter: @restaurant_filter, url: restaurants_path
+= render 'restaurants/search', restaurant_filter: @restaurant_filter, url: restaurants_path
 #restaurants-index-container
   = render 'shared/summary', summary: @summary
 
   .pull-right
     .btn-group
       - if can?(:create, Restaurant.new)
-        = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default'
-        
+        = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default'      
   h1 Restaurants
+  .clearfix
+
   .table-responsive
     table.table.table-striped
       thead

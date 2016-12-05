@@ -1,32 +1,39 @@
 const Sidebar = function(sidebar) {
+  this.body = $('body')
   this.sidebar = $(sidebar)
-  this.sidebar.prepend('<i/>')
-  this.toggleButton = this.sidebar.find('> i')
-  this.collapse()
+  this.sidebar.find('li a').prepend('<i/>')
+  this.toggleButton = $('#toggle-sidebar')
+  
+  $('body').addClass('notransition')
+  
+  if(Cookies.get('sidebar-status') == 'collapsed') {
+    this.collapse()
+  }
+  else {
+    this.expand()
+  }
 
+  setTimeout(function() {
+    $('body').removeClass('notransition')  
+  }, 1000)
+  
   this.toggleButton.click(() => {
     this.toggle()
-  })
-
-  $(document).click((event) => { 
-    if(!$(event.target).closest(this.sidebar).length) {
-      this.collapse()
-    }        
   })
 }
 
 Sidebar.prototype.collapse = function() {
-  this.sidebar.removeClass("expanded").addClass("collapsed");
-  this.state = 'collapsed'
+  this.body.addClass("sidebar-collapsed")
+  Cookies.set('sidebar-status', 'collapsed');
 }
 
 Sidebar.prototype.expand = function() {
-  this.sidebar.removeClass("collapsed").addClass("expanded");
-  this.state = 'expanded'
+  this.body.removeClass("sidebar-collapsed")
+  Cookies.set('sidebar-status', 'expanded');
 }
 
 Sidebar.prototype.toggle = function() {
-  if(this.state == 'collapsed') {
+  if(Cookies.get('sidebar-status') == 'collapsed') {
     this.expand()
   }
   else {

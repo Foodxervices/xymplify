@@ -1,25 +1,11 @@
 .shared-sidebar-container
   ul
-    - if Restaurant.accessible_by(current_ability).count != 1
-      = active_link_to 'Listing', restaurants_path, :wrap_tag => :li, :active => :exact, class: 'sb-restaurants', title: 'Listing'
-    - if current_restaurant&.id.nil?
-      - if can?(:index, Role)
-        = active_link_to 'Role', roles_path, :wrap_tag => :li, class: 'sb-role', title: 'Role'
-      - if can?(:read, User)
-        = active_link_to 'User', users_path, :wrap_tag => :li, class: 'sb-user', title: 'User'
+    / - if Restaurant.accessible_by(current_ability).count != 1
+    /   = active_link_to 'Listing', restaurants_path, :wrap_tag => :li, :active => :exact, class: 'sb-restaurants', title: 'Listing'
+    - if current_kitchen&.id.present?
+      = render 'shared/sidebar/kitchen'
+    - elsif current_restaurant&.id.present?
+      = render 'shared/sidebar/restaurant'
     - else
-      - if can?(:dashboard, current_restaurant)
-        = active_link_to 'Dashboard', [:dashboard, current_restaurant], :wrap_tag => :li, :active => :exact, class: 'sb-dashboard', title: 'Dashboard'
-      - if can?(:read, current_restaurant)
-        = active_link_to 'Restaurant', current_restaurant, :wrap_tag => :li, :active => :exact, class: 'sb-restaurant', title: 'Restaurant'
-      = active_link_to 'History', [current_restaurant, :versions], :wrap_tag => :li, class: 'sb-version', title: 'History'
-      - if can?(:index, UserRole)
-        = active_link_to 'User Role', [current_restaurant, :user_roles], :wrap_tag => :li, class: 'sb-user_role',  title: 'User Role'
-      - if can?(:index, Supplier)
-        = active_link_to 'Supplier',  [current_restaurant, :suppliers],  :wrap_tag => :li, class: 'sb-supplier',   title: 'Supplier'
-      - if can?(:index, FoodItem)
-        = active_link_to 'Food Item', [current_restaurant, :food_items], :wrap_tag => :li, class: 'sb-food_item', title: 'Food Item'
-        = active_link_to 'Inventory Management', [current_restaurant, :inventories], :wrap_tag => :li, class: 'sb-inventory', title: 'Inventory Management'
-        - if can?(:order, FoodItem)
-          = active_link_to 'Purchase Orders', [current_restaurant, :orders], :wrap_tag => :li, :active => :exact, class: 'sb-purchase_orders', title: 'Purchase Orders'
+      = render 'shared/sidebar/global'
       

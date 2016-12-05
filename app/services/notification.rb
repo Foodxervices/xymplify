@@ -1,9 +1,9 @@
 class Notification
-  attr_accessor :current_ability, :restaurant, :user
+  attr_accessor :current_ability, :kitchen, :user
 
-  def initialize(current_ability, restaurant, user)
+  def initialize(current_ability, kitchen, user)
     @current_ability = current_ability
-    @restaurant = restaurant
+    @kitchen = kitchen
     @user   = user
   end
 
@@ -11,7 +11,7 @@ class Notification
     $redis.del(redis_key(:count)) if seen_at < alert_updated_at
     
     cache(:count) {
-      alerts = Alert.accessible_by(current_ability, restaurant: restaurant)
+      alerts = Alert.accessible_by(current_ability, kitchen: kitchen)
       alerts = alerts.where('created_at > ?', seen_at) if seen_at.present?
       alerts.count
     }.to_i
@@ -27,13 +27,13 @@ class Notification
   end
 
   def alert_updated_at
-    restaurant.redis(:alert_updated_at)&.to_datetime || Time.zone.now
+    kitchen.redis(:alert_updated_at)&.to_datetime || Time.zone.now
   end
 
   private
 
   def redis_key(str)
-    "notification:#{restaurant.id}:#{user.id}:#{str}"
+    "notification:#{kitchen.id}:#{user.id}:#{str}"
   end
 
   def cache(key, expire = 1.hour)

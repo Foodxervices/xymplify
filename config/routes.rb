@@ -12,9 +12,9 @@ Rails.application.routes.draw do
 
   resources :roles,       only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
-  resources :food_items,  only: [:show, :edit, :update, :destroy]
+  resources :food_items,  only: [:show, :destroy]
   
-  resources :suppliers,   only: [:show, :edit, :update, :destroy]
+  resources :suppliers,   only: [:show, :destroy]
 
   resources :user_roles,  only: [:show, :edit, :update, :destroy]
 
@@ -44,38 +44,18 @@ Rails.application.routes.draw do
 
   resources :restaurants, only: [:index, :show, :new, :create, :edit, :update, :destroy] do 
     resources :versions,    only: [:index]
-    resources :suppliers,   only: [:index, :new, :create]
+    resources :suppliers,   only: [:index, :new, :create, :edit, :update]
     resources :user_roles,  only: [:index, :new, :create]
-    resources :food_items,  only: [:index, :new, :create] do
-      collection do 
-        get :auto_populate
-      end
+    resources :food_items,  only: [:index, :new, :create, :edit, :update]
+    resources :kitchens, only: [:index] do 
+      resources :versions,    only: [:index]
+      resources :food_items,  only: [:index]
+      resources :inventories, only: [:index]
+      resources :food_item_imports, only: [:new, :create]
+      resources :messages,          only: [:new, :create, :edit, :update]
     end
-    resources :kitchens, only: [] do 
-      resources :food_items, only: [:index]
-    end
-    resources :categories,  only: [:index] do 
-      collection do 
-        get :by_supplier
-      end
-    end
-    resources :orders,      only: [:index]
     resources :food_item_imports, only: [:new, :create]
     resources :messages,          only: [:new, :create, :edit, :update]
-    
-    get 'archived_pos' => 'orders#index', :as => :archived_pos, :defaults => { status: 'archived' }
-
-    resources :carts,       only: [:new] do 
-      collection do 
-        get :show
-        post :add
-      end
-
-      member do 
-        get :confirm
-        post :purchase
-      end
-    end
 
     resources :inventories, only: [:index] do 
       member do 
@@ -88,5 +68,29 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :kitchens,  only: [:show]
+  resources :kitchens, only: [:index, :show] do 
+    resources :food_items,  only: [:show]
+    resources :orders,   only: [:index]
+    get 'archived_pos' => 'orders#index', :as => :archived_pos, :defaults => { status: 'archived' }
+    resources :categories,  only: [:index] do 
+      collection do 
+        get :by_supplier
+      end
+    end
+    resources :carts,       only: [:new] do 
+      collection do 
+        get :show
+        post :add
+      end
+
+      member do 
+        get :confirm
+        post :purchase
+      end
+    end
+
+    member do 
+      get :dashboard
+    end
+  end
 end

@@ -17,9 +17,6 @@
           th = FoodItem.human_attribute_name(:supplier)
           td = link_to food_item.supplier&.name, food_item.supplier, remote: true
         tr 
-          th = FoodItem.human_attribute_name(:kitchen)
-          td = comma_seperated_links_for_kitchens food_item.kitchens
-        tr 
           th = FoodItem.human_attribute_name(:unit)
           td = food_item.unit
         tr 
@@ -42,7 +39,14 @@
               ul
                 - food_item.attachments.each do |attachment|
                   li = link_to attachment.name, attachment.file.url, target: :_blank
-  .text-right
-    .btn-group
-      - if can?(:order, food_item)
-        = link_to 'Add to cart', [:new, current_restaurant, :cart, ids: [food_item.id]], remote: true, class: 'delete btn btn-info'
+      - if @kitchens.any?
+        table.table.table-bordered
+          tr
+            th Kitchen
+            th
+          - @kitchens.each do |kitchen|
+            tr active=(kitchen.id == current_kitchen&.id)
+              td = link_to_if can?(:dashboard, kitchen), kitchen.name, [:dashboard, kitchen]
+              td.text-center
+                - if can?(:order, food_item)
+                  = link_to 'Add to cart', [:new, kitchen, :cart, ids: [food_item.id]], remote: true, class: 'delete btn btn-info'

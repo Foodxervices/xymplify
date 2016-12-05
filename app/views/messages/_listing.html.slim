@@ -1,8 +1,16 @@
 .messages-listing-container
-  table.alert-listing.table.table-striped data-last-seen-at=@notification.seen_at
-    - messages.each do |message|
-      tr.alert data-created-at=message.created_at
-        td width="140" = format_date(message.created_at)
-        td = link_to "#{truncate(message.content, :length => 37)}", message, remote: true
-  .text-center
-    = will_paginate messages, inner_window: 0, outer_window: 0, renderer: BootstrapPagination::Rails, param_name: "message_page"
+  - if messages.present?
+    table.alert-listing.table.table-striped data-last-seen-at=@notification.seen_at
+      - messages.each do |message|
+        tr.alert data-created-at=message.created_at
+          td width="160" = format_date(message.created_at)
+          td = link_to "#{truncate(message.content, :length => 37)}", message, remote: true
+    = will_paginate messages, inner_window: 3, outer_window: 1, param_name: "message_page"
+  - else
+    h4
+      i The data doesn't exist yet
+
+  - if can?(:create, Message)
+    .pull-right
+      = link_to 'New Message', [:new, current_restaurant, current_kitchen, :message], remote: true, class: 'btn btn-default'
+  .clearfix

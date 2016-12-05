@@ -1,0 +1,7 @@
+- if can?(:index, Restaurant)
+  = active_link_to 'Restaurants', restaurants_path, :wrap_tag => :li, class: 'sb-restaurant', title: 'Restaurant'
+- if can?(:index, Role)
+  = active_link_to 'Role', roles_path, :wrap_tag => :li, class: 'sb-role', title: 'Role'
+- if can?(:read, User)
+  = active_link_to 'User', users_path, :wrap_tag => :li, class: 'sb-user', title: 'User'
+  

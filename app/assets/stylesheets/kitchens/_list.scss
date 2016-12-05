@@ -1,0 +1,38 @@
+.kitchens-list-container {
+  h2 {
+    margin-top: 0;
+    font-weight: 600;
+    font-size: 16px;
+    color: #424242;
+    padding-left: 15px;
+    border-left: 4px solid #304FFE;
+    text-transform: uppercase;
+    line-height: 30px;
+
+    a {
+      color: #424242;
+      text-decoration: none;
+    }
+  }
+
+  .kitchen {
+    display: block;
+    background: #FFFFFF;
+    box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+    padding: 15px;
+    font-size: 12px;
+    color: #424242;
+    letter-spacing: 0;
+
+    .role {
+      text-decoration: none;
+      padding: 0 15px;
+      line-height: 24px;
+      display: inline-block;
+      background: #2979FF;
+      border-radius: 2px;
+      margin-top: 10px;
+      color: #fff;
+    }
+  }
+}

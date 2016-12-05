@@ -1,5 +1,4 @@
-- content_for :navbar_form do 
-  = render 'roles/search', role_filter: @role_filter, url: roles_path
+= render 'roles/search', role_filter: @role_filter, url: roles_path
 #roles-index-container
   - if can?(:create, Role)
     .pull-right
@@ -7,6 +6,7 @@
         = link_to 'Create New Role', new_role_path, class: 'btn btn-default'
     
   h1 Roles
+  .clearfix
   .table-responsive
     table.table.table-striped
       thead

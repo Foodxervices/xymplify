@@ -3,6 +3,7 @@ class OrderGst < ActiveRecord::Base
   
   belongs_to :order, :counter_cache => :gsts_count
   belongs_to :restaurant
+  belongs_to :kitchen
 
   before_create :cache_restaurant
 
@@ -20,5 +21,6 @@ class OrderGst < ActiveRecord::Base
   private 
   def cache_restaurant
     self.restaurant_id = order.restaurant_id 
+    self.kitchen_id = order.kitchen_id 
   end
 end

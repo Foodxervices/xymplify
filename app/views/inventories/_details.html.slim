@@ -2,13 +2,17 @@
   table.table.table-bordered
     tr 
       th width=230 = FoodItem.human_attribute_name(:code)
-      td = link_to_if can?(:read, @food_item), @food_item.code, @food_item, remote: true
+      td = link_to_if can?(:read, food_item), food_item.code, food_item, remote: true
     tr 
       th = Inventory.human_attribute_name(:kitchen)
-      td = link_to_if can?(:read, @kitchen), @kitchen.name, [@kitchen.restaurant, @kitchen, :food_items]
+      td = link_to_if can?(:read, kitchen), kitchen.name, [kitchen.restaurant, kitchen, :food_items]
     tr 
       th = Inventory.human_attribute_name(:current_quantity)
-      td = @inventory.current_quantity
+      td = inventory.current_quantity
     tr 
       th = Inventory.human_attribute_name(:quantity_ordered)
-      td = @inventory.quantity_ordered
+      td = inventory.quantity_ordered
+  .text-right
+    .btn-group
+      - if can?(:order, food_item)
+        = link_to 'Add to cart', [:new, kitchen, :cart, ids: [food_item.id]], remote: true, class: 'delete btn btn-info'
