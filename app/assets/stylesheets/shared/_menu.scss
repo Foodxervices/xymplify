@@ -154,6 +154,10 @@
 }
 
 html[data-turbolinks-preview] {
+  .modal, .modal-backdrop {
+    display: none !important;
+  }
+
   #alert-count {
     opacity: 0;
   }
