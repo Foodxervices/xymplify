@@ -3,7 +3,7 @@
   .row
     .col-lg-6
       .block
-        h2.alert Alert for incoming deliveries
+        h2.alert Incoming Deliveries
         - if @incoming_deliveries.present?
           = render 'alerts/listing', alerts: @incoming_deliveries
         - else
@@ -11,7 +11,7 @@
             i The data doesn't exist yet
     .col-lg-6
       .block
-        h2.alert Alert for pending orders and inventory
+        h2.alert Your Pending Orders
         - if @alerts.present?
           = render 'alerts/listing', alerts: @alerts
         - else

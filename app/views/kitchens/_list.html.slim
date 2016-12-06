@@ -1,6 +1,6 @@
 .kitchens-list-container
   - kitchens.includes(:restaurant).group_by(&:restaurant).each do |restaurant, group|
-    h2 = link_to restaurant.name, restaurant
+    h2 = link_to restaurant.name, [:dashboard, restaurant]
 
     .row
       - group.each do |kitchen| 

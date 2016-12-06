@@ -3,7 +3,7 @@
 - if can?(:history, current_kitchen)
   = active_link_to 'History', [current_restaurant, current_kitchen, :versions], :wrap_tag => :li, class: 'sb-version', title: 'History'
 - if can?(:index, FoodItem)
-  = active_link_to 'Food Item', [current_restaurant, current_kitchen, :food_items], :wrap_tag => :li, class: 'sb-food_item', title: 'Food Item'
+  = active_link_to 'Food Items', [current_restaurant, current_kitchen, :food_items], :wrap_tag => :li, class: 'sb-food_item', title: 'Food Items'
 - if can?(:index, Inventory)
   = active_link_to 'Inventory Management', [current_restaurant, current_kitchen, :inventories], :wrap_tag => :li, class: 'sb-inventory', title: 'Inventory Management'
 - if can?(:order, FoodItem)
@@ -13,9 +13,9 @@
     = active_link_to 'Archived POs', [current_kitchen, :archived_pos], :wrap_tag => :li, class: 'sb-archived_pos', title: 'Archived POs'
 hr
 - if can?(:index, Supplier)
-  = active_link_to 'Supplier',  [current_restaurant, :suppliers],  :wrap_tag => :li, class: 'sb-supplier',   title: 'Supplier'
+  = active_link_to 'Suppliers',  [current_restaurant, :suppliers],  :wrap_tag => :li, class: 'sb-supplier',   title: 'Suppliers'
 - if can?(:index, UserRole)
-  = active_link_to 'User Management', [current_restaurant, :user_roles], :wrap_tag => :li, class: 'sb-user_role',  title: 'User Management'
+  = active_link_to 'Manage Users', [current_restaurant, :user_roles], :wrap_tag => :li, class: 'sb-user_role',  title: 'Manage Users'
 - if can?(:read, current_restaurant)
   = active_link_to 'Restaurant', current_restaurant, :wrap_tag => :li, :active => :exact, class: 'sb-restaurant', title: 'Restaurant'
 hr
