@@ -19,6 +19,8 @@ en:
         user_role__create:                    "User Role  :: Create"
         user_role__update:                    "User Role  :: Update"
         user_role__destroy:                   "User Role  :: Destroy"
+        kitchen__create:                      "Kitchen    :: Create"
+        kitchen__update:                      "Kitchen    :: Update"
         kitchen__dashboard:                   "Kitchen    :: Dashboard"
         kitchen__import:                      "Kitchen    :: Import"
         kitchen__history:                     "Kitchen    :: History"
