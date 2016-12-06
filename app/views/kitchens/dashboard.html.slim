@@ -2,36 +2,37 @@
   = render 'shared/summary', summary: @summary
   = render 'shared/cost_graph', graph_data: @graph_data, currency_symbol: @currency_symbol
 
-  .row
-    .col-lg-6
-      .block
-        h2 Messages
-        = render 'messages/listing', messages: @messages
-        
-    .col-lg-6
-      .block
-        h2 Recent Activities  
-        - if @activities.present?
-          = render 'activities/listing', activities: @activities
-        - else
-          h4 
-            i The data doesn't exist yet
-  .row
-    .col-lg-6
-      .block
-        h2.alert Alert for incoming deliveries
-        - if @incoming_deliveries.present?
-          = render 'alerts/listing', alerts: @incoming_deliveries, page: :incoming_delivery_page
-        - else
-          h4
-            i The data doesn't exist yet
-    .col-lg-6
-      .block
-        h2.alert Alert for pending orders and inventory
-        - if @alerts.present?
-          = render 'alerts/listing', alerts: @alerts
-        - else
-          h4
-            i The data doesn't exist yet
+  #notifications
+    .row
+      .col-lg-6
+        .block
+          h2 Messages
+          = render 'messages/listing', messages: @messages
+          
+      .col-lg-6
+        .block
+          h2 Recent Activities  
+          - if @activities.present?
+            = render 'activities/listing', activities: @activities
+          - else
+            h4 
+              i The data doesn't exist yet
+    .row
+      .col-lg-6
+        .block
+          h2.alert Alert for incoming deliveries
+          - if @incoming_deliveries.present?
+            = render 'alerts/listing', alerts: @incoming_deliveries, page: :incoming_delivery_page
+          - else
+            h4
+              i The data doesn't exist yet
+      .col-lg-6
+        .block
+          h2.alert Alert for pending orders and inventory
+          - if @alerts.present?
+            = render 'alerts/listing', alerts: @alerts
+          - else
+            h4
+              i The data doesn't exist yet
 
-- @notification.seen
+  - @notification.seen

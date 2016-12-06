@@ -16,7 +16,7 @@
       .pull-right
         - if current_kitchen.present?
           #notification
-            = link_to [:dashboard, current_kitchen] 
+            = link_to [:dashboard, current_kitchen, :anchor => "notifications"] 
               i.mdi.mdi-bell
               - if alert_count > 0
                 #alert-count = alert_count
