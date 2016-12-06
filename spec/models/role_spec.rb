@@ -11,7 +11,7 @@ describe Role do
         'user_role__manage', 'user_role__read', 'user_role__create', 'user_role__update', 'user_role__destroy',
         'kitchen__dashboard', 'kitchen__import', 'kitchen__history',
         'message__read', 'message__create', 'message__update', 'message__destroy', 
-        'order__read', 'order__history', 'order__mark_as_delivered', 'order__mark_as_cancelled', 'order__update_placed', 'order__update_accepted', 'order__update_declined', 'order__update_delivered', 'order__update_cancelled',
+        'order__read', 'order__history', 'order__mark_as_accepted', 'order__mark_as_declined', 'order__mark_as_delivered', 'order__mark_as_cancelled', 'order__update_placed', 'order__update_accepted', 'order__update_declined', 'order__update_delivered', 'order__update_cancelled',
         'inventory__read', 'inventory__update'
       ) 
     end

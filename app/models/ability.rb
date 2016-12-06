@@ -39,8 +39,8 @@ class Ability
       end
     end
 
-    can [:mark_as_accepted, :mark_as_declined], Order do |order|
-      order.status.placed?
+    cannot [:mark_as_accepted, :mark_as_declined], Order do |order|
+      !order.status.placed?
     end
 
     cannot [:mark_as_delivered], Order do |order|

@@ -31,6 +31,8 @@ en:
         food_item__order:                     "Food Item  :: Add To Cart"
         order__read:                          "Order      :: Read"
         order__history:                       "Order      :: View History"
+        order__mark_as_accepted:              "Order      :: Mark as Accepted"
+        order__mark_as_declined:              "Order      :: Mark as Declined"
         order__mark_as_delivered:             "Order      :: Mark as Delivered"
         order__mark_as_cancelled:             "Order      :: Mark as Cancelled"
         order__update_placed:                 "Order      :: Update Placed PO"
