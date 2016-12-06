@@ -4,7 +4,7 @@
       - messages.each do |message|
         tr.alert data-created-at=message.created_at
           td width="160" = format_date(message.created_at)
-          td = link_to "#{truncate(message.content, :length => 37)}", message, remote: true
+          td = link_to simple_format("#{truncate(message.content, :length => 250)}"), message, remote: true
     = will_paginate messages, inner_window: 3, outer_window: 1, param_name: "message_page"
   - else
     h4

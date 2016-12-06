@@ -7,10 +7,6 @@ class KitchensController < ApplicationController
   def show; end
 
   def dashboard
-    @activities = Version.by_kitchen(current_kitchen.id)
-                             .includes(:item, :user, inventory: :food_item, order_item: :order)
-                             .paginate(:page => params[:activity_page], :per_page => 5)
-
     alerts = Alert.accessible_by(current_ability, kitchen: current_kitchen)
                                 .includes(:alertable)
                                 .order(id: :desc)
@@ -40,9 +36,9 @@ class KitchensController < ApplicationController
 
     @summary = [
       { type: 'suppliers',   count: total_suppliers, description: "Suppliers" },
-      { type: 'food_items',  count: total_food_items,  description: "Food Items" },
+      { type: 'pending_pos', count: "#{pending_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" },
       { type: 'shipped_pos', count: "#{shipped_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" },
-      { type: 'pending_pos', count: "#{pending_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" }
+      { type: 'food_items',  count: total_food_items,  description: "Food Items" }
     ]
   end
 end

@@ -1,22 +1,6 @@
 #kitchens-dashboard-container
   = render 'shared/summary', summary: @summary
-  = render 'shared/cost_graph', graph_data: @graph_data, currency_symbol: @currency_symbol
-
   #notifications
-    .row
-      .col-lg-6
-        .block
-          h2 Messages
-          = render 'messages/listing', messages: @messages
-          
-      .col-lg-6
-        .block
-          h2 Recent Activities  
-          - if @activities.present?
-            = render 'activities/listing', activities: @activities
-          - else
-            h4 
-              i The data doesn't exist yet
     .row
       .col-lg-6
         .block
@@ -34,5 +18,10 @@
           - else
             h4
               i The data doesn't exist yet
+  = render 'shared/cost_graph', graph_data: @graph_data, currency_symbol: @currency_symbol
+
+  .block
+    h2 Messages
+    = render 'messages/listing', messages: @messages
 
   - @notification.seen

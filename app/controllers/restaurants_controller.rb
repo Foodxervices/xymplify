@@ -54,10 +54,6 @@ class RestaurantsController < ApplicationController
   end
 
   def dashboard
-    @activities = Version.by_restaurant(@restaurant.id)
-                             .includes(:item, :user)
-                             .paginate(:page => params[:activity_page], :per_page => 5)
-
     alerts = Alert.accessible_by(current_ability, restaurant: @restaurant)
                                 .includes(:alertable)
                                 .paginate(:page => params[:alert_page], :per_page => 5)
@@ -119,11 +115,11 @@ class RestaurantsController < ApplicationController
     shipped_orders = Order.where(restaurant_id: restaurant_ids).where(status: [:delivered])
 
     @summary = [
+      { type: 'suppliers', count: total_suppliers,   description: "Suppliers" },
+      { type: 'pending_pos', count: "#{pending_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" },
       { type: 'shipped_pos', count: "#{shipped_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" },
       { type: 'food_items', count: total_food_items,  description: "Food Items" },
-      # { type: 'kitchens', count: total_kitchens,    description: "Kitchens" },
-      { type: 'pending_pos', count: "#{pending_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" },
-      { type: 'suppliers', count: total_suppliers,   description: "Suppliers" } 
+      # { type: 'kitchens', count: total_kitchens,    description: "Kitchens" }, 
     ]
 
     @summary.unshift({ count: total_restaurants, description: "Restaurants" }) if total_restaurants != 1
