@@ -8,13 +8,13 @@
   = active_link_to 'Restaurant Details', current_restaurant, :wrap_tag => :li, :active => :exact, class: 'sb-restaurant', title: 'Restaurant Details'
 - if can?(:index, Supplier)
   = active_link_to 'Suppliers',  [current_restaurant, :suppliers],  :wrap_tag => :li, class: 'sb-supplier',   title: 'Suppliers'
-hr
 - if can?(:index, FoodItem)
   = active_link_to 'Food Items', [current_restaurant, current_kitchen, :food_items], :wrap_tag => :li, class: 'sb-food_item', title: 'Food Items'
 - if can?(:index, Inventory)
-  = active_link_to 'Inventory', [current_restaurant, current_kitchen, :inventories], :wrap_tag => :li, class: 'sb-inventory', title: 'Inventory'
+  = active_link_to 'Food Inventory', [current_restaurant, current_kitchen, :inventories], :wrap_tag => :li, class: 'sb-inventory', title: 'Food Inventory'
 - if can?(:order, FoodItem)
-    = active_link_to 'New request', [current_kitchen, :categories], :wrap_tag => :li, class: 'sb-create_new_request', title: 'Create new request'
+  hr
+    = active_link_to 'Create New PO', [current_kitchen, :categories], :wrap_tag => :li, class: 'sb-create_new_request', title: 'Create New PO'
     = active_link_to 'Pending POs', [current_kitchen, :orders], :wrap_tag => :li, class: 'sb-pending_pos', title: 'Pending POs'
     = active_link_to 'Archived POs', [current_kitchen, :archived_pos], :wrap_tag => :li, class: 'sb-archived_pos', title: 'Archived POs'
 hr

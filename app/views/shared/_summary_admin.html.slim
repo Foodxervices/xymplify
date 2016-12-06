@@ -1,0 +1,7 @@
+.shared-summary_admin-container.row
+  - summary.each do |card|
+    .item.col-lg-4.col-sm-6 class="item-#{card[:type]}"
+      .content
+        p.count == card[:count]
+        p.description = card[:description]
+        i.mdi

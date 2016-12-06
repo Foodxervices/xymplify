@@ -42,6 +42,33 @@
       }
     }
 
+    &.item-restaurants .content {
+      background: #ce1a39;
+
+      i {
+        @extend .mdi-home;
+        color: rgba(255,255,255,0.30);
+      }
+    }
+
+    &.item-kitchens .content {
+      background: #b429e8;
+
+      i {
+        @extend .mdi-silverware-variant;
+        color: rgba(255,255,255,0.30);
+      }
+    }
+
+    &.item-users .content {
+      background: #7b982c;
+
+      i {
+        @extend .mdi-account-multiple;
+        color: rgba(255,255,255,0.30);
+      }
+    }
+
     &.item-suppliers .content {
       background: #00BFA5;
 
@@ -63,7 +90,7 @@
       background: #2979FF;
       
       i {
-        @extend .mdi-store;
+        @extend .mdi-calendar-text;
       }
     }
 
@@ -71,7 +98,7 @@
       background: #FF5252;
       
       i {
-        @extend .mdi-store;
+        @extend .mdi-calendar-text;
       }
     }
   }

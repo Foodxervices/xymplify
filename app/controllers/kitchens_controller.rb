@@ -31,14 +31,15 @@ class KitchensController < ApplicationController
   def load_summary
     total_suppliers   = Supplier.where(restaurant_id: current_restaurant.id).count
     total_food_items  = FoodItem.joins(:kitchens).where(kitchens: { id: current_kitchen.id }).count
-    pending_orders = Order.where(kitchen_id: current_kitchen.id).where(status: [:placed, :accepted])
-    shipped_orders = Order.where(kitchen_id: current_kitchen.id).where(status: [:delivered])
+    orders         = Order.where(kitchen_id: current_kitchen.id)
+    pending_orders = orders.where(status: [:placed, :accepted])
+    shipped_orders = orders.where(status: :delivered)
 
     @summary = [
       { type: 'suppliers',   count: total_suppliers, description: "Suppliers" },
       { type: 'food_items',  count: total_food_items,  description: "Food Items" },
-      { type: 'pending_pos', count: "#{pending_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" },
-      { type: 'shipped_pos', count: "#{shipped_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" }
+      { type: 'shipped_pos', count: "#{shipped_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" },
+      { type: 'pending_pos', count: "#{pending_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" }
     ]
   end
 end

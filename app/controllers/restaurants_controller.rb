@@ -107,21 +107,36 @@ class RestaurantsController < ApplicationController
   end
 
   def load_summary(restaurant_ids)
-    total_restaurants = restaurant_ids.size
-    total_kitchens    = Kitchen.where(restaurant_id: restaurant_ids).count
+    orders = Order.where(restaurant_id: restaurant_ids)
+    shipped_orders = orders.where(status: :delivered)
     total_suppliers   = Supplier.where(restaurant_id: restaurant_ids).count
     total_food_items  = FoodItem.where(restaurant_id: restaurant_ids).count
-    pending_orders = Order.where(restaurant_id: restaurant_ids).where(status: [:placed, :accepted])
-    shipped_orders = Order.where(restaurant_id: restaurant_ids).where(status: [:delivered])
 
-    @summary = [
-      { type: 'suppliers', count: total_suppliers,   description: "Suppliers" },
-      { type: 'food_items', count: total_food_items,  description: "Food Items" },
-      { type: 'pending_pos', count: "#{pending_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" },
-      { type: 'shipped_pos', count: "#{shipped_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" }
-      # { type: 'kitchens', count: total_kitchens,    description: "Kitchens" }, 
-    ]
+    @summary = []
 
-    @summary.unshift({ count: total_restaurants, description: "Restaurants" }) if total_restaurants != 1
+    if action_name == 'index'
+      total_restaurants = restaurant_ids.size
+      total_kitchens    = Kitchen.where(restaurant_id: restaurant_ids).count
+      total_users       = UserRole.where(restaurant_id: restaurant_ids).select(:user_id).uniq.size
+
+
+      @summary = [
+        { type: 'restaurants', count: total_restaurants, description: "Restaurants" },
+        { type: 'kitchens',    count: total_kitchens,    description: "Kitchens" },
+        { type: 'users',       count: total_users,       description: "User Accounts" },
+        { type: 'suppliers',   count: total_suppliers,   description: "Suppliers" },
+        { type: 'food_items',  count: total_food_items,  description: "Food Items" },
+        { type: 'shipped_pos', count: "#{shipped_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" }
+      ]
+    else
+      pending_orders = orders.where(status: [:placed, :accepted])
+
+      @summary = [
+        { type: 'suppliers',   count: total_suppliers,   description: "Suppliers" },
+        { type: 'food_items',  count: total_food_items,  description: "Food Items" },
+        { type: 'pending_pos', count: "#{pending_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" },
+        { type: 'shipped_pos', count: "#{shipped_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" }
+      ]
+    end
   end
 end
