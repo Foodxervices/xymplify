@@ -16,7 +16,7 @@ module LinksHelper
 
   def comma_seperated_links_for_kitchens(kitchens, cancan = true)
     collection = []
-    kitchens.includes(:restaurant).each do |kitchen|
+    kitchens.each do |kitchen|
       collection << link_to_if((cancan && can?(:dashboard, kitchen)), kitchen.name, [:dashboard, kitchen])
     end
     collection.join(", ").html_safe
