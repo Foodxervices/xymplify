@@ -36,5 +36,5 @@
             td.text-center
               ul.actions
                 li = link_to_if can?(:dashboard, restaurant), 'View', [:dashboard, restaurant]
-                li = link_to_if can?(:edit, restaurant), 'Edit', [:edit, restaurant]
+                li = link_to_if can?(:edit, restaurant), 'Edit', [:edit, restaurant], remote: true
                 li = link_to_if can?(:destroy, restaurant), 'Delete', '#', data: { toggle: "confirmation", href: restaurant_path(restaurant) }, class: 'delete'
