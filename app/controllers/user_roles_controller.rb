@@ -5,7 +5,7 @@ class UserRolesController < ApplicationController
   def index
     @user_role_filter = UserRoleFilter.new(@user_roles, user_role_filter_params)
     @user_roles = @user_role_filter.result
-                                   .includes(:user, :role).paginate(:page => params[:page])
+                                   .includes(:user, :role, :kitchens).paginate(:page => params[:page])
   end
 
   def show; end
