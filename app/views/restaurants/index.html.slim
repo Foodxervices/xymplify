@@ -5,7 +5,7 @@
   .pull-right
     .btn-group
       - if can?(:create, Restaurant.new)
-        = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default'      
+        = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default', remote: true
   h1 Restaurants
   .clearfix
 

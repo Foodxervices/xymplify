@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     resources :suppliers,   only: [:index, :new, :create, :edit, :update]
     resources :user_roles,  only: [:index, :new, :create]
     resources :food_items,  only: [:index, :new, :create, :edit, :update]
-    resources :kitchens, only: [:index] do 
+    resources :kitchens, only: [:index, :new, :create, :edit, :update] do 
       resources :versions,    only: [:index]
       resources :food_items,  only: [:index]
       resources :inventories, only: [:index]

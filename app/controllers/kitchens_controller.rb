@@ -6,6 +6,26 @@ class KitchensController < ApplicationController
 
   def show; end
 
+  def new; end
+
+  def create
+    if @kitchen.save
+      redirect_to @restaurant, notice: 'Kitchen has been created.'
+    else
+      render :new
+    end
+  end
+
+  def edit; end
+
+  def update
+    if @kitchen.update_attributes(kitchen_params)
+      redirect_to @restaurant, notice: 'Kitchen has been updated.'
+    else
+      render :edit
+    end
+  end
+
   def dashboard
     alerts = Alert.accessible_by(current_ability, kitchen: current_kitchen)
                                 .includes(:alertable)
@@ -28,6 +48,21 @@ class KitchensController < ApplicationController
   end
 
   private 
+
+  def kitchen_params
+    params.require(:kitchen).permit(
+      :id,
+      :name,
+      :address,
+      :phone,
+      :bank_name,
+      :bank_address,
+      :bank_swift_code,
+      :bank_account_name,
+      :bank_account_number
+    )
+  end
+
   def load_summary
     total_suppliers   = Supplier.where(restaurant_id: current_restaurant.id).count
     total_food_items  = FoodItem.joins(:kitchens).where(kitchens: { id: current_kitchen.id }).count

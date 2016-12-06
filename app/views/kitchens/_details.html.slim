@@ -1,8 +1,7 @@
 .kitchens-details-container
-  table.table.table-bordered
-    tr 
-      th = Kitchen.human_attribute_name(:name)
-      td = link_to kitchen.name, [:dashboard, kitchen]
+  h2 = link_to kitchen.name, [:dashboard, kitchen]
+
+  table.table.table-striped
     tr 
       th = Kitchen.human_attribute_name(:address)
       td = kitchen.address

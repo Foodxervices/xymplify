@@ -1,5 +1,8 @@
 .restaurants-details-container
-  table.table.table-bordered
+  #logo.text-center
+    = image_tag restaurant.logo.url(:medium)
+  br
+  table.table.table-striped
     tr 
       th = Restaurant.human_attribute_name(:site_address)
       td = restaurant.site_address

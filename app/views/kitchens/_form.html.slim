@@ -1,12 +1,14 @@
-#kitchens.kitchens-form-container
-  = restaurant_form.simple_fields_for :kitchens, wrapper: :table_form do |kitchen_form|
-    .col-md-6
-      table.table.table-bordered
-        = kitchen_form.input  :name
-        = kitchen_form.input  :address
-        = kitchen_form.input  :phone
-        = kitchen_form.input  :bank_name
-        = kitchen_form.input  :bank_address
-        = kitchen_form.input  :bank_swift_code
-        = kitchen_form.input  :bank_account_name
-        = kitchen_form.input  :bank_account_number
+.kitchens-form-container
+  = simple_form_for [current_restaurant, kitchen], remote: true, wrapper: :table_form do |f|
+    table.table.table-bordered
+      = f.input  :name
+      = f.input  :address
+      = f.input  :phone
+      = f.input  :bank_name
+      = f.input  :bank_address
+      = f.input  :bank_swift_code
+      = f.input  :bank_account_name
+      = f.input  :bank_account_number
+    .text-right
+      .btn-group
+        = f.button :submit, data: { :disable_with => "Submitting..." }

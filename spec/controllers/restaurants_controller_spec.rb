@@ -33,7 +33,7 @@ describe RestaurantsController, :type => :controller do
 
   describe '#new' do 
     def do_request
-      get :new 
+      get :new, format: :js
     end
 
     it 'assigns a new restaurant and renders the :new view' do 
@@ -52,13 +52,13 @@ describe RestaurantsController, :type => :controller do
 
     it 'creates a restaurant' do 
       expect{ do_request }.to change{ [Restaurant.count] }.from([0]).to([1])
-      expect(response).to redirect_to restaurants_url
+      expect(response).to redirect_to Restaurant.first
     end
   end
 
   describe '#edit' do 
     def do_request
-      get :edit, id: restaurant.id
+      get :edit, id: restaurant.id, format: :js
     end
 
     let!(:restaurant) { create(:restaurant) }
@@ -82,7 +82,7 @@ describe RestaurantsController, :type => :controller do
       do_request
       expect(restaurant.reload.name).to eq new_name
       expect(flash[:notice]).to eq 'Restaurant has been updated.'
-      expect(response).to redirect_to restaurants_url
+      expect(response).to redirect_to restaurant
     end
   end
 
