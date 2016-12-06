@@ -20,7 +20,7 @@ class KitchensController < ApplicationController
 
     @messages = Message.accessible_by(current_ability)
     
-    @messages = @messages.where("(kitchen_id = NULL AND restaurant_id = ?) OR kitchen_id = ?", current_restaurant.id, current_kitchen.id)
+    @messages = @messages.where("(kitchen_id IS NULL AND restaurant_id = ?) OR kitchen_id = ?", current_restaurant.id, current_kitchen.id)
     @messages = @messages.order(id: :desc).paginate(:page => params[:message_page], :per_page => 5)
 
     @notification = Notification.new(current_ability, current_kitchen, current_user)
