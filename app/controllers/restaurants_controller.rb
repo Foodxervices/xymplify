@@ -27,7 +27,7 @@ class RestaurantsController < ApplicationController
 
   def create
     if @restaurant.save
-      redirect_to @restaurant, notice: 'Restaurant has been created.'
+      redirect_to :back, notice: 'Restaurant has been created.'
     else
       render :new
     end
@@ -37,7 +37,7 @@ class RestaurantsController < ApplicationController
 
   def update
     if @restaurant.update_attributes(restaurant_params)
-      redirect_to @restaurant, notice: 'Restaurant has been updated.'
+      redirect_to :back, notice: 'Restaurant has been updated.'
     else
       render :edit
     end

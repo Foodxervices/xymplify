@@ -10,7 +10,7 @@ class KitchensController < ApplicationController
 
   def create
     if @kitchen.save
-      redirect_to @restaurant, notice: 'Kitchen has been created.'
+      redirect_to :back, notice: 'Kitchen has been created.'
     else
       render :new
     end
@@ -20,7 +20,7 @@ class KitchensController < ApplicationController
 
   def update
     if @kitchen.update_attributes(kitchen_params)
-      redirect_to @restaurant, notice: 'Kitchen has been updated.'
+      redirect_to :back, notice: 'Kitchen has been updated.'
     else
       render :edit
     end

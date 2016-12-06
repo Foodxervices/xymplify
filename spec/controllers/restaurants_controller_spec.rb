@@ -50,9 +50,13 @@ describe RestaurantsController, :type => :controller do
 
     let(:restaurant) { build(:restaurant) }
 
+    before do
+      request.env["HTTP_REFERER"] = "where_i_came_from"
+    end
+
     it 'creates a restaurant' do 
       expect{ do_request }.to change{ [Restaurant.count] }.from([0]).to([1])
-      expect(response).to redirect_to Restaurant.first
+      expect(response).to redirect_to "where_i_came_from"
     end
   end
 
@@ -78,11 +82,15 @@ describe RestaurantsController, :type => :controller do
     let!(:restaurant)  { create(:restaurant) }
     let!(:new_name)  { 'Vinamilk' }
 
+    before do
+      request.env["HTTP_REFERER"] = "where_i_came_from"
+    end
+
     it 'updates restaurant' do
       do_request
       expect(restaurant.reload.name).to eq new_name
       expect(flash[:notice]).to eq 'Restaurant has been updated.'
-      expect(response).to redirect_to restaurant
+      expect(response).to redirect_to "where_i_came_from"
     end
   end
 
