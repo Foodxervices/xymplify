@@ -114,7 +114,6 @@ describe RestaurantsController, :type => :controller do
     it 'renders the :dashboard view' do
       do_request
       expect(assigns(:restaurant)).to match restaurant
-      expect(assigns(:activities).size).to eq 1
     end
   end
 end
