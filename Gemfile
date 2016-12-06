@@ -51,6 +51,7 @@ gem 'foreman'
 gem 'materialize-sass'
 gem 'paranoia'
 gem 'lograge'
+gem 'puma_worker_killer'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
