@@ -2,6 +2,7 @@ class OrderFilter
   include ActiveModel::Model
   attr_accessor :keyword
   attr_accessor :month
+  attr_accessor :status
 
   def initialize(orders, attributes = {})
     @orders = orders
@@ -25,6 +26,10 @@ class OrderFilter
       date = "#{month}-01".to_date
 
       @orders = @orders.where(status_updated_at: [date.beginning_of_month..date.end_of_month])
+    end
+    
+    if status.present?
+      @orders = @orders.where(status: status)
     end
 
     @orders

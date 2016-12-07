@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
     @orders = @order_filter.result
                            .select('orders.*, suppliers.name as supplier_name')
                            .includes(:gsts)
-                           .where(status: status)
+                           .where(status: statuses.collect(&:last))
                            .order('supplier_name asc, status_updated_at desc')
                            .paginate(:page => params[:page])
     @grouped_orders = @orders.group_by{|order| order.supplier_name}
@@ -186,12 +186,21 @@ class OrdersController < ApplicationController
     order_filter = ActionController::Parameters.new(params[:order_filter])
     order_filter.permit(
       :keyword,
-      :month
+      :month,
+      :status
     )
   end
 
-  def status
-    params[:status] == 'archived' ? [:delivered, :cancelled, :declined] : [:placed, :accepted]
+  def statuses
+    return @statuses if @statuses.present?
+
+    if params[:status] == 'archived' 
+      @statuses = [["Delivered", "delivered"], ["Cancelled", "cancelled"], ["Declined", "declined"]]
+    else
+      @statuses = [["Placed", "placed"], ["Accepted", "accepted"]]
+    end
+
+    @statuses 
   end
 
   def authorize_token

@@ -51,7 +51,6 @@ gem 'foreman'
 gem 'materialize-sass'
 gem 'paranoia'
 gem 'lograge'
-gem 'rack-timeout'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
