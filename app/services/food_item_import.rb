@@ -4,18 +4,22 @@ class FoodItemImport
 
   attr_accessor :user_id
   attr_accessor :restaurant_id
+  attr_accessor :supplier_id
   attr_accessor :kitchen_ids
-  attr_accessor :supplier_name
   attr_accessor :file
 
   def initialize(attributes = {})
-    @supplier_name = 'Foodxervices inc pte ltd'
     attributes.each { |name, value| send("#{name}=", value) }
   end
 
   def valid?
     if restaurant_id.blank?
       errors.add :base, "Restaurant need to be set."
+      return false
+    end
+
+    if supplier_id.blank?
+      errors.add :supplier_id, "Supplier need to be set."
       return false
     end
 
@@ -71,26 +75,27 @@ class FoodItemImport
     header = food_item_attributes
 
     food_items = []
-    supplier = Supplier.where(name: supplier_name, restaurant_id: restaurant_id).first
-    
-    if supplier.nil?
-      supplier = Supplier.create(name: supplier_name, restaurant_id: restaurant_id, email: Rails.application.secrets.return_email_path)
-    end
 
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
 
       category_name = row["category"]
       row.delete('category')
+      row['min_order_price'] = row['min_order_price'].to_f
 
       food_item = FoodItem.find_or_initialize_by(code: row["code"], restaurant_id: restaurant_id)
       food_item.attributes  = row.to_hash.slice(*row.to_hash.keys)
       food_item.unit        = get_unit(food_item.name)
-      food_item.supplier    = supplier if food_item.new_record?
       food_item.user_id     = user_id
+      food_item.supplier_id = supplier_id
       food_item.kitchen_ids = kitchen_ids
       food_item.unit_price_currency = supplier.currency if food_item.new_record?
-      food_item.category_id = Category.find_or_create_by(name: category_name).id if category_name.present?
+
+      if category_name.present?
+        category = Category.find_by_name(category_name) || Category.find_or_create_by(name: 'Others')
+        food_item.category_id = category.id 
+      end
+
       food_items << food_item 
     end
 
@@ -111,6 +116,6 @@ class FoodItemImport
   end
 
   def food_item_attributes
-    ["code", "name", "brand", "unit_price_without_promotion", "unit_price", "category", "tag_list"]
+    ["code", "name", "brand", "unit_price_without_promotion", "unit_price", "unit", "category", "tag_list", "min_order_price"]
   end
 end

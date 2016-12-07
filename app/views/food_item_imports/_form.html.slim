@@ -1,7 +1,11 @@
 .food_item-imports-form
   = simple_form_for [current_restaurant, current_kitchen, food_item_import], remote: true do |f|
     = kitchen_dropdown(f, action: :import)
-    = f.input :file, as: :file, input_html: { data: {'allowed-file-extensions' => "csv", 'show-upload' => 'true'} }
+    = f.input :supplier_id, collection: current_restaurant.suppliers
+    = f.input :file, as: :file, input_html: { data: {'allowed-file-extensions' => "csv"} }
+    .text-right
+      = f.button :submit, class: 'btn btn-primary btn-block', data: { :disable_with => "Submitting..." }
+
   - if @errors.present?
     = render 'food_item_imports/errors', errors: @errors
 

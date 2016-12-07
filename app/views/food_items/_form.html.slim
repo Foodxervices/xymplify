@@ -12,7 +12,7 @@
           = f.input         :image, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg", 'initial-preview' => asset_url(food_item.image.url(:medium))} }
         .col-md-6
           = f.association   :category
-          = f.input         :tag_list, input_html: { class: 'taggable', value: f.object.tag_list.to_s, data: {source: ActsAsTaggableOn::Tag.most_used.pluck(:name).uniq} }
+          = f.input         :tag_list, input_html: { class: 'taggable', value: f.object.tag_list.to_s, data: {source: current_restaurant.tags.most_used.map(&:name).uniq} }
           = f.input         :unit
           = f.input         :unit_price_without_promotion, as: :numeric
           = f.input         :unit_price, as: :numeric

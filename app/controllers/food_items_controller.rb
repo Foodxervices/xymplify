@@ -9,9 +9,11 @@ class FoodItemsController < ApplicationController
     @food_item_filter = FoodItemFilter.new(@food_items, food_item_filter_params)
     @food_items =  @food_item_filter.result
                                     .select('food_items.*, s.name as supplier_name, c.name as category_name')
-                                    .includes(:supplier, :kitchens)
+                                    .includes(:supplier)
                                     .order(sort_column + ' ' + sort_direction)
                                     .paginate(:page => params[:page])
+    
+    @food_items = @food_items.includes(:kitchens) if current_kitchen.nil?
   end
 
   def show

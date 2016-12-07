@@ -8,7 +8,8 @@ class FoodItem < ActiveRecord::Base
   monetize :unit_price_cents
   monetize :unit_price_without_promotion_cents
 
-  before_save :set_category_and_tags
+  before_save :set_category
+  before_save :set_tags
 
   belongs_to :supplier
   belongs_to :user
@@ -52,13 +53,15 @@ class FoodItem < ActiveRecord::Base
     self.unit_price_without_promotion_currency = unit_price_currency if unit_price_without_promotion_currency != unit_price_currency
   end
 
-  def set_category_and_tags
+  def set_category
     if category_id.blank?
       self.category_id = Category.find_or_create_by(name: 'Uncategorised').id 
     end
+  end
 
-    if tag_list.blank?
-      self.tag_list = 'Others'
-    end
+  def set_tags
+    self.tag_list = 'Others' if tag_list.blank?
+    restaurant.tag_list.add(tag_list)
+    restaurant.save
   end
 end
