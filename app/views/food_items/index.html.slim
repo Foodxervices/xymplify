@@ -24,7 +24,8 @@
           th width=80 = sortable(:unit_price_cents, title: FoodItem.human_attribute_name(:both_prices))
           th = sortable(:unit_price_currency)
           th = sortable(:supplier_name)
-          th = FoodItem.human_attribute_name(:kitchens)
+          - if current_kitchen.nil?
+            th = FoodItem.human_attribute_name(:kitchens)
           th = sortable(:brand)
           th = sortable(:category_name)
           th Action
@@ -39,7 +40,8 @@
             td = both_prices(food_item)
             td = food_item.unit_price_currency
             td = link_to_if can?(:read, food_item.supplier), food_item.supplier_name, supplier_path(food_item.supplier_id), remote: true
-            td = comma_seperated_links_for_kitchens(food_item.kitchens)
+            - if current_kitchen.nil?
+              td = comma_seperated_links_for_kitchens(food_item.kitchens)
             td = food_item.brand
             td = food_item.category_name
             td
