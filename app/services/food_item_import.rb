@@ -35,27 +35,25 @@ class FoodItemImport
 
     return false if !imported_food_items
 
-    if !imported_food_items.map(&:valid?).all?
-      imported_food_items.each_with_index do |food_item, index|
-        food_item.errors.full_messages.each do |message|
-          errors.add :import, {row: index+2, message: message}
-        end
-      end
-
-      return false
-    end
-
     return true
   end
 
   def save
-    if valid?
-      imported_food_items.map(&:save)
+    return false if !valid?
 
-      return true
+    success_all = true
+
+    imported_food_items.each_with_index do |food_item, index|
+      if !food_item.save
+        success_all = false
+
+        food_item.errors.full_messages.each do |message|
+          errors.add :import, {row: index+2, message: message}
+        end
+      end
     end
 
-    return false
+    success_all
   end
 
   def imported_food_items
