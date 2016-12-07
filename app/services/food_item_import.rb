@@ -89,7 +89,7 @@ class FoodItemImport
       food_item.user_id     = user_id
       food_item.supplier_id = supplier_id
       food_item.kitchen_ids = kitchen_ids
-      food_item.unit_price_currency = supplier.currency if food_item.new_record?
+      food_item.unit_price_currency = food_item.supplier.currency if food_item.new_record?
 
       if category_name.present?
         category = Category.find_by_name(category_name) || Category.find_or_create_by(name: 'Others')
