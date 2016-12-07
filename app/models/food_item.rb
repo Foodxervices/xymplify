@@ -61,7 +61,5 @@ class FoodItem < ActiveRecord::Base
 
   def set_tags
     self.tag_list = 'Others' if tag_list.blank?
-    restaurant.tag_list.add(tag_list)
-    restaurant.save
   end
 end
