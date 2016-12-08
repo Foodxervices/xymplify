@@ -37,6 +37,8 @@ Rails.application.routes.draw do
       get :history
       get :mark_as_accepted
       get :mark_as_declined
+      get :new_attachment
+      patch :add_attachment
       patch :mark_as_accepted
       patch :mark_as_declined
       patch :mark_as_delivered 

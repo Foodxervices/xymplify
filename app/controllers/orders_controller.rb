@@ -158,10 +158,22 @@ class OrdersController < ApplicationController
     end
   end
 
+  def new_attachment
+    render 'orders/attachment/new'
+  end
+
+  def add_attachment
+    if @order.update_attributes(attachment_params)
+      redirect_to :back, notice: "Attachment has been uploaded."
+    else
+      render 'orders/attachment/new'
+    end
+  end
+
   private
 
   def order_params
-    data = params.require(:order).permit(
+    params.require(:order).permit(
       :outlet_name,
       :outlet_address,
       :outlet_phone,
@@ -179,7 +191,10 @@ class OrdersController < ApplicationController
         :_destroy
       ]
     )
-    data
+  end
+
+  def attachment_params
+    params.require(:order).permit(:attachment)
   end
 
   def order_filter_params

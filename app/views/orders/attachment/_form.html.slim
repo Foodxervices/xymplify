@@ -1,0 +1,4 @@
+.orders-attachment-form-container
+  = simple_nested_form_for [:add_attachment, order], remote: true do |f|
+    = f.input :attachment, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg,pdf"} }
+    = f.button :submit, class: 'btn btn-primary btn-block', :data => { disable_with: 'Processing...' }

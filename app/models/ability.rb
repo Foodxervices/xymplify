@@ -2,6 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    alias_action :new_attachment, :to => :add_attachment
+
     user = (user ||= User.new)
 
     @kitchens = {}

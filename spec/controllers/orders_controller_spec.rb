@@ -124,6 +124,20 @@ describe OrdersController, :type => :controller do
         expect(response).to redirect_to "where_i_came_from"
       end
     end
+
+    describe '#new_attachment' do 
+      def do_request
+        get :new_attachment, id: order.id, format: :js
+      end
+
+      let!(:order) { create(:order) }
+
+      it 'returns new_attachment page' do
+        do_request
+        expect(assigns(:order)).to match order
+        expect(response).to render_template 'orders/attachment/new'
+      end
+    end
   end
 
   context 'Public' do 

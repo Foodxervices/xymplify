@@ -35,6 +35,7 @@ const Utils = {
       let extensions = $(this).attr('data-allowed-file-extensions')
       let showUpload = $(this).attr('data-show-upload') || false
       let uploadUrl = $(this).attr('data-upload-url') || null
+      let showPreview = $(this).attr('data-show-preview') || true
 
       if(extensions) {
         extensions = `["${extensions.replace(/,/g, '","')}"]`
@@ -42,7 +43,7 @@ const Utils = {
 
       $(this).attr('data-allowed-file-extensions', extensions)
 
-      $(this).addClass('initialized').fileinput({ removeFromPreviewOnError: true, showUpload: showUpload, initialPreviewAsData: true, uploadUrl: uploadUrl })
+      $(this).addClass('initialized').fileinput({ removeFromPreviewOnError: true, showUpload: showUpload, initialPreviewAsData: true, uploadUrl: uploadUrl, showPreview: showPreview })
     })
   },
   initSelectPicker: () => {

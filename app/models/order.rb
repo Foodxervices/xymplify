@@ -20,6 +20,12 @@ class Order < ActiveRecord::Base
   belongs_to :user 
   belongs_to :restaurant
 
+  has_attached_file :attachment
+  validates_attachment :attachment,
+                       :content_type => { :content_type => Rails.application.config.upload_file_type },
+                       :size => { :less_than => 5.megabyte }
+  before_post_process { false }
+
   validates_associated :supplier, :kitchen, :user
 
   validates :user_id,      presence: true
