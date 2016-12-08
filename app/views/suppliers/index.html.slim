@@ -17,6 +17,8 @@
           th = Supplier.human_attribute_name(:telephone)
           th = Supplier.human_attribute_name(:email)
           th.text-center = Supplier.human_attribute_name(:currency)
+          - if current_user.kind_of?(Admin)
+            th.text-center = Supplier.human_attribute_name(:rank)
           th.text-center Action
       tbody 
         - @suppliers.each do |supplier|
@@ -27,6 +29,8 @@
             td = supplier.telephone
             td = supplier.email
             td.text-center = supplier.currency
+            - if current_user.kind_of?(Admin)
+              td.text-center = supplier.rank
             td.text-center
               ul.actions
                 li = link_to 'View', supplier, remote: true

@@ -43,3 +43,7 @@
     tr 
       td = Supplier.human_attribute_name(:bank_account_number)
       td = supplier.bank_account_number
+    - if current_user.kind_of?(Admin)
+      tr
+        td = Supplier.human_attribute_name(:rank)
+        td = supplier.rank

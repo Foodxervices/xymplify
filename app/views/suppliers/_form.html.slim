@@ -12,6 +12,8 @@
             = f.input :address
             = f.input :country
             = f.input :cut_off_timing
+            - if current_user.kind_of?(Admin)
+              = f.input :rank, hint: 'Higher rank will be on the top'
       .row
         .col-md-6
           table.table.table-bordered

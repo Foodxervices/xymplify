@@ -14,7 +14,7 @@
   = active_link_to 'Food Inventory', [current_restaurant, current_kitchen, :inventories], :wrap_tag => :li, class: 'sb-inventory', title: 'Food Inventory'
 - if can?(:order, FoodItem)
   hr
-    = active_link_to 'Create New PO', [current_kitchen, :categories], :wrap_tag => :li, class: 'sb-create_new_request', title: 'Create New PO'
+    = active_link_to 'Create New PO', [:by_supplier, current_kitchen, :categories], :wrap_tag => :li, class: 'sb-create_new_request', title: 'Create New PO'
     = active_link_to 'Pending POs', [current_kitchen, :orders], :wrap_tag => :li, class: 'sb-pending_pos', title: 'Pending POs'
     = active_link_to 'Archived POs', [current_kitchen, :archived_pos], :wrap_tag => :li, class: 'sb-archived_pos', title: 'Archived POs'
 hr

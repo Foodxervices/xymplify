@@ -19,8 +19,8 @@ class CategoriesController < ApplicationController
 
   def by_supplier
     init
-    @food_items = @food_items.select("food_items.id, s.name as supplier_name, category_name, category_ordered")
-                             .order("s.name, category_ordered ASC")
+    @food_items = @food_items.select("food_items.id, s.name as supplier_name, s.rank, category_name, category_ordered")
+                             .order("s.rank, s.name, category_ordered ASC")
 
     @food_items.each do |food_item|
       @categories[food_item.supplier_name] ||= {}

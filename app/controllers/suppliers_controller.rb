@@ -50,7 +50,7 @@ class SuppliersController < ApplicationController
   end
 
   def supplier_params
-    params.require(:supplier).permit(
+    data = params.require(:supplier).permit(
       :name,
       :address,
       :country,
@@ -67,5 +67,7 @@ class SuppliersController < ApplicationController
       :bank_account_number,
       :cut_off_timing
     )
+    data[:rank] = params[:supplier][:rank] if current_user.kind_of?(Admin)
+    data
   end
 end
