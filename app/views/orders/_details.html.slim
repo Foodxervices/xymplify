@@ -8,9 +8,10 @@
           li = link_to 'Download', [order, format: :pdf], target: :_blank
           - if can?(:history, order)
             li= link_to 'History', [:history, order], remote: true
-      ul.list-inline
+      ul.attachment.list-inline
         - if order.attachment.exists?
-          li = link_to 'Attachment', order.attachment.url, target: :_blank
+          li = order.attachment.original_filename.ellipsisize
+          li = link_to 'View', order.attachment.url, target: :_blank
         - if can?(:add_attachment, order)
           li = link_to order.attachment.exists? ? 'Edit' : 'Add Attachment', [:new_attachment, order], remote: true
   table.table.table-striped
