@@ -39,6 +39,8 @@ class Ability
           end
         end
       end
+
+      cannot [:update_priority], Supplier
     end
 
     cannot [:mark_as_accepted, :mark_as_declined], Order do |order|

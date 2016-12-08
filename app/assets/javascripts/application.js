@@ -19,6 +19,7 @@
 //= require masonry.pkgd
 //= require jquery.remotipart
 //= require jquery_nested_form
+//= require jquery-ui-sortable
 
 //= require react
 //= require react_ujs
@@ -36,5 +37,6 @@
 //= require pages/restaurants
 //= require pages/kitchens
 //= require pages/versions
+//= require pages/suppliers
 
 

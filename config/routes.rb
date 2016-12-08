@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 
   resources :food_items,  only: [:show, :destroy]
   
-  resources :suppliers,   only: [:show, :destroy]
+  resources :suppliers,   only: [:show, :destroy] do 
+    collection do 
+      patch :update_priority
+    end
+  end
 
   resources :user_roles,  only: [:show, :edit, :update, :destroy]
 

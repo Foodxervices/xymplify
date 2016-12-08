@@ -1,5 +1,5 @@
 class Supplier < ActiveRecord::Base
-  has_paper_trail :ignore => [:rank]
+  has_paper_trail :ignore => [:priority]
   
   before_destroy :check_for_food_items
 

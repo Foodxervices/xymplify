@@ -93,4 +93,21 @@ describe SuppliersController, :type => :controller do
       expect(response).to redirect_to "where_i_came_from"
     end
   end
+
+  describe '#update_priority' do 
+    def do_request
+      patch :update_priority, ids: [foodxervices.id, vinamilk.id]
+    end
+
+    let!(:foodxervices) { create(:supplier) }
+    let!(:vinamilk)     { create(:supplier) }
+
+    it 'updates supplier' do
+      expect(foodxervices.priority).to eq nil
+      do_request
+      expect(foodxervices.reload.priority).to eq 1
+      expect(vinamilk.reload.priority).to eq 2
+      expect(response).to render_template(nil)
+    end
+  end
 end

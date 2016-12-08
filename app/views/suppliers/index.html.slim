@@ -17,20 +17,16 @@
           th = Supplier.human_attribute_name(:telephone)
           th = Supplier.human_attribute_name(:email)
           th.text-center = Supplier.human_attribute_name(:currency)
-          - if current_user.kind_of?(Admin)
-            th.text-center = Supplier.human_attribute_name(:rank)
           th.text-center Action
-      tbody 
+      tbody class="#{can?(:update_priority, Supplier) ? 'sortable' : ''}"
         - @suppliers.each do |supplier|
-          tr 
+          tr rel=supplier.id
             td = link_to supplier.name, supplier, remote: true
             td = supplier.country_name
             td = supplier.contact
             td = supplier.telephone
             td = supplier.email
             td.text-center = supplier.currency
-            - if current_user.kind_of?(Admin)
-              td.text-center = supplier.rank
             td.text-center
               ul.actions
                 li = link_to 'View', supplier, remote: true

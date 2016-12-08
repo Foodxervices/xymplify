@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208055830) do
+ActiveRecord::Schema.define(version: 20161208081542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(version: 20161208055830) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.integer  "cut_off_timing"
-    t.integer  "rank",                    default: 100
+    t.integer  "priority"
   end
 
   add_index "suppliers", ["restaurant_id"], name: "index_suppliers_on_restaurant_id", using: :btree

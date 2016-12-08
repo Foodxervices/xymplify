@@ -5,6 +5,7 @@ class SuppliersController < ApplicationController
   def index
     @supplier_filter = SupplierFilter.new(@suppliers, supplier_filter_params)
     @suppliers = @supplier_filter.result
+                                 .order(:priority, :name)
                                  .paginate(:page => params[:page])
   end
 
@@ -40,6 +41,16 @@ class SuppliersController < ApplicationController
     redirect_to :back
   end
 
+  def update_priority
+    suppliers = {}
+    params[:ids].each_with_index do |id, index|
+      suppliers[id] = {priority: index + 1}
+    end
+
+    Supplier.update(suppliers.keys, suppliers.values)
+    render nothing: true
+  end
+
   private 
 
   def supplier_filter_params
@@ -67,7 +78,6 @@ class SuppliersController < ApplicationController
       :bank_account_number,
       :cut_off_timing
     )
-    data[:rank] = params[:supplier][:rank] if current_user.kind_of?(Admin)
     data
   end
 end
