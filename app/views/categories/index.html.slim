@@ -11,7 +11,7 @@
         .row
           - category.each do |tag, ids|
             .col-md-4
-              = link_to tag, [:new, current_kitchen, :cart, ids: ids], remote: true, class: 'item-tag'
+              = link_to tag, [:new, current_kitchen, :cart, ids: ids.join('.')], remote: true, class: 'item-tag'
     .col-md-4
       #cart-details
         = render 'carts/details', orders: @orders
