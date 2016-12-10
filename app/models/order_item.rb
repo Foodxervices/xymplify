@@ -41,7 +41,7 @@ class OrderItem < ActiveRecord::Base
     self.kitchen_id = order.kitchen_id 
     self.name = food_item.name
     self.category_id = food_item.category_id 
-    self.tags = food_item.tags 
+    self.tag_list = food_item.tag_list 
   end
 
   def update_quantity_ordered

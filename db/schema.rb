@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208081542) do
+ActiveRecord::Schema.define(version: 20161209163927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,10 +67,12 @@ ActiveRecord::Schema.define(version: 20161208081542) do
     t.decimal  "max_order_price",                       precision: 12, scale: 2
     t.datetime "deleted_at"
     t.integer  "attachments_count",                                              default: 0
+    t.integer  "restaurant_category_id"
   end
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree
   add_index "food_items", ["deleted_at"], name: "index_food_items_on_deleted_at", using: :btree
+  add_index "food_items", ["restaurant_category_id"], name: "index_food_items_on_restaurant_category_id", using: :btree
   add_index "food_items", ["restaurant_id"], name: "index_food_items_on_restaurant_id", using: :btree
   add_index "food_items", ["supplier_id"], name: "index_food_items_on_supplier_id", using: :btree
   add_index "food_items", ["user_id"], name: "index_food_items_on_user_id", using: :btree
@@ -192,6 +194,14 @@ ActiveRecord::Schema.define(version: 20161208081542) do
   add_index "orders", ["restaurant_id"], name: "index_orders_on_restaurant_id", using: :btree
   add_index "orders", ["supplier_id"], name: "index_orders_on_supplier_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "restaurant_categories", force: :cascade do |t|
+    t.integer "restaurant_id"
+    t.integer "category_id"
+  end
+
+  add_index "restaurant_categories", ["category_id"], name: "index_restaurant_categories_on_category_id", using: :btree
+  add_index "restaurant_categories", ["restaurant_id"], name: "index_restaurant_categories_on_restaurant_id", using: :btree
 
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"

@@ -20,7 +20,7 @@ html
             p = @restaurant.company_registration_no
         .clearfix
 
-        = render 'orders/info', supplier: @supplier, kitchen: @kitchen, restaurant: @restaurant, order: @order, items: @items
+        = render 'mailers/order/info', supplier: @supplier, kitchen: @kitchen, restaurant: @restaurant, order: @order, items: @items
 
         .text-center
           - if @order.status.placed?

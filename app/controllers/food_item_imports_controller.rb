@@ -11,7 +11,7 @@ class FoodItemImportsController < ApplicationController
     begin
       ActiveRecord::Base.transaction do
         if @food_item_import.save
-          redirect_to :back, notice: "Imported."
+          redirect_to :back, notice: render_to_string(:partial => '/food_item_imports/success', locals: { warnings: @food_item_import.errors[:warning] })
         else
           @errors = @food_item_import.errors[:import]
           render :new

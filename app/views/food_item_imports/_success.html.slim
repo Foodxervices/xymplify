@@ -1,0 +1,15 @@
+.food_item-imports-success
+  h1 File upload has been imported.
+
+  - if warnings.any?
+    h4 Warnings: 
+    table.table.table-striped.bordered
+      thead
+        tr
+          th.text-center Row
+          th Message
+      tbody    
+        - warnings.each do |warning|
+          tr
+            td.text-center = warning[:row]
+            td == warning[:message]

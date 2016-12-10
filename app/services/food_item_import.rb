@@ -90,7 +90,13 @@ class FoodItemImport
       food_item.unit_price_currency = food_item.supplier.currency if food_item.new_record?
 
       if category_name.present?
-        category = Category.find_by_name(category_name) || Category.find_or_create_by(name: 'Others')
+        category = Category.find_by_name(category_name) 
+        
+        if category.nil?
+          category = Category.find_or_create_by(name: 'Others')
+          errors.add :warning, {row: i, message: "Food Item <b>#{food_item.code}</b> has been re-categorised as <b>Others</b>"}
+        end
+
         food_item.category_id = category.id 
       end
 
