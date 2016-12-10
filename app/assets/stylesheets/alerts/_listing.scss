@@ -8,8 +8,8 @@
   }
 
   .not-seen {
-    td {
-      color: #0044cc;
+    td, td a {
+      color: red;
     }
   }
 }
