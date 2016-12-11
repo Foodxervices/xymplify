@@ -4,8 +4,8 @@ class Supplier < ActiveRecord::Base
   before_destroy :check_for_food_items
 
   belongs_to :restaurant
-  has_many :food_items
-  has_many :orders
+  has_many :food_items, :dependent => :restrict_with_error
+  has_many :orders,     :dependent => :restrict_with_error
 
   validates :name,            presence: true
   validates :restaurant_id,   presence: true

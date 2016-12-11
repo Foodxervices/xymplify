@@ -43,8 +43,13 @@ class FoodItemsController < ApplicationController
   end
 
   def destroy
-    @food_item.destroy
-    redirect_to :back, notice: 'Food Item has been deleted.'
+    if @food_item.destroy
+      flash[:notice] = 'Food Item has been deleted.'
+    else
+      flash[:notice] = @food_item.errors.full_messages.join("<br />")
+    end
+
+    redirect_to :back
   end
 
   private

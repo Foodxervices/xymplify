@@ -103,6 +103,10 @@
     &.sb-role i:before {
       @extend .mdi-security;
     }
+
+    &.sb-category i:before {
+      @extend .mdi-library-books;
+    }
   }
 }
 

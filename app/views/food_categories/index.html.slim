@@ -1,0 +1,25 @@
+= render 'food_categories/search', category_filter: @category_filter
+#food_categories-index-container
+  .pull-right
+    .btn-group
+      - if can?(:create, Category)
+        = link_to 'Create New Category', [:new, :food_category], class: 'btn btn-default', remote: true
+        
+  h1 Category
+  .clearfix
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr 
+          th = Category.human_attribute_name(:name)
+          th.text-center Action
+      tbody
+        - @categories.each do |category|
+          tr
+            td = category.name
+            td.text-center
+              ul.actions
+                li = link_to_if can?(:update, category), 'Edit', edit_food_category_path(category), remote: true
+                li = link_to_if can?(:destroy, category), 'Delete', '#', data: { toggle: "confirmation", href: food_category_path(category) }, class: 'delete'
+  .text-center          
+    = will_paginate @categories, renderer: BootstrapPagination::Rails

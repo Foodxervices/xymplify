@@ -26,6 +26,8 @@ en:
         keyword: 'Keyword'  
       role_filter:
         keyword: 'Keyword'  
+      category_filter:
+        keyword: 'Keyword'  
     labels:
       food_item_import: 
         kitchen_ids: 'Kitchens'

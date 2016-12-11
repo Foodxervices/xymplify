@@ -12,11 +12,12 @@ class Ability
       can :manage, :all
     elsif user.persisted?
       can :show, User
+      can :show, Role
+      can :show, Category
       can :read, Restaurant, { id: [] }
       can :read, Version
       can :update, Order
       can [:update_wip, :destroy], Order, { user_id: user.id, status: :wip }
-      can :read, Role
 
       user.user_roles.includes(:role).each do |user_role|
         kitchen_ids = user_role.kitchens.any? ? user_role.kitchens.ids : Kitchen.where(restaurant_id: user_role.restaurant_id).ids

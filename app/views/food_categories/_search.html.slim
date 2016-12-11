@@ -1,0 +1,5 @@
+.food_categories-search-container.search-container
+  = simple_form_for category_filter, url: :food_categories, method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
+    = f.input :keyword
+    = f.button :submit, 'Search', class: 'btn-primary'
+    = link_to "Reset", :food_categories, class: 'btn btn-default'

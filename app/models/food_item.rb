@@ -1,7 +1,6 @@
 class FoodItem < ActiveRecord::Base
   acts_as_taggable
   has_paper_trail
-  acts_as_paranoid
 
   self.inheritance_column = :_type_disabled
   
@@ -17,9 +16,10 @@ class FoodItem < ActiveRecord::Base
   belongs_to :category
   belongs_to :restaurant_category
 
-  has_many :attachments
+  has_many :attachments, :dependent => :destroy
   has_many :food_items_kitchens
-  has_many :inventories
+  has_many :inventories, :dependent => :restrict_with_error
+  has_many :order_items, :dependent => :restrict_with_error
   
   has_and_belongs_to_many :kitchens
   

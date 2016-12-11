@@ -1,0 +1,6 @@
+.food_categories-form-container
+  = simple_form_for [:food, category], remote: true do |f|
+    = f.input :name
+
+    .form-actions
+      = f.button :submit, class: 'btn btn-primary'
