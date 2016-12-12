@@ -1,6 +1,7 @@
 class FoodItemFilter
   include ActiveModel::Model
   attr_accessor :keyword
+  attr_accessor :supplier_id
   attr_accessor :kitchen_ids
 
   def initialize(food_items, attributes = {})
@@ -22,6 +23,10 @@ class FoodItemFilter
                                         s.name   ILIKE :keyword OR 
                                         c.name   ILIKE :keyword
                                       ", keyword: "%#{keyword}%") 
+    end
+
+    if supplier_id.present?
+      @food_items = @food_items.where(supplier_id: supplier_id) 
     end
 
     if kitchen_ids.present?

@@ -9,11 +9,7 @@ class FoodItemImportsController < ApplicationController
     @food_item_import = FoodItemImport.new(food_item_import_params)
 
     begin
-      ActiveRecord::Base.transaction do
-        @success = @food_item_import.save
-      end
-
-      if @success
+      if @food_item_import.save
         @warnings = @food_item_import.errors[:warning]
         render :success
       else

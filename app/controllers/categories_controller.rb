@@ -48,6 +48,7 @@ class CategoriesController < ApplicationController
     food_item_filter = ActionController::Parameters.new(params[:food_item_filter])
     data = food_item_filter.permit(
       :keyword,
+      :supplier_id,
       :kitchen_ids,
     )
     data[:kitchen_ids] ||= params[:kitchen_id]

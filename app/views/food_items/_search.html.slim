@@ -1,6 +1,7 @@
 .food_items-search-container.search-container
   = simple_form_for food_item_filter, url: url, method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
     = f.input :keyword
+    = f.input :supplier_id, collection: current_restaurant.suppliers.accessible_by(current_ability)
     - if current_kitchen.nil?
       = kitchen_dropdown(f, include_blank: 'All', multiple: false)
     = f.button :submit, 'Search', class: 'btn-primary'
