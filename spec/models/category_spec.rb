@@ -7,7 +7,6 @@ describe Category do
 
   context 'associations' do 
     it { is_expected.to have_many :food_items }
-    it { is_expected.to have_many :restaurant_categories }
     it { is_expected.to have_many :order_items }
   end
 end

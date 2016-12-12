@@ -4,7 +4,7 @@ class FoodCategoriesController < ApplicationController
   def index
     @category_filter = CategoryFilter.new(@categories, category_filter_params)
     @categories = @category_filter.result
-                                 .order(:name)
+                                 .order(:priority, :name)
                                  .paginate(:page => params[:page])
   end
 
@@ -36,6 +36,16 @@ class FoodCategoriesController < ApplicationController
     end
 
     redirect_to :back
+  end
+
+  def update_priority
+    categories = {}
+    params[:ids].each_with_index do |id, index|
+      categories[id] = {priority: index + 1}
+    end
+
+    Category.update(categories.keys, categories.values)
+    render nothing: true
   end
 
   private 

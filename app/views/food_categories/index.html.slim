@@ -13,9 +13,9 @@
         tr 
           th = Category.human_attribute_name(:name)
           th.text-center Action
-      tbody
+      tbody class="#{can?(:update_priority, Category) ? 'sortable' : ''}"
         - @categories.each do |category|
-          tr
+          tr rel=category.id
             td = category.name
             td.text-center
               ul.actions

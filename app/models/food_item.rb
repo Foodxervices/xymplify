@@ -1,6 +1,5 @@
 class FoodItem < ActiveRecord::Base
   acts_as_taggable
-  has_paper_trail :ignore => [:restaurant_category_id]
 
   self.inheritance_column = :_type_disabled
   
@@ -10,13 +9,10 @@ class FoodItem < ActiveRecord::Base
   before_save :set_category
   before_save :set_default_tags
 
-  after_save :set_category_tags
-
   belongs_to :supplier
   belongs_to :user
   belongs_to :restaurant
   belongs_to :category
-  belongs_to :restaurant_category
 
   has_many :attachments, :dependent => :destroy
   has_many :food_items_kitchens
@@ -64,9 +60,5 @@ class FoodItem < ActiveRecord::Base
 
   def set_default_tags
     tag_list.add('Others') if tag_list.empty?
-  end
-
-  def set_category_tags
-    TagWorker.perform_async(id) if cached_tag_list_changed?
   end
 end

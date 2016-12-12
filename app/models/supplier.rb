@@ -1,4 +1,6 @@
 class Supplier < ActiveRecord::Base
+  default_scope { order(:priority) }
+  
   has_paper_trail :ignore => [:priority]
   
   before_destroy :check_for_food_items
