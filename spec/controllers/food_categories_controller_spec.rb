@@ -99,4 +99,21 @@ describe FoodCategoriesController, :type => :controller do
       expect(response).to redirect_to "where_i_came_from"
     end
   end
+
+  describe '#update_priority' do 
+    def do_request
+      patch :update_priority, ids: [dried.id, oils.id]
+    end
+
+    let!(:dried) { create(:category, name: 'Dried', priority: 100) }
+    let!(:oils)  { create(:category, name: 'Oils') }
+
+    it 'updates category' do
+      expect(dried.priority).to eq 100
+      do_request
+      expect(dried.reload.priority).to eq 1
+      expect(oils.reload.priority).to eq 2
+      expect(response).to render_template(nil)
+    end
+  end
 end
