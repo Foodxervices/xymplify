@@ -1,6 +1,6 @@
 class FoodItem < ActiveRecord::Base
   acts_as_taggable
-  has_paper_trail
+  has_paper_trail :ignore => [:restaurant_category_id]
 
   self.inheritance_column = :_type_disabled
   
