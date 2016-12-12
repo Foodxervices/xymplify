@@ -10,13 +10,15 @@ class FoodItemImportsController < ApplicationController
 
     begin
       ActiveRecord::Base.transaction do
-        if @food_item_import.save
-          @warnings = @food_item_import.errors[:warning]
-          render :success
-        else
-          @errors = @food_item_import.errors[:import]
-          render :new
-        end
+        @success = @food_item_import.save
+      end
+
+      if @success
+        @warnings = @food_item_import.errors[:warning]
+        render :success
+      else
+        @errors = @food_item_import.errors[:import]
+        render :new
       end
     rescue Exception => error
       @food_item_import.errors[:file] = error
