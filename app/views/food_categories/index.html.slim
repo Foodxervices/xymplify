@@ -21,5 +21,3 @@
               ul.actions
                 li = link_to_if can?(:update, category), 'Edit', edit_food_category_path(category), remote: true
                 li = link_to_if can?(:destroy, category), 'Delete', '#', data: { toggle: "confirmation", href: food_category_path(category) }, class: 'delete'
-  .text-center          
-    = will_paginate @categories, renderer: BootstrapPagination::Rails

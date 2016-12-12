@@ -5,7 +5,6 @@ class FoodCategoriesController < ApplicationController
     @category_filter = CategoryFilter.new(@categories, category_filter_params)
     @categories = @category_filter.result
                                  .order(:priority, :name)
-                                 .paginate(:page => params[:page])
   end
 
   def new; end

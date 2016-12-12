@@ -6,7 +6,6 @@ class SuppliersController < ApplicationController
     @supplier_filter = SupplierFilter.new(@suppliers, supplier_filter_params)
     @suppliers = @supplier_filter.result
                                  .order(:priority, :name)
-                                 .paginate(:page => params[:page])
   end
 
   def show; end

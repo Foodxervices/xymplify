@@ -32,5 +32,3 @@
                 li = link_to 'View', supplier, remote: true
                 li = link_to_if can?(:update, supplier), 'Edit', [:edit, supplier.restaurant, supplier]
                 li = link_to_if can?(:destroy, supplier), 'Delete', '#', data: { toggle: "confirmation", href: supplier_path(supplier) }, class: 'delete'
-  .text-center          
-    = will_paginate @suppliers, renderer: BootstrapPagination::Rails
