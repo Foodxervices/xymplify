@@ -49,38 +49,36 @@ class FoodItemImport
     food_items = []
     
     CSV.foreach(file.path, {:headers => true, encoding: "UTF-8"}).with_index(2) do |r, i|
-      ActiveRecord::Base.transaction do
-        row = format_row(r)
+      row = format_row(r)
 
-        category_name = row["category"]
-        row.delete('category')
-        row['min_order_price'] = row['min_order_price'].to_f
+      category_name = row["category"]
+      row.delete('category')
+      row['min_order_price'] = row['min_order_price'].to_f
 
-        food_item = FoodItem.find_or_initialize_by(code: row["code"], restaurant_id: restaurant_id)
-        food_item.attributes  = row.to_hash.slice(*row.to_hash.keys)
-        food_item.unit        = get_unit(food_item.name)
-        food_item.user_id     = user_id
-        food_item.supplier_id = supplier_id
-        food_item.kitchen_ids = kitchen_ids
-        food_item.unit_price_currency = food_item.supplier.currency if food_item.new_record?
+      food_item = FoodItem.find_or_initialize_by(code: row["code"], restaurant_id: restaurant_id)
+      food_item.attributes  = row.to_hash.slice(*row.to_hash.keys)
+      food_item.unit        = get_unit(food_item.name)
+      food_item.user_id     = user_id
+      food_item.supplier_id = supplier_id
+      food_item.kitchen_ids = kitchen_ids
+      food_item.unit_price_currency = food_item.supplier.currency if food_item.new_record?
 
-        if category_name.present?
-          category = Category.find_by_name(category_name) 
-          
-          if category.nil?
-            category = Category.find_or_create_by(name: 'Others')
-            errors.add :warning, {row: i, message: "Food Item <b>#{food_item.code}</b> has been re-categorised as <b>Others</b>"}
-          end
-
-          food_item.category_id = category.id 
+      if category_name.present?
+        category = Category.find_by_name(category_name) 
+        
+        if category.nil?
+          category = Category.find_or_create_by(name: 'Others')
+          errors.add :warning, {row: i, message: "Food Item <b>#{food_item.code}</b> has been re-categorised as <b>Others</b>"}
         end
 
-        if !food_item.save
-          all_success = false
+        food_item.category_id = category.id 
+      end
 
-          food_item.errors.full_messages.each do |message|
-            errors.add :import, {row: i, message: message}
-          end
+      if !food_item.save
+        all_success = false
+
+        food_item.errors.full_messages.each do |message|
+          errors.add :import, {row: i, message: message}
         end
       end
     end
