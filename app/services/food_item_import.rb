@@ -82,7 +82,7 @@ class FoodItemImport
         end
       end
     end
-
+    
     all_success
   end
 

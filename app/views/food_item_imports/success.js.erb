@@ -1,0 +1,4 @@
+<%= open_popup(title: 'File upload has been imported.', partial: 'food_item_imports/warnings', locals: { warnings: @warnings }) %> 
+$('.modal').on('hidden.bs.modal', function () {
+  Turbolinks.visit("<%= url_for(:back) %>")
+})
