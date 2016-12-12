@@ -8,7 +8,9 @@ class FoodItem < ActiveRecord::Base
   monetize :unit_price_without_promotion_cents
 
   before_save :set_category
-  after_save :set_tags
+  before_save :set_default_tags
+
+  after_save :set_category_tags
 
   belongs_to :supplier
   belongs_to :user
@@ -60,7 +62,11 @@ class FoodItem < ActiveRecord::Base
     end
   end
 
-  def set_tags
+  def set_default_tags
+    tag_list.add('Others') if tag_list.empty?
+  end
+
+  def set_category_tags
     TagWorker.perform_async(id) if cached_tag_list_changed?
   end
 end

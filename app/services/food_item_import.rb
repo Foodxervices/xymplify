@@ -33,7 +33,10 @@ class FoodItemImport
       return false
     end
 
-    return false if !imported_food_items
+    if File.extname(file.original_filename) != '.csv' 
+      errors.add :file, "Unknown file type: #{file.original_filename}"
+      return false
+    end
 
     return true
   end
@@ -41,41 +44,12 @@ class FoodItemImport
   def save
     return false if !valid?
 
-    success_all = true
-
-    imported_food_items.each_with_index do |food_item, index|
-      if !food_item.save
-        success_all = false
-
-        food_item.errors.full_messages.each do |message|
-          errors.add :import, {row: index+2, message: message}
-        end
-      end
-    end
-
-    success_all
-  end
-
-  def imported_food_items
-    @imported_food_items ||= load_imported_food_items
-  end
-
-  def load_imported_food_items
-    spreadsheet = open_spreadsheet
-
-    return false if !spreadsheet
-
-    if spreadsheet.first.size != food_item_attributes.size
-      errors.add :file, "The file is not in the right format"
-      return false
-    end
-
-    header = food_item_attributes
+    all_success = true
 
     food_items = []
-
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
+    
+    CSV.foreach(file.path, {:headers => true, encoding: "UTF-8"}).with_index(2) do |r, i|
+      row = format_row(r)
 
       category_name = row["category"]
       row.delete('category')
@@ -100,26 +74,24 @@ class FoodItemImport
         food_item.category_id = category.id 
       end
 
-      food_items << food_item 
+      if !food_item.save
+        all_success = false
+
+        food_item.errors.full_messages.each do |message|
+          errors.add :import, {row: i, message: message}
+        end
+      end
     end
 
-    food_items
+    all_success
   end
 
   def get_unit(name)
     name.downcase.scan( /([0-9]*[a-z]*) x/)&.last&.first
   end
 
-  def open_spreadsheet
-    if File.extname(file.original_filename) == '.csv' 
-      Roo::CSV.new(file.path)
-    else 
-      errors.add :file, "Unknown file type: #{file.original_filename}"
-      return false
-    end
-  end
-
-  def food_item_attributes
-    ["code", "name", "brand", "unit_price_without_promotion", "unit_price", "category", "tag_list", "min_order_price"]
+  def format_row(r)
+    headers = {"Item Code" => "code", "Item Name" => "name", "Brand" => "brand", "Unit Price" => "unit_price_without_promotion", "Special Price" => "unit_price", "Category" => "category", "Item tags" => "tag_list", "Min Order (Money Value)" => "min_order_price" }
+    headers.inject({ }) { |row, (k,v)| row[v] = r[k]; row }
   end
 end
