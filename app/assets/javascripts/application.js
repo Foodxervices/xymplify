@@ -38,6 +38,7 @@
 //= require pages/kitchens
 //= require pages/versions
 //= require pages/suppliers
+//= require pages/categories
 //= require pages/food_categories
 
 

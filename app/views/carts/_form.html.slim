@@ -1,24 +1,27 @@
 .carts-form-container
-  .table-responsive
-    table.table.table-striped
-      tr
-        th width="100" Code
-        th Food Item
+  table.table.table-striped
+    tr
+      th width="100" Code
+      th Food Item
+      - if !@hide_category
+        th Category
+      - if !@hide_supplier
         th Supplier
-        th.text-center UOM
-        th.text-center width=100 Unit Price
-        th.text-center Quantity
-        th
-      - food_items.each do |food_item|
-        tr.cart-item data={id: food_item.id, restaurant_id: current_restaurant.id, kitchen_id: current_kitchen.id}
-          td = food_item.code
-          td 
-            = food_item.name
-            span.help-block rel="#{current_kitchen.id}-#{food_item.id}"
+      th.text-center width=100 Unit Price
+      th.text-center UOM
+      th.text-center Quantity
+      th
+    - food_items.each do |food_item|
+      tr.cart-item data={id: food_item.id, restaurant_id: current_restaurant.id, kitchen_id: current_kitchen.id}
+        td = food_item.code
+        td 
+          = food_item.name
+          span.help-block rel="#{current_kitchen.id}-#{food_item.id}"
+        - if !@hide_category
+          td = food_item.category_name
+        - if !@hide_supplier
           td = food_item.supplier_name
-          td.text-center = food_item.unit
-          td.text-center = both_prices(food_item)
-          td = number_field_tag :quantity, 0, class: 'form-control quantity-input', id: nil
-          td = link_to 'Add to cart', '#', class: 'btn btn-default btn-add'
-  .text-right 
-    button.btn.btn-primary aria-label="Close" data-dismiss="modal" type="button" Confirm
+        td.text-center = both_prices(food_item)
+        td.text-center = food_item.unit
+        td = number_field_tag :quantity, 0, class: 'form-control quantity-input', id: nil
+        td = link_to '', '#', class: 'btn btn-default btn-add mdi mdi-cart-plus'

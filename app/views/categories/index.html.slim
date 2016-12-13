@@ -6,14 +6,14 @@
         ul.list-inline
           li = active_link_to 'Go by Category', url_for(params.merge(action: :index)), :active => :exclusive
           li = active_link_to 'Go by Supplier', url_for(params.merge(action: :by_supplier)), :active => :exclusive
-      - @categories.each do |name, category|
-        h4 = name
-        .row
-          - category.each do |tag, ids|
-            .col-md-4
-              = link_to tag, [:new, current_kitchen, :cart, ids: ids.join('.')], remote: true, class: 'item-tag'
+      - @groups.each do |group_name, food_items|
+        .block
+          h4 = group_name
+          = render 'carts/form', food_items: food_items
+      .text-center          
+        = will_paginate @food_items, renderer: BootstrapPagination::Rails, inner_window: 3, outer_window: 1
+
     .col-md-4
       #cart-details
         = render 'carts/details', orders: @orders
-    
-
+  

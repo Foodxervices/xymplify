@@ -1,6 +1,11 @@
 const CartItem = function(item) {
-  this.submitting = false
   this.item = $(item)
+  if(this.item.hasClass('i-cart')) {
+    return false
+  }
+  this.item.addClass('i-cart')
+  this.submitting = false
+  
   this.foodItemId = this.item.data('id')
   this.restaurantId = this.item.data('restaurant-id')
   this.kitchenId = this.item.data('kitchen-id')

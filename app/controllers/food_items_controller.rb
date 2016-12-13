@@ -59,6 +59,7 @@ class FoodItemsController < ApplicationController
     data = food_item_filter.permit(
       :keyword,
       :supplier_id,
+      :category_id,
       :kitchen_ids
     )
 

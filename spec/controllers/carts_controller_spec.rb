@@ -7,7 +7,7 @@ describe CartsController, :type => :controller do
 
   describe '#new' do 
     def do_request
-      get :new, kitchen_id: kitchen.id, ids: food_items.map(&:id).join('.'), format: :js
+      get :new, kitchen_id: kitchen.id, ids: food_items.map(&:id), format: :js
     end
 
     let!(:food_items) { create_list(:food_item, 2, kitchen_ids: kitchen.id) }

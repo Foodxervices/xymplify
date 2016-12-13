@@ -5,9 +5,10 @@ class CartsController < ApplicationController
   
   def new
     @food_items = @kitchen.food_items
-                             .select('food_items.*, s.name as supplier_name, s.priority')
+                             .select('food_items.*, c.name as category_name, s.name as supplier_name, s.priority')
                              .joins('LEFT JOIN suppliers s ON s.id = food_items.supplier_id')
-                             .where(id: params[:ids].split('.'))
+                             .joins('LEFT JOIN categories c ON c.id = food_items.category_id')
+                             .where(id: params[:ids])
                              .order('priority, code')
                              .accessible_by(current_ability)
   end

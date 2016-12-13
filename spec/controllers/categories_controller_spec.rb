@@ -14,7 +14,8 @@ describe CategoriesController, :type => :controller do
 
     it 'renders the :index view' do
       do_request
-      expect(assigns(:categories).size).to eq 2
+      expect(assigns(:food_items).size).to eq 2
+      expect(assigns(:groups).size).to eq 2
       expect(response).to render_template :index
     end
   end
@@ -26,7 +27,8 @@ describe CategoriesController, :type => :controller do
 
     it 'renders the :index view' do
       do_request
-      expect(assigns(:categories).size).to eq 2
+      expect(assigns(:food_items).size).to eq 2
+      expect(assigns(:groups).size).to eq 2
       expect(response).to render_template :index
     end
   end
