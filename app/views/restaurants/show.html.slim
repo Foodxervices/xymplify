@@ -9,7 +9,7 @@
     .col-lg-8
       - if can?(:create, Kitchen.new(restaurant_id: @restaurant))
         .pull-right
-          strong = link_to 'ADD NEW KITCHEN', [:new, @restaurant, :kitchen], remote: true, class: 'btn btn-primary'
+          strong = link_to 'ADD NEW KITCHEN', [:create, @restaurant, :kitchen], remote: true, class: 'btn btn-primary'
       h2 Kitchens
       - @restaurant.kitchens.includes(:restaurant).each do |kitchen|
         .block
