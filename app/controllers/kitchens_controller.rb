@@ -50,7 +50,7 @@ class KitchensController < ApplicationController
   private 
 
   def kitchen_params
-    params.require(:kitchen).permit(
+    data = params.require(:kitchen).permit(
       :id,
       :name,
       :address,
@@ -61,6 +61,8 @@ class KitchensController < ApplicationController
       :bank_account_name,
       :bank_account_number
     )
+    data[:restaurant_id] = current_restaurant.id
+    data
   end
 
   def load_summary

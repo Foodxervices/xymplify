@@ -3,8 +3,6 @@ class Kitchen < ActiveRecord::Base
   
   belongs_to :restaurant
 
-  has_one :bank, as: :bankable, inverse_of: :bankable, dependent: :destroy
-
   has_many :orders,      dependent: :restrict_with_error
   has_many :inventories, dependent: :restrict_with_error
   has_many :messages,    dependent: :destroy
@@ -18,8 +16,6 @@ class Kitchen < ActiveRecord::Base
   validates :name,    presence: true
   validates :address, presence: true
   validates :phone,   presence: true
-
-  accepts_nested_attributes_for :bank
 
   def to_param
     "#{id}-#{name.parameterize}"
