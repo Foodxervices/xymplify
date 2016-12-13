@@ -36,7 +36,11 @@ class Ability
             when 'order', 'inventory'
               can action, clazz.camelize.constantize, { kitchen_id: kitchen_ids }
             when 'kitchen'
-              can action, clazz.camelize.constantize, { id: kitchen_ids }
+              if action == :create 
+                can action, clazz.camelize.constantize, { restaurant_id: user_role.restaurant_id }
+              else
+                can action, clazz.camelize.constantize, { id: kitchen_ids }
+              end
           end
         end
       end
