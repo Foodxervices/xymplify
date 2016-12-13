@@ -77,6 +77,7 @@ class SuppliersController < ApplicationController
       :bank_account_number,
       :cut_off_timing
     )
+    data[:restaurant_id] = current_restaurant.id
     data
   end
 end

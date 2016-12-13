@@ -50,10 +50,12 @@ class UserRolesController < ApplicationController
   end
 
   def user_role_params
-    params.require(:user_role).permit(
+    data = params.require(:user_role).permit(
       :user_id,
       :role_id,
       kitchen_ids: []
     )
+    data[:restaurant_id] = current_restaurant.id
+    data
   end
 end
