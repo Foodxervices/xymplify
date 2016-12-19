@@ -17,6 +17,8 @@ module VersionHelper
       end
     elsif field == 'unit_price_cents'
       value = value.to_f / 100
+    elsif field == 'file_file_name'
+      value = value.ellipsisize('long')
     elsif  field =~ /[.]*_at$/ #created_at, updated_at...
       value = format_datetime(value)
     elsif  field =~ /[.]*_on$/ #created_on, updated_on...

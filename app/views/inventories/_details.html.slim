@@ -2,7 +2,7 @@
   table.table.table-bordered
     tr 
       th width=230 = FoodItem.human_attribute_name(:code)
-      td = link_to_if can?(:read, food_item), food_item.code, food_item, remote: true
+      td = link_to_if can?(:show, food_item), food_item.code, food_item, remote: true
     tr 
       th = Inventory.human_attribute_name(:kitchen)
       td = link_to_if can?(:read, kitchen), kitchen.name, [kitchen.restaurant, kitchen, :food_items]

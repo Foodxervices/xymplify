@@ -48,6 +48,10 @@ class Ability
       cannot [:update_priority], Supplier
     end
 
+    cannot :show, FoodItem do |food_item|
+      food_item.deleted?
+    end
+
     cannot [:mark_as_accepted, :mark_as_declined], Order do |order|
       !order.status.placed?
     end

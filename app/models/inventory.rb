@@ -2,7 +2,7 @@ class Inventory < ActiveRecord::Base
   has_paper_trail
   belongs_to :restaurant
   belongs_to :kitchen
-  belongs_to :food_item
+  belongs_to :food_item, -> { with_deleted }
 
   has_many :alerts, as: :alertable
   
