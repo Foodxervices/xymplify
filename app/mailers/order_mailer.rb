@@ -14,6 +14,7 @@ class OrderMailer < ActionMailer::Base
                 <strong>updated</strong> at <strong>#{format_datetime(@order.updated_at)}</strong>."
     mail(
       to: @supplier.email,
+      cc: [@restaurant.email, @user.email],
       subject: "[Updated Order] #{@order.name}, #{@restaurant.name}"
     )
   end
@@ -24,6 +25,7 @@ class OrderMailer < ActionMailer::Base
     @message = "You got a Purchase Order from <strong>#{@restaurant.name}</strong> for delivery at <strong>#{format_datetime(@order.placed_at)}</strong>."
     mail(
       to: @supplier.email,
+      cc: [@restaurant.email, @user.email],
       subject: "[New Order] #{@order.name}, #{@restaurant.name}"
     )
   end
@@ -34,7 +36,8 @@ class OrderMailer < ActionMailer::Base
     @message = "This Purchase Order for #{@supplier.name} has been marked as 
                 <strong>accepted</strong> at <strong>#{format_datetime(@order.accepted_at)}</strong>."
     mail(
-      to: [@restaurant.email, @user.email],
+      to: @restaurant.email,
+      cc: [@supplier.email, @user.email],
       subject: "[Accepted Order] #{@order.name}, #{@supplier.name}"
     )
   end
@@ -45,7 +48,8 @@ class OrderMailer < ActionMailer::Base
     @message = "This Purchase Order for #{@supplier.name} has been marked as 
                 <strong>declined</strong> at <strong>#{format_datetime(@order.declined_at)}</strong>."
     mail(
-      to: [@restaurant.email, @user.email],
+      to: @restaurant.email,
+      cc: [@supplier.email, @user.email],
       subject: "[Declined Order] #{@order.name}, #{@supplier.name}"
     )
   end
@@ -58,6 +62,7 @@ class OrderMailer < ActionMailer::Base
 
     mail(
       to: @supplier.email,
+      cc: [@restaurant.email, @user.email],
       subject: "[Cancelled Order] #{@order.name}, #{@restaurant.name}"
     )
   end
@@ -70,6 +75,7 @@ class OrderMailer < ActionMailer::Base
 
     mail(
       to: @supplier.email,
+      cc: [@restaurant.email, @user.email],
       subject: "[Delivered Order] #{@order.name}, #{@restaurant.name}"
     )
   end
