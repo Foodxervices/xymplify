@@ -26,7 +26,7 @@ class FoodItemsController < ApplicationController
 
   def create
     if @food_item.save
-      redirect_to [:edit, @food_item.restaurant, @food_item], notice: 'Food Item has been created.'
+      redirect_to @food_item, notice: 'Food Item has been created.'
     else
       render :new
     end
@@ -36,7 +36,7 @@ class FoodItemsController < ApplicationController
 
   def update
     if @food_item.update_attributes(food_item_params)
-      redirect_to :back, notice: 'Food Item has been updated.'
+      redirect_to @food_item, notice: 'Food Item has been updated.'
     else
       render :edit
     end

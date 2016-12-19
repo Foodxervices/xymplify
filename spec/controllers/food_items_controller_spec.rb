@@ -41,7 +41,7 @@ describe FoodItemsController, :type => :controller do
 
     it 'creates a food item' do 
       expect{ do_request }.to change{ [FoodItem.count] }.from([0]).to([1])
-      expect(response).to redirect_to [:edit, restaurant, assigns(:food_item)]
+      expect(response).to redirect_to assigns(:food_item)
     end
   end
 
@@ -66,16 +66,12 @@ describe FoodItemsController, :type => :controller do
 
     let!(:food_item) { create(:food_item, restaurant: restaurant) }
     let!(:new_code)  { 'KL30902' }
-
-    before do
-      request.env["HTTP_REFERER"] = "where_i_came_from"
-    end
     
     it 'updates food item' do
       do_request
       expect(food_item.reload.code).to eq new_code
       expect(flash[:notice]).to eq 'Food Item has been updated.'
-      expect(response).to redirect_to "where_i_came_from"
+      expect(response).to redirect_to food_item
     end
   end
 

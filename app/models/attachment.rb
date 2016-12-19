@@ -12,7 +12,7 @@ class Attachment < ActiveRecord::Base
   before_save :cache_restaurant
 
   def name
-    file_file_name
+    file_file_name.ellipsisize('long')
   end
 
   def cache_restaurant
