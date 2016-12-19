@@ -3,14 +3,14 @@ class CategoriesController < ApplicationController
 
   def index
     init
-    @food_items = @food_items.order("category_priority, supplier_priority ASC")
+    @food_items = @food_items.order("category_priority, supplier_priority, unit_price_cents")
     @groups = @food_items.group_by(&:category_name)
     @hide_category = true
   end
 
   def by_supplier
     init
-    @food_items = @food_items.order("supplier_priority, category_priority ASC")
+    @food_items = @food_items.order("supplier_priority, category_priority, unit_price_cents")
     @groups = @food_items.group_by(&:supplier_name)
     @hide_supplier = true
     render :index
