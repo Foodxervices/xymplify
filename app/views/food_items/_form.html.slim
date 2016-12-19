@@ -22,7 +22,7 @@
           = f.input         :max_order_price
       = f.input         :files, as: :file, input_html: { name: 'attachment[file]', data: {'allowed-file-extensions' => "png,jpg,jpeg,pdf", 'initial-preview' => attachments_preview(food_item.attachments), 'initial-preview-config' => attachments_preview_config(food_item.attachments), 'overwrite-initial' => false, 'upload-url' => attachments_url}, multiple: true }
 
-    .form-actions.text-center
+    .form-actions
       = f.button :submit, class: 'btn-primary'
 
 javascript:
