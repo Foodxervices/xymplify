@@ -50,6 +50,7 @@ gem 'foreman'
 gem 'materialize-sass'
 gem 'paranoia'
 gem 'lograge'
+gem 'iconv'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

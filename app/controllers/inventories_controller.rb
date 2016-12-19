@@ -1,4 +1,7 @@
+require 'iconv'
+
 class InventoriesController < ApplicationController
+  BOM = "\377\376"
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :through => :restaurant, :shallow => true
 
@@ -45,23 +48,9 @@ class InventoriesController < ApplicationController
         end
       end
 
-      format.csv do 
-        csv_result = CSV.generate({}) do |csv|
-          csv << ['Food Item', 'Category', 'Current quantity', 'Quantity ordered', 'Actual quantity', 'Remarks']
-          @inventories.each do |i|
-            food_item = i.food_item
-
-            csv << [
-              food_item.name,
-              i.category_name,
-              i.current_quantity,
-              i.quantity_ordered,
-              '',
-              ''
-            ]
-          end
-        end
-        send_data csv_result.encode('gb2312', :invalid => :replace, :undef => :replace, :replace => "?"), filename: "inventory-#{Date.today}.csv"
+      format.xlsx do
+        @filename = "INVENTORY #{current_restaurant&.name} - #{current_kitchen&.name}"
+        render xlsx: "index", filename: @filename
       end
     end 
   end
@@ -98,6 +87,6 @@ class InventoriesController < ApplicationController
   end
 
   def detect_format
-    request.format = "csv" if params[:commit] == 'Export'
+    request.format = "xlsx" if params[:commit] == 'Export'
   end
 end

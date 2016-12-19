@@ -1,0 +1,10 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: 'INVENTORY') do |sheet|
+  sheet.add_row ['Food Item', 'Category', 'Current quantity', 'Quantity ordered', 'Actual quantity', 'Remarks']
+  @inventories.each do |i|
+    food_item = i.food_item
+
+    sheet.add_row [food_item.name, i.category_name, i.current_quantity, i.quantity_ordered, '', '']
+  end
+end

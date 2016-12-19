@@ -138,6 +138,7 @@ GEM
     htmlentities (4.3.4)
     i18n (0.7.0)
     i18n_data (0.7.0)
+    iconv (1.0.4)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -396,6 +397,7 @@ DEPENDENCIES
   foreman
   google_currency
   html2slim
+  iconv
   jbuilder (~> 2.0)
   jquery-rails
   letter_opener
