@@ -2,7 +2,7 @@
   = simple_form_for [current_restaurant, current_kitchen, food_item_import], remote: true do |f|
     = kitchen_dropdown(f, action: :import)
     = f.input :supplier_id, collection: current_restaurant.suppliers
-    = f.input :file, as: :file, input_html: { data: {'allowed-file-extensions' => "csv", 'show-preview' => false} }
+    = f.input :file, as: :file, input_html: { data: {'allowed-file-extensions' => "xlsx", 'show-preview' => false} }
     .text-right
       = f.button :submit, class: 'btn btn-primary btn-block', data: { :disable_with => "Submitting..." }
 

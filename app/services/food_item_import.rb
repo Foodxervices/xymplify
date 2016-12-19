@@ -33,7 +33,7 @@ class FoodItemImport
       return false
     end
 
-    if File.extname(file.original_filename) != '.csv' 
+    if File.extname(file.original_filename) != '.xlsx' 
       errors.add :file, "Unknown file type: #{file.original_filename}"
       return false
     end
@@ -48,20 +48,30 @@ class FoodItemImport
 
     food_items = []
     
-    CSV.foreach(file.path, {:headers => true, encoding: "UTF-8"}).with_index(2) do |r, i|
-      row = format_row(r)
+    xlsx = Roo::Excelx.new(file.path)
+    sheet = xlsx.sheet(0)
+    
+    supplier = Supplier.find(supplier_id)
 
-      category_name = row["category"]
-      row.delete('category')
-      row['min_order_price'] = row['min_order_price'].to_f
+    i = 0
+    sheet.each( code: "Item Code", name: "Item Name", brand: "Brand", 
+                unit_price_without_promotion: "Unit Price", unit_price: "Special Price", category: "Category", 
+                tag_list: "Item tags", min_order_price: "Min Order (Money Value)" ) do |row|
+      i += 1
 
-      food_item = FoodItem.find_or_initialize_by(code: row["code"], restaurant_id: restaurant_id)
+      next if i == 1
+      
+      category_name = row[:category]
+      row.delete(:category)
+      row[:min_order_price] = row[:min_order_price].to_f
+
+      food_item = FoodItem.find_or_initialize_by(code: row[:code], restaurant_id: restaurant_id)
       food_item.attributes  = row.to_hash.slice(*row.to_hash.keys)
       food_item.unit        = get_unit(food_item.name)
       food_item.user_id     = user_id
       food_item.supplier_id = supplier_id
       food_item.kitchen_ids = kitchen_ids
-      food_item.unit_price_currency = food_item.supplier.currency if food_item.new_record?
+      food_item.unit_price_currency = supplier.currency if food_item.new_record?
 
       if category_name.present?
         category = Category.find_by_name(category_name) 
@@ -88,10 +98,5 @@ class FoodItemImport
 
   def get_unit(name)
     name.downcase.scan( /([0-9]*[a-z]*) x/)&.last&.first
-  end
-
-  def format_row(r)
-    headers = {"Item Code" => "code", "Item Name" => "name", "Brand" => "brand", "Unit Price" => "unit_price_without_promotion", "Special Price" => "unit_price", "Category" => "category", "Item tags" => "tag_list", "Min Order (Money Value)" => "min_order_price" }
-    headers.inject({ }) { |row, (k,v)| row[v] = r[k]; row }
   end
 end

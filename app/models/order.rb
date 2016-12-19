@@ -26,8 +26,6 @@ class Order < ActiveRecord::Base
                        :size => { :less_than => 5.megabyte }
   before_post_process { false }
 
-  validates_associated :supplier, :kitchen, :user
-
   validates :user_id,      presence: true
   validates :supplier_id,  presence: true
   validates :kitchen_id,   presence: true

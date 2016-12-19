@@ -22,8 +22,6 @@ class FoodItem < ActiveRecord::Base
   has_many :order_items
   
   has_and_belongs_to_many :kitchens
-  
-  validates_associated :supplier, :user, :category
 
   validates :code,          presence: true, uniqueness: {scope: [:restaurant_id]}
   validates :name,          presence: true 

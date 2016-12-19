@@ -1,7 +1,4 @@
-require 'iconv'
-
 class InventoriesController < ApplicationController
-  BOM = "\377\376"
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :through => :restaurant, :shallow => true
 

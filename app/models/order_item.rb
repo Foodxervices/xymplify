@@ -16,8 +16,6 @@ class OrderItem < ActiveRecord::Base
   monetize :unit_price_cents
   monetize :unit_price_without_promotion_cents
 
-  validates_associated :order, :food_item
-
   validates :order_id,      presence: true
   validates :food_item_id,  presence: true
   validates :quantity,      presence: true, numericality: { greater_than: 0, less_than: 99999999 }
