@@ -46,16 +46,16 @@ describe CartsController, :type => :controller do
     end
   end
 
-  describe '#purchase' do 
+  describe '#do_confirm' do 
     def do_request
-      post :purchase, kitchen_id: order.kitchen_id, id: order.id, order: { outlet_name: 'New Outlet Name' }, format: :js
+      post :do_confirm, kitchen_id: order.kitchen_id, id: order.id, order: { outlet_name: 'New Outlet Name' }, format: :js
     end
 
     let!(:order) { create(:order, status: :wip, user: user) }
 
-    it 'updates status to placed' do 
+    it 'updates status to confirmed' do 
       do_request
-      expect(assigns(:order).status.placed?).to eq true
+      expect(assigns(:order).status.confirmed?).to eq true
       expect(assigns(:order).outlet_name).to eq 'New Outlet Name'
     end
   end
