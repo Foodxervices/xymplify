@@ -25,13 +25,6 @@
         tr 
           th = FoodItem.human_attribute_name(:both_prices)
           td = both_prices(food_item)
-        tr 
-          th = FoodItem.human_attribute_name(:min_order_price)
-          td = format_price(food_item.min_order_price, food_item.unit_price_currency)
-        - if food_item.max_order_price.to_f > 0
-          tr 
-            th = FoodItem.human_attribute_name(:max_order_price)
-            td = format_price(food_item.max_order_price, food_item.unit_price_currency)   
         - if food_item.attachments.any?
           tr
             th = FoodItem.human_attribute_name(:attachments)

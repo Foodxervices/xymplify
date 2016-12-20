@@ -75,7 +75,9 @@ class SuppliersController < ApplicationController
       :bank_swift_code,
       :bank_account_name,
       :bank_account_number,
-      :cut_off_timing
+      :cut_off_timing,
+      :min_order_price,
+      :max_order_price
     )
     data[:restaurant_id] = current_restaurant.id
     data

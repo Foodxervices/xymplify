@@ -84,8 +84,6 @@ class FoodItemsController < ApplicationController
       :image,
       :tag_list,
       :low_quantity,
-      :min_order_price,
-      :max_order_price,
       kitchen_ids: []
     )
     

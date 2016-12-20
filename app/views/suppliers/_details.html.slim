@@ -29,6 +29,12 @@
       td = Supplier.human_attribute_name(:cut_off_timing)
       td = supplier.cut_off_timing
     tr 
+      td = Supplier.human_attribute_name(:min_order_price)
+      td = Currency.format(supplier.min_order_price, supplier.currency)
+    tr 
+      td = Supplier.human_attribute_name(:max_order_price)
+      td = Currency.format(supplier.max_order_price, supplier.currency)
+    tr 
       td = Supplier.human_attribute_name(:bank_name)
       td = supplier.bank_name
     tr 

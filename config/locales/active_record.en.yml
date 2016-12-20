@@ -19,14 +19,14 @@ en:
         tag_list: "Item tags"
         cached_tag_list: "Item tags"
         kitchen_ids: "Kitchens"
-        min_order_price: "Minimum Order Quantity (Money Value)"
-        max_order_price: "Maximum Order Quantity (Money Value)"
       supplier:
         name: "Company Name"
         contact: "Contact Person"
         bank_swift_code: "Bank SWIFT code"
         company_registration_no: "Company ID"
         cut_off_timing: "Cut-off timing (days)"
+        min_order_price: "Minimum Order Quantity (Money Value)"
+        max_order_price: "Maximum Order Quantity (Money Value)"
       restaurant: 
         company_registration_no: "Company ID"
       kitchen:

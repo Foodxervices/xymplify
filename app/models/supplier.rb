@@ -12,6 +12,8 @@ class Supplier < ActiveRecord::Base
   validates :name,            presence: true
   validates :restaurant_id,   presence: true
   validates :email,           presence: true, email: true
+  validates :min_order_price,  presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
+  validates :max_order_price,  numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }, if: 'max_order_price.present?'
   
   has_attached_file :logo, styles: { thumb: "80x80#", medium: "300x300#" }
   validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220034022) do
+ActiveRecord::Schema.define(version: 20161220104536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,21 +52,19 @@ ActiveRecord::Schema.define(version: 20161220034022) do
     t.integer  "supplier_id"
     t.integer  "user_id"
     t.string   "brand"
-    t.integer  "unit_price_cents",                                               default: 0,     null: false
-    t.string   "unit_price_currency",                                                            null: false
+    t.integer  "unit_price_cents",                                              default: 0,     null: false
+    t.string   "unit_price_currency",                                                           null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "restaurant_id"
     t.integer  "category_id"
-    t.string   "cached_tag_list",                                                default: ""
-    t.decimal  "low_quantity",                          precision: 8,  scale: 2
-    t.integer  "unit_price_without_promotion_cents",                             default: 0,     null: false
-    t.string   "unit_price_without_promotion_currency",                          default: "SGD", null: false
-    t.decimal  "min_order_price",                       precision: 12, scale: 2, default: 0.0
-    t.decimal  "max_order_price",                       precision: 12, scale: 2
-    t.integer  "attachments_count",                                              default: 0
+    t.string   "cached_tag_list",                                               default: ""
+    t.decimal  "low_quantity",                          precision: 8, scale: 2
+    t.integer  "unit_price_without_promotion_cents",                            default: 0,     null: false
+    t.string   "unit_price_without_promotion_currency",                         default: "SGD", null: false
+    t.integer  "attachments_count",                                             default: 0
     t.datetime "deleted_at"
   end
 
@@ -223,7 +221,7 @@ ActiveRecord::Schema.define(version: 20161220034022) do
     t.string   "contact"
     t.string   "telephone"
     t.string   "email"
-    t.string   "currency",                default: "SGD"
+    t.string   "currency",                                         default: "SGD"
     t.integer  "restaurant_id"
     t.string   "bank_name"
     t.string   "bank_address"
@@ -237,6 +235,8 @@ ActiveRecord::Schema.define(version: 20161220034022) do
     t.datetime "logo_updated_at"
     t.integer  "cut_off_timing"
     t.integer  "priority"
+    t.decimal  "min_order_price",         precision: 12, scale: 2, default: 0.0
+    t.decimal  "max_order_price",         precision: 12, scale: 2
   end
 
   add_index "suppliers", ["restaurant_id"], name: "index_suppliers_on_restaurant_id", using: :btree

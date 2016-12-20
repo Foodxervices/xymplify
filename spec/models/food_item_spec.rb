@@ -10,11 +10,8 @@ describe FoodItem do
     it { is_expected.to validate_presence_of :user_id }
     it { is_expected.to validate_presence_of :unit_price_currency }
     it { is_expected.to validate_presence_of :unit_price_without_promotion_currency }
-    it { is_expected.to validate_presence_of :min_order_price }
     it { is_expected.to monetize :unit_price }
     it { is_expected.to monetize :unit_price_without_promotion }
-    it { is_expected.to validate_numericality_of(:min_order_price).is_greater_than_or_equal_to(0) }
-    it { is_expected.to validate_numericality_of(:max_order_price).is_greater_than_or_equal_to(0) }
     it { is_expected.to validate_numericality_of(:low_quantity).is_greater_than_or_equal_to(0) }
     it { is_expected.to allow_value("", nil).for(:low_quantity) }
   end

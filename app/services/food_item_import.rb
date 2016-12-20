@@ -56,14 +56,13 @@ class FoodItemImport
     i = 0
     sheet.each( code: "Item Code", name: "Item Name", brand: "Brand", 
                 unit_price_without_promotion: "Unit Price", unit_price: "Special Price", category: "Category", 
-                tag_list: "Item tags", min_order_price: "Min Order (Money Value)" ) do |row|
+                tag_list: "Item tags" ) do |row|
       i += 1
 
       next if i == 1
       
       category_name = row[:category]
       row.delete(:category)
-      row[:min_order_price] = row[:min_order_price].to_f
 
       food_item = FoodItem.find_or_initialize_by(code: row[:code], restaurant_id: restaurant_id)
       food_item.attributes  = row.to_hash.slice(*row.to_hash.keys)

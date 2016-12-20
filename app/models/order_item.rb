@@ -23,7 +23,6 @@ class OrderItem < ActiveRecord::Base
   validates :unit_price_currency,                    presence: true
   validates :unit_price_without_promotion,           presence: true, numericality: { greater_than: 0, less_than: 9999999999 }
   validates :unit_price_without_promotion_currency,  presence: true
-  validate :validate_order_quantity
 
   def total_price
     unit_price * quantity
@@ -54,27 +53,5 @@ class OrderItem < ActiveRecord::Base
       order.price = order.items.map(&:total_price).inject(0, :+) 
       order.save
     end
-  end
-
-  def validate_order_quantity
-    if order&.status&.wip?
-      unit_price_dollars = unit_price.dollars.to_f
-
-      if unit_price_dollars > 0
-        min_quantity = food_item.min_order_price / unit_price_dollars
-        min_quantity = (min_quantity * 100).ceil / 100.0
-        errors.add(:base, "The Minimum Order Quantity is #{price_format(food_item.min_order_price)}") if quantity < min_quantity
-
-        if food_item.max_order_price.present?
-          max_quantity = food_item.max_order_price / unit_price_dollars
-          max_quantity = (max_quantity * 100).floor / 100.0
-          errors.add(:base, "The Maximum Order Quantity is #{price_format(food_item.max_order_price)}") if quantity > max_quantity
-        end
-      end
-    end
-  end
-
-  def price_format(price)
-    ActionController::Base.helpers.humanized_money_with_symbol(Money.from_amount(price, unit_price_currency))
   end
 end

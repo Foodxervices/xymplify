@@ -57,13 +57,38 @@ class CartsController < ApplicationController
   end
 
   def purchase
-    current_confirmed_orders.each do |order|
-      order.status = :placed 
-      order.save
-      OrderMailerWorker.perform_async(order.id, 'notify_supplier_after_placed')
+    suppliers = {}
+    notices = []
+    current_confirmed_orders.includes(:supplier).each do |order|
+      supplier = order.supplier
+      suppliers[supplier.id] ||= {}
+      suppliers[supplier.id][:min_order_price] ||= supplier.min_order_price
+      suppliers[supplier.id][:max_order_price] ||= supplier.max_order_price
+      suppliers[supplier.id][:currency] ||= supplier.currency
+      suppliers[supplier.id][:orders] ||= []
+      suppliers[supplier.id][:name] ||= supplier.name
+      suppliers[supplier.id][:orders_amount] ||= 0
+      suppliers[supplier.id][:orders_amount] += order.price_with_gst.exchange_to(supplier.currency).to_f
+      
+      suppliers[supplier.id][:orders] << order
     end
 
-    redirect_to :back, notice: 'PO(s) have been purchased successfully.'
+    suppliers.each do |supplier_id, supplier|
+      if supplier[:min_order_price] > supplier[:orders_amount]
+        notices << "Please ensure that the total value of purchase from #{supplier[:name]} is more than #{Currency.format(supplier[:min_order_price], supplier[:currency])}."
+      elsif supplier[:max_order_price].present? && supplier[:max_order_price] < supplier[:orders_amount]
+        notices << "Please ensure that the total value of purchase from #{supplier[:name]} is less than #{Currency.format(supplier[:max_order_price], supplier[:currency])}."
+      else
+        supplier[:orders].each do |order|
+          order.status = :placed 
+          order.save
+          OrderMailerWorker.perform_async(order.id, 'notify_supplier_after_placed')
+          notices << "#{order.name} has been placed successfully."
+        end
+      end
+    end
+      
+    redirect_to :back, notice: notices.join('<br /><br/>')
   end
 
   private 
