@@ -3,15 +3,17 @@
     table.table.table-striped.table-order rel=order.id
       thead
         tr 
-          th = order.name
+          th.name = order.name
           th Quantity
           th UOM
           th
+            - if order.status.confirmed?
+              .confirmed Confirmed
       tbody
         tr 
           td colspan="4" = link_to_if can?(:read, order.supplier), order.supplier&.name, order.supplier, remote: true
         - order.items.includes(:food_item).each do |item|
-          tr 
+          tr.order-item rel=item.id
             td = link_to_if can?(:read, item.food_item), item.name, item.food_item, remote: true
             td.text-center = item.quantity
             td = item.food_item&.unit

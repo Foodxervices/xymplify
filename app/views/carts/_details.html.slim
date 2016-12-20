@@ -1,3 +1,4 @@
+- show_purchase_button = false
 .carts-details-container
   - if current_orders.present?
     .h-scroll
@@ -7,9 +8,13 @@
           .btn-group
             = link_to 'Delete', '#', data: { toggle: "confirmation", href: order_path(order) }, class: 'delete btn btn-default'
             = link_to 'Edit | Add Tax', [:edit, order], remote: true, class: 'btn btn-default' 
-            = link_to 'Purchase', [:confirm, current_kitchen, :cart, id: order.id], class: 'btn btn-primary', remote: true
+            - if order.status.wip?
+              = link_to 'Confirm', [:confirm, current_kitchen, :cart, id: order.id], class: 'btn btn-primary', remote: true
+            - else
+              - show_purchase_button = true
         hr
     hr
     .text-right
       h3 = "Total: #{humanized_money_with_symbol(current_orders.price_with_gst.exchange_to(current_restaurant.currency))}"
-    br
+    - if show_purchase_button
+      = link_to 'Purchase', [:purchase, current_kitchen, :carts], class: 'btn btn-block btn-primary', method: :post

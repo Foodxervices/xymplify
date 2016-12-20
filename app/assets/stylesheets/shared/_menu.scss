@@ -12,7 +12,7 @@
   #brand-logo {
     font-family: 'Proxima Nova Lt';
     font-size: 24px;
-    color: #304FFE;
+    color: $primary_color;
     min-width: 195px;
     position: relative;
     padding-left: 78px;
@@ -51,7 +51,7 @@
     a.restaurant-name {
       
       font-size: 24px;
-      color: #304FFE;
+      color: $primary_color;
       font-weight: 600;
       text-transform: uppercase; 
       line-height: 80px;
@@ -76,7 +76,7 @@
     font-size: 28px;
     width: 80px;
     text-align: center;
-    color: #304FFE;
+    color: $primary_color;
     position: relative;
 
     #alert-count {

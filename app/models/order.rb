@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  has_paper_trail :unless => Proc.new { |order| order.status.wip? }
+  has_paper_trail :unless => Proc.new { |order| order.status.wip? || order.status.confirmed? }
 
   extend Enumerize
   monetize :price_cents
@@ -34,7 +34,7 @@ class Order < ActiveRecord::Base
   validates :outlet_phone,   presence: true
   validates :request_for_delivery_at, presence: true
 
-  enumerize :status, in: [:wip, :placed, :accepted, :declined, :delivered, :cancelled], default: :wip
+  enumerize :status, in: [:wip, :confirmed, :placed, :accepted, :declined, :delivered, :cancelled], default: :wip
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :gsts,  reject_if: :all_blank, allow_destroy: true
@@ -87,7 +87,7 @@ class Order < ActiveRecord::Base
   def set_status_updated_at
     if status_changed?
       self.status_updated_at = Time.zone.now 
-      self.send("#{status}_at=", status_updated_at) if !status.wip?
+      self.send("#{status}_at=", status_updated_at) if !status.wip? && !status.confirmed?
     end
   end
 
@@ -97,7 +97,7 @@ class Order < ActiveRecord::Base
         inventory = item.inventory
         
         case status_change 
-          when ["wip", "placed"]
+          when ["confirmed", "placed"]
             inventory.quantity_ordered = inventory.quantity_ordered + item.quantity
           when ["accepted", "delivered"] 
             inventory.current_quantity = inventory.current_quantity + item.quantity

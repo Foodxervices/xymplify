@@ -11,7 +11,7 @@ html, body {
 } 
 
 a {
-  color: #304FFE;
+  color: $primary_color;
 }
 
 img {
@@ -177,10 +177,10 @@ table.table-bordered, table.table-striped {
 }
 
 .btn-primary, .btn-add {
-  background: #304FFE;
+  background: $primary_color;
 
   &:hover {
-    background: #304FFE;    
+    background: $primary_color;    
   }
 }
 

@@ -1,7 +1,7 @@
 .carts-confirmation_form-container
   = render 'carts/info', order: order
 
-  = simple_nested_form_for order, url: purchase_kitchen_cart_path(current_kitchen, order), method: :post, remote: true do |f|
+  = simple_nested_form_for order, url: do_confirm_kitchen_cart_path(current_kitchen, order), method: :post, remote: true do |f|
     = f.input :outlet_name
     = f.input :outlet_address
     = f.input :outlet_phone
@@ -10,5 +10,5 @@
       = f.datetime_select :request_for_delivery_at, date_separator: '', time_separator: ':', datetime_separator: ''
     = f.input :delivered_to_kitchen, label: 'Linked to Inventory (Food Inventory will be changed)'
     .text-right
-      = f.submit 'Purchase', class: 'btn btn-primary btn-block', data: { :disable_with => "Purchasing..." }
+      = f.submit 'Confirm', class: 'btn btn-primary btn-block', data: { :disable_with => "Confirming..." }
            

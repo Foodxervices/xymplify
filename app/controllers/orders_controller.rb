@@ -51,7 +51,7 @@ class OrdersController < ApplicationController
       @message << "#{order_name} has been updated."
 
       if ['placed', 'accepted'].include?(@order.status)
-        Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_updated(@order)).deliver_later
+        OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_updated')
         @message << "An email notification has been sent to the supplier." 
       end
       
@@ -60,7 +60,7 @@ class OrdersController < ApplicationController
       end
     end
 
-    if @order.status.wip?
+    if @order.status.wip? || @order.status.confirmed?
       render :update_wip
     end
   end
@@ -82,7 +82,7 @@ class OrdersController < ApplicationController
     end
 
     if @success
-      Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_cancelled(@order)).deliver_later
+      OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_cancelled')
     end
     
     redirect_to :back
@@ -98,7 +98,7 @@ class OrdersController < ApplicationController
       if @success
         alert = @order.alerts.create(type: :accepted_order)
         flash[:notice] = alert.title
-        Premailer::Rails::Hook.perform(OrderMailer.notify_restaurant_after_accepted(@order)).deliver_later
+        OrderMailerWorker.perform_async(@order.id, 'notify_restaurant_after_accepted')
       end
     else
       invalid_status_notice
@@ -121,7 +121,7 @@ class OrdersController < ApplicationController
       if @success
         alert = @order.alerts.create(type: :declined_order)
         flash[:notice] = alert.title
-        Premailer::Rails::Hook.perform(OrderMailer.notify_restaurant_after_declined(@order)).deliver_later
+        OrderMailerWorker.perform_async(@order.id, 'notify_restaurant_after_declined')
       end
     else
       invalid_status_notice
@@ -143,7 +143,7 @@ class OrdersController < ApplicationController
 
     if @success
       flash[:notice] = "#{@order.name} has been delivered." 
-      Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_delivered(@order)).deliver_later
+      OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_delivered')
     end
 
     redirect_to :back

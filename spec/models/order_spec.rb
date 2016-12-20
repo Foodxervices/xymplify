@@ -9,7 +9,7 @@ describe Order do
     it { is_expected.to validate_presence_of :outlet_address }
     it { is_expected.to validate_presence_of :outlet_phone }
     it { is_expected.to validate_presence_of :request_for_delivery_at }
-    it { is_expected.to enumerize(:status).in(:wip, :placed, :accepted, :declined, :delivered, :cancelled) }
+    it { is_expected.to enumerize(:status).in(:wip, :confirmed, :placed, :accepted, :declined, :delivered, :cancelled) }
   end
 
   context 'associations' do 

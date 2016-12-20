@@ -2,7 +2,12 @@ $('span.help-block').html('')
 <% if @success %>
   if($('#cart-details').length > 0) {
     $('#cart-details').html("<%= j render 'carts/details' %>")
-    $('.h-scroll').first().scrollTop($('.table-order[rel=<%= @order.id %>]').first().offset().top)
+    var order = $('.table-order[rel=<%= @order.id %>]').first()
+    var item = order.find('.order-item[rel=<%= @item.id %>]').first()
+    $('.h-scroll').first().scrollTop(order.offset().top - 100)
+
+    $('.order-item').removeClass('active')
+    item.addClass('active')
   }
   else {
     <%= open_popup(title: 'Cart', partial: 'carts/details') %> 

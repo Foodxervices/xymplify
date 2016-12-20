@@ -20,6 +20,7 @@ class OrderMailer < ActionMailer::Base
   end
 
   def notify_supplier_after_placed(order)
+    order.update_column(:token, SecureRandom.urlsafe_base64)
     init(order)
     @receiver = @supplier
     @message = "You got a Purchase Order from <strong>#{@restaurant.name}</strong> for delivery at <strong>#{format_datetime(@order.placed_at)}</strong>."

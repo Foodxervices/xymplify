@@ -48,17 +48,22 @@ class CartsController < ApplicationController
     @order = current_orders.find(params[:id])
   end
 
-  def purchase
+  def do_confirm
     @order = current_orders.find(params[:id])
 
     ActiveRecord::Base.transaction do
       @success = @order.update_attributes(purchase_params)
     end
+  end
 
-    if @success
-      @order.update_column(:token, SecureRandom.urlsafe_base64)
-      Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_placed(@order)).deliver_later
+  def purchase
+    current_confirmed_orders.each do |order|
+      order.status = :placed 
+      order.save
+      OrderMailerWorker.perform_async(order.id, 'notify_supplier_after_placed')
     end
+
+    redirect_to :back, notice: 'PO(s) have been purchased successfully.'
   end
 
   private 
@@ -71,7 +76,7 @@ class CartsController < ApplicationController
         :request_for_delivery_at,
         :delivered_to_kitchen
       )
-    data[:status] = :placed
+    data[:status] = :confirmed
     data
   end
 end

@@ -12,7 +12,7 @@ footer.page-footer.public-shared-menu_footer-container {
       margin-right: 0;
 
       i {
-        color: #304FFE;
+        color: $primary_color;
         line-height: 80px;
       }
     }
@@ -38,8 +38,8 @@ footer.page-footer.public-shared-menu_footer-container {
       a {
         line-height: 14px;
         display: inline-block;
-        color: #304FFE;
-        border-right: 1px solid #304FFE;
+        color: $primary_color;
+        border-right: 1px solid $primary_color;
         padding: 0 10px;
         background: none;
 

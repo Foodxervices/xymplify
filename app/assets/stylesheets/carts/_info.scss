@@ -1,6 +1,40 @@
 .carts-info-container {
+  .name {
+    min-width: 150px;
+  }
+
+  .confirmed {
+    @extend .mdi;
+    @extend .mdi-check;
+    position: relative;
+    padding-left: 15px;
+    color: $primary_color;
+    font-size: 12px;
+    font-weight: bold;
+
+    &:before {
+      position: absolute;
+      left: 0;
+      top: 3px;
+      font-weight: bold;
+    }
+  }
+
   tbody a {
     color: #333333;
     text-decoration: underline;
+  }
+
+  tr.order-item.active td {
+    &, a {
+      animation-name: active;
+      animation-duration: 4s;
+    }
+  }
+
+  @keyframes active {
+    0%   {color: red;}
+    50%  {color: blue;}
+    100% {color: #333333;}
   }
 }

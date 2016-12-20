@@ -11,9 +11,10 @@ $sidebar_collapsed_width: 50px;
 // COLOR
 $red_color: #f34336;
 $green_color: #7bbc3e;
+$primary_color: #304FFE;
 
 $placed_color: #FBC02D;
-$accepted_color: #304FFE;
+$accepted_color: $primary_color;
 $declined_color: #757575;
 $cancelled_color: #FF5252;
 $delivered_color: #00BFA5;

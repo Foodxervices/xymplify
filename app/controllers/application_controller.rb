@@ -48,7 +48,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_orders
-    @current_orders ||= Order.where(user_id: current_user.id, kitchen_id: current_kitchen.id, status: :wip)
+    @current_orders ||= Order.where(user_id: current_user.id, kitchen_id: current_kitchen.id, status: [:wip, :confirmed]).order(:supplier_id)
+  end
+
+  def current_confirmed_orders
+    @confirmed_orders ||= current_orders.where(status: :confirmed)
   end
 
   def current_kitchen
