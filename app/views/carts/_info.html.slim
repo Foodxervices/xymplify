@@ -30,3 +30,5 @@
         tr 
           td.text-right colspan="3" Total
           td.text-right = humanized_money_with_symbol(order.price_with_gst)
+  - if !order.status.wip? && order.request_for_delivery_at.present?
+    p.requested-for-delivery-at Requested for delivery at: <strong class="highlight">#{format_datetime(order.request_for_delivery_at)}</strong>
