@@ -1,7 +1,8 @@
 Foodxervices.carts = {
   info: {
     init: () => {
-      $('.table-order').each(function() {
+      $('.table-order:not(.init-date)').each(function() {
+        $(this).addClass('init-date')
         let tableOrder = $(this)
         let orderId = tableOrder.attr('rel')
         let kitchenId = tableOrder.data('kitchen-id')
