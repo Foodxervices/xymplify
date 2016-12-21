@@ -98,9 +98,12 @@ class CartsController < ApplicationController
   def update_request_for_delivery_at
     @order = current_orders.find(params[:id])
     @order.request_for_delivery_at = Time.zone.parse(params[:request_for_delivery_at])
-    @order.save
-
-    render nothing: true
+    
+    if @order.request_for_delivery_at < 1.day.from_now
+      render json: { success: false, message: 'Request for delivery time need to be over 24 hours' }
+    else
+      render json: { success: @order.save }
+    end
   end
 
   private 

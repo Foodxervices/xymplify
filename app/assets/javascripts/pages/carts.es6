@@ -34,18 +34,28 @@ Foodxervices.carts = {
         let timeInput = tableOrder.find('input[name=request_for_delivery_time]')
         timeInput.timepicker({ defaultTime: false })
 
-        $(dateInput).add(timeInput).change(function() {
-          if(dateInput.val() != '' && timeInput.val() != '') {
-            $.ajax({
-              type: 'POST',
-              url: `/kitchens/${kitchenId}/carts/${orderId}/update_request_for_delivery_at`,
-              data: { request_for_delivery_at: `${dateInput.val()} ${timeInput.val()}` }
-            });
-          }
+        $(timeInput).on('hide.timepicker', function(e) {
+          post(dateInput, timeInput, kitchenId, orderId)
+        })
+        $(dateInput).change(function() {
+          post(dateInput, timeInput, kitchenId, orderId)
         });
-      })
+      }) 
 
-      
+      function post(dateInput, timeInput, kitchenId, orderId) {
+        if(dateInput.val() != '' && timeInput.val() != '') {
+          $.ajax({
+            type: 'POST',
+            url: `/kitchens/${kitchenId}/carts/${orderId}/update_request_for_delivery_at`,
+            data: { request_for_delivery_at: `${dateInput.val()} ${timeInput.val()}` },
+            success: (data) => {
+              if(!data.success) {
+                alert(data.message)
+              }
+            }
+          });
+        }
+      }
     }
   }
 }
