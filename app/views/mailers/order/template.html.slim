@@ -27,7 +27,7 @@ html
             p#actions Please <strong>#{link_to 'accept', mark_as_accepted_order_url(@order.id, token: @order.token), target: :_blank}</strong> or <strong>#{link_to 'decline', mark_as_declined_order_url(@order.id, token: @order.token), target: :_blank}</strong> the order.
             
           
-          p#replying-to Please kindly acknowledge the receipt by clicking on "Reply All"
+          p#replying-to Please kindly acknowledge the receipt by selecting "Reply to All"
 
           h3#logo-footer = Rails.application.secrets.domain_name
         
