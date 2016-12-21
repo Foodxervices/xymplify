@@ -12,6 +12,7 @@
 //= require bootstrap-confirmation
 //= require bootstrap-fileinput/js/fileinput
 //= require datepicker/js/bootstrap-datepicker
+//= require bootstrap-timepicker/js/bootstrap-timepicker
 //= require daterangepicker/daterangepicker
 //= require jquery-mentions-input/lib/jquery.elastic
 //= require jquery-mentions-input/jquery.mentionsInput
@@ -40,5 +41,6 @@
 //= require pages/suppliers
 //= require pages/categories
 //= require pages/food_categories
+//= require pages/carts
 
 

@@ -1,7 +1,9 @@
 class Supplier < ActiveRecord::Base
+  extend Enumerize
+
   default_scope { order(:priority) }
   
-  has_paper_trail :ignore => [:priority]
+  has_paper_trail :ignore => [:priority, :delivery_days]
   
   before_destroy :check_for_food_items
 
@@ -15,6 +17,9 @@ class Supplier < ActiveRecord::Base
   validates :min_order_price,  presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
   validates :max_order_price,  numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }, if: 'max_order_price.present?'
   
+  serialize :delivery_days, Array
+  enumerize :delivery_days, in: [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday], multiple: true
+
   has_attached_file :logo, styles: { thumb: "80x80#", medium: "300x300#" }
   validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
 

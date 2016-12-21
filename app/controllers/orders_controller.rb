@@ -177,7 +177,6 @@ class OrdersController < ApplicationController
       :outlet_name,
       :outlet_address,
       :outlet_phone,
-      :request_for_delivery_at,
       items_attributes: [
         :id,
         :unit_price,
@@ -201,7 +200,7 @@ class OrdersController < ApplicationController
     order_filter = ActionController::Parameters.new(params[:order_filter])
     order_filter.permit(
       :keyword,
-      :month,
+      :date_range,
       :status
     )
   end

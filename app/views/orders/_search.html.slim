@@ -1,7 +1,7 @@
 .orders-search-container.search-container
   = simple_form_for order_filter, url: url, method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
     = f.input :keyword
-    = f.input :month, as: :month_picker, placeholder: 'Month'
+    = f.input :date_range, as: :month_picker, placeholder: 'Month', input_html: { class: 'date-range-picker' }
     = f.select :status, @statuses, include_blank: 'All'
     = f.button :submit, 'Search', class: 'btn-primary'
     = link_to 'Reset', url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default' 

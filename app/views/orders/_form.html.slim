@@ -7,10 +7,8 @@
         = f.input :outlet_phone
     = f.input :outlet_address
     
-    label.control-label Request for delivery at
-    .form-group.datetime-select
-      = f.datetime_select :request_for_delivery_at, date_separator: '', time_separator: ':', datetime_separator: ''
     hr
+    
     table.table.table-striped
       thead
         tr

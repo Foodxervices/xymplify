@@ -24,7 +24,7 @@ class CartsController < ApplicationController
     
     ActiveRecord::Base.transaction do
       if @order.nil?
-        @order = Order.create(options.merge(outlet_name: @kitchen.name, outlet_address: @kitchen.address, outlet_phone: @kitchen.phone, request_for_delivery_at: 1.days.from_now.beginning_of_day + 10.hours))
+        @order = Order.create(options.merge(outlet_name: @kitchen.name, outlet_address: @kitchen.address, outlet_phone: @kitchen.phone))
         @order.gsts.create(name: 'GST', percent: 7)
       end
 
@@ -52,7 +52,11 @@ class CartsController < ApplicationController
     @order = current_orders.find(params[:id])
 
     ActiveRecord::Base.transaction do
-      @success = @order.update_attributes(purchase_params)
+      @success = @order.update_attributes(confirm_params)
+    end
+
+    if !@success
+      @request_for_delivery_at_invalid = @order.request_for_delivery_at.blank?
     end
   end
 
@@ -91,14 +95,21 @@ class CartsController < ApplicationController
     redirect_to :back, notice: notices.join('<br /><br/>')
   end
 
+  def update_request_for_delivery_at
+    @order = current_orders.find(params[:id])
+    @order.request_for_delivery_at = Time.zone.parse(params[:request_for_delivery_at])
+    @order.save
+
+    render nothing: true
+  end
+
   private 
 
-  def purchase_params
+  def confirm_params
     data = params.require(:order).permit(
         :outlet_name,
         :outlet_address,
         :outlet_phone,
-        :request_for_delivery_at,
         :delivered_to_kitchen
       )
     data[:status] = :confirmed

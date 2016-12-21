@@ -99,6 +99,7 @@ Rails.application.routes.draw do
       end
 
       member do 
+        post :update_request_for_delivery_at
         get :confirm
         post :do_confirm
       end

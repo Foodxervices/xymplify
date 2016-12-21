@@ -36,6 +36,6 @@
     "commit": "10ac9f01a01ffc9229aa9e9b6ceb43b554ba044d"
   },
   "_source": "https://github.com/podio/jquery-mentions-input.git",
-  "_target": "*",
+  "_target": "1.6.0",
   "_originalSource": "jquery-mentions-input"
 }

@@ -24,7 +24,7 @@ en:
         contact: "Contact Person"
         bank_swift_code: "Bank SWIFT code"
         company_registration_no: "Company ID"
-        cut_off_timing: "Cut-off timing (days)"
+        delivery_days: "Delivery days"
         min_order_price: "Minimum Order Quantity (Money Value)"
         max_order_price: "Maximum Order Quantity (Money Value)"
       restaurant: 

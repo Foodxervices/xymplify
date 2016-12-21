@@ -18,24 +18,6 @@ task :alert_incoming_deliveries => :environment do
   puts "done."
 end
 
-task :check_cut_off_timing => :environment do 
-  puts "Checking cut off timing..."
-  Supplier.where('cut_off_timing > 0').includes(:orders).each do |supplier|
-    supplier.orders.each do |order|
-      if order.status.placed? && order.placed_at < supplier.cut_off_timing.days.ago
-        ActiveRecord::Base.transaction do
-          order.status = :cancelled
-          if order.save
-            order.alerts.create(type: :cancelled_order)
-            Premailer::Rails::Hook.perform(OrderMailer.notify_supplier_after_cancelled(order)).deliver_later
-          end
-        end
-      end
-    end
-  end
-  puts "done."
-end
-
 task :empty_trash => :environment do 
   puts "Removing..."
   Attachment.where(food_item_id: nil).where('updated_at < ?', 1.hour.ago).destroy_all

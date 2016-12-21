@@ -5,9 +5,6 @@
     = f.input :outlet_name
     = f.input :outlet_address
     = f.input :outlet_phone
-    label.control-label Request for delivery at
-    .form-group.datetime-select
-      = f.datetime_select :request_for_delivery_at, date_separator: '', time_separator: ':', datetime_separator: ''
     = f.input :delivered_to_kitchen, label: 'Linked to Inventory (Food Inventory will be changed)'
     .text-right
       = f.submit 'Confirm', class: 'btn btn-primary btn-block', data: { :disable_with => "Confirming..." }

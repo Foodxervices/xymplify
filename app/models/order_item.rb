@@ -1,6 +1,6 @@
 class OrderItem < ActiveRecord::Base
   acts_as_taggable
-  has_paper_trail
+  has_paper_trail :unless => Proc.new { |item| item.order.status.wip? || item.order.status.confirmed? }
   
   belongs_to :order
   belongs_to :food_item, -> { with_deleted }

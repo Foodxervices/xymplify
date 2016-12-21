@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-fileinput",
-  "version": "4.3.5",
+  "version": "4.3.6",
   "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
   "authors": [
     "Kartik Visweswaran <kartikv2@gmail.com>"
@@ -37,13 +37,13 @@
     "test",
     "tests"
   ],
-  "_release": "4.3.5",
+  "_release": "4.3.6",
   "_resolution": {
     "type": "version",
-    "tag": "v4.3.5",
-    "commit": "6e1a8ca5ca04d4927540ccf18bbfc3253286bd0c"
+    "tag": "v4.3.6",
+    "commit": "ad0ddced480efdd38051d02b1ef28a2749bcc48a"
   },
   "_source": "https://github.com/kartik-v/bootstrap-fileinput.git",
-  "_target": "*",
+  "_target": "4.3.6",
   "_originalSource": "bootstrap-fileinput"
 }

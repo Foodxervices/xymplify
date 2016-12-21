@@ -26,8 +26,8 @@
       td = Supplier.human_attribute_name(:company_registration_no)
       td = supplier.company_registration_no
     tr 
-      td = Supplier.human_attribute_name(:cut_off_timing)
-      td = supplier.cut_off_timing
+      td = Supplier.human_attribute_name(:delivery_days)
+      td = supplier.delivery_days.texts.to_sentence 
     tr 
       td = Supplier.human_attribute_name(:min_order_price)
       td = Currency.format(supplier.min_order_price, supplier.currency)

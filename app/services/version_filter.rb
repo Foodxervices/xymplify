@@ -1,7 +1,7 @@
 class VersionFilter
   include ActiveModel::Model
 
-  DATE_FORMAT = '%m/%d/%Y'
+  DATE_FORMAT = '%d/%m/%Y'
 
   attr_accessor :item_type
   attr_accessor :item_types

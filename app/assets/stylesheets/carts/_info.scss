@@ -20,12 +20,27 @@
     }
   }
 
-  p.requested-for-delivery-at {
-    margin-top: -10px;
-    font-size: 12px;
+  tr.request_for_delivery_at {
+    th {
+      vertical-align: middle;
+    }
+
+    input[type=text] {
+      padding-left: 5px;
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    &[invalid] {
+      color: red;
+    }
   }
 
-  tbody a {
+  th a {
+    font-weight: bold;
+  }
+
+  table a {
     color: #333333;
     text-decoration: underline;
   }

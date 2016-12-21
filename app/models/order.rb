@@ -32,7 +32,7 @@ class Order < ActiveRecord::Base
   validates :outlet_name,    presence: true
   validates :outlet_address, presence: true
   validates :outlet_phone,   presence: true
-  validates :request_for_delivery_at, presence: true
+  validates :request_for_delivery_at, presence: true, if: '!status.wip?'
 
   enumerize :status, in: [:wip, :confirmed, :placed, :accepted, :declined, :delivered, :cancelled], default: :wip
 
