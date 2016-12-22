@@ -77,6 +77,7 @@ class SuppliersController < ApplicationController
       :bank_account_number,
       :min_order_price,
       :max_order_price,
+      :processing_cut_off,
       delivery_days: []
     )
     data[:restaurant_id] = current_restaurant.id

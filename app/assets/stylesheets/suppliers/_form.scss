@@ -1,0 +1,18 @@
+.suppliers-form-container {
+  tr.supplier_processing_cut_off {
+    td:last-child {
+      display: flex;
+      line-height: 34px;
+      border: none;
+    }
+    .form-control {
+      flex-direction: row;
+      width: 80px;
+      margin: 0 10px;
+
+      &:nth-child(4) {
+        margin-left: 0;
+      }
+    }
+  }
+}

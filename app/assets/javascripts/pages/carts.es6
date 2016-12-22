@@ -19,9 +19,9 @@ Foodxervices.carts = {
           }
         })
         
-        $(dateInput).datepicker({
+        dateInput.datepicker({
           daysOfWeekDisabled: disable_days,
-          startDate: '+1d',
+          startDate: new Date(dateInput.data('start-date')),
           enableOnReadonly: true,
           format: 'dd/mm/yyyy'
         })

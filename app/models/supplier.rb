@@ -32,4 +32,30 @@ class Supplier < ActiveRecord::Base
     errors.add :base, "Cannot delete supplier with food items"
     false
   end
+
+  # when `Processing Cut-Off` is set for supplier as 3pm
+  # if the PO is raised before 3pm
+  # delivery window can be next day earliest (assume no delivery window constraint) 
+  # if PO raised after 3pm, delivery window can only be day after earliest (again assume no delivery window constraint)  
+  def next_available_delivery_date
+    now = Time.zone.now
+    next_available_date = next_available(now)
+
+    if processing_cut_off.nil? || now < now.change(hour: processing_cut_off.hour, min: processing_cut_off.min)
+      return next_available_date 
+    end
+    
+    next_available(next_available_date)
+  end
+
+  def next_available(date)
+    return nil if delivery_days.empty?
+    tmr = date.tomorrow.beginning_of_day
+    return tmr if valid_delivery_date?(tmr)
+    next_available(tmr)
+  end
+
+  def valid_delivery_date?(date)
+    delivery_days.include?(date.strftime("%A").downcase)
+  end
 end
