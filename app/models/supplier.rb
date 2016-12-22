@@ -4,8 +4,6 @@ class Supplier < ActiveRecord::Base
   default_scope { order(:priority) }
   
   has_paper_trail :ignore => [:priority, :delivery_days]
-  
-  before_destroy :check_for_food_items
 
   belongs_to :restaurant
   has_many :food_items, :dependent => :restrict_with_error
@@ -25,12 +23,6 @@ class Supplier < ActiveRecord::Base
 
   def country_name
     ISO3166::Country[country]
-  end
-
-  def check_for_food_items
-    return true if food_items.count == 0
-    errors.add :base, "Cannot delete supplier with food items"
-    false
   end
 
   # when `Processing Cut-Off` is set for supplier as 3pm
