@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161222064749) do
+ActiveRecord::Schema.define(version: 20161222105257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20161222064749) do
     t.integer "priority", default: 100
   end
 
+  add_index "categories", ["priority"], name: "index_categories_on_priority", using: :btree
+
   create_table "food_items", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
@@ -66,11 +68,13 @@ ActiveRecord::Schema.define(version: 20161222064749) do
     t.string   "unit_price_without_promotion_currency",                         default: "SGD", null: false
     t.integer  "attachments_count",                                             default: 0
     t.datetime "deleted_at"
+    t.integer  "ordered_count",                                                 default: 0
   end
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree
   add_index "food_items", ["code"], name: "index_food_items_on_code", using: :btree
   add_index "food_items", ["deleted_at"], name: "index_food_items_on_deleted_at", using: :btree
+  add_index "food_items", ["ordered_count"], name: "index_food_items_on_ordered_count", using: :btree
   add_index "food_items", ["restaurant_id"], name: "index_food_items_on_restaurant_id", using: :btree
   add_index "food_items", ["supplier_id"], name: "index_food_items_on_supplier_id", using: :btree
   add_index "food_items", ["user_id"], name: "index_food_items_on_user_id", using: :btree
@@ -240,6 +244,7 @@ ActiveRecord::Schema.define(version: 20161222064749) do
     t.time     "processing_cut_off"
   end
 
+  add_index "suppliers", ["priority"], name: "index_suppliers_on_priority", using: :btree
   add_index "suppliers", ["restaurant_id"], name: "index_suppliers_on_restaurant_id", using: :btree
 
   create_table "taggings", force: :cascade do |t|

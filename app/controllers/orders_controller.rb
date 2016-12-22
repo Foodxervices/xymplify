@@ -142,6 +142,7 @@ class OrdersController < ApplicationController
     end
 
     if @success
+      FrequentlyOrderedWorker.perform_async(@order.id)
       flash[:notice] = "#{@order.name} has been delivered." 
       OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_delivered')
     end

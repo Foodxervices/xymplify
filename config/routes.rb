@@ -89,6 +89,7 @@ Rails.application.routes.draw do
     resources :categories,  only: [:index] do 
       collection do 
         get :by_supplier
+        get :frequently_ordered
       end
     end
     resources :carts,       only: [:new] do 

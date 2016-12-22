@@ -36,6 +36,7 @@ CartItem.prototype.submit = function() {
   }
 
   this.submitting = true
+  
   $.post({
     url: `/kitchens/${this.kitchenId}/carts/add.js`,
     data: { 

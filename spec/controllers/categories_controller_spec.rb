@@ -32,4 +32,17 @@ describe CategoriesController, :type => :controller do
       expect(response).to render_template :index
     end
   end
+
+  describe '#frequently_ordered' do
+    def do_request
+      get :frequently_ordered, kitchen_id: kitchen.id
+    end
+
+    it 'renders the :index view' do
+      do_request
+      expect(assigns(:food_items).size).to eq 2
+      expect(assigns(:groups).size).to eq 1
+      expect(response).to render_template :index
+    end
+  end
 end

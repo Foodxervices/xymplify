@@ -27,9 +27,10 @@
 
     li {
       padding: 0 10px;
+      border-right: 1px solid #5e5e5e;
 
-      &:first-child {
-        border-right: 1px solid #5e5e5e;
+      &:last-child {
+        border-right: none;
       }
     }
 

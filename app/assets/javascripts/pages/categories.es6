@@ -12,5 +12,12 @@ Foodxervices.categories = {
         new CartItem($(this))
       })
     }
+  },
+  frequently_ordered: {
+    init: function() {
+      $('.cart-item').each(function() {
+        new CartItem($(this))
+      })
+    }
   }
 }

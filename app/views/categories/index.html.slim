@@ -6,6 +6,7 @@
         ul.list-inline
           li = active_link_to 'Go by Category', url_for(params.merge(action: :index)), :active => :exclusive
           li = active_link_to 'Go by Supplier', url_for(params.merge(action: :by_supplier)), :active => :exclusive
+          li = active_link_to 'Frequently Ordered', url_for(params.merge(action: :frequently_ordered)), :active => :exclusive
       - @groups.each do |group_name, food_items|
         .block
           h4 = group_name

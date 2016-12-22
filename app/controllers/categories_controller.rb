@@ -11,8 +11,15 @@ class CategoriesController < ApplicationController
   def by_supplier
     init
     @food_items = @food_items.order("supplier_priority, category_priority, unit_price_cents")
-    @groups = @food_items.group_by(&:supplier_name)
+    @groups = @food_items.group_by(&:supplier_name)         
     @hide_supplier = true
+    render :index
+  end
+
+  def frequently_ordered
+    init
+    @food_items = @food_items.order("ordered_count desc, supplier_priority, category_priority")
+    @groups = { "Frequently Ordered" => @food_items }
     render :index
   end
 
