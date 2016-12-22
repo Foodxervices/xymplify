@@ -10,7 +10,9 @@ class SuppliersController < ApplicationController
 
   def show; end
 
-  def new; end
+  def new
+    @supplier.processing_cut_off = Time.zone.now.change(hour: 18, min: 0)
+  end
 
   def create
     if @supplier.save
