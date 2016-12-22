@@ -72,10 +72,10 @@ class CartsController < ApplicationController
         orders: [],
         orders_amount: 0
       }
-      if !supplier.valid_delivery_date?(order.request_for_delivery_at)
-        suppliers[supplier.id][:errors] << "Please ensure that request for delivery date of #{order.name} is valid."
-      elsif order.request_for_delivery_at < supplier.next_available_delivery_date
-        suppliers[supplier.id][:errors] << "Please ensure that request for delivery date of #{order.name} after #{format_date(supplier.next_available_delivery_date)}."
+      order.validate_request_date
+
+      if order.errors.messages.any?
+        suppliers[supplier.id][:errors] << order.name + ': ' + order.errors.full_messages.join('. ')
       else
         suppliers[supplier.id][:orders_amount] += order.price_with_gst.exchange_to(supplier.currency).to_f
         suppliers[supplier.id][:orders] << order
@@ -107,13 +107,15 @@ class CartsController < ApplicationController
   end
 
   def update_request_for_delivery_at
-    @order = current_orders.find(params[:id])
-    @order.request_for_delivery_at = Time.zone.parse(params[:request_for_delivery_at])
-    
-    if @order.request_for_delivery_at < 1.day.from_now
-      render json: { success: false, message: 'Request for delivery time need to be over 24 hours' }
+    order = current_orders.find(params[:id])
+    order.request_for_delivery_at = Time.zone.parse(params[:request_for_delivery_at])
+
+    order.validate_request_date
+
+    if order.errors.messages.any?
+      render json: { success: false, message: order.errors.full_messages.join('. ') }
     else
-      render json: { success: @order.save }
+      render json: { success: order.save }
     end
   end
 

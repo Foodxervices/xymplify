@@ -65,6 +65,14 @@ class Order < ActiveRecord::Base
     delivered_at.present? ? delivered_at : request_for_delivery_at
   end
 
+  def validate_request_date
+    if !supplier.valid_delivery_date?(request_for_delivery_at)
+      errors.add(:base, "Request for delivery date is invalid.")
+    elsif request_for_delivery_at < supplier.next_available_delivery_date
+      errors.add(:base, "Please ensure that request for delivery date after #{supplier.next_available_delivery_date.try(:strftime, '%a, %d %b %Y')}.")
+    end
+  end
+
   private 
   def cache_restaurant
     self.restaurant_id = kitchen.restaurant_id 

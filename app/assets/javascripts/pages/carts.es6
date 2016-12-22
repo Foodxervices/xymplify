@@ -26,10 +26,6 @@ Foodxervices.carts = {
           format: 'dd/mm/yyyy'
         })
 
-        $(dateInput).keypress(function (evt) {
-          return false
-        });
-
         // Time
         let timeInput = tableOrder.find('input[name=request_for_delivery_time]')
         timeInput.timepicker({ defaultTime: false })
@@ -37,7 +33,7 @@ Foodxervices.carts = {
         $(timeInput).on('hide.timepicker', function(e) {
           post(dateInput, timeInput, kitchenId, orderId)
         })
-        $(dateInput).change(function() {
+        $(dateInput).on('hide', function(e) {
           post(dateInput, timeInput, kitchenId, orderId)
         });
       }) 
