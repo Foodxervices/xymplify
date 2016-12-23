@@ -8,7 +8,7 @@
           th colspan="4" = link_to_if can?(:read, order.supplier), supplier.name, supplier, remote: true
         tr.request_for_delivery_at invalid=@request_for_delivery_at_invalid
           th colspan="1" Request for delivery at
-          th colspan="2" = text_field_tag :request_for_delivery_date, order.request_for_delivery_at.try(:strftime, '%d/%m/%Y'), id: nil, data: { days: supplier.delivery_days, start_date: supplier.next_available_delivery_date.to_date }
+          th colspan="2" = text_field_tag :request_for_delivery_date, order.request_for_delivery_at.try(:strftime, '%d/%m/%Y'), id: nil, data: { days: supplier.delivery_days, start_date: supplier.next_available_delivery_date.to_date.to_s }
           th colspan="1" = text_field_tag :request_for_delivery_time, order.request_for_delivery_at.try(:strftime, '%H:%M %p'), id: nil
         tr 
           th.name = order.name

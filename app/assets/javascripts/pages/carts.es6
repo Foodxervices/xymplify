@@ -20,7 +20,7 @@ Foodxervices.carts = {
         })
         
         dateInput.datepicker({
-          daysOfWeekDisabled: [1,2,3],
+          daysOfWeekDisabled: disable_days,
           startDate: new Date(dateInput.data('start-date')),
           enableOnReadonly: true,
           format: 'dd/mm/yyyy'
