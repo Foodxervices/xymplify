@@ -44,7 +44,7 @@ CartItem.prototype.submit = function() {
       quantity: this.quantity()
     },
     success: () => {
-      this.quantityInput.val(0)
+      this.quantityInput.val(1)
       this.submitting = false
       this.addToCartBtn.confirmation('hide')
     }
