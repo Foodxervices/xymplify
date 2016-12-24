@@ -976,7 +976,7 @@
                 handler($zone, 'dragenter dragover', $.proxy(self._zoneDragEnter, self));
                 handler($zone, 'dragleave', $.proxy(self._zoneDragLeave, self));
                 handler($zone, 'drop', $.proxy(self._zoneDrop, self));
-                handler($(document), 'dragenter dragover drop', self._zoneDragDropInit);
+                handler($(document), 'dragenter dragover drop', function() {});
             }
         },
         _zoneDragDropInit: function (e) {

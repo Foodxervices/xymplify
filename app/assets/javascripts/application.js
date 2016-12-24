@@ -10,6 +10,7 @@
 //= require bootstrap_taggable/bootstrap-tokenfield
 //= require bootstrap-tooltip
 //= require bootstrap-confirmation
+//= require drop_file
 //= require bootstrap-fileinput/js/fileinput
 //= require datepicker/js/bootstrap-datepicker
 //= require bootstrap-timepicker/js/bootstrap-timepicker

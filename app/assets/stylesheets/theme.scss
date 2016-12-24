@@ -204,3 +204,16 @@ table.table-bordered, table.table-striped {
   background: $delivered_color;
 }
 /* BUTTONS */
+
+/* DRAG FILE */
+.drag-here {
+  animation-name: animate-bg;
+  animation-duration: 0.5s;
+  animation-iteration-count:infinite;
+}
+
+@keyframes animate-bg {
+  50%  {background-color: blue;}
+  100%   {background-color: red;}
+}
+/* DRAG FILE */

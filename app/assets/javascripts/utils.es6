@@ -14,6 +14,7 @@ const Utils = {
     Utils.paddingMain()
     Utils.initMentionsInput()
     Utils.initDateRange()
+    Utils.initDragFileTip()
   },
   initConfirmation: () => {
     $('[data-toggle="confirmation"]').each(function() {
@@ -35,7 +36,6 @@ const Utils = {
     $('input[type=file]:not(.initialized)').each(function() {
       let extensions = $(this).attr('data-allowed-file-extensions')
       let showUpload = $(this).attr('data-show-upload') || false
-      let uploadUrl = $(this).attr('data-upload-url') || null
       let showPreview = $(this).attr('data-show-preview') || true
 
       if(extensions) {
@@ -44,7 +44,30 @@ const Utils = {
 
       $(this).attr('data-allowed-file-extensions', extensions)
 
-      $(this).addClass('initialized').fileinput({ removeFromPreviewOnError: true, showUpload: showUpload, initialPreviewAsData: true, uploadUrl: uploadUrl, showPreview: showPreview })
+      $(this).addClass('initialized').fileinput({ removeFromPreviewOnError: true, showUpload: showUpload, initialPreviewAsData: true, showPreview: showPreview })
+    })
+  },
+  initDragFileTip:() => {
+    let body = $('body')[0]
+    let timeOutId = null
+    body.addEventListener("dragover", function(e) {
+      $('input[type=file]').each(function() {
+        if($(this).attr('multiple') != 'multiple') {
+          clearTimeout(timeOutId)
+          let btn = $(this).closest('.btn-file')
+          let btnText = btn.find('.hidden-xs')
+          if(btnText.attr('default-text') === undefined) {
+            btnText.attr('default-text', btnText.text())
+          }
+          btn.addClass('drag-here')
+          btnText.text('Drop here...')
+
+          timeOutId = setTimeout(function() {
+            btn.removeClass('drag-here')  
+            btnText.text(btnText.attr('default-text'))
+          }, 500)
+        }
+      })
     })
   },
   initSelectPicker: () => {
