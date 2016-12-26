@@ -40,7 +40,9 @@ CartItem.prototype.submit = function() {
 
   this.submitting = true
   
-  $.post({
+  $.ajax({
+    type: 'POST',
+    async: false,
     url: `/kitchens/${this.kitchenId}/carts/add.js`,
     data: { 
       food_item_id: this.foodItemId,
