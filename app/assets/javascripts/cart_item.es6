@@ -1,9 +1,5 @@
 const CartItem = function(item) {
   this.item = $(item)
-  if(this.item.hasClass('i-cart')) {
-    return false
-  }
-  this.item.addClass('i-cart')
   this.submitting = false
   
   this.foodItemId = this.item.data('id')
@@ -11,6 +7,13 @@ const CartItem = function(item) {
   this.kitchenId = this.item.data('kitchen-id')
   this.quantityInput = this.item.find('.quantity-input').first()
   this.addToCartBtn = this.item.find('.btn-add').first()
+}
+
+CartItem.prototype.initAddToCartBtn = function() {
+  if(this.item.hasClass('i-cart')) {
+    return false
+  }
+  this.item.addClass('i-cart')
 
   this.addToCartBtn.confirmation({
     onConfirm: () => {
@@ -31,7 +34,7 @@ CartItem.prototype.quantity = function() {
 }
 
 CartItem.prototype.submit = function() {
-  if(this.submitting) {
+  if(this.submitting || this.quantity() == 0) {
     return 
   }
 
@@ -44,7 +47,7 @@ CartItem.prototype.submit = function() {
       quantity: this.quantity()
     },
     success: () => {
-      this.quantityInput.val(1)
+      this.quantityInput.val(0)
       this.submitting = false
       this.addToCartBtn.confirmation('hide')
     }
