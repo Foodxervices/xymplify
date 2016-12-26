@@ -24,15 +24,16 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @supplier     = @order.supplier
+
     respond_to do |format|
       format.js
-      format.pdf do 
-        @supplier     = @order.supplier
+      format.pdf do     
         @kitchen      = @order.kitchen
         @restaurant   = @kitchen.restaurant
         @items        = @order.items.includes(:food_item)
 
-        render pdf: @order.name, layout: 'main'
+        render pdf: "#{@order.name} - #{@supplier.name}", layout: 'main'
       end
     end
   end 

@@ -9,7 +9,7 @@
             .title
               .btn.btn-default.status class="status-#{order.status}" = order.status_text
               h4 = order.name
-              small = format_date(order.status_updated_at)
+              small = format_date(order.status_updated_at) + ' - ' + supplier_name
             = render 'orders/details', order: order
   .text-center          
     = will_paginate @orders, renderer: BootstrapPagination::Rails
