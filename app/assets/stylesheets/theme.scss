@@ -207,6 +207,7 @@ table.table-bordered, table.table-striped {
 
 /* DRAG FILE */
 .drag-here {
+  font-weight: bold;
   animation-name: animate-bg;
   animation-duration: 0.5s;
   animation-iteration-count:infinite;

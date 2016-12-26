@@ -60,7 +60,7 @@ const Utils = {
             btnText.attr('default-text', btnText.text())
           }
           btn.addClass('drag-here')
-          btnText.text('Drop here...')
+          btnText.text('DROP ME HERE')
 
           timeOutId = setTimeout(function() {
             btn.removeClass('drag-here')  
