@@ -1,0 +1,17 @@
+#configs-index-container
+  h1 Configurations
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr
+          th = Config.human_attribute_name(:name) 
+          th = Config.human_attribute_name(:value) 
+          th.text-center Action
+      tbody 
+        - @configs.each do |config|
+          tr
+            td = config.name
+            td = config.value
+            td.text-center
+              ul.actions
+                li = link_to 'Edit', [:edit, config], remote: true

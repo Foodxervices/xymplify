@@ -33,7 +33,7 @@ class Supplier < ActiveRecord::Base
     now = Time.zone.now
     next_available_date = next_available(now)
 
-    if processing_cut_off.nil? || now < now.change(hour: processing_cut_off.hour, min: processing_cut_off.min)
+    if(!Config.processing_cut_off_enabled? || (processing_cut_off.nil? || now < now.change(hour: processing_cut_off.hour, min: processing_cut_off.min)))
       return next_available_date 
     end
     

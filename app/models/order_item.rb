@@ -50,7 +50,7 @@ class OrderItem < ActiveRecord::Base
 
   def cache_order_amount
     if unit_price_cents_changed? || unit_price_currency_changed? || quantity_changed?
-      order.price = order.items.map(&:total_price).inject(0, :+) 
+      order.price = order.items.includes(:order).map(&:total_price).inject(0, :+) 
       order.save
     end
   end

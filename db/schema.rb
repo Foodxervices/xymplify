@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161222105257) do
+ActiveRecord::Schema.define(version: 20161226055802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,14 @@ ActiveRecord::Schema.define(version: 20161222105257) do
   end
 
   add_index "categories", ["priority"], name: "index_categories_on_priority", using: :btree
+
+  create_table "configs", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.string "value"
+  end
+
+  add_index "configs", ["slug"], name: "index_configs_on_slug", using: :btree
 
   create_table "food_items", force: :cascade do |t|
     t.string   "name"

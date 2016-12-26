@@ -1,0 +1,7 @@
+.configs-form-container
+  = simple_form_for config, remote: true do |f|
+    = f.input :name
+    = f.input :value, config_value_option(f.object.slug)
+
+    .form-actions
+      = f.button :submit, class: 'btn btn-primary'

@@ -104,6 +104,10 @@
       @extend .mdi-security;
     }
 
+    &.sb-config i:before {
+      @extend .mdi-settings;
+    }
+
     &.sb-category i:before {
       @extend .mdi-library-books;
     }

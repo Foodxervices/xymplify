@@ -2,6 +2,8 @@ class SuppliersController < ApplicationController
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :supplier, :through => :restaurant, :shallow => true
 
+  before_action :init_processing_cut_off, only: [:new, :edit]
+
   def index
     @supplier_filter = SupplierFilter.new(@suppliers, supplier_filter_params)
     @suppliers = @supplier_filter.result
@@ -10,9 +12,7 @@ class SuppliersController < ApplicationController
 
   def show; end
 
-  def new
-    @supplier.processing_cut_off = Time.now.utc.change(hour: 18, min: 0)
-  end
+  def new; end
 
   def create
     if @supplier.save
@@ -84,5 +84,9 @@ class SuppliersController < ApplicationController
     )
     data[:restaurant_id] = current_restaurant.id
     data
+  end
+
+  def init_processing_cut_off
+    @supplier.processing_cut_off ||= Time.now.utc.change(hour: 18, min: 0)
   end
 end

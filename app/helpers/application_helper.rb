@@ -8,6 +8,10 @@ module ApplicationHelper
   def format_datetime(date_time)
     date_time.try(:strftime, '%d %b %Y %I:%M %p')
   end
+
+  def format_time(time)
+    time.try(:strftime, '%I:%M %p')
+  end
   
   def currency_codes
     currencies = []

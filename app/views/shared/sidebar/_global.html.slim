@@ -6,5 +6,6 @@
   = active_link_to 'User Accounts', users_path, :wrap_tag => :li, class: 'sb-user', title: 'User'
 - if can?(:index, Category)
   = active_link_to 'Food Item Categories', food_categories_path, :wrap_tag => :li, class: 'sb-category', title: 'Category'
-
+- if can?(:index, Config)
+  = active_link_to 'Configurations', configs_path, :wrap_tag => :li, class: 'sb-config', title: 'Configurations'
   

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :roles,       only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
+  resources :configs,     only: [:index, :edit, :update]
+
   resources :food_items,  only: [:show, :destroy]
 
   resources :food_categories,  only: [:index, :new, :create, :edit, :update, :destroy] do 

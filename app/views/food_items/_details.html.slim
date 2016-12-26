@@ -8,6 +8,9 @@
           th width=230 = FoodItem.human_attribute_name(:code)
           td = food_item.code
         tr 
+          th = FoodItem.human_attribute_name(:category)
+          td = food_item.category&.name
+        tr 
           th = FoodItem.human_attribute_name(:tag_list)
           td = food_item.tag_list
         tr 
@@ -25,6 +28,10 @@
         tr 
           th = FoodItem.human_attribute_name(:both_prices)
           td = both_prices(food_item)
+        - if food_item.low_quantity.present?
+          tr 
+            th = FoodItem.human_attribute_name(:low_quantity)
+            td = food_item.low_quantity
         - if food_item.attachments.any?
           tr
             th = FoodItem.human_attribute_name(:attachments)
