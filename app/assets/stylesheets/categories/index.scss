@@ -38,8 +38,8 @@
       color: #5e5e5e;
 
       &.active, &:hover {
-        color: #393838;
-        text-decoration: underline;
+        color: $primary_color;
+        font-weight: bold;
       }
     }
   }
