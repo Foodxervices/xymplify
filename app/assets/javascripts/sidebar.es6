@@ -39,4 +39,10 @@ Sidebar.prototype.toggle = function() {
   else {
     this.collapse()
   }
+
+  if($('#cart-details').length > 0) {
+    setTimeout(function() {
+      $('#cart-details').width($('#cart-details-ref').width())
+    }, 1000)
+  }
 }
