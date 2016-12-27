@@ -163,6 +163,8 @@ table.table-bordered, table.table-striped {
 
 /* POPUP */
 .popover-content {
+  min-width: 140px;
+  
   .btn-group {
     float: none;
   }
