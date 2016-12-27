@@ -44,10 +44,14 @@
     }
   }
 
+  #cart-details-ref {
+    height: 1px;
+  }
+
   @media(min-width: $screen-md-min){
     #cart-details {
       position: fixed;
-      padding-right: 15px;
+      right: 15px;
     }
   }
 }

@@ -41,6 +41,10 @@ class Order < ActiveRecord::Base
 
   delegate :currency, to: :supplier, allow_nil: true
 
+  def long_name
+    name + ' - ' + supplier.name
+  end
+
   def self.price 
     all.map(&:price).inject(0, :+)
   end

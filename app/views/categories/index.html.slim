@@ -15,6 +15,7 @@
         = will_paginate @food_items, renderer: BootstrapPagination::Rails, inner_window: 3, outer_window: 1
 
     .col-md-4
+      #cart-details-ref
       #cart-details
         = render 'carts/details', orders: @orders
   

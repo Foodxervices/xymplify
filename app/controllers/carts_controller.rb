@@ -75,7 +75,7 @@ class CartsController < ApplicationController
       order.validate_request_date
 
       if order.errors.messages.any?
-        suppliers[supplier.id][:errors] << order.name + ': ' + order.errors.full_messages.join('. ')
+        suppliers[supplier.id][:errors] << order.long_name + ': ' + order.errors.full_messages.join('. ')
       else
         suppliers[supplier.id][:orders_amount] += order.price_with_gst.exchange_to(supplier.currency).to_f
         suppliers[supplier.id][:orders] << order
@@ -98,7 +98,7 @@ class CartsController < ApplicationController
           order.status = :placed 
           order.save
           OrderMailerWorker.perform_async(order.id, 'notify_supplier_after_placed')
-          notices << "#{order.name} has been placed successfully."
+          notices << "#{order.long_name} has been placed successfully."
         end
       end
     end
