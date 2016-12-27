@@ -163,7 +163,13 @@ table.table-bordered, table.table-striped {
 
 /* POPUP */
 .popover-content {
-  min-width: 121px;
+  .btn-group {
+    float: none;
+  }
+
+  a.btn {
+    white-space: nowrap;
+  }
 }
 /* POPUP */
 

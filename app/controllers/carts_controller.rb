@@ -102,8 +102,10 @@ class CartsController < ApplicationController
         end
       end
     end
-      
-    redirect_to :back, notice: notices.join('<br /><br/>')
+    
+    notices.delete_if(&:blank?)
+    flash[:notice] = notices.join('<br /><br/>') if notices.any?
+    redirect_to :back
   end
 
   def update_request_for_delivery_at
