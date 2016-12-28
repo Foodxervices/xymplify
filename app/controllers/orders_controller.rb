@@ -45,7 +45,7 @@ class OrdersController < ApplicationController
     @success = @order.update_attributes(order_params)
   
     if @success
-      order_name = @order.name
+      order_name = @order.full_name
       @restaurant = @order.restaurant
 
       @message = []
