@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
         @restaurant   = @kitchen.restaurant
         @items        = @order.items.includes(:food_item)
 
-        render pdf: "#{@order.name} - #{@supplier.name}", layout: 'main'
+        render pdf: "#{@order.full_name} - #{@supplier.name}", layout: 'main'
       end
     end
   end 
@@ -68,7 +68,7 @@ class OrdersController < ApplicationController
 
   def destroy
     if @order.destroy
-      flash[:notice] = "#{@order.name} has been deleted."
+      flash[:notice] = "#{@order.full_name} has been deleted."
     else
       flash[:notice] = @order.errors.full_messages.join("<br />")
     end
@@ -144,7 +144,7 @@ class OrdersController < ApplicationController
 
     if @success
       FrequentlyOrderedWorker.perform_async(@order.id)
-      flash[:notice] = "#{@order.name} has been delivered." 
+      flash[:notice] = "#{@order.full_name} has been delivered." 
       OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_delivered')
     end
 
@@ -228,6 +228,6 @@ class OrdersController < ApplicationController
   end
 
   def invalid_status_notice
-    flash[:notice] = "#{@order.name} was #{@order.status} at #{format_datetime(@order.status_updated_at)}." 
+    flash[:notice] = "#{@order.full_name} was #{@order.status} at #{format_datetime(@order.status_updated_at)}." 
   end
 end
