@@ -60,7 +60,7 @@ describe OrdersController, :type => :controller do
 
       it 'deletes order' do 
         expect{ do_request }.to change{ Order.count }.from(1).to(0)
-        expect(flash[:notice]).to eq("#{order.full_name} has been deleted.")
+        expect(flash[:notice]).to eq("#{order.long_name} has been deleted.")
         expect(response).to redirect_to "where_i_came_from"
       end
     end
