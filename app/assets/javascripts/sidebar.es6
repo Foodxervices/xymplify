@@ -15,6 +15,7 @@ const Sidebar = function(sidebar) {
 
   setTimeout(function() {
     $('body').removeClass('notransition')  
+    $('#cart-details').width($('#cart-details-ref').width() + 15)
   }, 1000)
   
   this.toggleButton.click(() => {
@@ -42,7 +43,7 @@ Sidebar.prototype.toggle = function() {
 
   if($('#cart-details').length > 0) {
     setTimeout(function() {
-      $('#cart-details').width($('#cart-details-ref').width())
+      $('#cart-details').width($('#cart-details-ref').width() + 15)
     }, 1000)
   }
 }
