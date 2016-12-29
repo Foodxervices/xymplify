@@ -1,42 +1,41 @@
 - supplier = order.supplier
 .carts-info-container 
-  .table-responsive
-    table.table.table-striped.table-order rel=order.id data-kitchen-id=current_kitchen.id
+  table.table.table-striped.table-order rel=order.id data-kitchen-id=current_kitchen.id
+    
+    thead
+      tr 
+        th colspan="4" = link_to_if can?(:read, order.supplier), supplier.name, supplier, remote: true
+      tr.request_for_delivery_at invalid=@request_for_delivery_at_invalid
+        th colspan="1" Delivery at
+        th colspan="2" = text_field_tag :request_for_delivery_date, order.request_for_delivery_at.try(:strftime, '%d/%m/%Y'), id: nil, data: { days: supplier.delivery_days, start_date: supplier.next_available_delivery_date&.to_date&.to_s }
+        th colspan="1" = text_field_tag :request_for_delivery_time, order.request_for_delivery_at.try(:strftime, '%H:%M %p'), id: nil
+      tr 
+        th.name = order.name
+        th Quantity
+        th UOM
+        th
+          - if order.valid? && order.status.confirmed?
+            .confirmed Confirmed
+    tbody
+      - order.items.includes(:food_item).each do |item|
+        tr.order-item rel=item.id
+          td = link_to_if can?(:read, item.food_item), item.name, item.food_item, remote: true
+          td.text-center = item.quantity
+          td = item.food_item&.unit
+          td.text-right width="80" = humanized_money_with_symbol(item.total_price)
       
-      thead
-        tr 
-          th colspan="4" = link_to_if can?(:read, order.supplier), supplier.name, supplier, remote: true
-        tr.request_for_delivery_at invalid=@request_for_delivery_at_invalid
-          th colspan="1" Delivery at
-          th colspan="2" = text_field_tag :request_for_delivery_date, order.request_for_delivery_at.try(:strftime, '%d/%m/%Y'), id: nil, data: { days: supplier.delivery_days, start_date: supplier.next_available_delivery_date&.to_date&.to_s }
-          th colspan="1" = text_field_tag :request_for_delivery_time, order.request_for_delivery_at.try(:strftime, '%H:%M %p'), id: nil
-        tr 
-          th.name = order.name
-          th Quantity
-          th UOM
-          th
-            - if order.valid? && order.status.confirmed?
-              .confirmed Confirmed
-      tbody
-        - order.items.includes(:food_item).each do |item|
-          tr.order-item rel=item.id
-            td = link_to_if can?(:read, item.food_item), item.name, item.food_item, remote: true
-            td.text-center = item.quantity
-            td = item.food_item&.unit
-            td.text-right width="80" = humanized_money_with_symbol(item.total_price)
-        
-      tfoot
-        - if order.gsts_count != 0
+    tfoot
+      - if order.gsts_count != 0
+        tr
+          td.text-right colspan="3" Subtotal
+          td.text-right = humanized_money_with_symbol(order.price)
+        - order.gsts.each do |gst|
           tr
-            td.text-right colspan="3" Subtotal
-            td.text-right = humanized_money_with_symbol(order.price)
-          - order.gsts.each do |gst|
-            tr
-              td.text-right colspan="3" = "#{gst.name} #{gst.percent}%"
-              td.text-right = humanized_money_with_symbol(gst.amount)
-        tr 
-          td.text-right colspan="3" Total
-          td.text-right = humanized_money_with_symbol(order.price_with_gst)
+            td.text-right colspan="3" = "#{gst.name} #{gst.percent}%"
+            td.text-right = humanized_money_with_symbol(gst.amount)
+      tr 
+        td.text-right colspan="3" Total
+        td.text-right = humanized_money_with_symbol(order.price_with_gst)
 
 javascript:
   Foodxervices.carts.info.init();
