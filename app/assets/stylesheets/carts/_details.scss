@@ -5,6 +5,7 @@
     .h-scroll {
       max-height: 52vh;
       overflow-y: scroll;
+      overflow-x: hidden;
     }
   }
 }
