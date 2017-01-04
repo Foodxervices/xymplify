@@ -56,7 +56,7 @@ class FoodItemImport
     i = 0
     sheet.each( code: "Item Code", name: "Item Name", brand: "Brand", 
                 unit_price_without_promotion: "Unit Price", unit_price: "Special Price", category: "Category", 
-                tag_list: "Item tags" ) do |row|
+                tag_list: "Item tags", country_of_origin: "Country of Origin" ) do |row|
       i += 1
 
       next if i == 1

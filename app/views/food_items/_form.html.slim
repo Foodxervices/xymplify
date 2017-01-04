@@ -11,6 +11,7 @@
           = f.association   :supplier, collection: current_restaurant.suppliers.accessible_by(current_ability)
           = f.input         :image, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg", 'initial-preview' => asset_url(food_item.image.url(:medium))} }
         .col-md-6
+          = f.input         :country_of_origin, as: :string
           = f.association   :category
           = f.input         :tag_list, input_html: { class: 'taggable', value: f.object.tag_list.to_s }, hint: "e.g. Banana, Apple"
           = f.input         :unit

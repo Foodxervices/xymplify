@@ -17,10 +17,11 @@ class FoodItemFilter
 
     if keyword.present?
       @food_items = @food_items.where("
-                                        food_items.code             ILIKE :keyword OR 
-                                        food_items.name             ILIKE :keyword OR 
-                                        food_items.brand            ILIKE :keyword OR 
-                                        food_items.cached_tag_list  ILIKE :keyword OR 
+                                        food_items.code               ILIKE :keyword OR 
+                                        food_items.name               ILIKE :keyword OR 
+                                        food_items.brand              ILIKE :keyword OR 
+                                        food_items.cached_tag_list    ILIKE :keyword OR 
+                                        food_items.country_of_origin  ILIKE :keyword OR 
                                         s.name   ILIKE :keyword OR 
                                         c.name   ILIKE :keyword
                                       ", keyword: "%#{keyword}%") 

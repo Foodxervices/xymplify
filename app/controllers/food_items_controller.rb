@@ -84,6 +84,7 @@ class FoodItemsController < ApplicationController
       :image,
       :tag_list,
       :low_quantity,
+      :country_of_origin,
       kitchen_ids: []
     )
     

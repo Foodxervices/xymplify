@@ -28,6 +28,9 @@
         tr 
           th = FoodItem.human_attribute_name(:both_prices)
           td = both_prices(food_item)
+        tr 
+          th = FoodItem.human_attribute_name(:country_of_origin)
+          td = food_item.country_of_origin
         - if food_item.low_quantity.present?
           tr 
             th = FoodItem.human_attribute_name(:low_quantity)
