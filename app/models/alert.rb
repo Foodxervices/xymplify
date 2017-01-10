@@ -32,17 +32,17 @@ class Alert < ActiveRecord::Base
   def title
     case type 
       when 'pending_order'
-        "#{alertable.name} has not been received yet"   
+        "#{alertable.long_name} has not been received yet"   
       when 'accepted_order'
-        "#{alertable.name} has been accepted" 
+        "#{alertable.long_name} has been accepted" 
       when 'declined_order'
-        "#{alertable.name} has been declined" 
+        "#{alertable.long_name} has been declined" 
       when 'low_quantity'
         "#{alertable.name} in the kitchen is running low"
       when 'cancelled_order'
-        "#{alertable.name} has been cancelled"
+        "#{alertable.long_name} has been cancelled"
       when 'incoming_delivery'
-        "#{alertable.name} was requested to delivery at #{format_datetime(alertable.request_for_delivery_at)}"
+        "#{alertable.long_name} was requested to delivery at #{format_datetime(alertable.request_for_delivery_at)}"
     end
   end
 
