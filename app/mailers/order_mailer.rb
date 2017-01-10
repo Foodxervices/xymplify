@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class OrderMailer < ActionMailer::Base
   include ApplicationHelper
   add_template_helper ApplicationHelper
@@ -89,6 +87,15 @@ class OrderMailer < ActionMailer::Base
     @kitchen = @order.kitchen
     @items = @order.items
     @user = @order.user
-    attachments["#{@order.name}.pdf"] = open(order_url(order, format: :pdf, token: @order.token)).read if !Rails.env.development? && !Rails.env.test?
+
+    if !Rails.env.development? && !Rails.env.test?
+      attachments["#{@order.name}.pdf"] = WickedPdf.new.pdf_from_string(
+        render_to_string(
+          layout: 'main',
+          template: 'orders/show.pdf.slim',
+          locals: { current_restaurant: @restaurant }
+          )
+      )
+    end
   end
 end

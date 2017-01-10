@@ -1,7 +1,9 @@
 class HomeController < ApplicationController
   layout :resolve_layout
 
-  def index; end
+  def index
+    Premailer::Rails::Hook.perform(OrderMailer.send('notify_supplier_after_placed', Order.where(status: :placed).last)).deliver_now
+  end
 
   def retailers; end
 
