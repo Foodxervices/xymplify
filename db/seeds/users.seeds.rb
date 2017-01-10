@@ -7,7 +7,7 @@ puts "==== End ===="
 
 puts "==== Create Admin ===="
 Admin.create([
-  { name: 'Admin', email: 'admin@example.com', password: '123123123', confirmed_at: Date.today },
+  { name: 'Admin', email: 'foodhub.main@gmail.com', password: 'foodhub123', confirmed_at: Date.today },
   { name: 'Nicholas', email: 'nicholas@foodxervices.com', password: '123123123', confirmed_at: Date.today }
 ])
 puts "==== End ===="

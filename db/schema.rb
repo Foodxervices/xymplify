@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170104035237) do
 
   create_table "categories", force: :cascade do |t|
     t.string  "name"
-    t.integer "priority", default: 100
+    t.integer "priority", default: 1
   end
 
   add_index "categories", ["priority"], name: "index_categories_on_priority", using: :btree
