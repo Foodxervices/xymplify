@@ -23,6 +23,8 @@ const InventoryItem = React.createClass({
     }
   },
   submit: function() {
+    this.setState({ showSubmit: false })
+
     $.ajax({
       type: 'PATCH',
       url: `/restaurants/${this.props.restaurant_id}/inventories/${this.props.id}`,
@@ -31,8 +33,7 @@ const InventoryItem = React.createClass({
         if(!data.success) {
           const { id, current_quantity } = data.inventory
           this.props.onCurrentQuantityChange(id, current_quantity)
-        }
-        this.setState({ showSubmit: false })
+        }    
       }
     });
   },
