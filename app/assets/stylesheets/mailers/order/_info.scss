@@ -1,13 +1,18 @@
 .mailers-order-info-container {
-  max-width: 800px;
-  margin: 0 auto;
+  width: 100%;
+
+  h3 {
+    color: #000;
+    font-weight: normal;
+  }
 
   table.grid {
     border: none;
+    width: 100%;
 
     > tr > td {
       border: none;
-      padding: 20px 0;
+      padding: 5px 0;
     }
   }
 
@@ -80,14 +85,22 @@
   #order-items {
     width: 100%;
     border-collapse: collapse;
+    border: 1px solid #dedede;
+
+    tr.odd td {
+      background: #F5F5F5;
+    }
 
     th, td {
-      padding: 5px;
-      border: 1px solid #dedede;
+      padding: 10px 5px;
+      border-bottom: 1px solid #dedede;
     }
 
     th {
-      text-align: center;
+      color: #000;
+      background: #F5F5F5;
+      padding-top: 15px;
+      padding-bottom: 12px;
     }
 
     tfoot {

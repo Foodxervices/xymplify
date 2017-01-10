@@ -13,24 +13,22 @@
       td
         table#po-info
           tr 
-            th P/O
+            th P/O:
             td = order.name
           tr 
-            th Date of Delivery
+            th Date of Delivery:
             td = format_datetime order.date_of_delivery
           tr
-            th Currency
+            th Currency:
             td = order.currency
     tr
       td#delivery-info
         h3 Delivery Address
         p 
-          = "Outlet: #{order.outlet_name}" if order.outlet_name.present?
-          br
-          = "#{order.outlet_address}. " if order.outlet_address.present?
-          = "Phone: #{order.outlet_phone}" if order.outlet_phone.present?
-          br
-          = "Order By: #{order.user&.name}" if order.user.present?
+          == "Outlet: #{order.outlet_name}<br/>" if order.outlet_name.present?
+          == "#{order.outlet_address}.<br/>" if order.outlet_address.present?
+          == "Phone: #{order.outlet_phone}<br/>" if order.outlet_phone.present?
+          == "Order By: #{order.user&.name}" if order.user.present?
 
       td#billing-info
         h3 Billing Address
@@ -39,7 +37,7 @@
           == "Contact: #{restaurant.contact_person} <br />" if restaurant.contact_person.present?
           == "Phone: #{restaurant.telephone} <br/ >" if restaurant.telephone.present?
           = "Email: #{restaurant.email}" if restaurant.email.present?
-  
+  br
   table#order-items
     thead
       tr
@@ -53,7 +51,7 @@
     tbody
       - items.each_with_index do |item, i|
         - food_item = item.food_item
-        tr
+        tr class="#{ i % 2 == 0 ? 'even' : 'odd' }"
           td = "#{i + 1}."
           td = food_item&.code
           td = food_item&.name

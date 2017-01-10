@@ -5,29 +5,33 @@ html
 
   body
     #mailers-order-template-container.mailers-theme-container
-      h1 Purchase Order No: #{@order.name}
-      #main
-        p Hi <span id="receiver-name">#{@receiver.name}</span>,
-        p == @message
+      div
+        h1 Purchase Order No: #{@order.name}
+        #main
+          p Hi <span id="receiver-name">#{@receiver.name}</span>,
+          p == @message
 
-        hr style="border-top:dotted 1px"
+          .line
 
-        #header
-          - if @restaurant.logo.exists?
-            #logo = image_tag @restaurant.logo.url(:thumb) 
-          #restaurant
-            h2 = @restaurant.name
-            p = @restaurant.company_registration_no
-        .clearfix
+          #header
+            - if @restaurant.logo.exists?
+              #logo = image_tag @restaurant.logo.url(:thumb) 
+            #restaurant
+              h2 = @restaurant.name
+              p: i = @restaurant.company_registration_no
+          .clearfix
 
-        = render 'mailers/order/info', supplier: @supplier, kitchen: @kitchen, restaurant: @restaurant, order: @order, items: @items
+          = render 'mailers/order/info', supplier: @supplier, kitchen: @kitchen, restaurant: @restaurant, order: @order, items: @items
 
-        .text-center
-          - if @order.status.placed?
-            p#actions Please <strong>#{link_to 'accept', mark_as_accepted_order_url(@order.id, token: @order.token), target: :_blank}</strong> or <strong>#{link_to 'decline', mark_as_declined_order_url(@order.id, token: @order.token), target: :_blank}</strong> the order.
+          .line
+
+          .text-center
+            - if @order.status.placed?
+              p#actions Please <strong>#{link_to 'accept', mark_as_accepted_order_url(@order.id, token: @order.token), target: :_blank}</strong> or <strong>#{link_to 'decline', mark_as_declined_order_url(@order.id, token: @order.token), target: :_blank, class: 'btn-decline'}</strong> the Order.
+              
             
-          
-          p#replying-to Please kindly acknowledge the receipt by selecting "Reply to All"
+            p#replying-to Please kindly acknowledge the receipt by selecting "Reply to All"
 
-          h3#logo-footer = Rails.application.secrets.domain_name
+      h3#logo-footer 
+        div = Rails.application.secrets.domain_name
         
