@@ -1,4 +1,9 @@
 const InventoryItem = React.createClass({
+  getInitialState: function() {
+    return {
+      showSubmit: false
+    }
+  },
   minusQuantity: function() {
     this.updateCurrentQuantity(parseFloat(this.props.current_quantity) - 1)
   },
@@ -12,30 +17,24 @@ const InventoryItem = React.createClass({
       nextCurrentQuantity = formatNumber(nextQuantity)
     }
 
-    if(nextQuantity < 0) {
-      nextCurrentQuantity = 0 
+    if(nextQuantity >= 0) {
+      this.props.onCurrentQuantityChange(this.props.id, nextCurrentQuantity)  
+      this.setState({ showSubmit: true })
     }
-
-    this.props.onCurrentQuantityChange(this.props.id, nextCurrentQuantity)
-
-    if(this.updateCurrentQuantityTimeOut) {
-      clearTimeout(this.updateCurrentQuantityTimeOut)
-      this.updateCurrentQuantityTimeOut = null
-    }
-
-    this.updateCurrentQuantityTimeOut = setTimeout(() => {
-      $.ajax({
-        type: 'PATCH',
-        url: `/restaurants/${this.props.restaurant_id}/inventories/${this.props.id}`,
-        data: { inventory: { current_quantity: nextCurrentQuantity } },
-        success: (data) => {
-          if(!data.success) {
-            const { id, current_quantity } = data.inventory
-            this.props.onCurrentQuantityChange(id, current_quantity)
-          }
+  },
+  submit: function() {
+    $.ajax({
+      type: 'PATCH',
+      url: `/restaurants/${this.props.restaurant_id}/inventories/${this.props.id}`,
+      data: { inventory: { current_quantity: this.props.current_quantity } },
+      success: (data) => {
+        if(!data.success) {
+          const { id, current_quantity } = data.inventory
+          this.props.onCurrentQuantityChange(id, current_quantity)
         }
-      });
-    }, 500)  
+        this.setState({ showSubmit: false })
+      }
+    });
   },
   render: function() {
     const { name, supplier_name, category_name, current_quantity, quantity_ordered, unit, unit_price, symbol, can_update, tag_list } = this.props
@@ -55,6 +54,7 @@ const InventoryItem = React.createClass({
               current_quantity
             }
          </td>
+         <td>{ this.state.showSubmit ? <a className="btn btn-primary" onClick={this.submit}>Submit</a> : '' }</td>
          <td className="quantity-ordered">{formatNumber(quantity_ordered)}</td>
          <td className="unit-text">{unit}</td>
          <td className="unit-price"><Currency value={unit_price} symbol={symbol}/></td>

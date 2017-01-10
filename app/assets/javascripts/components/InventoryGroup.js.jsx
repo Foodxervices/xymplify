@@ -70,6 +70,7 @@ const InventoryGroup = React.createClass({
            <td className="text-left"></td>
            <td className="text-left"></td>
            <td>{formatNumber(currentQuantity)}</td>
+           <td></td>
            <td>{formatNumber(quantityOrdered)}</td>
            <td></td>
            <td><Currency value={unitPrice} symbol={restaurant_currency_symbol}/></td>
