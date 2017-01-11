@@ -22,29 +22,9 @@
     }
   }
 
-  #actions {
-    font-size: 16px;
-
-    strong {
-      text-transform: uppercase;
-    }
-
-    a {
-      display: inline-block;
-      background: #304FFE;
-      box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
-      border-radius: 2px;
-      color: #fff;
-      padding: 8px 17px;
-      margin-left: 5px;
-      margin-right: 5px;
-      text-decoration: none;
-      font-size: 14px;
-      letter-spacing: 0.5px;
-
-      &.btn-decline {
-        background: #FF5252;
-      }
-    }
+  #accept a, #decline a {
+    font-size: 16px; 
+    color: #fff;
+    text-decoration: none;
   }
 }

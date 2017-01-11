@@ -4,10 +4,11 @@ html
     = render 'mailers/shared/head'
 
   body
-    #mailers-order-template-container.mailers-theme-container
-      div
-        h1 Purchase Order No: #{@order.name}
-        #main
+    table#mailers-order-template-container.mailers-theme-container width="800"
+      tr
+        td#head height="90" valign="middle" Purchase Order No: #{@order.name}
+      tr 
+        td#main
           p Hi <span id="receiver-name">#{@receiver.name}</span>,
           p == @message
 
@@ -27,11 +28,23 @@ html
 
           .text-center
             - if @order.status.placed?
-              p#actions Please <strong>#{link_to 'accept', mark_as_accepted_order_url(@order.id, token: @order.token), target: :_blank}</strong> or <strong>#{link_to 'decline', mark_as_declined_order_url(@order.id, token: @order.token), target: :_blank, class: 'btn-decline'}</strong> the Order.
-              
-            
+              table
+                tr
+                  td Please &nbsp;
+                  td
+                    table border="0" cellpadding="0" cellspacing="0" 
+                      tr
+                        td#accept align="center" bgcolor="#304FFE" style=("padding: 8px 10px 6px 10px; -webkit-border-radius:3px; border-radius:3px") 
+                          = link_to 'ACCEPT', mark_as_accepted_order_url(@order.id, token: @order.token), target: :_blank
+                  td  &nbsp; or &nbsp;
+                  td
+                    table border="0" cellpadding="0" cellspacing="0" 
+                      tr
+                        td#decline align="center" bgcolor="#FF5252" style=("padding: 8px 10px 6px 10px; -webkit-border-radius:3px; border-radius:3px") 
+                          = link_to 'DECLINE', mark_as_declined_order_url(@order.id, token: @order.token), target: :_blank
+                  td  &nbsp; the Order.
             p#replying-to Please kindly acknowledge the receipt by selecting "Reply to All"
-
-      h3#logo-footer 
-        div = Rails.application.secrets.domain_name
+      tr
+        td#logo-footer 
+          div = Rails.application.secrets.domain_name
         
