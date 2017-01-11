@@ -22,9 +22,14 @@
     }
   }
 
-  #accept a, #decline a {
-    font-size: 16px; 
-    color: #fff;
-    text-decoration: none;
+  #accept, #decline {
+    padding: 8px 10px 6px 10px; 
+    border-radius:3px; 
+
+    a {
+      font-size: 16px; 
+      color: #fff;
+      text-decoration: none;
+    } 
   }
 }

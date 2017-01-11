@@ -34,13 +34,13 @@ html
                   td
                     table border="0" cellpadding="0" cellspacing="0" 
                       tr
-                        td#accept align="center" bgcolor="#304FFE" style=("padding: 8px 10px 6px 10px; -webkit-border-radius:3px; border-radius:3px") 
+                        td#accept align="center" bgcolor="#304FFE"
                           = link_to 'ACCEPT', mark_as_accepted_order_url(@order.id, token: @order.token), target: :_blank
                   td  &nbsp; or &nbsp;
                   td
                     table border="0" cellpadding="0" cellspacing="0" 
                       tr
-                        td#decline align="center" bgcolor="#FF5252" style=("padding: 8px 10px 6px 10px; -webkit-border-radius:3px; border-radius:3px") 
+                        td#decline align="center" bgcolor="#FF5252"
                           = link_to 'DECLINE', mark_as_declined_order_url(@order.id, token: @order.token), target: :_blank
                   td  &nbsp; the Order.
             p#replying-to Please kindly acknowledge the receipt by selecting "Reply to All"
