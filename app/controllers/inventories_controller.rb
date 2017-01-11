@@ -15,7 +15,7 @@ class InventoriesController < ApplicationController
                                         c.name as category_name
                                         ')
                                     .includes(:food_item)
-                                    .order(id: :asc)
+                                    .order(current_quantity: :desc)
 
     respond_to do |format|
       format.html do 

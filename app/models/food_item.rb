@@ -21,7 +21,7 @@ class FoodItem < ActiveRecord::Base
   has_many :inventories
   has_many :order_items
   
-  has_and_belongs_to_many :kitchens
+  has_many :kitchens, through: :food_items_kitchens 
 
   validates :code,          presence: true, uniqueness: {scope: [:restaurant_id]}
   validates :name,          presence: true 
