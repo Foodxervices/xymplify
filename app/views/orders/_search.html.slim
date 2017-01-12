@@ -3,5 +3,6 @@
     = f.input :keyword
     = f.input :date_range, as: :month_picker, placeholder: 'Month', input_html: { class: 'date-range-picker' }
     = f.select :status, @statuses, include_blank: 'All'
-    = f.button :submit, 'Search', class: 'btn-primary'
+    = f.button :submit, 'Search', data: { :disable_with => "Search" }, class: 'btn-primary'
+    = f.button :submit, 'Export', data: { :disable_with => "Export" }
     = link_to 'Reset', url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default' 

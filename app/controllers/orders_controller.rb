@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
   authorize_resource :order, :through => :kitchen, :shallow => true, except: AUTHORIZE_TOKEN_ACTIONS
 
   before_action :authorize_token, only: AUTHORIZE_TOKEN_ACTIONS
+  before_action :detect_format, only: [:index]
 
   def index
     @order_filter = OrderFilter.new(@orders, order_filter_params)
@@ -20,7 +21,17 @@ class OrdersController < ApplicationController
                            .where(status: statuses.collect(&:last))
                            .order('supplier_name asc, status_updated_at desc')
                            .paginate(:page => params[:page])
-    @grouped_orders = @orders.group_by{|order| order.supplier_name}
+    respond_to do |format|
+      format.html do
+        @grouped_orders = @orders.group_by{|order| order.supplier_name}
+      end
+
+      format.xlsx do 
+        filename = "#{@order_filter.start_date} - #{@order_filter.end_date}"
+        render xlsx: "index", filename: filename
+      end
+    end
+    
   end
 
   def show
@@ -229,5 +240,9 @@ class OrdersController < ApplicationController
 
   def invalid_status_notice
     flash[:notice] = "#{@order.long_name} was #{@order.status} at #{format_datetime(@order.status_updated_at)}." 
+  end
+
+  def detect_format
+    request.format = "xlsx" if params[:commit] == 'Export'
   end
 end

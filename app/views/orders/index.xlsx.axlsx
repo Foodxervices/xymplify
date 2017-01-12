@@ -1,0 +1,19 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: 'ORDERS') do |sheet|
+  @orders.each do |order|
+    sheet.add_row [order.name, order.supplier&.name, format_date(order.status_updated_at), '']
+    order.items.each do |item|
+      sheet.add_row [item.name, humanized_money_with_symbol(item.unit_price), "#{item.quantity} x #{item.food_item&.unit}", humanized_money_with_symbol(item.total_price)]
+    end
+
+    sheet.add_row ['', '', 'Subtotal', humanized_money_with_symbol(order.price)]
+
+    order.gsts.each do |gst|
+      sheet.add_row ['', '', "#{gst.name} #{gst.percent}%", humanized_money_with_symbol(gst.amount)]
+    end
+
+    sheet.add_row ['', '', 'Total', humanized_money_with_symbol(order.price_with_gst)]
+    sheet.add_row ['', '', '', '']
+  end
+end

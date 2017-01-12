@@ -18,7 +18,7 @@
     tbody
       - order.items.includes(:food_item).each do |item|
         tr 
-          td = link_to_if can?(:show, item.food_item), item.food_item&.name, item.food_item, remote: true
+          td = link_to_if can?(:show, item.food_item), item.name, item.food_item, remote: true
           td.text-right = humanized_money_with_symbol(item.unit_price)
           td.text-center = "#{item.quantity} x #{item.food_item&.unit}"
           td.text-right 
