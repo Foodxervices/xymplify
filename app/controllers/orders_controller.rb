@@ -20,10 +20,9 @@ class OrdersController < ApplicationController
                            .includes(:gsts)
                            .where(status: statuses.collect(&:last))
                            .order('supplier_name asc, status_updated_at desc')
-                           .paginate(:page => params[:page])
     respond_to do |format|
       format.html do
-        @grouped_orders = @orders.group_by{|order| order.supplier_name}
+        @grouped_orders = @orders.paginate(:page => params[:page]).group_by{|order| order.supplier_name}
       end
 
       format.xlsx do 
