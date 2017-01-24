@@ -1,8 +1,9 @@
 class KitchensController < ApplicationController
+  before_action :disable_bullet, only: [:dashboard]
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :through => :restaurant, :shallow => true
 
-  def index; end 
+  def index; end
 
   def show; end
 
@@ -35,19 +36,19 @@ class KitchensController < ApplicationController
     @incoming_deliveries = alerts.where(type: :incoming_delivery).paginate(:page => params[:incoming_delivery_page], :per_page => 5)
 
     @messages = Message.accessible_by(current_ability)
-    
+
     @messages = @messages.where("(kitchen_id IS NULL AND restaurant_id = ?) OR kitchen_id = ?", current_restaurant.id, current_kitchen.id)
     @messages = @messages.order(id: :desc).paginate(:page => params[:message_page], :per_page => 5)
 
     @notification = Notification.new(current_ability, current_kitchen, current_user)
-    
+
     @graph_data = CostGraph.new(current_restaurant, kitchen: current_kitchen).result
     @currency_symbol = Money::Currency.new(current_restaurant.currency).symbol
     @display_more_activity_link = true
     load_summary
   end
 
-  private 
+  private
 
   def kitchen_params
     data = params.require(:kitchen).permit(

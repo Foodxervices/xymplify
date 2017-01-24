@@ -1,15 +1,21 @@
 - supplier = order.supplier
-.carts-info-container 
+- days = supplier.delivery_days
+- start_date = supplier.next_available_delivery_date&.to_date&.to_s
+.carts-info-container
   table.table.table-striped.table-order rel=order.id data-kitchen-id=current_kitchen.id
-    
+
     thead
-      tr 
+      tr
         th colspan="4" = link_to_if can?(:read, order.supplier), supplier.name, supplier, remote: true
-      tr.request_for_delivery_at invalid=@request_for_delivery_at_invalid
-        th colspan="1" Delivery at
-        th colspan="2" = text_field_tag :request_for_delivery_date, order.request_for_delivery_at.try(:strftime, '%d/%m/%Y'), id: nil, data: { days: supplier.delivery_days, start_date: supplier.next_available_delivery_date&.to_date&.to_s }
-        th colspan="1" = text_field_tag :request_for_delivery_time, order.request_for_delivery_at.try(:strftime, '%H:%M %p'), id: nil
-      tr 
+      tr.request_for_delivery_start_at invalid=@request_for_delivery_start_at_invalid
+        th colspan="1" Delivery start time
+        th colspan="2" = text_field_tag :request_for_delivery_start_date, order.request_for_delivery_start_at.try(:strftime, '%d/%m/%Y'), id: nil, class: 'date-picker', data: { days: days, start_date: start_date, type: 'start' }
+        th colspan="1" = text_field_tag :request_for_delivery_start_time, order.request_for_delivery_start_at.try(:strftime, '%H:%M %p'), id: nil, class: 'time-picker', data: { type: 'start' }
+      tr.request_for_delivery_end_at invalid=@request_for_delivery_end_at_invalid
+        th colspan="1" Delivery end time
+        th colspan="2" = text_field_tag :request_for_delivery_end_date, order.request_for_delivery_end_at.try(:strftime, '%d/%m/%Y'), id: nil, class: 'date-picker', data: { days: days, start_date: start_date, type: 'end' }
+        th colspan="1" = text_field_tag :request_for_delivery_end_time, order.request_for_delivery_end_at.try(:strftime, '%H:%M %p'), id: nil, class: 'time-picker', data: { type: 'end' }
+      tr
         th.name = order.name
         th Quantity
         th UOM
@@ -23,7 +29,7 @@
           td.text-center = item.quantity
           td = item.food_item&.unit
           td.text-right width="80" = humanized_money_with_symbol(item.total_price)
-      
+
     tfoot
       - if order.gsts_count != 0
         tr
@@ -33,7 +39,7 @@
           tr
             td.text-right colspan="3" = "#{gst.name} #{gst.percent}%"
             td.text-right = humanized_money_with_symbol(gst.amount)
-      tr 
+      tr
         td.text-right colspan="3" Total
         td.text-right = humanized_money_with_symbol(order.price_with_gst)
 

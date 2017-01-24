@@ -30,19 +30,19 @@ class Alert < ActiveRecord::Base
   end
 
   def title
-    case type 
+    case type
       when 'pending_order'
-        "#{alertable.long_name} has not been received yet"   
+        "#{alertable.long_name} has not been received yet"
       when 'accepted_order'
-        "#{alertable.long_name} has been accepted" 
+        "#{alertable.long_name} has been accepted"
       when 'declined_order'
-        "#{alertable.long_name} has been declined" 
+        "#{alertable.long_name} has been declined"
       when 'low_quantity'
         "#{alertable.name} in the kitchen is running low"
       when 'cancelled_order'
         "#{alertable.long_name} has been cancelled"
       when 'incoming_delivery'
-        "#{alertable.long_name} was requested to delivery at #{format_datetime(alertable.request_for_delivery_at)}"
+        "#{alertable.long_name} was requested to delivery at #{format_datetime(alertable.request_for_delivery_start_at)}"
     end
   end
 
@@ -50,7 +50,7 @@ class Alert < ActiveRecord::Base
     alertable.kitchen
   end
 
-  protected 
+  protected
   def cache_redis
     kitchen.set_redis(:alert_updated_at, Time.zone.now)
   end

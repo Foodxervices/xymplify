@@ -6,18 +6,18 @@ class Order < ActiveRecord::Base
 
   before_create :cache_restaurant
   before_create :set_name
-  
+
   before_save :set_status_updated_at
-  
+
   after_save :set_item_price
 
   has_many :items, class_name: "OrderItem", dependent: :destroy
   has_many :gsts, -> { includes :order },  class_name: "OrderGst",  dependent: :destroy
   has_many :alerts, as: :alertable
-  
-  belongs_to :supplier 
+
+  belongs_to :supplier
   belongs_to :kitchen
-  belongs_to :user 
+  belongs_to :user
   belongs_to :restaurant
 
   has_attached_file :attachment
@@ -32,7 +32,8 @@ class Order < ActiveRecord::Base
   validates :outlet_name,    presence: true
   validates :outlet_address, presence: true
   validates :outlet_phone,   presence: true
-  validates :request_for_delivery_at, presence: true, if: '!status.wip?'
+  validates :request_for_delivery_start_at, presence: true, if: '!status.wip?'
+  validates :request_for_delivery_end_at,   presence: true, if: '!status.wip?'
 
   enumerize :status, in: [:wip, :confirmed, :placed, :accepted, :declined, :delivered, :cancelled], default: :wip
 
@@ -45,7 +46,7 @@ class Order < ActiveRecord::Base
     name + ' - ' + supplier.name
   end
 
-  def self.price 
+  def self.price
     all.map(&:price).inject(0, :+)
   end
 
@@ -53,7 +54,7 @@ class Order < ActiveRecord::Base
     gsts.amount
   end
 
-  def self.gst 
+  def self.gst
     all.map(&:gst).inject(0, :+)
   end
 
@@ -66,39 +67,53 @@ class Order < ActiveRecord::Base
   end
 
   def date_of_delivery
-    delivered_at.present? ? delivered_at : request_for_delivery_at
+    delivered_at.present? ? delivered_at : request_for_delivery_start_at
   end
 
   def validate_request_date
-    if !supplier.valid_delivery_date?(request_for_delivery_at)
-      errors.add(:base, "Request for delivery date is invalid.")
-    elsif request_for_delivery_at < supplier.next_available_delivery_date
-      errors.add(:base, "Please ensure that request for delivery date after #{supplier.next_available_delivery_date.try(:strftime, '%a, %d %b %Y')}.")
+    if request_for_delivery_start_at.present? && request_for_delivery_end_at.present? && request_for_delivery_start_at >= request_for_delivery_end_at
+      errors.add(:base, "Please ensure that request for delivery end date after start date.")
+    end
+
+    if request_for_delivery_start_at.present?
+      if !supplier.valid_delivery_date?(request_for_delivery_start_at)
+        errors.add(:base, "Request for delivery start date is invalid.")
+      elsif request_for_delivery_start_at < supplier.next_available_delivery_date
+        errors.add(:base, "Please ensure that request for delivery start date after #{supplier.next_available_delivery_date.try(:strftime, '%a, %d %b %Y')}.")
+      end
+    end
+
+    if request_for_delivery_end_at.present?
+      if !supplier.valid_delivery_date?(request_for_delivery_end_at)
+        errors.add(:base, "Request for delivery end date is invalid.")
+      elsif request_for_delivery_end_at < supplier.next_available_delivery_date
+        errors.add(:base, "Please ensure that request for delivery end date after #{supplier.next_available_delivery_date.try(:strftime, '%a, %d %b %Y')}.")
+      end
     end
   end
 
-  private 
+  private
   def cache_restaurant
-    self.restaurant_id = kitchen.restaurant_id 
+    self.restaurant_id = kitchen.restaurant_id
   end
 
   def set_name
     today = Time.new
     current_month = today.strftime("%y/%m")
     latest_order_in_current_month = restaurant.orders.where(created_at: today.at_beginning_of_month..today.at_end_of_month).order(:id).last
-    
+
     if latest_order_in_current_month.nil?
       no = "0001"
     else
       no = (latest_order_in_current_month.name[-4..-1].to_i + 1).to_s.rjust(4,"0")
     end
-    
+
     self.name = "Q" + current_month + '/' + no
   end
 
   def set_status_updated_at
     if status_changed?
-      self.status_updated_at = Time.zone.now 
+      self.status_updated_at = Time.zone.now
       self.send("#{status}_at=", status_updated_at) if !status.wip? && !status.confirmed?
     end
   end
@@ -107,17 +122,17 @@ class Order < ActiveRecord::Base
     if delivered_to_kitchen?
       items.includes(:food_item, :order).each do |item|
         inventory = item.inventory
-        
-        case status_change 
+
+        case status_change
           when ["confirmed", "placed"]
             inventory.quantity_ordered = inventory.quantity_ordered + item.quantity
-          when ["accepted", "delivered"] 
+          when ["accepted", "delivered"]
             inventory.current_quantity = inventory.current_quantity + item.quantity
             inventory.quantity_ordered = inventory.quantity_ordered - item.quantity
           when ["placed", "cancelled"], ["accepted", "cancelled"], ["placed", "declined"]
             inventory.quantity_ordered = inventory.quantity_ordered - item.quantity
         end
-        
+
         inventory.save if inventory.changed?
       end
     end

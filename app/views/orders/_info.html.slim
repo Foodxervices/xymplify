@@ -3,18 +3,18 @@
     tr
       th To:
       td
-        h2 = supplier.name 
+        h2 = supplier.name
         p = supplier.company_registration_no
         p = supplier.address
         p = "Phone: #{supplier.telephone}" if supplier.telephone.present?
 
   table#po-info
-    tr 
+    tr
       th P/O
       td = order.name
-    tr 
+    tr
       th Date of Delivery
-      td = format_datetime order.date_of_delivery
+      td = date_of_delivery(order)
     tr
       th Currency
       td = order.currency
@@ -23,7 +23,7 @@
 
   #delivery-info
     h3 Delivery Address
-    p 
+    p
       = "Outlet: #{order.outlet_name}" if order.outlet_name.present?
       br
       = "#{order.outlet_address}. " if order.outlet_address.present?
@@ -33,7 +33,7 @@
 
   #billing-info
     h3 Billing Address
-    p 
+    p
       == "#{restaurant.billing_address} <br/>" if restaurant.billing_address.present?
       == "Contact: #{restaurant.contact_person} <br />" if restaurant.contact_person.present?
       == "Phone: #{restaurant.telephone} <br/ >" if restaurant.telephone.present?
@@ -71,10 +71,10 @@
           tr
             td.text-right colspan="6" = "#{gst.name} #{gst.percent}%"
             td.text-right = humanized_money_with_symbol(gst.amount)
-      tr 
+      tr
         td.text-right colspan="6" Total
         td.text-right = humanized_money_with_symbol(order.price_with_gst)
-  
+
   - if kitchen.bank_name.present?
     #payment-details
       h3 Payment details
@@ -82,8 +82,8 @@
         - [:bank_name, :bank_address, :bank_swift_code, :bank_account_name, :bank_account_number].each do |field|
           - if kitchen.send(field).present?
             = "#{Kitchen.human_attribute_name(field)}: #{kitchen.send(field)}"
-            br 
-        
-  #remarks  
+            br
+
+  #remarks
     h3 Eatery remarks:
 

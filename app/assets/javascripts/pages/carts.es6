@@ -7,7 +7,7 @@ Foodxervices.carts = {
         let orderId = tableOrder.attr('rel')
         let kitchenId = tableOrder.data('kitchen-id')
         // Date
-        let dateInput = tableOrder.find('input[name=request_for_delivery_date]').first()
+        let dateInput = tableOrder.find('input.date-picker')
         let delivery_days = $(dateInput).data('days')
 
         let days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
@@ -18,7 +18,7 @@ Foodxervices.carts = {
             disable_days.push(index)
           }
         })
-        
+
         dateInput.datepicker({
           daysOfWeekDisabled: disable_days,
           startDate: new Date(dateInput.data('start-date')),
@@ -27,23 +27,25 @@ Foodxervices.carts = {
         })
 
         // Time
-        let timeInput = tableOrder.find('input[name=request_for_delivery_time]')
+        let timeInput = tableOrder.find('input.time-picker')
         timeInput.timepicker({ defaultTime: false })
 
         $(timeInput).on('hide.timepicker', function(e) {
-          post(dateInput, timeInput, kitchenId, orderId)
+          let dateInput = $(this).closest('tr').find('.date-picker')
+          post(dateInput, $(this), kitchenId, orderId, $(this).data('type'))
         })
         $(dateInput).on('hide', function(e) {
-          post(dateInput, timeInput, kitchenId, orderId)
+          let timeInput = $(this).closest('tr').find('.time-picker')
+          post($(this), timeInput, kitchenId, orderId, $(this).data('type'))
         });
-      }) 
+      })
 
-      function post(dateInput, timeInput, kitchenId, orderId) {
+      function post(dateInput, timeInput, kitchenId, orderId, type) {
         if(dateInput.val() != '' && timeInput.val() != '') {
           $.ajax({
             type: 'POST',
-            url: `/kitchens/${kitchenId}/carts/${orderId}/update_request_for_delivery_at`,
-            data: { request_for_delivery_at: `${dateInput.val()} ${timeInput.val()}` },
+            url: `/kitchens/${kitchenId}/carts/${orderId}/update_request_for_delivery_${type}_at`,
+            data: { time: `${dateInput.val()} ${timeInput.val()}` },
             success: (data) => {
               if(!data.success) {
                 alert(data.message)

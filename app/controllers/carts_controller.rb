@@ -2,8 +2,8 @@ class CartsController < ApplicationController
   include ApplicationHelper
   load_and_authorize_resource :kitchen
 
-  def show; end 
-  
+  def show; end
+
   def new
     @food_items = @kitchen.food_items
                              .select('food_items.*, c.name as category_name, s.name as supplier_name, s.priority')
@@ -20,9 +20,9 @@ class CartsController < ApplicationController
     authorize! :order, @food_item
 
     options = { user_id: current_user.id, kitchen_id: @kitchen.id, supplier_id: @food_item.supplier_id, status: :wip }
-    
+
     @order = Order.where(options).first
-    
+
     ActiveRecord::Base.transaction do
       if @order.nil?
         @order = Order.create(options.merge(outlet_name: @kitchen.name, outlet_address: @kitchen.address, outlet_phone: @kitchen.phone))
@@ -32,16 +32,16 @@ class CartsController < ApplicationController
       @item = @order.items.find_or_create_by(food_item_id: @food_item.id)
       @item.unit_price = @food_item.unit_price
       @item.unit_price_without_promotion = @food_item.unit_price_without_promotion
-      
+
       @item.quantity += params[:quantity].to_f
-      
+
       @success = @item.save
-      
+
       if !@success
         @message = @item.errors.full_messages.join("<br />")
       end
     end
-    
+
     @order.destroy if @order.reload.price_with_gst == 0
   end
 
@@ -57,7 +57,8 @@ class CartsController < ApplicationController
     end
 
     if !@success
-      @request_for_delivery_at_invalid = @order.request_for_delivery_at.blank?
+      @request_for_delivery_start_at_invalid = @order.request_for_delivery_start_at.blank?
+      @request_for_delivery_end_at_invalid = @order.request_for_delivery_end_at.blank?
     end
   end
 
@@ -95,22 +96,32 @@ class CartsController < ApplicationController
         notices << "Please ensure that the total value of purchase from #{s.name} is less than #{Currency.format(s.max_order_price, s.currency)}."
       else
         supplier[:orders].each do |order|
-          order.status = :placed 
+          order.status = :placed
           order.save
           OrderMailerWorker.perform_async(order.id, 'notify_supplier_after_placed')
           notices << "#{order.long_name} has been placed successfully."
         end
       end
     end
-    
+
     notices.delete_if(&:blank?)
     flash[:notice] = notices.join('<br /><br/>') if notices.any?
     redirect_to :back
   end
 
-  def update_request_for_delivery_at
+  def update_request_for_delivery_start_at
+    update_request_for_delivery_time('start')
+  end
+
+  def update_request_for_delivery_end_at
+    update_request_for_delivery_time('end')
+  end
+
+  private
+
+  def update_request_for_delivery_time(type)
     order = current_orders.find(params[:id])
-    order.request_for_delivery_at = Time.zone.parse(params[:request_for_delivery_at])
+    order.send("request_for_delivery_#{type}_at=", Time.zone.parse(params[:time]))
 
     order.validate_request_date
 
@@ -120,8 +131,6 @@ class CartsController < ApplicationController
       render json: { success: order.save }
     end
   end
-
-  private 
 
   def confirm_params
     data = params.require(:order).permit(

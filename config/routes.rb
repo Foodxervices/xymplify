@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  get 'retailers' => 'home#retailers', :as => :retailers 
+  get 'retailers' => 'home#retailers', :as => :retailers
 
   resource :profile, only: [:edit, :update]
 
@@ -16,14 +16,14 @@ Rails.application.routes.draw do
 
   resources :food_items,  only: [:show, :destroy]
 
-  resources :food_categories,  only: [:index, :new, :create, :edit, :update, :destroy] do 
-    collection do 
+  resources :food_categories,  only: [:index, :new, :create, :edit, :update, :destroy] do
+    collection do
       patch :update_priority
     end
   end
-  
-  resources :suppliers,   only: [:show, :destroy] do 
-    collection do 
+
+  resources :suppliers,   only: [:show, :destroy] do
+    collection do
       patch :update_priority
     end
   end
@@ -33,19 +33,19 @@ Rails.application.routes.draw do
   resources :users,       only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   resources :versions,    only: [:show]
-  
+
   resources :messages,    only: [:show, :destroy]
 
   resources :inventories, only: [:show]
 
-  resources :attachments, only: [:create] do 
-    member do 
+  resources :attachments, only: [:create] do
+    member do
       post :destroy
     end
   end
 
-  resources :orders,      only: [:show, :edit, :update, :destroy] do 
-    member do 
+  resources :orders,      only: [:show, :edit, :update, :destroy] do
+    member do
       get :history
       get :mark_as_accepted
       get :mark_as_declined
@@ -53,17 +53,17 @@ Rails.application.routes.draw do
       patch :add_attachment
       patch :mark_as_accepted
       patch :mark_as_declined
-      patch :mark_as_delivered 
-      patch :mark_as_cancelled 
+      patch :mark_as_delivered
+      patch :mark_as_cancelled
     end
   end
 
-  resources :restaurants, only: [:index, :show, :new, :create, :edit, :update, :destroy] do 
+  resources :restaurants, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
     resources :versions,    only: [:index]
     resources :suppliers,   only: [:index, :new, :create, :edit, :update]
     resources :user_roles,  only: [:index, :new, :create]
     resources :food_items,  only: [:index, :new, :create, :edit, :update]
-    resources :kitchens, only: [:index, :new, :create, :edit, :update] do 
+    resources :kitchens, only: [:index, :new, :create, :edit, :update] do
       resources :versions,    only: [:index]
       resources :food_items,  only: [:index]
       resources :inventories, only: [:index]
@@ -73,42 +73,43 @@ Rails.application.routes.draw do
     resources :food_item_imports, only: [:new, :create]
     resources :messages,          only: [:new, :create, :edit, :update]
 
-    resources :inventories, only: [:index] do 
-      member do 
+    resources :inventories, only: [:index] do
+      member do
         patch :update
       end
     end
 
-    member do 
+    member do
       get :dashboard
     end
   end
 
-  resources :kitchens, only: [:index, :show] do 
+  resources :kitchens, only: [:index, :show] do
     resources :food_items,  only: [:show]
     resources :orders,   only: [:index]
     get 'archived_pos' => 'orders#index', :as => :archived_pos, :defaults => { status: 'archived' }
-    resources :categories,  only: [:index] do 
-      collection do 
+    resources :categories,  only: [:index] do
+      collection do
         get :by_supplier
         get :frequently_ordered
       end
     end
-    resources :carts,       only: [:new] do 
-      collection do 
+    resources :carts,       only: [:new] do
+      collection do
         get :show
         post :add
         post :purchase
       end
 
-      member do 
-        post :update_request_for_delivery_at
+      member do
+        post :update_request_for_delivery_start_at
+        post :update_request_for_delivery_end_at
         get :confirm
         post :do_confirm
       end
     end
 
-    member do 
+    member do
       get :dashboard
     end
   end
