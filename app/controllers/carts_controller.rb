@@ -110,19 +110,22 @@ class CartsController < ApplicationController
   end
 
   def update_request_for_delivery_start_at
-    update_request_for_delivery_time('start')
+    order = current_orders.find(params[:id])
+    order.request_for_delivery_start_at = Time.zone.parse(params[:time])
+    order.request_for_delivery_end_at = order.request_for_delivery_start_at if order.request_for_delivery_end_at.blank?
+    update_request_for_delivery_time(order)
   end
 
   def update_request_for_delivery_end_at
-    update_request_for_delivery_time('end')
+    order = current_orders.find(params[:id])
+    order.request_for_delivery_end_at = Time.zone.parse(params[:time])
+    order.request_for_delivery_start_at = order.request_for_delivery_end_at if order.request_for_delivery_start_at.blank?
+    update_request_for_delivery_time(order)
   end
 
   private
 
-  def update_request_for_delivery_time(type)
-    order = current_orders.find(params[:id])
-    order.send("request_for_delivery_#{type}_at=", Time.zone.parse(params[:time]))
-
+  def update_request_for_delivery_time(order)
     order.validate_request_date
 
     if order.errors.messages.any?

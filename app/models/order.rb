@@ -71,7 +71,7 @@ class Order < ActiveRecord::Base
   end
 
   def validate_request_date
-    if request_for_delivery_start_at.present? && request_for_delivery_end_at.present? && request_for_delivery_start_at >= request_for_delivery_end_at
+    if request_for_delivery_start_at.present? && request_for_delivery_end_at.present? && request_for_delivery_start_at > request_for_delivery_end_at
       errors.add(:base, "Please ensure that request for delivery end date after start date.")
     end
 

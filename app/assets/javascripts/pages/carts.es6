@@ -50,6 +50,19 @@ Foodxervices.carts = {
               if(!data.success) {
                 alert(data.message)
               }
+              else {
+                $('.date-picker').each((index, input) => {
+                  if($(input).data('type') == type || $(input).val() == '') {
+                    $(input).val(dateInput.val())
+                  }
+                })
+
+                $('.time-picker').each((index, input) => {
+                  if($(input).data('type') == type || $(input).val() == '') {
+                    $(input).val(timeInput.val())
+                  }
+                })
+              }
             }
           });
         }
