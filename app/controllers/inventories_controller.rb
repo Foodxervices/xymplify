@@ -8,17 +8,17 @@ class InventoriesController < ApplicationController
     @kitchens = @restaurant.kitchens.accessible_by(current_ability)
     @kitchens = @kitchens.where(id: params[:kitchen_id])
     @inventory_filter = InventoryFilter.new(@inventories, filter_params)
-    @inventories = @inventory_filter.result 
+    @inventories = @inventory_filter.result
                                     .select('
                                         inventories.id as id, inventories.current_quantity, inventories.quantity_ordered, inventories.food_item_id, inventories.kitchen_id,
                                         s.name as supplier_name,
                                         c.name as category_name
                                         ')
                                     .includes(:food_item)
-                                    .order(current_quantity: :desc)
+                                    .order(current_quantity: :desc, quantity_ordered: :desc)
 
     respond_to do |format|
-      format.html do 
+      format.html do
         @inventories = @inventories.paginate(:page => params[:page])
 
         @groups = {}
@@ -46,10 +46,11 @@ class InventoriesController < ApplicationController
       end
 
       format.xlsx do
+        @inventories = @inventories.where('current_quantity > 0 OR quantity_ordered > 0')
         @filename = "INVENTORY #{current_restaurant&.name} - #{current_kitchen&.name}"
         render xlsx: "index", filename: @filename
       end
-    end 
+    end
   end
 
   def show
@@ -65,7 +66,7 @@ class InventoriesController < ApplicationController
     end
   end
 
-  private 
+  private
 
   def inventory_params
     params.require(:inventory).permit(
