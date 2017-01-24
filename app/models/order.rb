@@ -72,14 +72,14 @@ class Order < ActiveRecord::Base
 
   def validate_request_date
     if request_for_delivery_start_at.present? && request_for_delivery_end_at.present? && request_for_delivery_start_at > request_for_delivery_end_at
-      errors.add(:base, "Please ensure that request for delivery end date after start date.")
+      errors.add(:base, "Please ensure that request for delivery end date is after start date.")
     end
 
     if request_for_delivery_start_at.present?
       if !supplier.valid_delivery_date?(request_for_delivery_start_at)
         errors.add(:base, "Request for delivery start date is invalid.")
       elsif request_for_delivery_start_at < supplier.next_available_delivery_date
-        errors.add(:base, "Please ensure that request for delivery start date after #{supplier.next_available_delivery_date.try(:strftime, '%a, %d %b %Y')}.")
+        errors.add(:base, "Please ensure that request for delivery start date is after #{supplier.next_available_delivery_date.try(:strftime, '%a, %d %b %Y')}.")
       end
     end
 
@@ -87,7 +87,7 @@ class Order < ActiveRecord::Base
       if !supplier.valid_delivery_date?(request_for_delivery_end_at)
         errors.add(:base, "Request for delivery end date is invalid.")
       elsif request_for_delivery_end_at < supplier.next_available_delivery_date
-        errors.add(:base, "Please ensure that request for delivery end date after #{supplier.next_available_delivery_date.try(:strftime, '%a, %d %b %Y')}.")
+        errors.add(:base, "Please ensure that request for delivery end date is after #{supplier.next_available_delivery_date.try(:strftime, '%a, %d %b %Y')}.")
       end
     end
   end
