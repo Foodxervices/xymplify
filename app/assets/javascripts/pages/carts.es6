@@ -51,16 +51,18 @@ Foodxervices.carts = {
                 alert(data.message)
               }
               else {
-                $('.date-picker').each((index, input) => {
-                  if($(input).data('type') == type || $(input).val() == '') {
-                    $(input).val(dateInput.val())
-                  }
-                })
+                $(`.table-order[rel=${orderId}]`).each((i, tableOrder) => {
+                  $(tableOrder).find('input.date-picker').each((index, input) => {
+                    if($(input).data('type') == type || $(input).val() == '') {
+                      $(input).val(dateInput.val())
+                    }
+                  })
 
-                $('.time-picker').each((index, input) => {
-                  if($(input).data('type') == type || $(input).val() == '') {
-                    $(input).val(timeInput.val())
-                  }
+                  $(tableOrder).find('input.time-picker').each((index, input) => {
+                    if($(input).data('type') == type || $(input).val() == '') {
+                      $(input).val(timeInput.val())
+                    }
+                  })
                 })
               }
             }
