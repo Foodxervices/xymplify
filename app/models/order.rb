@@ -133,7 +133,10 @@ class Order < ActiveRecord::Base
             inventory.quantity_ordered = inventory.quantity_ordered - item.quantity
         end
 
-        inventory.save if inventory.changed?
+        if inventory.changed?
+          inventory.exportable = true
+          inventory.save
+        end
       end
     end
   end

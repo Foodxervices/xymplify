@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124014513) do
+ActiveRecord::Schema.define(version: 20170202065838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20170124014513) do
     t.integer "food_item_id"
     t.decimal "current_quantity", precision: 8, scale: 2, default: 0.0
     t.decimal "quantity_ordered", precision: 8, scale: 2, default: 0.0
+    t.boolean "exportable",                               default: false
   end
 
   add_index "inventories", ["food_item_id"], name: "index_inventories_on_food_item_id", using: :btree

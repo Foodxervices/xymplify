@@ -46,7 +46,7 @@ class InventoriesController < ApplicationController
       end
 
       format.xlsx do
-        @inventories = @inventories.where('current_quantity > 0 OR quantity_ordered > 0')
+        @inventories = @inventories.where(exportable: true)
         @filename = "INVENTORY #{current_restaurant&.name} - #{current_kitchen&.name}"
         render xlsx: "index", filename: @filename
       end
