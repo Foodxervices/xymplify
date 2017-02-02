@@ -31,12 +31,14 @@ Foodxervices.carts = {
         timeInput.timepicker({ defaultTime: false })
 
         $(timeInput).on('hide.timepicker', function(e) {
-          let dateInput = $(this).closest('tr').find('.date-picker')
-          post(dateInput, $(this), kitchenId, orderId, $(this).data('type'))
+          let type = $(this).data('type')
+          let dateInput = $(this).closest('table').find(`.date-picker[data-type=${type}]`)
+          post(dateInput, $(this), kitchenId, orderId, type)
         })
         $(dateInput).on('hide', function(e) {
-          let timeInput = $(this).closest('tr').find('.time-picker')
-          post($(this), timeInput, kitchenId, orderId, $(this).data('type'))
+          let type = $(this).data('type')
+          let timeInput = $(this).closest('table').find(`.time-picker[data-type=${type}]`)
+          post($(this), timeInput, kitchenId, orderId, type)
         });
       })
 

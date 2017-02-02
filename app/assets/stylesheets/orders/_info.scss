@@ -32,19 +32,19 @@
   }
 
   #restaurant-info, #delivery-info {
-    width: 48%;
+    width: 44%;
     float: left;
   }
 
   #billing-info, #po-info {
-    width: 48%;
+    width: 54%;
     float: right;
   }
 
   #restaurant-info {
     th {
       width: 50px;
-    } 
+    }
   }
 
   #po-info {
@@ -52,7 +52,7 @@
 
     th {
       width: 130px;
-    } 
+    }
   }
 
   #delivery-info, #billing-info {

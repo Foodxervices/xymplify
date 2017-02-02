@@ -57,8 +57,7 @@ class CartsController < ApplicationController
     end
 
     if !@success
-      @request_for_delivery_start_at_invalid = @order.request_for_delivery_start_at.blank?
-      @request_for_delivery_end_at_invalid = @order.request_for_delivery_end_at.blank?
+      @request_for_delivery_at_invalid = @order.request_for_delivery_start_at.blank? || @order.request_for_delivery_end_at.blank?
     end
   end
 
