@@ -27,11 +27,12 @@ en:
         delivery_days: "Delivery days"
         min_order_price: "Minimum Order Quantity (Money Value)"
         max_order_price: "Maximum Order Quantity (Money Value)"
-      restaurant: 
+      restaurant:
         company_registration_no: "Company ID"
       kitchen:
         name: "Kitchen Name"
         bank_swift_code: "Bank SWIFT code"
+        suppliers: "Order from"
       role:
         name: "Position"
       user:
