@@ -4,19 +4,22 @@
     .btn-group
       - if can?(:create, Supplier.new(restaurant_id: @restaurant&.id))
         = link_to 'Create New Supplier', [:new, @restaurant, :supplier], class: 'btn btn-default'
-        
+
   h1 Supplier
   .clearfix
   .table-responsive
     table.table.table-striped
       thead
-        tr 
+        tr
           th = Supplier.human_attribute_name(:name)
           th = Supplier.human_attribute_name(:country)
           th = Supplier.human_attribute_name(:contact)
           th = Supplier.human_attribute_name(:telephone)
           th = Supplier.human_attribute_name(:email)
           th.text-center = Supplier.human_attribute_name(:currency)
+          th = Supplier.human_attribute_name(:delivery_days)
+          - if Config.processing_cut_off_enabled?
+            th = Supplier.human_attribute_name(:processing_cut_off)
           th.text-center Action
       tbody class="#{can?(:update_priority, Supplier) ? 'sortable' : ''}"
         - @suppliers.each do |supplier|
@@ -27,6 +30,9 @@
             td = supplier.telephone
             td = supplier.email
             td.text-center = supplier.currency
+            td = supplier.delivery_days.texts.to_sentence
+            - if Config.processing_cut_off_enabled?
+              td = format_time(supplier.processing_cut_off)
             td.text-center
               ul.actions
                 li = link_to 'View', supplier, remote: true
