@@ -3,7 +3,7 @@ class FoodItemsController < ApplicationController
 
   load_and_authorize_resource :restaurant
   load_and_authorize_resource :food_item, :through => :restaurant, :shallow => true, except: [:new]
-  
+
 
   def index
     @food_item_filter = FoodItemFilter.new(@food_items, food_item_filter_params)
@@ -12,15 +12,20 @@ class FoodItemsController < ApplicationController
                                     .includes(:supplier)
                                     .order(sort_column + ' ' + sort_direction)
                                     .paginate(:page => params[:page])
-    
-    @food_items = @food_items.includes(:kitchens) if current_kitchen.nil?
+    if current_kitchen.nil?
+      @food_items = @food_items.includes(:kitchens)
+    else
+      if !restaurant_owner?
+        @food_items = @food_items.where(supplier_id: current_kitchen.suppliers.select(:id))
+      end
+    end
   end
 
   def show
     @kitchens = @food_item.kitchens.accessible_by(current_ability).load
   end
 
-  def new 
+  def new
     @food_item = FoodItem.new(unit_price_currency: "")
   end
 
@@ -87,7 +92,7 @@ class FoodItemsController < ApplicationController
       :country_of_origin,
       kitchen_ids: []
     )
-    
+
     data[:unit_price]  = data[:unit_price_without_promotion] if data[:unit_price].to_f == 0
     data[:supplier_id] = current_restaurant.suppliers.accessible_by(current_ability).find(data[:supplier_id]).id if data[:supplier_id].present?
     data[:kitchen_ids] = current_restaurant.kitchens.where(id: data[:kitchen_ids]).ids if data[:kitchen_ids].present?
@@ -96,14 +101,14 @@ class FoodItemsController < ApplicationController
     data[:attachment_ids] = Attachment.where(id: params[:attachment_ids].split(',')).pluck(:id) if params[:attachment_ids].present?
     @food_item_params ||= data
   end
-  
+
   def sort_column
     FoodItem.column_names
             .push('supplier_name')
             .push('category_name')
             .include?(params[:sort]) ? params[:sort] : "name"
   end
-  
+
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end

@@ -2,24 +2,28 @@
   h2 = link_to kitchen.name, [:dashboard, kitchen]
 
   table.table.table-striped
-    tr 
+    tr
       th = Kitchen.human_attribute_name(:address)
       td = kitchen.address
-    tr 
+    tr
       th = Kitchen.human_attribute_name(:phone)
       td = kitchen.phone
-    tr 
+    tr
       th = Kitchen.human_attribute_name(:bank_name)
       td = kitchen.bank_name
-    tr 
+    tr
       th = Kitchen.human_attribute_name(:bank_address)
       td = kitchen.bank_address
-    tr 
+    tr
       th = Kitchen.human_attribute_name(:bank_swift_code)
       td = kitchen.bank_swift_code
-    tr 
+    tr
       th = Kitchen.human_attribute_name(:bank_account_name)
       td = kitchen.bank_account_name
-    tr 
+    tr
       th = Kitchen.human_attribute_name(:bank_account_number)
       td = kitchen.bank_account_number
+    - if can?(:edit, kitchen)
+      tr
+        th = Kitchen.human_attribute_name(:suppliers)
+        td = kitchen.suppliers.pluck(:name).to_sentence

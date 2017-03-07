@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       if !user_signed_in?
         open_message(message: 'You need to sign in or sign up before continuing.')
       else
-        return true 
+        return true
       end
     end
   end
@@ -66,12 +66,16 @@ class ApplicationController < ActionController::Base
     @current_kitchen
   end
 
+  def restaurant_owner?
+    can?(:manage, current_restaurant)
+  end
+
   def alert_count
     return 0 if current_kitchen.nil?
     return @alert_count if @alert_count.present?
     notification = Notification.new(current_ability, current_kitchen, current_user)
     @alert_count ||= notification.count
-  end 
+  end
 
   def resource
     eval("@#{controller_name.classify.underscore.to_sym}")

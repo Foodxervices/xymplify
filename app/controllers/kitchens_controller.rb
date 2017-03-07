@@ -60,7 +60,8 @@ class KitchensController < ApplicationController
       :bank_address,
       :bank_swift_code,
       :bank_account_name,
-      :bank_account_number
+      :bank_account_number,
+      supplier_ids: []
     )
     data[:restaurant_id] = current_restaurant.id
     data

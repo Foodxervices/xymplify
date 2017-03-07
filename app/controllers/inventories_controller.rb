@@ -16,6 +16,9 @@ class InventoriesController < ApplicationController
                                         ')
                                     .includes(:food_item)
                                     .order(current_quantity: :desc, quantity_ordered: :desc)
+    if current_kitchen.present? && !restaurant_owner?
+      @inventories = @inventories.where('s.id IN (?)', current_kitchen.suppliers.select(:id))
+    end
 
     respond_to do |format|
       format.html do

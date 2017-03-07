@@ -8,7 +8,7 @@ class Ability
 
     @kitchens = {}
 
-    if user.kind_of?(Admin) 
+    if user.kind_of?(Admin)
       can :manage, :all
     elsif user.persisted?
       can :show, User
@@ -21,14 +21,14 @@ class Ability
 
       user.user_roles.includes(:role).each do |user_role|
         kitchen_ids = user_role.kitchens.any? ? user_role.kitchens.ids : Kitchen.where(restaurant_id: user_role.restaurant_id).ids
-        
+
         can :read, Kitchen, { id: kitchen_ids }
-      
+
         user_role.role.permissions.each do |permission|
           clazz, action = permission.split('__')
           action = action.to_sym
-          
-          case clazz 
+
+          case clazz
             when 'restaurant'
               can action, clazz.camelize.constantize, { id: user_role.restaurant_id }
             when 'supplier', 'user_role', 'message', 'food_item'
@@ -36,7 +36,7 @@ class Ability
             when 'order', 'inventory'
               can action, clazz.camelize.constantize, { kitchen_id: kitchen_ids }
             when 'kitchen'
-              if action == :create 
+              if action == :create
                 can action, clazz.camelize.constantize, { restaurant_id: user_role.restaurant_id }
               else
                 can action, clazz.camelize.constantize, { id: kitchen_ids }

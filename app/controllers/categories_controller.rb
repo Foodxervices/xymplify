@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
   def by_supplier
     init
     @food_items = @food_items.order("supplier_priority, category_priority, unit_price_cents")
-    @groups = @food_items.group_by(&:supplier_name)         
+    @groups = @food_items.group_by(&:supplier_name)
     @hide_supplier = true
     render :index
   end
@@ -31,6 +31,10 @@ class CategoriesController < ApplicationController
     @food_items = @food_items.select("food_items.*, c.name as category_name, c.priority as category_priority, s.name as supplier_name, s.priority as supplier_priority")
                               .accessible_by(current_ability, :order)
                               .paginate(:page => params[:page])
+
+    if !restaurant_owner?
+      @food_items = @food_items.where(supplier_id: @kitchen.suppliers.select(:id))
+    end
 
     @categories = {}
   end
