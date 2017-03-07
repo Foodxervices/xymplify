@@ -15,7 +15,7 @@ class OrderMailer < ActionMailer::Base
     mail(
       to: @supplier.email,
       cc: [@restaurant.email, @user.email],
-      subject: "[Updated Order] #{@order.name}, #{@restaurant.name}"
+      subject: "[Updated Order] #{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
     )
   end
 
@@ -27,7 +27,7 @@ class OrderMailer < ActionMailer::Base
     mail(
       to: @supplier.email,
       cc: [@restaurant.email, @user.email],
-      subject: "[New Order] #{@order.name}, #{@restaurant.name}"
+      subject: "[New Order] #{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
     )
   end
 
@@ -39,7 +39,7 @@ class OrderMailer < ActionMailer::Base
     mail(
       to: @restaurant.email,
       cc: [@supplier.email, @user.email],
-      subject: "[Accepted Order] #{@order.name}, #{@supplier.name}"
+      subject: "[Accepted Order] #{@order.name}, #{@supplier.name} - #{order.outlet_address}"
     )
   end
 
@@ -51,7 +51,7 @@ class OrderMailer < ActionMailer::Base
     mail(
       to: @restaurant.email,
       cc: [@supplier.email, @user.email],
-      subject: "[Declined Order] #{@order.name}, #{@supplier.name}"
+      subject: "[Declined Order] #{@order.name}, #{@supplier.name} - #{order.outlet_address}"
     )
   end
 
@@ -64,7 +64,7 @@ class OrderMailer < ActionMailer::Base
     mail(
       to: @supplier.email,
       cc: [@restaurant.email, @user.email],
-      subject: "[Cancelled Order] #{@order.name}, #{@restaurant.name}"
+      subject: "[Cancelled Order] #{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
     )
   end
 
@@ -77,7 +77,7 @@ class OrderMailer < ActionMailer::Base
     mail(
       to: @supplier.email,
       cc: [@restaurant.email, @user.email],
-      subject: "[Delivered Order] #{@order.name}, #{@restaurant.name}"
+      subject: "[Delivered Order] #{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
     )
   end
 
