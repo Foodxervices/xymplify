@@ -19,7 +19,7 @@ const Utils = {
   initConfirmation: () => {
     $('[data-toggle="confirmation"]').each(function() {
       let method = $(this).data('link-method') || 'get'
-      
+
       if($(this).hasClass('delete')) {
         method = 'delete'
       }
@@ -63,7 +63,7 @@ const Utils = {
           btnText.text('DROP ME HERE')
 
           timeOutId = setTimeout(function() {
-            btn.removeClass('drag-here')  
+            btn.removeClass('drag-here')
             btnText.text(btnText.attr('default-text'))
           }, 500)
         }
@@ -72,7 +72,7 @@ const Utils = {
   },
   initSelectPicker: () => {
     const selects = $("form.simple_form select, .selectpicker").not('.jselect').removeAttr('required').removeAttr('aria-required').addClass('jselect')
-    
+
     selects.each(function(index, select) {
       $(select).data('live-search', !$(this).hasClass('not-autocomplete') && $(this).find('option').length > 5).selectpicker({hideDisabled: true})
     })
@@ -110,7 +110,7 @@ const Utils = {
   },
   formatPrice: (price, symbol='$',decimal=2) => {
     if(isNaN(price)) {
-      price = 0 
+      price = 0
     }
     return symbol + Number(price).toLocaleString(undefined, { minimumFractionDigits: decimal })
   },
@@ -119,7 +119,7 @@ const Utils = {
       if($('body').hasClass('submitting')) {
         return false
       }
-  
+
       $('body').addClass('submitting')
     })
   },

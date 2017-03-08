@@ -1,4 +1,4 @@
-#restaurants-show-container  
+#restaurants-show-container
   .row
     .col-lg-4
       .block
@@ -7,15 +7,31 @@
           .text-right
             strong = link_to 'EDIT', [:edit, @restaurant], remote: true
     .col-lg-8
-      - if can?(:create, Kitchen.new(restaurant_id: @restaurant.id))
-        .pull-right
-          strong = link_to 'ADD NEW KITCHEN', [:new, @restaurant, :kitchen], remote: true, class: 'btn btn-primary'
-      h2 Kitchens
-      - @restaurant.kitchens.includes(:restaurant).each do |kitchen|
-        .block
-          = render 'kitchens/details', kitchen: kitchen
-          - if can?(:update, kitchen)
-            .text-right
-              strong = link_to 'EDIT', [:edit, @restaurant, kitchen], remote: true
-    
-  
+      br
+      .row
+        - if can?(:create, Kitchen.new(restaurant_id: @restaurant.id))
+          .col-xs-12
+            .pull-right
+              strong = link_to 'New Kitchen', [:new, @restaurant, :kitchen], remote: true, class: 'btn btn-primary'
+            h2 Kitchens
+        .col-xs-12
+          = text_field_tag :keyword, '', id: 'kitchen_filter_keyword', target: 'kitchens', placeholder: 'Keyword'
+      br
+
+      table#kitchens.table.table-striped
+        thead
+          tr
+            th Name
+            th Address
+            th
+        - @restaurant.kitchens.includes(:restaurant).each do |kitchen|
+          tbody
+            tr
+              td.filterable = kitchen.name
+              td.filterable = kitchen.address
+              td
+                ul.list-inline
+                  li = link_to_if can?(:read, kitchen), 'View', kitchen, remote: true
+                  li = link_to_if can?(:edit, kitchen), 'Edit', [:edit, @restaurant, kitchen], remote: true
+
+

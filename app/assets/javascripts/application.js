@@ -10,6 +10,7 @@
 //= require bootstrap_taggable/bootstrap-tokenfield
 //= require bootstrap-tooltip
 //= require bootstrap-confirmation
+//= require_tree ./common
 //= require drop_file
 //= require bootstrap-fileinput/js/fileinput
 //= require datepicker/js/bootstrap-datepicker
@@ -34,7 +35,7 @@
 //= require cost_graph
 //= require global
 
-//= require pages/food_items 
+//= require pages/food_items
 //= require pages/orders
 //= require pages/restaurants
 //= require pages/kitchens
