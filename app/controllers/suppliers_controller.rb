@@ -12,7 +12,9 @@ class SuppliersController < ApplicationController
 
   def show; end
 
-  def new; end
+  def new
+    @supplier.kitchen_ids = current_restaurant.kitchens.pluck(:id)
+  end
 
   def create
     if @supplier.save
@@ -52,7 +54,7 @@ class SuppliersController < ApplicationController
     render nothing: true
   end
 
-  private 
+  private
 
   def supplier_filter_params
     supplier_filter = ActionController::Parameters.new(params[:supplier_filter])
@@ -80,8 +82,10 @@ class SuppliersController < ApplicationController
       :min_order_price,
       :max_order_price,
       :processing_cut_off,
+      kitchen_ids: [],
       delivery_days: []
     )
+    data[:kitchen_ids] = current_restaurant.kitchens.where(id: data[:kitchen_ids]).pluck(:id)
     data[:restaurant_id] = current_restaurant.id
     data
   end

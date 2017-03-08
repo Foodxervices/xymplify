@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe Supplier do 
-  context 'validations' do 
+describe Supplier do
+  context 'validations' do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_presence_of :restaurant_id }
     it { is_expected.to validate_presence_of :email }
@@ -12,9 +12,10 @@ describe Supplier do
     it { is_expected.to_not allow_value("invalid@email").for(:email) }
   end
 
-  context 'associations' do 
+  context 'associations' do
     it { is_expected.to belong_to :restaurant }
     it { is_expected.to have_many :food_items }
     it { is_expected.to have_many :orders }
+    it { is_expected.to have_and_belong_to_many :kitchens }
   end
 end
