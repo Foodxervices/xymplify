@@ -24,8 +24,8 @@
             th Name
             th Address
             th
-        - @restaurant.kitchens.includes(:restaurant).each do |kitchen|
-          tbody
+        tbody
+          - @restaurant.kitchens.includes(:restaurant).each do |kitchen|
             tr
               td.filterable = kitchen.name
               td.filterable = kitchen.address

@@ -88,7 +88,7 @@
 
     &.item-shipped_pos .content {
       background: #2979FF;
-      
+
       i {
         @extend .mdi-calendar-text;
       }
@@ -96,7 +96,7 @@
 
     &.item-pending_pos .content {
       background: #FF5252;
-      
+
       i {
         @extend .mdi-calendar-text;
       }

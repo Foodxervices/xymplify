@@ -53,11 +53,11 @@
     }
 
     &.sb-restaurants i:before {
-      @extend .mdi-home; 
+      @extend .mdi-home;
     }
 
     &.sb-restaurant i:before {
-      @extend .mdi-information;  
+      @extend .mdi-information;
     }
 
     &.sb-version i:before {
@@ -86,15 +86,15 @@
 
     &.sb-pending_pos i:before {
       @extend .mdi-calendar-text;
-    } 
+    }
 
     &.sb-create_new_request i:before {
       @extend .mdi-cart-outline;
-    } 
+    }
 
     &.sb-archived_pos i:before {
       @extend .mdi-calendar-check;
-    } 
+    }
 
     &.sb-user_role i:before {
       @extend .mdi-account-multiple;
