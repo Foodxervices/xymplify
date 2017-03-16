@@ -42,6 +42,18 @@
     letter-spacing: 0;
   }
 
+  table.datetime {
+    margin: 10px 0;
+
+    td, th {
+      border: 1px solid #dedede;
+      padding: 5px 10px 3px 10px;
+      font-weight: normal;
+      font-size: 12px;
+      text-align: center;
+    }
+  }
+
   .status {
     border: none;
     border-radius: 10px;
