@@ -75,7 +75,7 @@ class KitchensController < ApplicationController
     @summary = [
       { type: 'suppliers',   count: total_suppliers, description: "Suppliers" },
       { type: 'food_items',  count: total_food_items,  description: "Food Items" },
-      { type: 'shipped_pos', count: "#{shipped_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} SHIPPED" },
+      { type: 'shipped_pos', count: "#{shipped_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(shipped_orders.price)} DELIVERED" },
       { type: 'pending_pos', count: "#{pending_orders.size} <small>POs</small>",  description: "#{ActionController::Base.helpers.humanized_money_with_symbol(pending_orders.price)} PENDING" }
     ]
   end
