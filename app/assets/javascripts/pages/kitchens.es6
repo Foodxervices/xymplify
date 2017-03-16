@@ -4,10 +4,8 @@ Foodxervices.kitchens = {
       $('.alert-listing').each(function() {
         new AlertListing($(this))  
       })
-      
-      setTimeout(() => {
-        CostGraph.init()  
-      }, 200)
+      new ActiveLink('#graph-links a')
+      $('#graph-links a').first().click()
     }
   }
 }

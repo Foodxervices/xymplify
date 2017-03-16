@@ -18,7 +18,8 @@
           h4
             i The data doesn't exist yet
 
-  = render 'shared/cost_graph', graph_data: @graph_data, currency_symbol: @currency_symbol
+  = render 'graphs/graph'
+  
   .block
     h2 Messages
     = render 'messages/listing', messages: @messages

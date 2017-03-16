@@ -42,8 +42,6 @@ class KitchensController < ApplicationController
 
     @notification = Notification.new(current_ability, current_kitchen, current_user)
 
-    @graph_data = CostGraph.new(current_restaurant, kitchen: current_kitchen).result
-    @currency_symbol = Money::Currency.new(current_restaurant.currency).symbol
     @display_more_activity_link = true
     load_summary
   end

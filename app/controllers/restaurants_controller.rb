@@ -65,9 +65,7 @@ class RestaurantsController < ApplicationController
     @messages = @restaurant.messages.accessible_by(current_ability).order(id: :desc).paginate(:page => params[:message_page], :per_page => 5)
 
     @notification = Notification.new(current_ability, current_restaurant, current_user)
-    
-    @graph_data = CostGraph.new(@restaurant).result
-    @currency_symbol = Money::Currency.new(@restaurant.currency).symbol
+
     @display_more_activity_link = true
     load_summary([@restaurant.id])
   end

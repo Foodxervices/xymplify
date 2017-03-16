@@ -230,3 +230,9 @@ table.table-bordered, table.table-striped {
   100%   {background-color: red;}
 }
 /* DRAG FILE */
+
+#graph-links {
+  a:hover, a.active {
+    text-decoration: underline;
+  }
+}

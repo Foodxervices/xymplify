@@ -1,0 +1,6 @@
+.text-right
+  ul#graph-links.list-inline
+    li: span View By: 
+    li = link_to 'Supplier', graphs_path(restaurant_id: current_restaurant.id, kitchen_id: current_kitchen&.id, type: 'supplier'), remote: true
+    li = link_to 'Category', graphs_path(restaurant_id: current_restaurant.id, kitchen_id: current_kitchen&.id, type: 'category'), remote: true
+#graph
