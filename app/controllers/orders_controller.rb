@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   include ApplicationHelper
 
   AUTHORIZE_TOKEN_ACTIONS = [:show, :mark_as_accepted, :mark_as_declined]
-  
+
   load_resource :kitchen
   load_resource :order, :through => :kitchen, :shallow => true
 
@@ -26,12 +26,12 @@ class OrdersController < ApplicationController
         @grouped_orders = @orders.group_by{|order| order.supplier_name}
       end
 
-      format.xlsx do 
+      format.xlsx do
         filename = "#{@order_filter.start_date} - #{@order_filter.end_date}"
         render xlsx: "index", filename: filename
       end
     end
-    
+
   end
 
   def show
@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.pdf do     
+      format.pdf do
         @kitchen      = @order.kitchen
         @restaurant   = @kitchen.restaurant
         @items        = @order.items.includes(:food_item)
@@ -47,15 +47,16 @@ class OrdersController < ApplicationController
         render pdf: "#{@order.long_name}", layout: 'main'
       end
     end
-  end 
-  
+  end
+
   def edit; end
 
   def update
     authorize! "update_#{@order.status}".to_sym, @order
     @success = @order.update_attributes(order_params)
-  
+
     if @success
+      @order.reload
       order_name = @order.long_name
       @restaurant = @order.restaurant
 
@@ -64,12 +65,14 @@ class OrdersController < ApplicationController
 
       if ['placed', 'accepted'].include?(@order.status)
         OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_updated')
-        @message << "An email notification has been sent to the supplier." 
+        @message << "An email notification has been sent to the supplier."
       end
-      
-      if @order.items.empty? && @order.destroy 
-        return redirect_to :back, notice: "#{order_name} has been deleted." 
+
+      if @order.items.empty? && @order.destroy
+        @message = "#{order_name} has been deleted."
       end
+
+      return redirect_to :back, notice: Array(@message).join('<br />')
     end
 
     if @order.status.wip? || @order.status.confirmed?
@@ -90,13 +93,13 @@ class OrdersController < ApplicationController
   def mark_as_cancelled
     ActiveRecord::Base.transaction do
       @order.status = :cancelled
-      @success = @order.save 
+      @success = @order.save
     end
 
     if @success
       OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_cancelled')
     end
-    
+
     redirect_to :back
   end
 
@@ -104,7 +107,7 @@ class OrdersController < ApplicationController
     if @order.status.placed?
       ActiveRecord::Base.transaction do
         @order.status = :accepted
-        @success = @order.save  
+        @success = @order.save
       end
 
       if @success
@@ -146,25 +149,36 @@ class OrdersController < ApplicationController
     end
   end
 
-  def mark_as_delivered
-    @order.status = :delivered
+  def confirm_delivery
+    render :edit
+  end
 
-    ActiveRecord::Base.transaction do
-      @success = @order.save
-    end
+  def deliver
+    @success = @order.update_attributes(order_params.merge(status: :delivered))
 
     if @success
-      FrequentlyOrderedWorker.perform_async(@order.id)
-      flash[:notice] = "#{@order.long_name} has been delivered." 
-      OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_delivered')
+      order_name = @order.long_name
+      @restaurant = @order.restaurant
+
+      @message = []
+
+      if @order.items.empty? && @order.destroy
+        @message = "#{order_name} has been deleted."
+      else
+        FrequentlyOrderedWorker.perform_async(@order.id)
+        @message << "#{@order.long_name} has been delivered."
+        OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_delivered')
+      end
+
+      return redirect_to :back, notice: Array(@message).join('<br />')
     end
 
-    redirect_to :back
+    render :update
   end
 
   def history
     respond_to do |format|
-      format.js do 
+      format.js do
         @version = @order.versions.last.becomes(Version)
         render 'versions/show'
       end
@@ -221,25 +235,25 @@ class OrdersController < ApplicationController
   def statuses
     return @statuses if @statuses.present?
 
-    if params[:status] == 'archived' 
-      @statuses = [["Delivered", "delivered"], ["Cancelled", "cancelled"], ["Declined", "declined"]]
+    if params[:status] == 'archived'
+      @statuses = [["Completed", "completed"], ["Cancelled", "cancelled"], ["Declined", "declined"]]
     else
-      @statuses = [["Placed", "placed"], ["Accepted", "accepted"]]
+      @statuses = [["Placed", "placed"], ["Accepted", "accepted"], ["Delivered", "delivered"]]
     end
 
-    @statuses 
+    @statuses
   end
 
   def authorize_token
     if !params[:token]
-      authorize! action_name.to_sym, @order 
+      authorize! action_name.to_sym, @order
     else
       redirect_to root_url, notice: 'Invalid Token' if params[:token] != @order.token
     end
   end
 
   def invalid_status_notice
-    flash[:notice] = "#{@order.long_name} was #{@order.status} at #{format_datetime(@order.status_updated_at)}." 
+    flash[:notice] = "#{@order.long_name} was #{@order.status} at #{format_datetime(@order.status_updated_at)}."
   end
 
   def detect_format

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe OrdersController, :type => :controller do 
-  context 'Signed In' do 
+describe OrdersController, :type => :controller do
+  context 'Signed In' do
     let!(:user) { create(:admin) }
-    before      { sign_in user }  
+    before      { sign_in user }
 
-    describe '#index' do 
+    describe '#index' do
       def do_request
         get :index, kitchen_id: placed_order.kitchen_id
       end
@@ -19,7 +19,7 @@ describe OrdersController, :type => :controller do
       end
     end
 
-    describe '#edit' do 
+    describe '#edit' do
       def do_request
         get :edit, id: order.id, format: :js
       end
@@ -33,7 +33,7 @@ describe OrdersController, :type => :controller do
       end
     end
 
-    describe '#update' do 
+    describe '#update' do
       def do_request
         patch :update, id: order.id, order: { items_attributes: [{ id: order.items.first.id, quantity: new_item_quantity }] }, format: :js
       end
@@ -41,13 +41,18 @@ describe OrdersController, :type => :controller do
       let!(:order) { create(:order) }
       let!(:new_item_quantity) { 1000 }
 
+      before do
+        request.env["HTTP_REFERER"] = "where_i_came_from"
+      end
+
       it 'updates order' do
         do_request
         expect(order.items.first.reload.quantity).to eq new_item_quantity
+        expect(response).to redirect_to "where_i_came_from"
       end
     end
 
-    describe '#destroy' do 
+    describe '#destroy' do
       def do_request
         delete :destroy, id: order.id
       end
@@ -58,14 +63,14 @@ describe OrdersController, :type => :controller do
         request.env["HTTP_REFERER"] = "where_i_came_from"
       end
 
-      it 'deletes order' do 
+      it 'deletes order' do
         expect{ do_request }.to change{ Order.count }.from(1).to(0)
         expect(flash[:notice]).to eq("#{order.long_name} has been deleted.")
         expect(response).to redirect_to "where_i_came_from"
       end
     end
 
-    describe '#mark_as_accepted' do 
+    describe '#mark_as_accepted' do
       def do_request
         get :mark_as_accepted, id: order.id
       end
@@ -78,7 +83,7 @@ describe OrdersController, :type => :controller do
       end
     end
 
-    describe '#mark_as_declined' do 
+    describe '#mark_as_declined' do
       def do_request
         get :mark_as_declined, id: order.id
       end
@@ -91,7 +96,7 @@ describe OrdersController, :type => :controller do
       end
     end
 
-    describe '#mark_as_cancelled' do 
+    describe '#mark_as_cancelled' do
       def do_request
         get :mark_as_cancelled, id: order.id
       end
@@ -108,24 +113,41 @@ describe OrdersController, :type => :controller do
       end
     end
 
-    describe '#mark_as_delivered' do 
+    describe '#confirm_delivery' do
       def do_request
-        get :mark_as_delivered, id: order.id
+        get :confirm_delivery, id: order.id, format: :js
       end
 
       let!(:order) { create(:order, status: :accepted) }
+
+      it 'returns confirm delivery page' do
+        do_request
+        expect(assigns(:order)).to match order
+        expect(response).to render_template :edit
+      end
+    end
+
+    describe '#deliver' do
+      def do_request
+        patch :deliver, id: order.id, order: { items_attributes: [{ id: order.items.first.id, quantity: new_item_quantity }] }, format: :js
+      end
+
+      let!(:order) { create(:order, status: :accepted) }
+      let!(:new_item_quantity) { 1000 }
+
       before do
         request.env["HTTP_REFERER"] = "where_i_came_from"
       end
 
-      it 'changes status to delivered' do
+      it 'updates order' do
         do_request
-        expect(order.reload.status.delivered?).to eq true
+        expect(order.reload.items.first.quantity).to eq new_item_quantity
+        expect(order.status.delivered?).to eq true
         expect(response).to redirect_to "where_i_came_from"
       end
     end
 
-    describe '#new_attachment' do 
+    describe '#new_attachment' do
       def do_request
         get :new_attachment, id: order.id, format: :js
       end
@@ -140,8 +162,8 @@ describe OrdersController, :type => :controller do
     end
   end
 
-  context 'Public' do 
-    describe '#mark_as_accepted' do 
+  context 'Public' do
+    describe '#mark_as_accepted' do
       def do_request
         get :mark_as_accepted, id: order.id, token: token
       end
@@ -167,7 +189,7 @@ describe OrdersController, :type => :controller do
       end
     end
 
-    describe '#mark_as_declined' do 
+    describe '#mark_as_declined' do
       def do_request
         get :mark_as_declined, id: order.id, token: token
       end

@@ -8,6 +8,7 @@ FactoryGirl.define do
     outlet_phone   "90608421"
     request_for_delivery_start_at 1.day.from_now
     request_for_delivery_end_at 2.day.from_now
+    paid_amount 0
 
     after(:create) do |order|
       create_list(:order_item, 2, order_id: order.id)

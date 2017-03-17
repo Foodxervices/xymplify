@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307094736) do
+ActiveRecord::Schema.define(version: 20170317034242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -208,6 +208,8 @@ ActiveRecord::Schema.define(version: 20170307094736) do
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
     t.datetime "request_for_delivery_end_at"
+    t.integer  "paid_amount_cents",             default: 0,     null: false
+    t.string   "paid_amount_currency",          default: "SGD", null: false
   end
 
   add_index "orders", ["kitchen_id"], name: "index_orders_on_kitchen_id", using: :btree

@@ -39,3 +39,4 @@ en:
         remember_me: "Keep me logged in"
       order:
         delivered_to_kitchen: "Linked to Inventory"
+        paid_amount_cents: "Paid Amount"

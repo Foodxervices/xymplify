@@ -40,13 +40,19 @@
           == "This PO is #{order.delivered_to_kitchen? ? '' : '<b>NOT</b> '}linked to your food inventory"
         td.text-right Total
         td.text-right = humanized_money_with_symbol(order.price_with_gst)
+      tr
+        td colspan="2"
+        td.text-right Paid
+        td.text-right = humanized_money_with_symbol(order.paid_amount)
   .btn-toolbar.pull-right
+    - if can?(:pay, order)
+      = link_to 'Edit Payment', edit_payment_path(order), class: 'btn btn-default', remote: true
     - if can?(:mark_as_accepted, order)
       = link_to 'Mark as Accepted', '#', data: { toggle: "confirmation", href: mark_as_accepted_order_path(order), link_method: 'patch' }, class: 'btn btn-accepted'
     - if can?(:mark_as_declined, order)
       = link_to 'Mark as Declined', '#', data: { toggle: "confirmation", href: mark_as_declined_order_path(order), link_method: 'patch' }, class: 'btn btn-declined'
-    - if can?(:mark_as_delivered, order)
-      = link_to 'Mark as Delivered', '#', data: { toggle: "confirmation", href: mark_as_delivered_order_path(order), link_method: 'patch' }, class: 'btn btn-delivered'
+    - if can?(:deliver, order)
+      = link_to 'Mark as Delivered', [:confirm_delivery, order], class: 'btn btn-delivered', remote: true
     - if can?(:mark_as_cancelled, order)
       = link_to 'Mark as Cancelled', '#', data: { toggle: "confirmation", href: mark_as_cancelled_order_path(order), link_method: 'patch' }, class: 'btn btn-cancelled'
   .clearfix

@@ -1,0 +1,10 @@
+.payments-form-container
+  = simple_nested_form_for order, url: payment_path(order), remote: true do |f|
+    = f.error :base
+    .row
+      .col-md-6
+        = f.input :paid_amount
+        p
+          label Total: #{humanized_money_with_symbol(order.price_with_gst)}
+    = f.button :submit, 'Submit', :data => { disable_with: 'Processing...' }, class: 'btn-primary btn-block'
+

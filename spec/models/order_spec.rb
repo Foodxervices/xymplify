@@ -1,17 +1,18 @@
 require 'rails_helper'
 
-describe Order do 
-  context 'validations' do 
+describe Order do
+  context 'validations' do
     it { is_expected.to validate_presence_of :supplier_id }
     it { is_expected.to validate_presence_of :kitchen_id }
     it { is_expected.to validate_presence_of :user_id }
     it { is_expected.to validate_presence_of :outlet_name }
     it { is_expected.to validate_presence_of :outlet_address }
     it { is_expected.to validate_presence_of :outlet_phone }
-    it { is_expected.to enumerize(:status).in(:wip, :confirmed, :placed, :accepted, :declined, :delivered, :cancelled) }
+    it { is_expected.to validate_numericality_of(:paid_amount).is_greater_than_or_equal_to(0) }
+    it { is_expected.to enumerize(:status).in(:wip, :confirmed, :placed, :accepted, :declined, :delivered, :completed, :cancelled) }
   end
 
-  context 'associations' do 
+  context 'associations' do
     it { is_expected.to belong_to :supplier }
     it { is_expected.to belong_to :kitchen }
     it { is_expected.to belong_to :user }
@@ -20,7 +21,7 @@ describe Order do
     it { is_expected.to have_many :alerts }
   end
 
-  describe '#price' do 
+  describe '#price' do
     context 'status: wip' do
       let!(:order) { create(:order) }
 
@@ -38,7 +39,7 @@ describe Order do
     end
   end
 
-  describe '#status_updated_at' do 
+  describe '#status_updated_at' do
     let!(:order) { create(:order, status: :wip) }
 
     context 'status: wip' do
@@ -48,9 +49,9 @@ describe Order do
     end
 
     context 'status: placed' do
-      before do 
-        order.status = :placed 
-        order.save 
+      before do
+        order.status = :placed
+        order.save
       end
 
       it 'returns placed at' do
@@ -59,10 +60,10 @@ describe Order do
     end
 
     context 'status: delivered' do
-      before do 
-        order.status = :placed 
-        order.status = :delivered 
-        order.save 
+      before do
+        order.status = :placed
+        order.status = :delivered
+        order.save
       end
 
       it 'returns delivered at' do

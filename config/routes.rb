@@ -55,10 +55,14 @@ Rails.application.routes.draw do
       patch :add_attachment
       patch :mark_as_accepted
       patch :mark_as_declined
-      patch :mark_as_delivered
       patch :mark_as_cancelled
+
+      get :confirm_delivery
+      patch :deliver
     end
   end
+
+  resources :payments, only: [:edit, :update]
 
   resources :restaurants, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
     resources :versions,    only: [:index]

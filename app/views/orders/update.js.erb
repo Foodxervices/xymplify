@@ -1,8 +1,5 @@
-<% if @success %>
-  $('.orders-details-container[rel=<%= @order.id %>]').html("<%= j(render 'orders/details', order: @order) if @order.present? %>")
-  <%= open_message(notice: @message.join("<br/>")) if @message.present? %>
-<% else %>
-  <%= open_popup(title: "#{@order.name} - #{@order.supplier&.name}", partial: 'orders/form', locals: { order: @order }) %> 
-<% end %> 
+<% if !@success %>
+  <%= open_popup(title: "#{@order.name} - #{@order.supplier&.name}", partial: 'orders/form', locals: { order: @order }) %>
+<% end %>
 
 $('.grid').masonry('layout')

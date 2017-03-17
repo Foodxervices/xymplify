@@ -1,7 +1,7 @@
 class OrderItem < ActiveRecord::Base
   acts_as_taggable
   has_paper_trail :unless => Proc.new { |item| item.order.status.wip? || item.order.status.confirmed? }
-  
+
   belongs_to :order
   belongs_to :food_item, -> { with_deleted }
   belongs_to :restaurant
@@ -32,25 +32,25 @@ class OrderItem < ActiveRecord::Base
     Inventory.where(food_item_id: food_item_id, kitchen_id: order.kitchen_id, restaurant_id: order.restaurant_id).first_or_create
   end
 
-  private 
+  private
   def set_info
-    self.restaurant_id = order.restaurant_id 
-    self.kitchen_id = order.kitchen_id 
+    self.restaurant_id = order.restaurant_id
+    self.kitchen_id = order.kitchen_id
     self.name = food_item.name
-    self.category_id = food_item.category_id 
-    self.tag_list = food_item.tag_list 
+    self.category_id = food_item.category_id
+    self.tag_list = food_item.tag_list
   end
 
   def update_quantity_ordered
     # Order must be linked to the kitchen to update quantity_ordered here
-    if quantity_changed? && order.delivered_to_kitchen? && !order.status_changed? && order.status.placed? 
+    if quantity_changed? && order.delivered_to_kitchen? && !order.status_changed? && order.status.placed?
       inventory.update_column(:quantity_ordered, inventory.quantity_ordered + (quantity - quantity_was))
     end
   end
 
   def cache_order_amount
     if unit_price_cents_changed? || unit_price_currency_changed? || quantity_changed?
-      order.price = order.items.includes(:order).map(&:total_price).inject(0, :+) 
+      order.price = order.items.includes(:order).map(&:total_price).inject(0, :+)
       order.save
     end
   end

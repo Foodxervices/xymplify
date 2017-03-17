@@ -1,3 +1,4 @@
+include MoneyRails::ActionViewExtension
 class Order < ActiveRecord::Base
   has_paper_trail :unless => Proc.new { |order| order.status.wip? || order.status.confirmed? }
 
@@ -20,6 +21,8 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :restaurant
 
+  monetize :paid_amount_cents
+
   has_attached_file :attachment
   validates_attachment :attachment,
                        :content_type => { :content_type => Rails.application.config.upload_file_type },
@@ -32,10 +35,13 @@ class Order < ActiveRecord::Base
   validates :outlet_name,    presence: true
   validates :outlet_address, presence: true
   validates :outlet_phone,   presence: true
+  validates :paid_amount,    numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
   validates :request_for_delivery_start_at, presence: true, if: '!status.wip?'
   validates :request_for_delivery_end_at,   presence: true, if: '!status.wip?'
 
-  enumerize :status, in: [:wip, :confirmed, :placed, :accepted, :declined, :delivered, :cancelled], default: :wip
+  after_save :check_status
+
+  enumerize :status, in: [:wip, :confirmed, :placed, :accepted, :declined, :delivered, :completed, :cancelled], default: :wip
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :gsts,  reject_if: :all_blank, allow_destroy: true
@@ -92,6 +98,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def paid?
+    price_with_gst == paid_amount
+  end
+
   private
   def cache_restaurant
     self.restaurant_id = kitchen.restaurant_id
@@ -138,6 +148,14 @@ class Order < ActiveRecord::Base
           inventory.save
         end
       end
+    end
+  end
+
+  def check_status
+    if status.delivered? && paid?
+      update_column(:status, :completed)
+    elsif status.completed? && !paid?
+      update_column(:status, :delivered)
     end
   end
 end

@@ -3,6 +3,7 @@ class Ability
 
   def initialize(user)
     alias_action :new_attachment, :to => :add_attachment
+    alias_action :confirm_delivery, :to => :deliver
 
     user = (user ||= User.new)
 
@@ -56,7 +57,7 @@ class Ability
       !order.status.placed?
     end
 
-    cannot [:mark_as_delivered], Order do |order|
+    cannot [:deliver], Order do |order|
       !order.status.accepted?
     end
 
