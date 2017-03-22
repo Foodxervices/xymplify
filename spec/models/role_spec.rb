@@ -6,7 +6,7 @@ describe Role do
     it do
       is_expected.to enumerize(:permissions).in(
         'food_item__manage', 'food_item__read', 'food_item__create', 'food_item__update', 'food_item__destroy', 'food_item__order',
-        'restaurant__manage', 'restaurant__read', 'restaurant__create', 'restaurant__update', 'restaurant__destroy', 'restaurant__dashboard', 'restaurant__history',
+        'restaurant__manage', 'restaurant__read', 'restaurant__create', 'restaurant__update', 'restaurant__destroy', 'restaurant__dashboard', 'restaurant__history', 'restaurant__read_payment',
         'supplier__manage', 'supplier__read', 'supplier__create', 'supplier__update', 'supplier__destroy',
         'user_role__manage', 'user_role__read', 'user_role__create', 'user_role__update', 'user_role__destroy',
         'kitchen__create', 'kitchen__update', 'kitchen__dashboard', 'kitchen__import', 'kitchen__history',

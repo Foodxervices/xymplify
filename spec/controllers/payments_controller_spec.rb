@@ -4,6 +4,22 @@ describe PaymentsController, :type => :controller do
   let!(:user)         { create(:admin) }
   before { sign_in user }
 
+  describe '#index' do
+    def do_request
+      get :index, restaurant_id: restaurant.id
+    end
+
+    let!(:restaurant)       { create(:restaurant) }
+    let!(:suppliers)        { create_list(:supplier, 2, restaurant_id: restaurant.id) }
+    let!(:other_suppliers)  { create_list(:supplier, 1) }
+
+    it 'renders the :index view' do
+      do_request
+      expect(assigns(:suppliers).size).to eq 2
+      expect(response).to render_template :index
+    end
+  end
+
   describe '#edit' do
     def do_request
       get :edit, id: order.id, format: :js

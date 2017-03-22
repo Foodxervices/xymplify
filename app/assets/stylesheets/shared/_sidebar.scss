@@ -72,6 +72,10 @@
       @extend .mdi-store;
     }
 
+    &.sb-payment i:before {
+      @extend .mdi-coin;
+    }
+
     &.sb-food_item i:before {
       @extend .mdi-food;
     }

@@ -9,6 +9,7 @@ en:
         restaurant__update:                   "Restaurant :: Update"
         restaurant__destroy:                  "Restaurant :: Destroy"
         restaurant__history:                  "Restaurant :: History"
+        restaurant__read_payment:             "Restaurant :: Manage Payments"
         supplier__manage:                     "Supplier   :: Full Access"
         supplier__read:                       "Supplier   :: Read"
         supplier__create:                     "Supplier   :: Create"

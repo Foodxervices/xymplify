@@ -8,6 +8,8 @@
   = active_link_to 'Restaurant Details', current_restaurant, :wrap_tag => :li, :active => :exact, class: 'sb-restaurant', title: 'Restaurant Details'
 - if can?(:index, Supplier)
   = active_link_to 'Suppliers',  [current_restaurant, :suppliers],  :wrap_tag => :li, class: 'sb-supplier',   title: 'Suppliers'
+- if can?(:read_payment, current_restaurant)
+  = active_link_to 'Manage Payments',  [current_restaurant, :payments],  :wrap_tag => :li, class: 'sb-payment',   title: 'Manage Payments'
 - if can?(:index, FoodItem)
   = active_link_to 'Food Items', [current_restaurant, :food_items], :wrap_tag => :li, class: 'sb-food_item', title: 'Food Items'
 hr

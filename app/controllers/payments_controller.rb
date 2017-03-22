@@ -1,5 +1,13 @@
 class PaymentsController < ApplicationController
-  before_action :load_and_authorize_payment
+  load_and_authorize_resource :restaurant
+  before_action :load_and_authorize_payment, only: [:edit, :update]
+
+  def index
+    @suppliers = @restaurant.suppliers.accessible_by(current_ability)
+    @supplier_filter = SupplierFilter.new(@suppliers, supplier_filter_params)
+    @suppliers = @supplier_filter.result
+                                 .order(:priority, :name)
+  end
 
   def edit; end
 
@@ -18,6 +26,13 @@ class PaymentsController < ApplicationController
   end
 
   private
+
+  def supplier_filter_params
+    supplier_filter = ActionController::Parameters.new(params[:supplier_filter])
+    supplier_filter.permit(
+      :keyword,
+    )
+  end
 
   def payment_params
     params.require(:order).permit(

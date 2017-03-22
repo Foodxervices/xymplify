@@ -26,6 +26,34 @@ class Supplier < ActiveRecord::Base
     ISO3166::Country[country]
   end
 
+  def delivered_orders
+    orders.where(status: [:delivered, :completed])
+  end
+
+  def price_with_gst
+    delivered_orders.price_with_gst
+  end
+
+  def paid_amount
+    delivered_orders.paid_amount
+  end
+
+  def outstanding_amount
+    delivered_orders.outstanding_amount
+  end
+
+  def self.price_with_gst
+    all.map(&:price_with_gst).inject(0, :+)
+  end
+
+  def self.paid_amount
+    all.map(&:paid_amount).inject(0, :+)
+  end
+
+  def self.outstanding_amount
+    all.map(&:outstanding_amount).inject(0, :+)
+  end
+
   # when `Processing Cut-Off` is set for supplier as 3pm
   # if the PO is raised before 3pm
   # delivery window can be next day earliest (assume no delivery window constraint)

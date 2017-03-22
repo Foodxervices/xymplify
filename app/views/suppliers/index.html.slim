@@ -33,9 +33,8 @@
             td = supplier.delivery_days.texts.to_sentence
             - if Config.processing_cut_off_enabled?
               td = format_time(supplier.processing_cut_off)
-            td.text-center width="300"
+            td.text-center width="250"
               ul.actions
                 li = link_to 'View', supplier, remote: true
-                li = link_to 'POs', [current_restaurant, supplier, :supplier_orders]
                 li = link_to_if can?(:update, supplier), 'Edit', [:edit, supplier.restaurant, supplier]
                 li = link_to_if can?(:destroy, supplier), 'Delete', '#', data: { toggle: "confirmation", href: supplier_path(supplier) }, class: 'delete'

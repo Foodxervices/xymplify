@@ -1,0 +1,28 @@
+= render 'suppliers/search', supplier_filter: @supplier_filter, url: ''
+#payments-index-container
+  h1 Manage Payment for Delivered POs
+  .clearfix
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr
+          th = Supplier.human_attribute_name(:name)
+          th.text-right = Supplier.human_attribute_name(:total)
+          th.text-right = Supplier.human_attribute_name(:paid)
+          th.text-right = Supplier.human_attribute_name(:outstanding)
+          th.text-center POs
+      tbody
+        - @suppliers.each do |supplier|
+          tr
+            td = link_to supplier.name, supplier, remote: true
+            td.text-right = supplier.price_with_gst
+            td.text-right = supplier.paid_amount
+            td.text-right = supplier.outstanding_amount
+            td.text-center = link_to 'View', [current_restaurant, supplier, :supplier_orders]
+      tfoot
+        tr
+          th Summary:
+          th.text-right = @suppliers.price_with_gst
+          th.text-right = @suppliers.paid_amount
+          th.text-right = @suppliers.outstanding_amount
+          th
