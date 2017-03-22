@@ -26,18 +26,18 @@ const CostGraph = {
       vAxis: {
         format: `${currencySymbol}#`,
         minValue: 0.1,
-        textStyle : { 
-          fontSize: 14 
+        textStyle : {
+          fontSize: 14
         }
       },
-      hAxis : { 
-        textStyle : { 
-          fontSize: 14 
+      hAxis : {
+        textStyle : {
+          fontSize: 14
         }
       },
       tooltip: {
-        textStyle: { 
-          fontSize: 14 
+        textStyle: {
+          fontSize: 14
         }
       },
       legend:{
@@ -57,7 +57,7 @@ const CostGraph = {
     columnsTable.addColumn('number', 'colIndex');
     columnsTable.addColumn('string', 'colLabel');
     var initState= {selectedValues: []};
-    
+
     for (var i = 1; i < dataTable.getNumberOfColumns(); i++) {
         columnsTable.addRow([i, dataTable.getColumnLabel(i)]);
         initState.selectedValues.push(dataTable.getColumnLabel(i));
@@ -78,7 +78,7 @@ const CostGraph = {
       options: {
           filterColumnLabel: 'colLabel',
           ui: {
-              label: 'Items',
+              label: 'Filters',
               allowTyping: false,
               allowMultiple: true,
               allowNone: false,
@@ -89,10 +89,10 @@ const CostGraph = {
     });
 
     google.visualization.events.addListener(filter, 'statechange', setChartView);
-    
+
     setChartView();
     filter.draw();
-    
+
     function getData() {
       var monthArray = []
       var data = $('#cost-graph').data('graph')
@@ -117,7 +117,7 @@ const CostGraph = {
           $.each(monthData, function(tag, total_price) {
             if(headTag == tag) {
               price = total_price
-              return false 
+              return false
             }
           })
 
@@ -127,7 +127,7 @@ const CostGraph = {
       })
 
       res[0].unshift('Month')
-      
+
       return res
     }
 
@@ -141,7 +141,7 @@ const CostGraph = {
           row = columnsTable.getFilteredRows([{column: 1, value: state.selectedValues[i]}])[0];
           view.columns.push(columnsTable.getValue(row, 0));
       }
-  
+
       view.columns.sort(function (a, b) {
           return (a - b);
       });

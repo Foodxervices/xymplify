@@ -3,7 +3,7 @@
   .row
     .col-md-8
       .text-right
-        ul.list-inline
+        ul.list-inline.tabs
           li = active_link_to 'View by Category', url_for(params.merge(action: :index)), :active => :exclusive
           li = active_link_to 'View by Supplier', url_for(params.merge(action: :by_supplier)), :active => :exclusive
           li = active_link_to 'Frequently Ordered', url_for(params.merge(action: :frequently_ordered)), :active => :exclusive
@@ -11,11 +11,10 @@
         .block
           h4 = group_name
           = render 'carts/form', food_items: food_items
-      .text-center          
+      .text-center
         = will_paginate @food_items, renderer: BootstrapPagination::Rails, inner_window: 3, outer_window: 1
 
     .col-md-4
       #cart-details-ref
       #cart-details
         = render 'carts/details', orders: @orders
-  

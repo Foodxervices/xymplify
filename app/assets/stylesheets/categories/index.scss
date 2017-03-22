@@ -22,28 +22,6 @@
     position: relative;
   }
 
-  ul.list-inline {
-    margin: 0 -10px;
-
-    li {
-      padding: 0 10px;
-      border-right: 1px solid #5e5e5e;
-
-      &:last-child {
-        border-right: none;
-      }
-    }
-
-    a {
-      color: #5e5e5e;
-
-      &.active, &:hover {
-        color: $primary_color;
-        font-weight: bold;
-      }
-    }
-  }
-
   #cart-details-ref {
     height: 1px;
   }

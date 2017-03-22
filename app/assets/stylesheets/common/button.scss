@@ -1,0 +1,45 @@
+.btn-red {
+  color: #fff;
+  background-color: $red_color;
+}
+
+.btn-green {
+  color: #fff;
+  background-color: $green_color;
+}
+
+.btn-primary, .btn-placed, .btn-accepted, .btn-declined, .btn-cancelled, .btn-delivered, .btn-add {
+  color: #fff;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.btn-primary, .btn-add {
+  background: $primary_color;
+
+  &:hover {
+    background: $primary_color;
+  }
+}
+
+.btn-placed {
+  background: $placed_color;
+}
+
+.btn-accepted {
+  background: $accepted_color;
+}
+
+.btn-declined {
+  background: $declined_color;
+}
+
+.btn-cancelled {
+  background: $cancelled_color;
+}
+
+.btn-delivered {
+  background: $delivered_color;
+}

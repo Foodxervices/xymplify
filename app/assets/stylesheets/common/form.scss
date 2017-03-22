@@ -1,0 +1,15 @@
+table.table-striped {
+  input[type=number] {
+    text-align: center;
+  }
+}
+
+.bootstrap-select.form-control:not([class*=span]):not([class*=col-]) {
+  max-width: 1000px;
+}
+
+table.table-bordered, table.table-striped {
+  .form-group, .bootstrap-select.btn-group:not(.input-group-btn), .bootstrap-select.btn-group[class*=span], .bootstrap-select.btn-group[class*=col-] {
+    margin-bottom: 0;
+  }
+}
