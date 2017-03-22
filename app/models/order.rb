@@ -98,8 +98,12 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def outstanding_amount
+    price_with_gst - paid_amount
+  end
+
   def paid?
-    price_with_gst == paid_amount
+    outstanding_amount == 0
   end
 
   private

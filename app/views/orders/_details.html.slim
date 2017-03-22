@@ -42,8 +42,8 @@
         td.text-right = humanized_money_with_symbol(order.price_with_gst)
       tr
         td colspan="2"
-        td.text-right Paid
-        td.text-right = humanized_money_with_symbol(order.paid_amount)
+        td.text-right Outstanding
+        td.text-right = humanized_money_with_symbol(order.outstanding_amount)
   .btn-toolbar.pull-right
     - if can?(:pay, order)
       = link_to 'Edit Payment', edit_payment_path(order), class: 'btn btn-default', remote: true

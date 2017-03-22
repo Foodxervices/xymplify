@@ -71,4 +71,20 @@ describe Order do
       end
     end
   end
+
+  describe '#outstanding_amount' do
+    let!(:order) { create(:order) }
+
+    it 'returns outstanding amount' do
+      expect(order.outstanding_amount).to eq 0
+    end
+  end
+
+  describe '#paid?' do
+    let!(:order) { create(:order) }
+
+    it 'returns payment status' do
+      expect(order.paid?).to eq true
+    end
+  end
 end
