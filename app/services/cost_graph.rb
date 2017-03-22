@@ -1,4 +1,4 @@
-class CostGraph 
+class CostGraph
   attr_accessor :restaurant
   attr_accessor :kitchen
 
@@ -11,7 +11,7 @@ class CostGraph
     return @items if @items.present?
     @items = OrderItem.joins(:order)
                       .includes(:category, order: :supplier)
-                      .where(orders: { status: :delivered })
+                      .where(orders: { status: [:delivered, :completed] })
                       .order('orders.delivered_at asc')
 
     @items = @items.where(restaurant_id: restaurant.id) if restaurant.present?
@@ -21,7 +21,7 @@ class CostGraph
 
   def by_category
     res = {}
-    
+
     items.each do |item|
       order = item.order
       next if order.nil?
@@ -40,12 +40,12 @@ class CostGraph
 
   def by_supplier
     res = {}
-    
+
     items.each do |item|
       order = item.order
       next if order.nil?
       month = order.delivered_at.beginning_of_month
-      
+
       supplier = order.supplier
       next if supplier.nil?
 

@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :disable_bullet, only: [:show, :index, :dashboard]
-  load_and_authorize_resource 
+  load_and_authorize_resource
 
   def index
     respond_to do |format|
@@ -8,8 +8,8 @@ class RestaurantsController < ApplicationController
         @restaurant_filter = RestaurantFilter.new(restaurant_filter_params)
         @restaurants  = @restaurant_filter.result
                                           .accessible_by(current_ability)
-        if @restaurants.size == 1 && !params[:restaurant_filter]                                                                                   
-          redirect_to [:dashboard, @restaurants.first]     
+        if @restaurants.size == 1 && !params[:restaurant_filter]
+          redirect_to [:dashboard, @restaurants.first]
         else
           load_summary(@restaurants.ids)
         end
@@ -59,7 +59,7 @@ class RestaurantsController < ApplicationController
                                 .paginate(:page => params[:alert_page], :per_page => 5)
                                 .order(id: :desc)
 
-    @alerts              = alerts.where.not(type: :incoming_delivery)          
+    @alerts              = alerts.where.not(type: :incoming_delivery)
     @incoming_deliveries = alerts.where(type: :incoming_delivery)
 
     @messages = @restaurant.messages.accessible_by(current_ability).order(id: :desc).paginate(:page => params[:message_page], :per_page => 5)
@@ -70,7 +70,7 @@ class RestaurantsController < ApplicationController
     load_summary([@restaurant.id])
   end
 
-  private 
+  private
 
   def restaurant_filter_params
     restaurant_filter = ActionController::Parameters.new(params[:restaurant_filter])
@@ -95,7 +95,7 @@ class RestaurantsController < ApplicationController
 
   def load_summary(restaurant_ids)
     orders = Order.where(restaurant_id: restaurant_ids)
-    shipped_orders = orders.where(status: :delivered)
+    shipped_orders = orders.where(status: [:delivered, :completed])
     total_suppliers   = Supplier.where(restaurant_id: restaurant_ids).count
     total_food_items  = FoodItem.where(restaurant_id: restaurant_ids).count
 

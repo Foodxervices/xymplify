@@ -70,7 +70,7 @@ class KitchensController < ApplicationController
     total_food_items  = FoodItem.joins(:kitchens).where(kitchens: { id: current_kitchen.id }).count
     orders         = Order.where(kitchen_id: current_kitchen.id)
     pending_orders = orders.where(status: [:placed, :accepted])
-    shipped_orders = orders.where(status: :delivered)
+    shipped_orders = orders.where(status: [:delivered, :completed])
 
     @summary = [
       { type: 'suppliers',   count: total_suppliers, description: "Suppliers" },
