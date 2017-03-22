@@ -15,14 +15,14 @@
         - @suppliers.each do |supplier|
           tr
             td = link_to supplier.name, supplier, remote: true
-            td.text-right = supplier.price_with_gst
-            td.text-right = supplier.paid_amount
-            td.text-right = supplier.outstanding_amount
+            td.text-right = humanized_money_with_symbol(supplier.price_with_gst)
+            td.text-right = humanized_money_with_symbol(supplier.paid_amount)
+            td.text-right = humanized_money_with_symbol(supplier.outstanding_amount)
             td.text-center = link_to 'View', [current_restaurant, supplier, :supplier_orders]
       tfoot
         tr
           th Summary:
-          th.text-right = @suppliers.price_with_gst
-          th.text-right = @suppliers.paid_amount
-          th.text-right = @suppliers.outstanding_amount
+          th.text-right = humanized_money_with_symbol(@suppliers.price_with_gst)
+          th.text-right = humanized_money_with_symbol(@suppliers.paid_amount)
+          th.text-right = humanized_money_with_symbol(@suppliers.outstanding_amount)
           th
