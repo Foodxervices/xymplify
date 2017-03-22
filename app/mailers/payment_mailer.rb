@@ -8,10 +8,18 @@ class PaymentMailer < ActionMailer::Base
     @user = @order.user
     @paid = paid
 
+    subject = "#{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
+
+    if order.paid?
+      subject = "[Full Payment] #{subject}"
+    else
+      subject = "[Partial Payment] #{subject}"
+    end
+
     mail(
       to: @supplier.email,
       cc: [@restaurant.email, @user.email],
-      subject: "#{@restaurant.name} has just made a payment of #{humanized_money_with_symbol(paid)}"
+      subject: subject
     )
   end
 end
