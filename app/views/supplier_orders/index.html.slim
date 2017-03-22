@@ -13,6 +13,7 @@
           th.text-right = Order.human_attribute_name(:outstanding)
           th.text-center = Order.human_attribute_name(:delivered_at)
           th.text-center = Order.human_attribute_name(:status)
+          th
       tbody
         - @orders.each do |order|
           tr
@@ -23,11 +24,15 @@
             td.text-center = format_date(order.delivered_at)
             td.text-center
               .btn.btn-default.status class="status-#{order.status}" = order.status_text
+            td.text-center
+              - if can?(:pay, order)
+                = link_to 'Edit Payment', edit_payment_path(order), class: 'btn btn-default', remote: true
       tfoot
         tr
           th Summary:
           th.text-right = humanized_money_with_symbol(@orders.price_with_gst)
           th.text-right = humanized_money_with_symbol(@orders.paid_amount)
           th.text-right = humanized_money_with_symbol(@orders.outstanding_amount)
+          th
           th
           th
