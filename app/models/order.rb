@@ -72,6 +72,14 @@ class Order < ActiveRecord::Base
     all.map(&:price_with_gst).inject(0, :+)
   end
 
+  def self.paid_amount
+    all.map(&:paid_amount).inject(0, :+)
+  end
+
+  def self.outstanding_amount
+    all.map(&:outstanding_amount).inject(0, :+)
+  end
+
   def date_of_delivery
     delivered_at.present? ? delivered_at : request_for_delivery_start_at
   end

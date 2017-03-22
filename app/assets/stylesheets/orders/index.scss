@@ -53,39 +53,4 @@
       text-align: center;
     }
   }
-
-  .status {
-    border: none;
-    border-radius: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    font-size: 12px;
-    color: #FFFFFF;
-    letter-spacing: 0;
-    cursor: auto;
-  }
-
-  .status-placed {
-    background: $placed_color;
-  }
-
-  .status-accepted {
-    background: $accepted_color;
-  }
-
-  .status-declined {
-    background: $declined_color;
-  }
-
-  .status-cancelled {
-    background: $cancelled_color;
-  }
-
-  .status-delivered {
-    background: $delivered_color;
-  }
-
-  .status-completed {
-    background: $completed_color;
-  }
 }

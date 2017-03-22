@@ -15,7 +15,7 @@
   .table-responsive
     table.table.table-striped.text-center
       thead
-        tr 
+        tr
           th width=100 = sortable(:code)
           th.text-left = sortable(:name)
           th.text-left = sortable(:attachments_count, title: FoodItem.human_attribute_name(:files))
@@ -29,9 +29,9 @@
           th = sortable(:brand)
           th = sortable(:category_name)
           th Action
-      tbody 
+      tbody
         - @food_items.each do |food_item|
-          tr 
+          tr
             td = link_to food_item.code, [current_kitchen, food_item], remote: true
             td.text-left = food_item.name
             td = food_item.attachments.size
@@ -49,6 +49,5 @@
                 li = link_to 'View', [current_kitchen, food_item], remote: true
                 li = link_to_if can?(:update, food_item), 'Edit', [:edit, current_restaurant, food_item]
                 li = link_to_if can?(:destroy, food_item), 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete'
-  .text-center          
+  .text-center
     = will_paginate @food_items, renderer: BootstrapPagination::Rails
-  

@@ -66,7 +66,9 @@ Rails.application.routes.draw do
 
   resources :restaurants, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
     resources :versions,    only: [:index]
-    resources :suppliers,   only: [:index, :new, :create, :edit, :update]
+    resources :suppliers,   only: [:index, :new, :create, :edit, :update] do
+      resources :supplier_orders, only: [:index], path: '/orders'
+    end
     resources :user_roles,  only: [:index, :new, :create]
     resources :food_items,  only: [:index, :new, :create, :edit, :update]
     resources :kitchens, only: [:index, :new, :create, :edit, :update] do

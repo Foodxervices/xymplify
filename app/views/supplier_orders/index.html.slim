@@ -1,0 +1,33 @@
+#supplier_orders-index-container
+  = render 'orders/search', order_filter: @order_filter, url: ''
+
+  h1 = "#{@supplier.name} - Orders"
+
+  .table-responsive
+    table.table.table-striped.text-right
+      thead
+        tr
+          th = Order.human_attribute_name(:name)
+          th.text-right = Order.human_attribute_name(:total)
+          th.text-right = Order.human_attribute_name(:paid)
+          th.text-right = Order.human_attribute_name(:outstanding)
+          th.text-center = Order.human_attribute_name(:delivered_at)
+          th.text-center = Order.human_attribute_name(:status)
+      tbody
+        - @orders.each do |order|
+          tr
+            td.text-left = link_to order.name, order, remote: true
+            td = humanized_money_with_symbol(order.price_with_gst)
+            td = humanized_money_with_symbol(order.paid_amount)
+            td = humanized_money_with_symbol(order.outstanding_amount)
+            td.text-center = format_date(order.delivered_at)
+            td.text-center
+              .btn.btn-default.status class="status-#{order.status}" = order.status_text
+      tfoot
+        tr
+          th Summary:
+          th.text-right = humanized_money_with_symbol(@orders.price_with_gst)
+          th.text-right = humanized_money_with_symbol(@orders.paid_amount)
+          th.text-right = humanized_money_with_symbol(@orders.outstanding_amount)
+          th
+          th

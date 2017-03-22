@@ -1,0 +1,34 @@
+.status {
+  border: none;
+  border-radius: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 12px;
+  color: #FFFFFF !important;
+  letter-spacing: 0;
+  cursor: auto;
+}
+
+.status-placed {
+  background: $placed_color !important;
+}
+
+.status-accepted {
+  background: $accepted_color !important;
+}
+
+.status-declined {
+  background: $declined_color !important;
+}
+
+.status-cancelled {
+  background: $cancelled_color !important;
+}
+
+.status-delivered {
+  background: $delivered_color !important;
+}
+
+.status-completed {
+  background: $completed_color !important;
+}

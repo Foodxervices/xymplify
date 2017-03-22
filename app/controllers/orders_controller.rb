@@ -22,6 +22,7 @@ class OrdersController < ApplicationController
                            .order('supplier_name asc, status_updated_at desc')
     respond_to do |format|
       format.html do
+        @show_export = true
         @orders = @orders.paginate(:page => params[:page])
         @grouped_orders = @orders.group_by{|order| order.supplier_name}
       end

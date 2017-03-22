@@ -25,14 +25,14 @@ class OrderFilter
 
     if keyword.present?
       @orders = @orders.where("
-                                orders.name                  ILIKE :keyword OR 
-                                suppliers.name              ILIKE :keyword OR 
-                                order_items.name            ILIKE :keyword 
-                              ", keyword: "%#{keyword}%") 
+                                orders.name                 ILIKE :keyword OR
+                                suppliers.name              ILIKE :keyword OR
+                                order_items.name            ILIKE :keyword
+                              ", keyword: "%#{keyword}%")
     end
 
     @orders = @orders.where(status_updated_at: (start_date.beginning_of_day..end_date.end_of_day))
-    
+
     if status.present?
       @orders = @orders.where(status: status)
     end
