@@ -33,7 +33,7 @@
             td = supplier.delivery_days.texts.to_sentence
             - if Config.processing_cut_off_enabled?
               td = format_time(supplier.processing_cut_off)
-            td.text-center width="250"
+            td.text-center width="300"
               ul.actions
                 li = link_to 'View', supplier, remote: true
                 li = link_to 'POs', [current_restaurant, supplier, :supplier_orders]

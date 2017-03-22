@@ -1,0 +1,10 @@
+.ui-sortable {
+  td {
+    vertical-align: middle !important;
+  }
+
+  ul.actions > li > a {
+    display: inline-block;
+    padding: 5px;
+  }
+}
