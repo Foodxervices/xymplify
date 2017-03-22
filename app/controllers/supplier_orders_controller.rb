@@ -8,6 +8,7 @@ class SupplierOrdersController < ApplicationController
     @orders = @order_filter.result
                            .where(status: statuses.collect(&:last))
                            .where(supplier_id: @supplier.id)
+                           .includes(:gsts)
   end
 
   private
