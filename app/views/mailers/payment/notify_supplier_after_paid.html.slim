@@ -1,0 +1,4 @@
+- if @order.outstanding_amount == 0
+  p = "#{@restaurant.name} has just made a payment of #{humanized_money_with_symbol(@paid)}. This PO has been fully paid for."
+- else
+  p = "#{@restaurant.name} has just made a payment of #{humanized_money_with_symbol(@paid)}. The balance for this PO now stands at #{humanized_money_with_symbol(@order.outstanding_amount)}."

@@ -4,7 +4,13 @@ class PaymentsController < ApplicationController
   def edit; end
 
   def update
+    paid_amount_was = @order.paid_amount
+
     if @order.update_attributes(payment_params)
+      if paid_amount_was != @order.paid_amount
+        paid = @order.paid_amount - paid_amount_was
+        PaymentMailerWorker.perform_async(@order.id, paid)
+      end
       redirect_to :back, notice: 'Payment has been updated.'
     else
       render :edit
