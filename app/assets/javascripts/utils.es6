@@ -50,6 +50,7 @@ const Utils = {
   },
   initDatatable:() => {
     $('.datatable').DataTable({
+      bFilter: false,
       bDestroy: true,
       initComplete: function(settings, json) {
         Utils.initSelectPicker()
