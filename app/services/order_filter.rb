@@ -45,8 +45,8 @@ class OrderFilter
   end
 
   def default_date_range
-    from = 30.days.ago.strftime(DATE_FORMAT)
-    to = Time.zone.now.strftime(DATE_FORMAT)
+    from = Time.now.beginning_of_month.strftime(DATE_FORMAT)
+    to = Time.now.end_of_month.strftime(DATE_FORMAT)
     "#{from} - #{to}"
   end
 end
