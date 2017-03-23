@@ -8,9 +8,9 @@
       thead
         tr
           th Supplier (Delivered PO)
-          th.text-right = Supplier.human_attribute_name(:total)
-          th.text-right = Supplier.human_attribute_name(:paid)
-          th.text-right = Supplier.human_attribute_name(:outstanding)
+          th.text-right Total PO Delivered
+          th.text-right Total Paid
+          th.text-right Total Outstanding
           th.text-center.no-sort Details
       tbody
         - @suppliers.each do |supplier|
