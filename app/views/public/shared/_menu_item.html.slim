@@ -1,8 +1,8 @@
-li = link_to 'Restaurants', restaurants_path
-li = link_to 'How It Works', how_it_works_path
+= active_link_to 'Restaurants', restaurants_path, :wrap_tag => :li
+= active_link_to 'How It Works', how_it_works_path, :wrap_tag => :li
 li = link_to 'Suppliers', '#'
 li = link_to 'Contact Us', '#'
-li = link_to 'FAQ', '#'
+= active_link_to 'FAQ', faqs_path, :wrap_tag => :li
 - if user_signed_in?
   li = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn waves-effect waves-light'
 - else

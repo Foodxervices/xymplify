@@ -37,6 +37,14 @@
       font-weight: 400;
     }
 
+    ul li.active {
+      background: none;
+
+      > a {
+        color: #304ffe !important;
+      }
+    }
+
     .button-collapse i {
       line-height: 80px;
       height: 80px;
