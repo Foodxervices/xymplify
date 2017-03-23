@@ -11,9 +11,9 @@ class PaymentMailer < ActionMailer::Base
     subject = "#{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
 
     if order.paid?
-      subject = "[Full Payment] #{subject}"
+      subject = "Full Payment - #{subject}"
     else
-      subject = "[Partial Payment] #{subject}"
+      subject = "Partial Payment - #{subject}"
     end
 
     mail(
