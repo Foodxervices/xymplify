@@ -7,7 +7,7 @@
     li.breadcrumb-item.active = @supplier.name
 
   .table-responsive
-    table.table.table-striped.text-right
+    table.table.table-striped.datatable.text-right
       thead
         tr
           th = Order.human_attribute_name(:name)
@@ -16,7 +16,7 @@
           th.text-right = Order.human_attribute_name(:outstanding)
           th.text-center = Order.human_attribute_name(:delivered_at)
           th.text-center = Order.human_attribute_name(:status)
-          th
+          th.no-sort
       tbody
         - @orders.each do |order|
           tr

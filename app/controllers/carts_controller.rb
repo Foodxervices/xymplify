@@ -25,20 +25,15 @@ class CartsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       if @order.nil?
-        @order = Order.create(options.merge(outlet_name: @kitchen.name, outlet_address: @kitchen.address, outlet_phone: @kitchen.phone))
-        @order.gsts.create(name: 'GST', percent: 7)
+        @order = Order.create(options.merge(outlet_name: @kitchen.name, outlet_address: @kitchen.address, outlet_phone: @kitchen.phone, gsts_attributes: [{name: 'GST', percent: 7}]))
       end
 
-      @item = @order.items.find_or_create_by(food_item_id: @food_item.id)
-      @item.unit_price = @food_item.unit_price
-      @item.unit_price_without_promotion = @food_item.unit_price_without_promotion
+      @item = @order.add(@food_item, params[:quantity])
 
-      @item.quantity += params[:quantity].to_f
-
-      @success = @item.save
+      @success = @order.save
 
       if !@success
-        @message = @item.errors.full_messages.join("<br />")
+        @message = @order.errors.full_messages.join("<br />")
       end
     end
 

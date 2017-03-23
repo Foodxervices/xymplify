@@ -15,6 +15,7 @@ const Utils = {
     Utils.initMentionsInput()
     Utils.initDateRange()
     Utils.initDragFileTip()
+    Utils.initDatatable()
   },
   initConfirmation: () => {
     $('[data-toggle="confirmation"]').each(function() {
@@ -47,6 +48,18 @@ const Utils = {
       $(this).addClass('initialized').fileinput({ removeFromPreviewOnError: true, showUpload: showUpload, initialPreviewAsData: true, showPreview: showPreview })
     })
   },
+  initDatatable:() => {
+    $('.datatable').DataTable({
+      bDestroy: true,
+      initComplete: function(settings, json) {
+        Utils.initSelectPicker()
+      },
+      columnDefs: [{
+        "targets": 'no-sort',
+        "orderable": false
+      }]
+    })
+  },
   initDragFileTip:() => {
     let body = $('body')[0]
     let timeOutId = null
@@ -71,7 +84,7 @@ const Utils = {
     })
   },
   initSelectPicker: () => {
-    const selects = $("form.simple_form select, .selectpicker").not('.jselect').removeAttr('required').removeAttr('aria-required').addClass('jselect')
+    const selects = $("form.simple_form select, .selectpicker, .dataTables_length select").not('.jselect').removeAttr('required').removeAttr('aria-required').addClass('jselect')
 
     selects.each(function(index, select) {
       $(select).data('live-search', !$(this).hasClass('not-autocomplete') && $(this).find('option').length > 5).selectpicker({hideDisabled: true})

@@ -142,7 +142,7 @@ describe OrdersController, :type => :controller do
       it 'updates order' do
         do_request
         expect(order.reload.items.first.quantity).to eq new_item_quantity
-        expect(order.status.delivered?).to eq true
+        expect(assigns(:order).status.delivered?).to eq true
         expect(response).to redirect_to "where_i_came_from"
       end
     end

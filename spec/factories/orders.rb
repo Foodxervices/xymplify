@@ -12,6 +12,7 @@ FactoryGirl.define do
 
     after(:create) do |order|
       create_list(:order_item, 2, order_id: order.id)
+      order.cache_price
     end
   end
 end

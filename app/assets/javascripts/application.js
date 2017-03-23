@@ -1,5 +1,7 @@
 //= require jquery
 //= require jquery_ujs
+//= require dataTables/jquery.dataTables.min
+//= require dataTables/dataTables.bootstrap.min
 //= require cookie
 //= require underscore/underscore
 //= require moment

@@ -4,6 +4,7 @@ class Order < ActiveRecord::Base
 
   extend Enumerize
   monetize :price_cents
+  monetize :gst_cents
 
   before_create :cache_restaurant
   before_create :set_name
@@ -11,6 +12,9 @@ class Order < ActiveRecord::Base
   before_save :set_status_updated_at
 
   after_save :set_item_price
+  after_save :check_status
+
+  after_commit :cache_price, on: [:create, :update]
 
   has_many :items, class_name: "OrderItem", dependent: :destroy
   has_many :gsts, -> { includes :order },  class_name: "OrderGst",  dependent: :destroy
@@ -39,8 +43,6 @@ class Order < ActiveRecord::Base
   validates :request_for_delivery_start_at, presence: true, if: '!status.wip?'
   validates :request_for_delivery_end_at,   presence: true, if: '!status.wip?'
 
-  after_save :check_status
-
   enumerize :status, in: [:wip, :confirmed, :placed, :accepted, :declined, :delivered, :completed, :cancelled], default: :wip
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
@@ -54,10 +56,6 @@ class Order < ActiveRecord::Base
 
   def self.price
     all.map(&:price).inject(0, :+)
-  end
-
-  def gst
-    gsts.amount
   end
 
   def self.gst
@@ -112,6 +110,33 @@ class Order < ActiveRecord::Base
 
   def paid?
     outstanding_amount == 0
+  end
+
+  def cache_price
+    update_columns({
+      price_cents: Money.new(items.total_price, price_currency).cents
+    })
+    update_columns({
+      gst_cents: Money.new(reload.gsts.amount, gst_currency).cents
+    })
+  end
+
+  def add(food_item, quantity)
+    quantity = quantity.to_f
+
+    self.items.each do |item|
+      if item.food_item_id == food_item.id
+        item.quantity += quantity
+        return item
+      end
+    end
+
+    item = self.items.new
+    item.food_item_id = food_item.id
+    item.unit_price = food_item.unit_price
+    item.unit_price_without_promotion = food_item.unit_price_without_promotion
+    item.quantity = quantity
+    return item
   end
 
   private

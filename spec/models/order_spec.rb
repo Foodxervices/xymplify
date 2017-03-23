@@ -76,7 +76,7 @@ describe Order do
     let!(:order) { create(:order) }
 
     it 'returns outstanding amount' do
-      expect(order.outstanding_amount).to eq 0
+      expect(order.outstanding_amount.to_i).to eq 40
     end
   end
 
@@ -84,7 +84,7 @@ describe Order do
     let!(:order) { create(:order) }
 
     it 'returns payment status' do
-      expect(order.paid?).to eq true
+      expect(order.paid?).to eq false
     end
   end
 end

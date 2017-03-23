@@ -73,5 +73,9 @@ group :development do
   gem 'brakeman'
 end
 
+group :test do
+  gem 'test_after_commit'
+end
+
 gem 'rails_12factor', group: :staging
 

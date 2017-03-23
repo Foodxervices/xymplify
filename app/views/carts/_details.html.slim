@@ -2,12 +2,12 @@
 .carts-details-container
   - if current_orders.present?
     .h-scroll
-      - current_orders.includes(:supplier, :gsts).each do |order|
+      - current_orders.includes(:supplier).each do |order|
         = render 'carts/info', order: order
         .text-right
           .btn-group
             = link_to 'Delete', '#', data: { toggle: "confirmation", href: order_path(order) }, class: 'delete btn btn-default'
-            = link_to 'Edit | Add Tax', [:edit, order], remote: true, class: 'btn btn-default' 
+            = link_to 'Edit | Add Tax', [:edit, order], remote: true, class: 'btn btn-default'
             - if order.status.wip?
               = link_to 'Confirm', [:confirm, current_kitchen, :cart, id: order.id], class: 'btn btn-primary', remote: true
             - else

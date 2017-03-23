@@ -17,7 +17,6 @@ class OrdersController < ApplicationController
 
     @orders = @order_filter.result
                            .select('orders.*, suppliers.name as supplier_name')
-                           .includes(:gsts)
                            .where(status: statuses.collect(&:last))
                            .order('supplier_name asc, status_updated_at desc')
     respond_to do |format|

@@ -11,7 +11,6 @@ class OrderItem < ActiveRecord::Base
   before_create :set_info
 
   before_save :update_quantity_ordered
-  after_save :cache_order_amount
 
   monetize :unit_price_cents
   monetize :unit_price_without_promotion_cents
@@ -26,6 +25,10 @@ class OrderItem < ActiveRecord::Base
 
   def total_price
     unit_price * quantity
+  end
+
+  def self.total_price
+    all.includes(:order).map(&:total_price).inject(0, :+)
   end
 
   def inventory
@@ -45,13 +48,6 @@ class OrderItem < ActiveRecord::Base
     # Order must be linked to the kitchen to update quantity_ordered here
     if quantity_changed? && order.delivered_to_kitchen? && !order.status_changed? && order.status.placed?
       inventory.update_column(:quantity_ordered, inventory.quantity_ordered + (quantity - quantity_was))
-    end
-  end
-
-  def cache_order_amount
-    if unit_price_cents_changed? || unit_price_currency_changed? || quantity_changed?
-      order.price = order.items.includes(:order).map(&:total_price).inject(0, :+)
-      order.save
     end
   end
 end
