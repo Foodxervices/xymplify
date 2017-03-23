@@ -1,7 +1,10 @@
 #supplier_orders-index-container
   = render 'orders/search', order_filter: @order_filter, url: ''
 
-  h1 = "#{@supplier.name} - Orders"
+  ol.breadcrumb
+    - if can?(:read_payment, current_restaurant)
+      li.breadcrumb-item = link_to 'Manage Payments',  [current_restaurant, :payments]
+    li.breadcrumb-item.active = @supplier.name
 
   .table-responsive
     table.table.table-striped.text-right
