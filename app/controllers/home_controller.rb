@@ -7,6 +7,8 @@ class HomeController < ApplicationController
 
   def how_it_works; end
 
+  def faqs; end
+
   private
   def resolve_layout
     case action_name

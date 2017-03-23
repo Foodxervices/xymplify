@@ -33,4 +33,15 @@ describe HomeController, :type => :controller do
       expect(response).to render_template :how_it_works
     end
   end
+
+  describe '#faqs' do
+    def do_request
+      get :faqs
+    end
+
+    it 'renders the :faqs view' do
+      do_request
+      expect(response).to render_template :faqs
+    end
+  end
 end

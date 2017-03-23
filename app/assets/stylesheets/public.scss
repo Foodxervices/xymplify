@@ -3,16 +3,16 @@
 @import 'public/fonts';
 @import 'materialize';
 @import 'public/popup';
+@import './public/common/**/*';
 @import 'public/theme';
 
 @import 'public/shared/_menu';
 @import 'public/shared/_menu_footer';
-@import 'public/retailers/_banner';
 @import 'public/retailers/_register_now';
-@import 'public/how_it_works/_banner';
 
 @import 'home/index';
 @import 'home/retailers';
 @import 'home/how_it_works';
+@import 'home/faqs';
 
 @import 'popups/_message';

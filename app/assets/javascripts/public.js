@@ -5,3 +5,6 @@
 //= require bootstrap/modal
 //= require public/global
 //= require turbolinks
+//= require masonry.pkgd
+
+//= require pages/home

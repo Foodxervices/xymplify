@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get 'retailers' => 'home#retailers', :as => :retailers
   get 'how_it_works' => 'home#how_it_works', :as => :how_it_works
+  get 'faqs' => 'home#faqs', :as => :faqs
 
   resource :profile, only: [:edit, :update]
 
