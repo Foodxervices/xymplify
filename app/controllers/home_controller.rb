@@ -5,6 +5,8 @@ class HomeController < ApplicationController
 
   def retailers; end
 
+  def how_it_works; end
+
   private
   def resolve_layout
     case action_name

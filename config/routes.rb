@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get 'retailers' => 'home#retailers', :as => :retailers
+  get 'how_it_works' => 'home#how_it_works', :as => :how_it_works
 
   resource :profile, only: [:edit, :update]
 
