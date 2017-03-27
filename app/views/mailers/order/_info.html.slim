@@ -19,7 +19,7 @@
             tr
               th Date of Delivery:
               td colspan="3" = format_datetime order.delivered_at
-          - else
+          - elsif order.request_for_delivery_start_at.present?
             tr.text-center
               th Delivery Date:
               td = format_date order.request_for_delivery_start_at

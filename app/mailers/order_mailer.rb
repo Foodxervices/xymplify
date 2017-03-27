@@ -23,7 +23,14 @@ class OrderMailer < ActionMailer::Base
     order.update_column(:token, SecureRandom.urlsafe_base64)
     init(order)
     @receiver = @supplier
-    @message = "You got a Purchase Order from <strong>#{@restaurant.name}</strong> for delivery at: <strong>#{date_of_delivery(@order)}</strong>."
+    @message = "You got a Purchase Order from <strong>#{@restaurant.name}</strong> for delivery"
+
+    if @order.request_for_delivery_start_at.present?
+      @message += " at: <strong>#{date_of_delivery(@order)}</strong>"
+    end
+
+    @message += '.'
+
     mail(
       to: @supplier.email,
       cc: [@restaurant.email, @user.email],

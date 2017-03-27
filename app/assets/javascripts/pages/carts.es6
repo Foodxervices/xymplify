@@ -43,7 +43,7 @@ Foodxervices.carts = {
       })
 
       function post(dateInput, timeInput, kitchenId, orderId, type) {
-        if(dateInput.val() != '' && timeInput.val() != '') {
+        if((dateInput.val() != '' && timeInput.val() != '') || (dateInput.val() == '' && timeInput.val() == '')) {
           $.ajax({
             type: 'POST',
             url: `/kitchens/${kitchenId}/carts/${orderId}/update_request_for_delivery_${type}_at`,

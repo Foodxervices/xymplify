@@ -40,8 +40,8 @@ class Order < ActiveRecord::Base
   validates :outlet_address, presence: true
   validates :outlet_phone,   presence: true
   validates :paid_amount,    numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
-  validates :request_for_delivery_start_at, presence: true, if: '!status.wip?'
-  validates :request_for_delivery_end_at,   presence: true, if: '!status.wip?'
+  validates :request_for_delivery_start_at, presence: true, if: '!status.wip? && request_for_delivery_end_at.present?'
+  validates :request_for_delivery_end_at,   presence: true, if: '!status.wip? && request_for_delivery_start_at.present?'
 
   enumerize :status, in: [:wip, :confirmed, :placed, :accepted, :declined, :delivered, :completed, :cancelled], default: :wip
 
