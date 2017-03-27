@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     alias_action :new_attachment, :to => :add_attachment
-    alias_action :confirm_delivery, :to => :deliver
+    alias_action :confirm_delivery, :deliver, :to => :mark_as_delivered
 
     user = (user ||= User.new)
 
