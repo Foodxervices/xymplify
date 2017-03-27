@@ -10,16 +10,15 @@
               .btn.btn-default.status class="status-#{order.status}" = order.status_text
               h4 = order.name
               small = format_date(order.status_updated_at) + ' - ' + supplier_name
-              - if !order.status.delivered?
-                table.datetime
-                  tr
-                    th Date:
-                    td = format_date(order.request_for_delivery_start_at)
-                    td = format_date(order.request_for_delivery_end_at)
-                  tr
-                    th Time:
-                    td = format_time(order.request_for_delivery_start_at)
-                    td = format_time(order.request_for_delivery_end_at)
+              table.datetime
+                tr
+                  th Date:
+                  td = format_date(order.request_for_delivery_start_at)
+                  td = format_date(order.request_for_delivery_end_at)
+                tr
+                  th Time:
+                  td = format_time(order.request_for_delivery_start_at)
+                  td = format_time(order.request_for_delivery_end_at)
             = render 'orders/details', order: order
   .text-center
     = will_paginate @orders, renderer: BootstrapPagination::Rails
