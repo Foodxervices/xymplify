@@ -33,7 +33,7 @@ class FoodItemImport
       return false
     end
 
-    if File.extname(file.original_filename) != '.xlsx' 
+    if File.extname(file.original_filename) != '.xlsx'
       errors.add :file, "Unknown file type: #{file.original_filename}"
       return false
     end
@@ -47,20 +47,20 @@ class FoodItemImport
     all_success = true
 
     food_items = []
-    
+
     xlsx = Roo::Excelx.new(file.path)
     sheet = xlsx.sheet(0)
-    
+
     supplier = Supplier.find(supplier_id)
 
     i = 0
-    sheet.each( code: "Item Code", name: "Item Name", brand: "Brand", 
-                unit_price_without_promotion: "Unit Price", unit_price: "Special Price", category: "Category", 
+    sheet.each( code: "Item Code", name: "Item Name", brand: "Brand",
+                unit_price_without_promotion: "Unit Price", unit_price: "Special Price", category: "Category",
                 tag_list: "Item tags", country_of_origin: "Country of Origin" ) do |row|
       i += 1
 
       next if i == 1
-      
+
       category_name = row[:category]
       row.delete(:category)
 
@@ -73,14 +73,14 @@ class FoodItemImport
       food_item.unit_price_currency = supplier.currency if food_item.new_record?
 
       if category_name.present?
-        category = Category.find_by_name(category_name) 
-        
+        category = Category.find_by_name(category_name)
+
         if category.nil?
           category = Category.find_or_create_by(name: 'Others')
           errors.add :warning, {row: i, message: "Food Item <b>#{food_item.code}</b> has been re-categorised as <b>Others</b>"}
         end
 
-        food_item.category_id = category.id 
+        food_item.category_id = category.id
       end
 
       if !food_item.save
