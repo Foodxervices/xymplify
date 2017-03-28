@@ -1,13 +1,13 @@
-puts "==== Destroy Role ===="
+puts '==== Destroy Role ===='
 Role.destroy_all
 ActiveRecord::Base.connection.execute(
-  "ALTER SEQUENCE roles_id_seq RESTART WITH 1"
+  'ALTER SEQUENCE roles_id_seq RESTART WITH 1'
 )
-puts "==== End ===="
+puts '==== End ===='
 
-puts "==== Create Role ===="
+puts '==== Create Role ===='
 Role.create([
-  { name: 'Owner', permissions: ['food_item__manage', 'inventory__read', 'inventory__update', 'restaurant__manage', 'supplier__manage', 'user_role__manage', 'kitchen__create', 'kitchen__update', 'kitchen__dashboard', 'kitchen__import', 'kitchen__history', 'order__read', 'order__history', 'order__mark_as_accepted', 'order__mark_as_declined', 'order__mark_as_delivered', 'order__mark_as_cancelled', 'order__update_placed', 'order__update_delivered', 'order__update_cancelled', 'order__add_attachment', 'message__read', 'message__create', 'message__update', 'message__destroy']},
-  { name: 'Kitchen Manager', permissions: ['food_item__read', 'food_item__order', 'inventory__read', 'restaurant__dashboard', 'restaurant__read', 'supplier__read', 'user_role__read', 'kitchen__dashboard', 'kitchen__history', 'order__read', 'order__history', 'order__mark_as_accepted', 'order__mark_as_declined', 'order__mark_as_delivered', 'order__mark_as_cancelled', 'order__update_placed', 'order__add_attachment', 'message__read'] }
+  { name: 'Owner', permissions: ['restaurant__manage', 'supplier__manage', 'user_role__read', 'user_role__update', 'order__read', 'order__history', 'order__mark_as_accepted', 'order__mark_as_declined', 'order__mark_as_delivered', 'order__mark_as_cancelled', 'order__update_placed', 'order__update_accepted', 'order__update_declined', 'order__update_delivered', 'order__update_cancelled', 'order__add_attachment', 'order__pay', 'kitchen__create', 'kitchen__update', 'kitchen__dashboard', 'kitchen__import', 'kitchen__history', 'message__read', 'message__create', 'message__update', 'message__destroy', 'food_item__manage', 'inventory__read', 'inventory__update']},
+  { name: 'Kitchen Manager', permissions: ['restaurant__read', 'restaurant__dashboard', 'supplier__read', 'user_role__read', 'order__read', 'order__history', 'order__mark_as_accepted', 'order__mark_as_declined', 'order__mark_as_delivered', 'order__mark_as_cancelled', 'order__update_placed', 'order__update_accepted', 'order__update_declined', 'order__update_delivered', 'order__update_cancelled', 'order__add_attachment', 'order__pay', 'kitchen__dashboard', 'kitchen__history', 'message__read', 'food_item__read', 'food_item__order', 'inventory__read'] }
 ])
-puts "==== End ===="
+puts '==== End ===='
