@@ -55,10 +55,10 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  config.cache_store = :redis_store
+  # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = 'http://assets.example.com'
+  config.action_controller.asset_host = Rails.application.secrets.host
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -80,6 +80,7 @@ Rails.application.configure do
   config.react.variant = :production
 
   config.action_mailer.default_url_options = { :host => Rails.application.secrets.host }
+  config.action_mailer.default_options = { from: "#{Rails.application.secrets.domain_name} <#{Rails.application.secrets.return_email_path}>" }
 
   ActionMailer::Base.smtp_settings = {
     :address => "smtp.sendgrid.net",
@@ -90,4 +91,17 @@ Rails.application.configure do
     :password => Rails.application.secrets.sendgrid_password
   }
   ActionMailer::Base.default charset: 'utf-8'
+
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_protocol: 'https',
+    url: ':s3_domain_url',
+    path: '/:class/:attachment/:id_partition/:style/:filename',
+    default_url: ":class/:attachment/:style/missing.jpg",
+    s3_credentials: {
+      bucket:             Rails.application.secrets.aws_bucket,
+      access_key_id:      Rails.application.secrets.aws_access_key_id,
+      secret_access_key:  Rails.application.secrets.aws_secret_access_key
+    }
+  }
 end
