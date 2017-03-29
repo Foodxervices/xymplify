@@ -1,5 +1,5 @@
 - if can?(:index, Restaurant)
-  = active_link_to 'Restaurants', restaurants_path, :wrap_tag => :li, class: 'sb-restaurant', title: 'Restaurant'
+  = active_link_to 'Restaurants', authenticated_root_path, :wrap_tag => :li, class: 'sb-restaurant', title: 'Restaurant'
 - if can?(:index, Role)
   = active_link_to 'User Roles', roles_path, :wrap_tag => :li, class: 'sb-role', title: 'Role'
 - if can?(:index, User)
@@ -8,4 +8,4 @@
   = active_link_to 'Food Categories', food_categories_path, :wrap_tag => :li, class: 'sb-category', title: 'Category'
 - if can?(:index, Config)
   = active_link_to 'Configurations', configs_path, :wrap_tag => :li, class: 'sb-config', title: 'Configurations'
-  
+

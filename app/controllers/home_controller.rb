@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_action :only_allow_public_user
   layout :resolve_layout
 
   def index; end
@@ -16,6 +17,12 @@ class HomeController < ApplicationController
       "public/layouts/home"
     else
       "public/layouts/main"
+    end
+  end
+
+  def only_allow_public_user
+    if user_signed_in?
+      redirect_to authenticated_root_url
     end
   end
 end

@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   devise_for :users
   mount Sidekiq::Web, at: "/sidekiq"
 
+  authenticated :user do
+    root 'restaurants#index', as: :authenticated_root
+  end
+
   root 'home#index'
 
   get 'retailers' => 'home#retailers', :as => :retailers
