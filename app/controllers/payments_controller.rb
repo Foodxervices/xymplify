@@ -1,9 +1,8 @@
-class PaymentsController < ApplicationController
-  load_and_authorize_resource :restaurant
+class PaymentsController < AdminController
   before_action :load_and_authorize_payment, only: [:edit, :update]
 
   def index
-    @suppliers = @restaurant.suppliers.accessible_by(current_ability)
+    @suppliers = current_restaurant.suppliers.accessible_by(current_ability)
     @supplier_filter = SupplierFilter.new(@suppliers, supplier_filter_params)
     @suppliers = @supplier_filter.result
                                  .order(:priority, :name)

@@ -1,4 +1,6 @@
-class RestaurantsController < ApplicationController
+class RestaurantsController < AdminController
+  before_action :clear_restaurant_sessions, only: [:index]
+  before_action :set_session
   before_action :disable_bullet, only: [:show, :index, :dashboard]
   load_and_authorize_resource
 
@@ -8,8 +10,17 @@ class RestaurantsController < ApplicationController
         @restaurant_filter = RestaurantFilter.new(restaurant_filter_params)
         @restaurants  = @restaurant_filter.result
                                           .accessible_by(current_ability)
-        if @restaurants.size == 1 && !params[:restaurant_filter]
-          redirect_to [:dashboard, @restaurants.first]
+        if !current_user.kind_of?(Admin) && @restaurants.size == 1 && !params[:restaurant_filter]
+          restaurant = @restaurants.first
+          kitchens = restaurant.kitchens.accessible_by(current_ability)
+
+          if kitchens.size == 1
+            kitchen = kitchens.first
+            session[:restaurant_id] = kitchen.restaurant_id
+            redirect_to [:dashboard, kitchen]
+          else
+            redirect_to [:dashboard, restaurant]
+          end
         else
           load_summary(@restaurants.ids)
         end
@@ -45,6 +56,7 @@ class RestaurantsController < ApplicationController
 
   def destroy
     if @restaurant.destroy
+      session.delete(:restaurant_id)
       flash[:notice] = 'Restaurant has been deleted.'
     else
       flash[:notice] = @restaurant.errors.full_messages.join("<br />")
@@ -54,6 +66,7 @@ class RestaurantsController < ApplicationController
   end
 
   def dashboard
+    session.delete(:kitchen_id)
     alerts = Alert.accessible_by(current_ability, restaurant: @restaurant)
                                 .includes(:alertable)
                                 .paginate(:page => params[:alert_page], :per_page => 5)
@@ -71,6 +84,10 @@ class RestaurantsController < ApplicationController
   end
 
   private
+
+  def set_session
+    session[:restaurant_id] = params[:id] if params[:id]
+  end
 
   def restaurant_filter_params
     restaurant_filter = ActionController::Parameters.new(params[:restaurant_filter])

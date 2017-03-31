@@ -1,6 +1,5 @@
-class UserRolesController < ApplicationController
-  load_and_authorize_resource :restaurant
-  load_and_authorize_resource :user_role, :through => :restaurant, :shallow => true
+class UserRolesController < AdminController
+  load_and_authorize_resource :user_role, :through => :current_restaurant
 
   def index
     @user_role_filter = UserRoleFilter.new(@user_roles, user_role_filter_params)
@@ -14,7 +13,7 @@ class UserRolesController < ApplicationController
 
   def create
     if @user_role.save
-      redirect_to [@restaurant, :user_roles], notice: 'User Role has been created.'
+      redirect_to :user_roles, notice: 'User Role has been created.'
     else
       render :new
     end
@@ -24,7 +23,7 @@ class UserRolesController < ApplicationController
 
   def update
     if @user_role.update_attributes(user_role_params)
-      redirect_to [@user_role.restaurant, :user_roles], notice: 'User Role has been updated.'
+      redirect_to :user_roles, notice: 'User Role has been updated.'
     else
       render :edit
     end

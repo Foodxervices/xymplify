@@ -1,5 +1,5 @@
 #orders-index-container
-  = render 'orders/search', order_filter: @order_filter, url: [current_kitchen, params[:status] == 'archived' ?  :archived_pos : :orders]
+  = render 'orders/search', order_filter: @order_filter
   - @grouped_orders.each do |supplier_name, orders|
     h2 = supplier_name
     .grid

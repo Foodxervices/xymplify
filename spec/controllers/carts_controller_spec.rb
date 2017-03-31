@@ -3,7 +3,12 @@ require 'rails_helper'
 describe CartsController, :type => :controller do
   let!(:user)       { create(:admin) }
   let!(:kitchen)    { create(:kitchen) }
-  before      { sign_in user }
+
+  before do 
+    sign_in user 
+    @request.session['restaurant_id'] = kitchen.restaurant_id
+    @request.session['kitchen_id'] = kitchen.id
+  end
 
   describe '#new' do
     def do_request
@@ -38,7 +43,7 @@ describe CartsController, :type => :controller do
       get :confirm, kitchen_id: order.kitchen_id, id: order.id, format: :js
     end
 
-    let!(:order) { create(:order, status: :wip, user: user) }
+    let!(:order) { create(:order, status: :wip, user: user, kitchen: kitchen) }
 
     it 'renders view :confirm' do
       do_request
@@ -51,7 +56,7 @@ describe CartsController, :type => :controller do
       post :do_confirm, kitchen_id: order.kitchen_id, id: order.id, order: { outlet_name: 'New Outlet Name' }, format: :js
     end
 
-    let!(:order) { create(:order, status: :wip, user: user) }
+    let!(:order) { create(:order, status: :wip, user: user, kitchen: kitchen) }
 
     it 'updates status to confirmed' do
       do_request

@@ -1,4 +1,4 @@
-class ProfilesController < ApplicationController 
+class ProfilesController < AdminController 
   before_action :authenticate_user!
   
   def edit; end

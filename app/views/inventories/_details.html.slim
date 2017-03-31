@@ -5,7 +5,7 @@
       td = link_to_if can?(:show, food_item), food_item.code, food_item, remote: true
     tr 
       th = Inventory.human_attribute_name(:kitchen)
-      td = link_to_if can?(:read, kitchen), kitchen.name, [kitchen.restaurant, kitchen, :food_items]
+      td = link_to_if can?(:read, kitchen), kitchen.name, [kitchen, :food_items]
     tr 
       th = Inventory.human_attribute_name(:current_quantity)
       td = inventory.current_quantity

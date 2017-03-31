@@ -11,6 +11,7 @@ class Ability
 
     if user.kind_of?(Admin)
       can :manage, :all
+      cannot :manage, nil
     elsif user.persisted?
       can :show, User
       can :show, Role

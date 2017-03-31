@@ -1,6 +1,5 @@
-class SuppliersController < ApplicationController
-  load_and_authorize_resource :restaurant
-  load_and_authorize_resource :supplier, :through => :restaurant, :shallow => true
+class SuppliersController < AdminController
+  load_and_authorize_resource :supplier, :through => :current_restaurant
 
   before_action :init_processing_cut_off, only: [:new, :edit]
 
@@ -18,7 +17,7 @@ class SuppliersController < ApplicationController
 
   def create
     if @supplier.save
-      redirect_to [@restaurant, :suppliers], notice: 'Supplier has been created.'
+      redirect_to :suppliers, notice: 'Supplier has been created.'
     else
       render :new
     end
@@ -28,7 +27,7 @@ class SuppliersController < ApplicationController
 
   def update
     if @supplier.update_attributes(supplier_params)
-      redirect_to [@supplier.restaurant, :suppliers], notice: 'Supplier has been updated.'
+      redirect_to :suppliers, notice: 'Supplier has been updated.'
     else
       render :edit
     end

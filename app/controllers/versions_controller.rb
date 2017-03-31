@@ -1,16 +1,14 @@
-class VersionsController < ApplicationController
+class VersionsController < AdminController
   load_and_authorize_resource :version, only: [:show]
   before_action :detect_format, only: [:index]
 
   def index
-    if params[:kitchen_id]
-      @kitchen = Kitchen.find(params[:kitchen_id])
-      authorize! :history, @kitchen
-      @versions = Version.by_kitchen(@kitchen.id)
+    if current_kitchen&.id
+      authorize! :history, current_kitchen
+      @versions = Version.by_kitchen(current_kitchen.id)
     else
-      @restaurant = Restaurant.find(params[:restaurant_id])
-      authorize! :history, @restaurant
-      @versions = Version.by_restaurant(@restaurant.id)
+      authorize! :history, current_restaurant
+      @versions = Version.by_restaurant(current_restaurant.id)
     end
 
     @version_filter = VersionFilter.new(@versions, version_filter_params)

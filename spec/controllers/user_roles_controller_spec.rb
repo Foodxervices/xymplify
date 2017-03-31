@@ -3,7 +3,11 @@ require 'rails_helper'
 describe UserRolesController, :type => :controller do 
   let!(:restaurant)   { create(:restaurant) }
   let!(:user)         { create(:admin) }
-  before { sign_in user }  
+
+  before do 
+    sign_in user 
+    @request.session['restaurant_id'] = restaurant.id
+  end
 
   describe '#index' do
     def do_request
@@ -41,7 +45,7 @@ describe UserRolesController, :type => :controller do
 
     it 'creates a user_role' do 
       expect{ do_request }.to change{ [UserRole.count] }.from([0]).to([1])
-      expect(response).to redirect_to [restaurant, :user_roles]
+      expect(response).to redirect_to :user_roles
     end
   end
 
@@ -50,7 +54,7 @@ describe UserRolesController, :type => :controller do
       get :edit, id: user_role.id, format: :js
     end
 
-    let!(:user_role) { create(:user_role) }
+    let!(:user_role) { create(:user_role, restaurant: restaurant) }
 
     it 'returns edit page' do
       do_request
@@ -64,14 +68,14 @@ describe UserRolesController, :type => :controller do
       patch :update, id: user_role.id, user_role: { role_id: new_role.id }
     end
 
-    let!(:user_role) { create(:user_role) }
+    let!(:user_role) { create(:user_role, restaurant: restaurant) }
     let!(:new_role)  { create(:role) }
 
     it 'updates user_role' do
       do_request
       expect(user_role.reload.role).to eq new_role
       expect(flash[:notice]).to eq 'User Role has been updated.'
-      expect(response).to redirect_to [user_role.restaurant, :user_roles]
+      expect(response).to redirect_to :user_roles
     end
   end
 
@@ -80,7 +84,7 @@ describe UserRolesController, :type => :controller do
       delete :destroy, id: user_role.id
     end
 
-    let!(:user_role) { create(:user_role) }
+    let!(:user_role) { create(:user_role, restaurant: restaurant) }
 
     before do
       request.env["HTTP_REFERER"] = "where_i_came_from"

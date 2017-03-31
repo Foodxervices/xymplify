@@ -3,7 +3,7 @@
 
   ol.breadcrumb
     - if can?(:read_payment, current_restaurant)
-      li.breadcrumb-item = link_to 'Manage Payments',  [current_restaurant, :payments]
+      li.breadcrumb-item = link_to 'Manage Payments', :payments
     li.breadcrumb-item.active = @supplier.name
 
   .table-responsive

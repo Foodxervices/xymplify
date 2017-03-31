@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   resources :configs,     only: [:index, :edit, :update]
 
-  resources :food_items,  only: [:show, :destroy]
+  resources :food_items,  only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   resources :graphs, only: [:index]
 
@@ -30,21 +30,29 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :suppliers,   only: [:show, :destroy] do
+  resources :suppliers,   only: [:index, :show, :new, :create, :edit, :update, :destroy] do
+    resources :supplier_orders, only: [:index], path: '/orders'
+
     collection do
       patch :update_priority
     end
   end
 
-  resources :user_roles,  only: [:show, :edit, :update, :destroy]
+  resources :user_roles,  only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   resources :users,       only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
-  resources :versions,    only: [:show]
+  resources :versions,    only: [:index, :show]
 
-  resources :messages,    only: [:show, :destroy]
+  resources :messages,    only: [:show, :new, :create, :edit, :update, :destroy]
 
-  resources :inventories, only: [:show]
+  resources :inventories, only: [:index, :show] do
+    member do
+      patch :update
+    end
+  end
+
+  resources :food_item_imports, only: [:new, :create]
 
   resources :attachments, only: [:create] do
     member do
@@ -52,7 +60,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :orders,      only: [:show, :edit, :update, :destroy] do
+  resources :archived_pos, controller: 'orders', only: [:index], status: 'archived'
+  resources :orders,      only: [:index, :show, :edit, :update, :destroy] do
     member do
       get :history
       get :mark_as_accepted
@@ -68,47 +77,26 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :payments, only: [:edit, :update]
+  resources :payments, only: [:index, :edit, :update]
 
   resources :restaurants, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    resources :versions,    only: [:index]
-    resources :payments,    only: [:index]
-    resources :suppliers,   only: [:index, :new, :create, :edit, :update] do
-      resources :supplier_orders, only: [:index], path: '/orders'
-    end
-    resources :user_roles,  only: [:index, :new, :create]
-    resources :food_items,  only: [:index, :new, :create, :edit, :update]
-    resources :kitchens, only: [:index, :new, :create, :edit, :update] do
-      resources :versions,    only: [:index]
-      resources :food_items,  only: [:index]
-      resources :inventories, only: [:index]
-      resources :food_item_imports, only: [:new, :create]
-      resources :messages,          only: [:new, :create, :edit, :update]
-    end
-    resources :food_item_imports, only: [:new, :create]
-    resources :messages,          only: [:new, :create, :edit, :update]
-
-    resources :inventories, only: [:index] do
-      member do
-        patch :update
-      end
-    end
+    resources :kitchens, only: [:index, :new, :create, :edit, :update]
 
     member do
       get :dashboard
     end
   end
 
-  resources :kitchens, only: [:index, :show] do
-    resources :food_items,  only: [:show]
-    resources :orders,   only: [:index]
-    get 'archived_pos' => 'orders#index', :as => :archived_pos, :defaults => { status: 'archived' }
-    resources :categories,  only: [:index] do
-      collection do
-        get :by_supplier
-        get :frequently_ordered
-      end
+  resources :categories,  only: [:index] do
+    collection do
+      get :by_supplier
+      get :frequently_ordered
     end
+  end
+
+  resources :kitchens, only: [:index, :show] do
+    resources :food_items,  only: [:index]
+    
     resources :carts,       only: [:new] do
       collection do
         get :show

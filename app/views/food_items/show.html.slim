@@ -1,7 +1,7 @@
 #food_items-show-container 
   .pull-right 
     - if can?(:update, @food_item)
-      = link_to 'Edit Food Item', [:edit, current_restaurant, @food_item], class: 'btn btn-primary'
+      = link_to 'Edit Food Item', [:edit, @food_item], class: 'btn btn-primary'
   h1 = @food_item.name 
 
   = render 'food_items/details', food_item: @food_item 

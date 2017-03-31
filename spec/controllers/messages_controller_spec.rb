@@ -3,7 +3,11 @@ require 'rails_helper'
 describe MessagesController, :type => :controller do 
   let!(:restaurant)   { create(:restaurant) }
   let!(:user)         { create(:admin) }
-  before { sign_in user }  
+
+  before do 
+    sign_in user 
+    @request.session['restaurant_id'] = restaurant.id
+  end
 
   describe '#new' do 
     def do_request
@@ -73,7 +77,7 @@ describe MessagesController, :type => :controller do
       delete :destroy, id: message.id
     end
 
-    let!(:message) { create(:message) }
+    let!(:message) { create(:message, restaurant: restaurant) }
 
     before do
       request.env["HTTP_REFERER"] = "where_i_came_from"

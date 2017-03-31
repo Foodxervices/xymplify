@@ -1,5 +1,8 @@
-<%= open_popup(title: params[:tag], partial: 'carts/form', locals: { food_items: @food_items }) %> 
+<%= open_popup(title: params[:tag], partial: 'carts/form', locals: { food_items: @food_items, kitchen: @kitchen }) %> 
 
 $('.cart-item').each(function() {
   new CartItem($(this))
 })
+
+Foodxervices.categories.shared.initCartItem();
+Foodxervices.categories.shared.initAddAllBtn();

@@ -1,4 +1,5 @@
-class FoodCategoriesController < ApplicationController
+class FoodCategoriesController < AdminController
+  before_action :clear_restaurant_sessions, only: [:index]
   load_and_authorize_resource :category, parent: false
 
   def index

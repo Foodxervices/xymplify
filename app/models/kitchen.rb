@@ -3,8 +3,8 @@ class Kitchen < ActiveRecord::Base
 
   belongs_to :restaurant
 
-  has_many :orders,      dependent: :restrict_with_error
-  has_many :inventories, dependent: :restrict_with_error
+  has_many :orders,      dependent: :destroy
+  has_many :inventories, dependent: :destroy
   has_many :messages,    dependent: :destroy
   has_many :food_items_kitchens, dependent: :destroy
   has_many :food_items, through: :food_items_kitchens

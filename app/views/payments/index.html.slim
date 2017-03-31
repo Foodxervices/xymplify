@@ -1,4 +1,4 @@
-= render 'suppliers/search', supplier_filter: @supplier_filter, url: ''
+= render 'suppliers/search', supplier_filter: @supplier_filter
 #payments-index-container
   ol.breadcrumb
     li.breadcrumb-item.active Manage Payments
@@ -16,14 +16,14 @@
         - @suppliers.each do |supplier|
           tr
             td = link_to supplier.name, supplier, remote: true
-            td.text-right = humanized_money_with_symbol(supplier.price_with_gst)
-            td.text-right = humanized_money_with_symbol(supplier.paid_amount)
-            td.text-right = humanized_money_with_symbol(supplier.outstanding_amount)
-            td.text-center = link_to 'View', [current_restaurant, supplier, :supplier_orders]
+            td.text-right = humanized_money_with_symbol(supplier.price_with_gst(current_kitchen&.id))
+            td.text-right = humanized_money_with_symbol(supplier.paid_amount(current_kitchen&.id))
+            td.text-right = humanized_money_with_symbol(supplier.outstanding_amount(current_kitchen&.id))
+            td.text-center = link_to 'View', [supplier, :supplier_orders]
       tfoot
         tr
           th Summary:
-          th.text-right = humanized_money_with_symbol(@suppliers.price_with_gst)
-          th.text-right = humanized_money_with_symbol(@suppliers.paid_amount)
-          th.text-right = humanized_money_with_symbol(@suppliers.outstanding_amount)
+          th.text-right = humanized_money_with_symbol(@suppliers.price_with_gst(current_kitchen&.id))
+          th.text-right = humanized_money_with_symbol(@suppliers.paid_amount(current_kitchen&.id))
+          th.text-right = humanized_money_with_symbol(@suppliers.outstanding_amount(current_kitchen&.id))
           th

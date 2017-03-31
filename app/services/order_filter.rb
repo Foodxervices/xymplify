@@ -8,6 +8,7 @@ class OrderFilter
   attr_accessor :status
   attr_accessor :start_date
   attr_accessor :end_date
+  attr_accessor :kitchen_id
 
   def initialize(orders, attributes = {})
     @orders = orders
@@ -30,6 +31,8 @@ class OrderFilter
                                 order_items.name            ILIKE :keyword
                               ", keyword: "%#{keyword}%")
     end
+
+    @orders = @orders.where(kitchen_id: kitchen_id) if kitchen_id
 
     @orders = @orders.where(status_updated_at: (start_date.beginning_of_day..end_date.end_of_day))
 

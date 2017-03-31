@@ -12,5 +12,5 @@
 
   - if can?(:create, Message)
     .pull-right
-      = link_to 'New Message', [:new, current_restaurant, current_kitchen, :message], remote: true, class: 'btn btn-default'
+      = link_to 'New Message', [:new, :message], remote: true, class: 'btn btn-default'
   .clearfix

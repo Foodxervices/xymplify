@@ -1,9 +1,9 @@
-= render 'suppliers/search', supplier_filter: @supplier_filter, url: [@restaurant, :suppliers]
+= render 'suppliers/search', supplier_filter: @supplier_filter
 #suppliers-index-container
   .pull-right
     .btn-group
-      - if can?(:create, Supplier.new(restaurant_id: @restaurant&.id))
-        = link_to 'Create New Supplier', [:new, @restaurant, :supplier], class: 'btn btn-default'
+      - if can?(:create, Supplier.new(restaurant_id: current_restaurant&.id))
+        = link_to 'Create New Supplier', [:new, :supplier], class: 'btn btn-default'
 
   h1 Supplier
   .clearfix
@@ -36,5 +36,5 @@
             td.text-center width="250"
               ul.actions
                 li = link_to 'View', supplier, remote: true
-                li = link_to_if can?(:update, supplier), 'Edit', [:edit, supplier.restaurant, supplier]
+                li = link_to_if can?(:update, supplier), 'Edit', [:edit, supplier]
                 li = link_to_if can?(:destroy, supplier), 'Delete', '#', data: { toggle: "confirmation", href: supplier_path(supplier) }, class: 'delete'

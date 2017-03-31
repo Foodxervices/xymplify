@@ -1,6 +1,5 @@
-class SupplierOrdersController < ApplicationController
-  load_and_authorize_resource :restaurant
-  load_and_authorize_resource :order, :through => :restaurant, parent: false
+class SupplierOrdersController < AdminController
+  load_and_authorize_resource :order, :through => :current_restaurant, parent: false
 
   def index
     @supplier = Supplier.find(params[:supplier_id])
@@ -23,6 +22,7 @@ class SupplierOrdersController < ApplicationController
       :date_range,
       :status
     )
+    data[:kitchen_id] = current_kitchen&.id
     data
   end
 end

@@ -26,32 +26,34 @@ class Supplier < ActiveRecord::Base
     ISO3166::Country[country]
   end
 
-  def delivered_orders
+  def delivered_orders(kitchen_id = nil)
+    orders = self.orders
+    orders = orders.where(kitchen_id: kitchen_id) if kitchen_id
     orders.where(status: [:delivered, :completed])
   end
 
-  def price_with_gst
-    delivered_orders.price_with_gst
+  def price_with_gst(kitchen_id = nil)
+    delivered_orders(kitchen_id).price_with_gst
   end
 
-  def paid_amount
-    delivered_orders.paid_amount
+  def paid_amount(kitchen_id = nil)
+    delivered_orders(kitchen_id).paid_amount
   end
 
-  def outstanding_amount
-    delivered_orders.outstanding_amount
+  def outstanding_amount(kitchen_id = nil)
+    delivered_orders(kitchen_id).outstanding_amount
   end
 
-  def self.price_with_gst
-    all.map(&:price_with_gst).inject(0, :+)
+  def self.price_with_gst(kitchen_id = nil)
+    all.map{ |supplier| supplier.price_with_gst(kitchen_id) }.inject(0, :+)
   end
 
-  def self.paid_amount
-    all.map(&:paid_amount).inject(0, :+)
+  def self.paid_amount(kitchen_id = nil)
+    all.map{ |supplier| supplier.paid_amount(kitchen_id) }.inject(0, :+)
   end
 
-  def self.outstanding_amount
-    all.map(&:outstanding_amount).inject(0, :+)
+  def self.outstanding_amount(kitchen_id = nil)
+    all.map{ |supplier| supplier.outstanding_amount(kitchen_id) }.inject(0, :+)
   end
 
   # when `Processing Cut-Off` is set for supplier as 3pm

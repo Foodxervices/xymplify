@@ -1,4 +1,5 @@
-class UsersController < ApplicationController
+class UsersController < AdminController
+  before_action :clear_restaurant_sessions, only: [:index]
   load_and_authorize_resource 
 
   def index

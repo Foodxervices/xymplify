@@ -1,7 +1,7 @@
-class KitchensController < ApplicationController
+class KitchensController < AdminController
   before_action :disable_bullet, only: [:dashboard]
-  load_and_authorize_resource :restaurant
-  load_and_authorize_resource :through => :restaurant, :shallow => true
+  before_action :set_session
+  load_and_authorize_resource :through => :current_restaurant, :shallow => true
 
   def index; end
 
@@ -47,6 +47,9 @@ class KitchensController < ApplicationController
   end
 
   private
+  def set_session
+    session[:kitchen_id] = params[:id] if params[:id]
+  end
 
   def kitchen_params
     data = params.require(:kitchen).permit(

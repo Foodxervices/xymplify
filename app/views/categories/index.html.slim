@@ -1,5 +1,5 @@
 #categories-index-container
-  = render 'food_items/search', food_item_filter: @food_item_filter, url: url_for(params)
+  = render 'food_items/search', food_item_filter: @food_item_filter
   .row
     .col-md-8
       .text-right
@@ -10,7 +10,7 @@
       - @groups.each do |group_name, food_items|
         .block
           h4 = group_name
-          = render 'carts/form', food_items: food_items
+          = render 'carts/form', food_items: food_items, kitchen: current_kitchen
       .text-center
         = will_paginate @food_items, renderer: BootstrapPagination::Rails, inner_window: 3, outer_window: 1
 

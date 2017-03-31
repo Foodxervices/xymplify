@@ -8,5 +8,5 @@
   = will_paginate activities, inner_window: 3, outer_window: 1, param_name: "activity_page"
   - if @display_more_activity_link
     .pull-right
-      = link_to 'More Information', [current_restaurant, current_kitchen, :versions], class: 'btn btn-default'
+      = link_to 'More Information', :versions, class: 'btn btn-default'
   .clearfix

@@ -5,11 +5,16 @@ describe FoodItemsController, :type => :controller do
   let!(:kitchen)    { create(:kitchen, restaurant: restaurant) }
   let!(:supplier)   { create(:supplier, restaurant: restaurant) }
   let!(:user)       { create(:admin) }
-  before { sign_in user }  
+
+  before do 
+    sign_in user 
+    @request.session['restaurant_id'] = kitchen.restaurant_id
+    @request.session['kitchen_id'] = kitchen.id
+  end
 
   describe '#index' do
     def do_request
-      get :index, restaurant_id: restaurant.id, kitchen_id: kitchen.id
+      get :index
     end
 
     let!(:food_items)       { create_list(:food_item, 2, restaurant_id: restaurant.id, kitchen_ids: kitchen.id) }
@@ -24,7 +29,7 @@ describe FoodItemsController, :type => :controller do
 
   describe '#new' do 
     def do_request
-      get :new, restaurant_id: restaurant.id
+      get :new
     end
 
     it 'assigns a new food item and renders the :new view' do 
@@ -36,7 +41,7 @@ describe FoodItemsController, :type => :controller do
 
   describe '#create' do 
     def do_request
-      post :create, restaurant_id: restaurant.id, food_item: attributes_for(:food_item, restaurant_id: restaurant.id, supplier_id: supplier.id)
+      post :create, food_item: attributes_for(:food_item, restaurant_id: restaurant.id, supplier_id: supplier.id)
     end
 
     it 'creates a food item' do 
@@ -47,7 +52,7 @@ describe FoodItemsController, :type => :controller do
 
   describe '#edit' do 
     def do_request
-      get :edit, restaurant_id: restaurant.id, id: food_item.id
+      get :edit, id: food_item.id
     end
 
     let!(:food_item) { create(:food_item, restaurant: restaurant) }
@@ -61,7 +66,7 @@ describe FoodItemsController, :type => :controller do
 
   describe '#update' do 
     def do_request
-      patch :update, restaurant_id: restaurant.id, id: food_item.id, food_item: attributes_for(:food_item, code: new_code)
+      patch :update, id: food_item.id, food_item: attributes_for(:food_item, code: new_code)
     end
 
     let!(:food_item) { create(:food_item, restaurant: restaurant) }
@@ -80,7 +85,7 @@ describe FoodItemsController, :type => :controller do
       delete :destroy, id: food_item.id
     end
 
-    let!(:food_item) { create(:food_item) }
+    let!(:food_item) { create(:food_item, restaurant: restaurant) }
 
     before do
       request.env["HTTP_REFERER"] = "where_i_came_from"

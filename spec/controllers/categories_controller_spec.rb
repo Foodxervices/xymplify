@@ -1,15 +1,19 @@
 require 'rails_helper'
 
 describe CategoriesController, :type => :controller do 
-  let!(:admin)      { create(:admin) }
+  let!(:user)       { create(:admin) }
   let!(:kitchen)    { create(:kitchen) }
   let!(:food_items) { create_list(:food_item, 2, kitchen_ids: kitchen.id, tag_list: 'Drink') }
 
-  before       { sign_in admin }  
+  before do 
+    sign_in user 
+    @request.session['restaurant_id'] = kitchen.restaurant_id
+    @request.session['kitchen_id'] = kitchen.id
+  end
 
   describe '#index' do
     def do_request
-      get :index, kitchen_id: kitchen.id
+      get :index
     end
 
     it 'renders the :index view' do
@@ -22,7 +26,7 @@ describe CategoriesController, :type => :controller do
 
   describe '#by_supplier' do
     def do_request
-      get :by_supplier, kitchen_id: kitchen.id
+      get :by_supplier
     end
 
     it 'renders the :index view' do
@@ -35,7 +39,7 @@ describe CategoriesController, :type => :controller do
 
   describe '#frequently_ordered' do
     def do_request
-      get :frequently_ordered, kitchen_id: kitchen.id
+      get :frequently_ordered
     end
 
     it 'renders the :index view' do

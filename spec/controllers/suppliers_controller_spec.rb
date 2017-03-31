@@ -4,7 +4,10 @@ describe SuppliersController, :type => :controller do
   let!(:restaurant)   { create(:restaurant) }
   let!(:user)         { create(:admin) }
 
-  before { sign_in user }  
+  before do 
+    sign_in user 
+    @request.session['restaurant_id'] = restaurant.id
+  end
 
   describe '#index' do
     def do_request
@@ -42,7 +45,7 @@ describe SuppliersController, :type => :controller do
 
     it 'creates a supplier' do 
       expect{ do_request }.to change{ [Supplier.count] }.from([0]).to([1])
-      expect(response).to redirect_to [restaurant, :suppliers]
+      expect(response).to redirect_to :suppliers
     end
   end
 
@@ -72,7 +75,7 @@ describe SuppliersController, :type => :controller do
       do_request
       expect(supplier.reload.name).to eq new_name
       expect(flash[:notice]).to eq 'Supplier has been updated.'
-      expect(response).to redirect_to [supplier.restaurant, :suppliers]
+      expect(response).to redirect_to :suppliers
     end
   end
 
@@ -81,7 +84,7 @@ describe SuppliersController, :type => :controller do
       delete :destroy, id: supplier.id
     end
 
-    let!(:supplier) { create(:supplier) }
+    let!(:supplier) { create(:supplier, restaurant: restaurant) }
 
     before do
       request.env["HTTP_REFERER"] = "where_i_came_from"

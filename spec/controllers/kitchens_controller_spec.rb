@@ -3,7 +3,11 @@ require 'rails_helper'
 describe KitchensController, :type => :controller do 
   let!(:user)       { create(:admin) }
   let!(:restaurant) { create(:restaurant) }
-  before { sign_in user }  
+ 
+  before do 
+    sign_in user 
+    @request.session['restaurant_id'] = restaurant.id
+  end
 
   describe '#index' do
     def do_request
@@ -24,7 +28,7 @@ describe KitchensController, :type => :controller do
       get :show, id: kitchen.id, format: :js
     end
 
-    let!(:kitchen) { create(:kitchen) }
+    let!(:kitchen) { create(:kitchen, restaurant: restaurant) }
 
     it 'renders the :show view' do
       do_request
@@ -70,7 +74,7 @@ describe KitchensController, :type => :controller do
 
     it 'returns edit page' do
       do_request
-      expect(assigns(:restaurant)).to match restaurant
+      expect(assigns(:current_restaurant)).to match restaurant
       expect(response).to render_template :edit
     end
   end

@@ -49,7 +49,7 @@ const Utils = {
     })
   },
   initDatatable:() => {
-    $('.datatable').DataTable({
+    $('.datatable:not(.dataTable)').DataTable({
       bFilter: false,
       bDestroy: true,
       initComplete: function(settings, json) {

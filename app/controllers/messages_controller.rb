@@ -1,11 +1,10 @@
-class MessagesController < ApplicationController
-  load_and_authorize_resource :restaurant
-  load_and_authorize_resource :message, :through => :restaurant, :shallow => true
+class MessagesController < AdminController
+  load_and_authorize_resource :message, :through => :current_restaurant
 
   def show; end
 
   def new
-    @message.kitchen_id = params[:kitchen_id]
+    @message.kitchen_id = current_kitchen&.id
     load_mention_list
   end
 
@@ -45,7 +44,7 @@ class MessagesController < ApplicationController
   def load_mention_list
     @mention_list = []
     
-    @restaurant.suppliers.accessible_by(current_ability).each do |supplier|
+    current_restaurant.suppliers.accessible_by(current_ability).each do |supplier|
       @mention_list << {
         id:     "supplier#{supplier.id}",
         name:   supplier.name,
@@ -54,7 +53,7 @@ class MessagesController < ApplicationController
       }
     end
 
-    @restaurant.users.each do |user|
+    current_restaurant.users.each do |user|
       @mention_list << {
         id:     "user#{user.id}",
         name:   user.name,
@@ -66,8 +65,8 @@ class MessagesController < ApplicationController
 
   def message_params
     data = params.require(:message).permit(:content, :kitchen_id)
-    data[:kitchen_id] = Kitchen.accessible_by(current_ability).where(restaurant_id: @restaurant.id).find(data[:kitchen_id]).id if data[:kitchen_id].present?
-    data[:restaurant_id] = @restaurant.id if @restaurant.present?
+    data[:kitchen_id] = Kitchen.accessible_by(current_ability).where(restaurant_id: current_restaurant.id).find(data[:kitchen_id]).id if data[:kitchen_id].present?
+    data[:restaurant_id] = current_restaurant.id
     data
   end
 end

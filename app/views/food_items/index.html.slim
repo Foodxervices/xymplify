@@ -1,4 +1,4 @@
-= render 'food_items/search', food_item_filter: @food_item_filter, url: [current_restaurant, current_kitchen, :food_items]
+= render 'food_items/search', food_item_filter: @food_item_filter
 #food_items-index-container
   .row
     .col-sm-4
@@ -8,9 +8,9 @@
       .text-right
         .btn-group
           - if can?(:import, Kitchen)
-            = link_to 'Import', [:new, current_restaurant, current_kitchen, :food_item_import], remote: true, class: 'btn btn-default'
+            = link_to 'Import', [:new, :food_item_import], remote: true, class: 'btn btn-default'
           - if can?(:create, FoodItem)
-            = link_to 'Create Food Item', [:new, @restaurant, :food_item], class: 'btn btn-default'
+            = link_to 'Create Food Item', [:new, :food_item], class: 'btn btn-default'
 
   .table-responsive
     table.table.table-striped.text-center
@@ -32,7 +32,7 @@
       tbody
         - @food_items.each do |food_item|
           tr
-            td = link_to food_item.code, [current_kitchen, food_item], remote: true
+            td = link_to food_item.code, food_item, remote: true
             td.text-left = food_item.name
             td = food_item.attachments.size
             td = image_tag food_item.image.url(:thumb)
@@ -46,8 +46,8 @@
             td = food_item.category_name
             td
               ul.actions
-                li = link_to 'View', [current_kitchen, food_item], remote: true
-                li = link_to_if can?(:update, food_item), 'Edit', [:edit, current_restaurant, food_item]
+                li = link_to 'View', food_item, remote: true
+                li = link_to_if can?(:update, food_item), 'Edit', [:edit, food_item]
                 li = link_to_if can?(:destroy, food_item), 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete'
   .text-center
     = will_paginate @food_items, renderer: BootstrapPagination::Rails

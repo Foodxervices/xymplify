@@ -12,11 +12,11 @@
       th.text-center Quantity
       th
     - food_items.each do |food_item|
-      tr.cart-item data={id: food_item.id, restaurant_id: current_restaurant.id, kitchen_id: current_kitchen.id}
+      tr.cart-item data={id: food_item.id, restaurant_id: current_restaurant.id, kitchen_id: kitchen.id}
         td = food_item.code
         td 
           = food_item.name
-          span.help-block rel="#{current_kitchen.id}-#{food_item.id}"
+          span.help-block rel="#{kitchen.id}-#{food_item.id}"
         - if !@hide_category
           td = food_item.category_name
         - if !@hide_supplier

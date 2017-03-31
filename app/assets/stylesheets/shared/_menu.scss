@@ -39,6 +39,7 @@
   }
 
   #current-page-info {
+    position: relative;
     height: 80px;
     padding: 0 15px;
     cursor: pointer;
@@ -49,26 +50,19 @@
     }
 
     a.restaurant-name {
-
       font-size: 24px;
       color: $primary_color;
       font-weight: 600;
       text-transform: uppercase;
-      line-height: 80px;
+      color: #424242;
+      line-height: 24px;
+      margin: 14px 0 8px;
     }
 
-    &[has-kitchen] {
-      a.restaurant-name {
-        color: #424242;
-        line-height: 24px;
-        margin: 14px 0 8px;
-      }
-
-      a.kitchen-name {
-        font-size: 14px;
-        line-height: 18px;
-        letter-spacing: 0;
-      }
+    a.kitchen-name {
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0;
     }
   }
 

@@ -1,5 +1,5 @@
 .inventories-search-container.search-container
-  = simple_form_for inventory_filter, url: [current_restaurant, current_kitchen, :inventories], method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
+  = simple_form_for inventory_filter, url: '', method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
     = f.input :keyword
     - if current_kitchen.nil?
       = f.input :kitchen_id, collection: @kitchens

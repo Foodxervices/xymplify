@@ -4,6 +4,15 @@
       = render 'shared/sidebar/kitchen'
     - elsif current_restaurant&.id.present?
       = render 'shared/sidebar/restaurant'
-    - else
-      = render 'shared/sidebar/global'
+    - if current_user.kind_of?(Admin)
+      = active_link_to 'Restaurants', authenticated_root_path, :wrap_tag => :li, :active => :exact, class: 'sb-dashboard', title: 'Restaurant'
+    - if can?(:index, Role)
+      = active_link_to 'User Roles', roles_path, :wrap_tag => :li, class: 'sb-role', title: 'Role'
+    - if can?(:index, User)
+      = active_link_to 'User Accounts', users_path, :wrap_tag => :li, class: 'sb-user', title: 'User'
+    - if can?(:index, Category)
+      = active_link_to 'Food Categories', food_categories_path, :wrap_tag => :li, class: 'sb-category', title: 'Category'  
+    - if can?(:index, Config)
+      = active_link_to 'Configurations', configs_path, :wrap_tag => :li, class: 'sb-config', title: 'Configurations'
+    
       

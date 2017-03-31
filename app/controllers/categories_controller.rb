@@ -1,6 +1,4 @@
-class CategoriesController < ApplicationController
-  load_and_authorize_resource :kitchen
-
+class CategoriesController < AdminController
   def index
     init
     @food_items = @food_items.order("category_priority, supplier_priority, unit_price_cents")
@@ -25,15 +23,16 @@ class CategoriesController < ApplicationController
 
   private
 
-  def init
-    @food_item_filter = FoodItemFilter.new(@kitchen.food_items, food_item_filter_params)
+  def init 
+    authorize! :read, current_kitchen
+    @food_item_filter = FoodItemFilter.new(current_kitchen.food_items, food_item_filter_params)
     @food_items = @food_item_filter.result
     @food_items = @food_items.select("food_items.*, c.name as category_name, c.priority as category_priority, s.name as supplier_name, s.priority as supplier_priority")
                               .accessible_by(current_ability, :order)
                               .paginate(:page => params[:page])
 
     if !restaurant_owner?
-      @food_items = @food_items.where(supplier_id: @kitchen.suppliers.select(:id))
+      @food_items = @food_items.where(supplier_id: current_kitchen.suppliers.select(:id))
     end
 
     @categories = {}
@@ -47,7 +46,7 @@ class CategoriesController < ApplicationController
       :category_id,
       :kitchen_ids,
     )
-    data[:kitchen_ids] ||= params[:kitchen_id]
+    data[:kitchen_ids] ||= current_kitchen&.id
     data[:kitchen_ids] = [data[:kitchen_ids].to_i] if data[:kitchen_ids].present?
     data
   end

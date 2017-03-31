@@ -1,6 +1,6 @@
-class CartsController < ApplicationController
+class CartsController < AdminController
   include ApplicationHelper
-  load_and_authorize_resource :kitchen
+  load_and_authorize_resource :kitchen, through: :current_restaurant
 
   def show; end
 

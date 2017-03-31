@@ -1,9 +1,9 @@
-= render 'user_roles/search', user_role_filter: @user_role_filter, url: [@restaurant, :user_roles]
+= render 'user_roles/search', user_role_filter: @user_role_filter
 #user_roles-index-container
   .pull-right
     .btn-group
-      - if can?(:update, UserRole.new(restaurant_id: @restaurant.id))
-        = link_to 'Create New User Role', [:new, @restaurant, :user_role], remote: true, class: 'btn btn-default'
+      - if can?(:update, UserRole.new(restaurant_id: current_restaurant.id))
+        = link_to 'Create New User Role', [:new, :user_role], remote: true, class: 'btn btn-default'
         
   h1 User Roles
   .clearfix

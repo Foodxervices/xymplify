@@ -1,10 +1,8 @@
-class GraphsController < ApplicationController
+class GraphsController < AdminController
   def index
-    @restaurant = Restaurant.accessible_by(current_ability).find(params[:restaurant_id])
-    @kitchen = @restaurant.kitchens.accessible_by(current_ability).find(params[:kitchen_id]) if params[:kitchen_id]
-    @currency_symbol = Money::Currency.new(@restaurant.currency).symbol
+    @currency_symbol = Money::Currency.new(current_restaurant.currency).symbol
 
-    graph = CostGraph.new(@restaurant, kitchen: @kitchen)
+    graph = CostGraph.new(current_restaurant, kitchen: current_kitchen)
 
     if params[:type] == 'supplier'
       @data = graph.by_supplier

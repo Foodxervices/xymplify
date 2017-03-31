@@ -1,4 +1,4 @@
-class AttachmentsController < ApplicationController
+class AttachmentsController < AdminController
   def create
     @attachment = Attachment.new(attachment_params)
     

@@ -1,13 +1,11 @@
-class OrdersController < ApplicationController
+class OrdersController < AdminController
   include ApplicationHelper
 
   AUTHORIZE_TOKEN_ACTIONS = [:show, :mark_as_accepted, :mark_as_declined]
 
-  load_resource :kitchen
-  load_resource :order, :through => :kitchen, :shallow => true
+  load_resource :order, :through => :current_kitchen, :shallow => true
 
-  authorize_resource :kitchen, except: AUTHORIZE_TOKEN_ACTIONS
-  authorize_resource :order, :through => :kitchen, :shallow => true, except: AUTHORIZE_TOKEN_ACTIONS
+  authorize_resource :order, :through => :current_kitchen, :shallow => true, except: AUTHORIZE_TOKEN_ACTIONS
 
   before_action :authorize_token, only: AUTHORIZE_TOKEN_ACTIONS
   before_action :detect_format, only: [:index]

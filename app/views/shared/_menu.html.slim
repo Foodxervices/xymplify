@@ -11,8 +11,9 @@
       - if current_restaurant.present?
         #current-page-info has-kitchen=current_kitchen.present?
           = link_to current_restaurant.name, [:dashboard, current_restaurant], class: 'restaurant-name'
-          - if current_kitchen.present?
-            = link_to_if can?(:dashboard, current_kitchen), current_kitchen.name, [:dashboard, current_kitchen], class: 'kitchen-name'
+          = link_to current_user.kind_of?(Admin) ? [current_restaurant, :kitchens] : :kitchens, remote: true, class: 'kitchen-name dropdown-toggle'
+            = "#{current_kitchen&.name || 'All Kitchens'}"
+            span.caret
       .pull-right
         - if current_kitchen.present?
           #notification
@@ -35,3 +36,4 @@
             li = link_to 'My Profile', user_path(current_user), remote: true
             li.divider role="separator"
             li = link_to 'Log out', destroy_user_session_path, method: :delete
+

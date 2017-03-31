@@ -1,8 +1,7 @@
-class FoodItemsController < ApplicationController
+class FoodItemsController < AdminController
   helper_method :sort_column, :sort_direction
 
-  load_and_authorize_resource :restaurant
-  load_and_authorize_resource :food_item, :through => :restaurant, :shallow => true, except: [:new]
+  load_and_authorize_resource :food_item, :through => :current_restaurant, except: [:new]
 
 
   def index
@@ -68,7 +67,7 @@ class FoodItemsController < ApplicationController
       :kitchen_ids
     )
 
-    data[:kitchen_ids] ||= params[:kitchen_id]
+    data[:kitchen_ids] ||= current_kitchen&.id
     data[:kitchen_ids] = [data[:kitchen_ids].to_i] if data[:kitchen_ids].present?
     data
   end

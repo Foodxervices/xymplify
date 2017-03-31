@@ -1,12 +1,9 @@
-class InventoriesController < ApplicationController
-  load_and_authorize_resource :restaurant
-  load_and_authorize_resource :through => :restaurant, :shallow => true
+class InventoriesController < AdminController
+  load_and_authorize_resource :through => :current_restaurant
 
   before_filter :detect_format, only: [:index]
 
   def index
-    @kitchens = @restaurant.kitchens.accessible_by(current_ability)
-    @kitchens = @kitchens.where(id: params[:kitchen_id])
     @inventory_filter = InventoryFilter.new(@inventories, filter_params)
     @inventories = @inventory_filter.result
                                     .select('
@@ -42,7 +39,7 @@ class InventoriesController < ApplicationController
             default_unit_price: food_item.unit_price.exchange_to(current_restaurant.currency).dollars,
             symbol: food_item.unit_price.symbol,
             kitchen_id: i.kitchen_id,
-            restaurant_id: @restaurant.id,
+            restaurant_id: current_restaurant.id,
             can_update: can?(:update, i)
           }
         end
