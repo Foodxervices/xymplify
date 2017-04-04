@@ -1,22 +1,39 @@
 #home-index-container
-  .container
-    h1 Restaurant Inventory Management
-    h3 Cut Food Costs and Streamline your Back of House Operations
+  #banner
+    div
+      .container
+        h1 Restaurant Purchasing and Inventory Management Made Easy
+        ul.list-inline
+          li = link_to 'SIGN IN', new_user_session_path, class: 'btn btn-blue-o'
+          li = link_to 'REGISTER', '#', class: 'btn btn-blue'
+
+  #main.container
+    .row
+      .col.l6.s12
+        .image = image_tag_retina_detection 'public/mask.png'
+      .col.l6
+        h2 Today
+        p Restaurant purchasing can be a nightmare. You communicate with suppliers through different channels – fax, phone, email. It is manual, time consuming and basically a mess.
 
     .row
-      .col.l6
-        .row
-          .col.m6.s12
-            = link_to retailers_path
-              .card
-                .card-image
-                  = image_tag_retina_detection 'public/restaurant.png', alt: 'Restaurant'
-                .card-content
-                  p Restaurant
-          .col.m6.s12
-            = link_to '#'
-              .card
-                .card-image
-                  = image_tag_retina_detection 'public/tomatoes.png', alt: 'Supplier'
-                .card-content
-                  p Supplier
+      .col.l6.s12
+        h2 Introducing X
+        p X is a web-based application designed to help restaurants, cafes and other foodservice outlets to streamline their inventory management and purchasing, enabling you to save time and money. All while continuing to use your current suppliers.
+      .col.l6.s12
+        .image = image_tag_retina_detection 'public/dashboard.png'
+  .middle-banner
+    .content
+      div
+        h3 Save Time and Manage Food Costs
+        ul
+          li Multi-Vendor Ordering on single platform, all within a few clicks
+          li Keep your inventory in-sync with your purchasing
+          li Compare prices across your suppliers and monitor food spend
+        = link_to 'SCHEDULE A DEMO', '#', class: 'btn btn-blue-o'
+
+  .text-center
+    br
+    h2 Pricing
+    p Flat price of only $9.90.
+    p No additional installation fees, upgrade fees or required.
+    br: br

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'retailers' => 'home#retailers', :as => :retailers
   get 'how_it_works' => 'home#how_it_works', :as => :how_it_works
   get 'faqs' => 'home#faqs', :as => :faqs
+  get 'about_us' => 'home#about_us', :as => :about_us
 
   resource :profile, only: [:edit, :update]
 

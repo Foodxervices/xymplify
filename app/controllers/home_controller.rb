@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   before_action :only_allow_public_user
-  layout :resolve_layout
+  layout "public/layouts/main"
 
   def index; end
 
@@ -10,15 +10,9 @@ class HomeController < ApplicationController
 
   def faqs; end
 
+  def about_us; end
+
   private
-  def resolve_layout
-    case action_name
-    when "index"
-      "public/layouts/home"
-    else
-      "public/layouts/main"
-    end
-  end
 
   def only_allow_public_user
     if user_signed_in?

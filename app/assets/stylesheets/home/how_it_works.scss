@@ -1,6 +1,10 @@
 #home-how_it_works-container {
   @extend #home-retailers-container;
 
+  h2 {
+    font-size: 36px;
+  }
+
   h4 {
     margin-top: 50px;
     font-size: 16px;
