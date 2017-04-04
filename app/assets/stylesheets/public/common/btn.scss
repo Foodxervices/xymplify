@@ -2,7 +2,7 @@
   color: #304FFE;
   background: #fff;
 
-  &:hover {
+  &:hover, &:active, &:focus {
     color: #0d26b7;
     background: #fff; 
   }

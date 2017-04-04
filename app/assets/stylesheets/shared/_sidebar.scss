@@ -115,6 +115,10 @@
     &.sb-category i:before {
       @extend .mdi-library-books;
     }
+
+    &.sb-contact i:before {
+      @extend .mdi-account-box-outline;
+    }
   }
 }
 

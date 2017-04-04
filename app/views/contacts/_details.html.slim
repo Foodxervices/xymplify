@@ -1,0 +1,17 @@
+.contacts-details-container
+  table.table.table-bordered
+    tr 
+      th width=130 = Contact.human_attribute_name(:name)
+      td = contact.name
+    tr 
+      th = Contact.human_attribute_name(:email)
+      td = mail_to(contact.email)
+    tr 
+      th = Contact.human_attribute_name(:designation)
+      td = contact.designation
+    tr 
+      th = Contact.human_attribute_name(:organisation)
+      td = contact.organisation
+    tr 
+      th = Contact.human_attribute_name(:your_query)
+      td = simple_format contact.your_query

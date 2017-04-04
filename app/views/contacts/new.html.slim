@@ -1,0 +1,32 @@
+#home-about_us-container
+  .middle-banner
+    .content
+      div
+        h3 GET STARTED
+        p Fuss Free Purchasing in a few easy steps
+
+  #main
+    .container
+      h1.text-center Tell us more about yourself!
+
+      .row
+        .col.m8.offset-m2.s12
+          = simple_form_for @contact do |f|
+            .row
+              .col.m6.s12
+                = f.input :name
+              .col.m6.s12
+                = f.input :email
+            .row
+              .col.m6.s12
+                = f.input :designation
+              .col.m6.s12
+                = f.input :organisation
+            .row
+              .col.s12
+                = f.input :your_query, input_html: { class: 'materialize-textarea' }
+
+            p == "By signing up, you are agreeing to the X-App #{link_to('Terms of use', '#')}."
+
+            .text-right
+              = f.button :submit, 'REGISTER', class: 'btn'

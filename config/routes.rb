@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   resources :configs,     only: [:index, :edit, :update]
 
+  resources :contacts,    only: [:index, :show, :new, :create, :destroy]
+
   resources :food_items,  only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   resources :graphs, only: [:index]

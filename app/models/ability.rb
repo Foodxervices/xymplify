@@ -7,6 +7,8 @@ class Ability
 
     user = (user ||= User.new)
 
+    can :create, Contact
+
     @kitchens = {}
 
     if user.kind_of?(Admin)

@@ -12,6 +12,8 @@
       = active_link_to 'User Accounts', users_path, :wrap_tag => :li, class: 'sb-user', title: 'User'
     - if can?(:index, Category)
       = active_link_to 'Food Categories', food_categories_path, :wrap_tag => :li, class: 'sb-category', title: 'Category'  
+    - if can?(:index, Contact)
+      = active_link_to 'Contacts', contacts_path, :wrap_tag => :li, class: 'sb-contact', title: 'Contacts'
     - if can?(:index, Config)
       = active_link_to 'Configurations', configs_path, :wrap_tag => :li, class: 'sb-config', title: 'Configurations'
     
