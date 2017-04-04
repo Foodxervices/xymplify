@@ -1,6 +1,6 @@
 #inventories-index-container
   = render 'inventories/search', inventory_filter: @inventory_filter
-  h1 Inventory Mangement
+  h1 Inventory Management
   .table-responsive
     = react_component('InventoryList', groups: @groups, restaurant_currency_symbol: Money::Currency.new(current_restaurant.currency).symbol)
   .text-center          
