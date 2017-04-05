@@ -77,11 +77,12 @@ class InventoriesController < AdminController
   def filter_params
     return @filter_params if @filter_params.present?
 
-    filter_params = ActionController::Parameters.new(params[:inventory_filter])
-    @filter_params ||= filter_params.permit(
-      :keyword,
-      :kitchen_id
+    @filter_params = ActionController::Parameters.new(params[:inventory_filter])
+    @filter_params ||= @filter_params.permit(
+      :keyword
     )
+    @filter_params[:kitchen_id] = current_kitchen&.id
+    @filter_params
   end
 
   def detect_format
