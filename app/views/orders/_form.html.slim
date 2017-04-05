@@ -49,6 +49,8 @@
             td.text-center = gst_form.input :percent
             td.text-center %
             td.text-center = gst_form.link_to_remove "Remove"
+    - if !['wip', 'confirmed'].include?(order.status)
+      = f.input :send_email, as: :boolean, label: 'Send email to supplier', value: 'true', input_html: { name: 'send_email', checked: true }
 
     .text-right
       .btn-group

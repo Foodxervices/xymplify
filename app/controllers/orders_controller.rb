@@ -61,7 +61,7 @@ class OrdersController < AdminController
       @message = []
       @message << "#{order_name} has been updated."
 
-      if ['placed', 'accepted'].include?(@order.status)
+      if params[:send_email] == '1'
         OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_updated')
         @message << "An email notification has been sent to the supplier."
       end
@@ -165,7 +165,10 @@ class OrdersController < AdminController
       else
         FrequentlyOrderedWorker.perform_async(@order.id)
         @message << "#{@order.long_name} has been delivered."
-        OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_delivered')
+
+        if params[:send_email] == '1'
+          OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_delivered')
+        end
       end
 
       return redirect_to :back, notice: Array(@message).join('<br />')
