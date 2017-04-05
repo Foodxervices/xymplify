@@ -81,65 +81,73 @@ const CostGraph = {
               label: 'Filters',
               allowTyping: false,
               allowMultiple: true,
-              allowNone: false,
+              allowNone: true,
               labelStacking: 'vertical'
           }
       },
-      state: initState
+      state: {selectedValues: []}
     });
 
     google.visualization.events.addListener(filter, 'statechange', setChartView);
 
-    setChartView();
     filter.draw();
 
     function getData() {
-      var monthArray = []
+      var weekArray = []
       var data = $('#cost-graph').data('graph')
       var res = [[]]
       var currencySymbol = $('#cost-graph').data('currency-symbol')
 
-      $.each(data, function(month, monthData) {
-        $.each(monthData, function(tag, total_price) {
+      $.each(data, function(week, weekData) {
+        $.each(weekData, function(tag, total_price) {
           res[0].push(tag)
         })
       })
 
       res[0] = $.unique(res[0])
 
-      $.each(data, function(month, monthData) {
-        month = new Date(month).toLocaleString('en-us', { month: "short", year: "numeric", timeZone: "Asia/Singapore" })
-        monthArray = [month]
+      $.each(data, function(week, weekData) {
+        week = new Date(week).toLocaleString('en-GB', { year: '2-digit', month: 'numeric', day: 'numeric', timeZone: "Asia/Singapore" })
+        weekArray = [week]
 
         $.each(res[0], function(i, headTag) {
           var price = null
 
-          $.each(monthData, function(tag, total_price) {
+          $.each(weekData, function(tag, total_price) {
             if(headTag == tag) {
               price = total_price
               return false
             }
           })
 
-          monthArray.push({ v: price, f: `${currencySymbol}${price}` })
+          weekArray.push({ v: price, f: `${currencySymbol}${price}` })
         })
-        res.push(monthArray)
+        res.push(weekArray)
       })
 
-      res[0].unshift('Month')
+      res[0].unshift('Week')
 
       return res
     }
 
     function setChartView () {
       var state = filter.getState();
+
       var row;
       var view = {
         columns: [0]
       };
-      for (var i = 0; i < state.selectedValues.length; i++) {
+
+      if(state.selectedValues.length > 0) {
+        for (var i = 0; i < state.selectedValues.length; i++) {
           row = columnsTable.getFilteredRows([{column: 1, value: state.selectedValues[i]}])[0];
           view.columns.push(columnsTable.getValue(row, 0));
+        }
+      }
+      else {
+        for (var i = 0; i < columnsTable.Tf.length; i++) {
+          view.columns.push(columnsTable.getValue(i, 0));
+        }
       }
 
       view.columns.sort(function (a, b) {

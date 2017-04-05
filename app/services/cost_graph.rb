@@ -19,20 +19,39 @@ class CostGraph
     @items
   end
 
+  def by_food_item
+    res = {}
+
+    items.each do |item|
+      order = item.order
+      next if order.nil?
+      week = order.delivered_at.beginning_of_week
+
+      food_item = item.food_item
+      next if food_item.nil?
+
+      res[week] ||= {}
+      res[week][food_item.name] ||= 0
+      res[week][food_item.name] = item.total_price.exchange_to(restaurant.currency).to_f
+    end
+
+    res.to_json
+  end
+
   def by_category
     res = {}
 
     items.each do |item|
       order = item.order
       next if order.nil?
-      month = order.delivered_at.beginning_of_month
+      week = order.delivered_at.beginning_of_week
 
       category = item.category
       next if category.nil?
 
-      res[month] ||= {}
-      res[month][category.name] ||= 0
-      res[month][category.name] = item.total_price.exchange_to(restaurant.currency).to_f
+      res[week] ||= {}
+      res[week][category.name] ||= 0
+      res[week][category.name] = item.total_price.exchange_to(restaurant.currency).to_f
     end
 
     res.to_json
@@ -44,14 +63,14 @@ class CostGraph
     items.each do |item|
       order = item.order
       next if order.nil?
-      month = order.delivered_at.beginning_of_month
+      week = order.delivered_at.beginning_of_week
 
       supplier = order.supplier
       next if supplier.nil?
 
-      res[month] ||= {}
-      res[month][supplier.name] ||= 0
-      res[month][supplier.name] = item.total_price.exchange_to(restaurant.currency).to_f
+      res[week] ||= {}
+      res[week][supplier.name] ||= 0
+      res[week][supplier.name] = item.total_price.exchange_to(restaurant.currency).to_f
     end
 
     res.to_json

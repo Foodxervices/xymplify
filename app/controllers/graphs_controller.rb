@@ -4,10 +4,13 @@ class GraphsController < AdminController
 
     graph = CostGraph.new(current_restaurant, kitchen: current_kitchen)
 
-    if params[:type] == 'supplier'
+    case params[:type]
+    when 'supplier'
       @data = graph.by_supplier
-    else
+    when 'category'
       @data = graph.by_category
+    when 'food_item'
+      @data = graph.by_food_item
     end
   end
 end
