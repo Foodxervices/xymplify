@@ -1,0 +1,11 @@
+.payments-history-container
+  table.table.table-striped
+    tr
+      th Time
+      th Paid Amount
+      th Outstanding Amount
+    - payments.each do |payment|
+      tr
+        td = format_datetime(payment.created_at)
+        td = humanized_money_with_symbol(payment.pay_amount)
+        td = humanized_money_with_symbol(payment.outstanding_amount)

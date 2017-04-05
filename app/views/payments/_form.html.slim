@@ -3,8 +3,16 @@
     = f.error :base
     .row
       .col-md-6
-        = f.input :paid_amount
-        p
-          label Total: #{humanized_money_with_symbol(order.price_with_gst)}
+        table.table.table-striped.table-bordered
+          tr
+            th width=120 Outstanding:
+            td = "#{humanized_money_with_symbol(order.outstanding_amount)}"
+          tr
+            th Total:
+            td = "#{humanized_money_with_symbol(order.price_with_gst)}"
+    .row
+      .col-md-6
+        = f.input :pay_amount
+
     = f.button :submit, 'Submit', :data => { disable_with: 'Processing...' }, class: 'btn-primary btn-block'
 

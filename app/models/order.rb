@@ -1,15 +1,19 @@
 include MoneyRails::ActionViewExtension
 class Order < ActiveRecord::Base
+  attr_accessor :pay_amount
+
   has_paper_trail :unless => Proc.new { |order| order.status.wip? || order.status.confirmed? }
 
   extend Enumerize
   monetize :price_cents
   monetize :gst_cents
+  monetize :paid_amount_cents
 
   before_create :cache_restaurant
   before_create :set_name
 
   before_save :set_status_updated_at
+  before_save :add_pay_amount
 
   after_save :set_item_price
   after_save :check_status
@@ -19,13 +23,12 @@ class Order < ActiveRecord::Base
   has_many :items, class_name: "OrderItem", dependent: :destroy
   has_many :gsts, -> { includes :order },  class_name: "OrderGst",  dependent: :destroy
   has_many :alerts, as: :alertable
+  has_many :payment_histories
 
   belongs_to :supplier
   belongs_to :kitchen
   belongs_to :user
   belongs_to :restaurant
-
-  monetize :paid_amount_cents
 
   has_attached_file :attachment
   validates_attachment :attachment,
@@ -140,6 +143,16 @@ class Order < ActiveRecord::Base
   end
 
   private
+
+  def add_pay_amount
+    amount = Money.from_amount(pay_amount.to_f, paid_amount_currency)
+
+    if amount.to_i != 0
+      self.paid_amount = paid_amount + amount
+      payment_histories.create(pay_amount: amount, outstanding_amount: outstanding_amount)
+    end
+  end
+
   def cache_restaurant
     self.restaurant_id = kitchen.restaurant_id
   end

@@ -65,6 +65,12 @@ Rails.application.routes.draw do
 
   resources :archived_pos, controller: 'orders', only: [:index], status: 'archived'
   resources :orders,      only: [:index, :show, :edit, :update, :destroy] do
+    resources :payments, only: [] do
+      collection do
+        get :history
+      end
+    end
+
     member do
       get :history
       get :mark_as_accepted
@@ -99,7 +105,7 @@ Rails.application.routes.draw do
 
   resources :kitchens, only: [:index, :show] do
     resources :food_items,  only: [:index]
-    
+
     resources :carts,       only: [:new] do
       collection do
         get :show

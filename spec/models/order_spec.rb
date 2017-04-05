@@ -19,6 +19,7 @@ describe Order do
     it { is_expected.to belong_to :restaurant }
     it { is_expected.to have_many :items }
     it { is_expected.to have_many :alerts }
+    it { is_expected.to have_many :payment_histories }
   end
 
   describe '#price' do

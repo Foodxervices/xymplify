@@ -36,11 +36,10 @@ describe PaymentsController, :type => :controller do
 
   describe '#update' do
     def do_request
-      patch :update, id: order.id, order: { paid_amount: new_paid_amount }
+      patch :update, id: order.id, order: { pay_amount: 10 }
     end
 
     let!(:order) { create(:order) }
-    let!(:new_paid_amount)  { 10 }
 
     before do
       request.env["HTTP_REFERER"] = "where_i_came_from"
@@ -48,9 +47,23 @@ describe PaymentsController, :type => :controller do
 
     it 'updates message' do
       do_request
-      expect(order.reload.paid_amount.to_i).to eq new_paid_amount
+      expect(order.reload.paid_amount.to_i).to eq 10
       expect(flash[:notice]).to eq 'Payment has been updated.'
       expect(response).to redirect_to "where_i_came_from"
+    end
+  end
+
+  describe '#history' do
+    def do_request
+      patch :history, order_id: payment_history.order_id, format: :js
+    end
+
+    let!(:payment_history) { create(:payment_history) }
+
+    it 'renders the :history view' do
+      do_request
+      expect(assigns(:payments).size).to eq 1
+      expect(response).to render_template :history
     end
   end
 end

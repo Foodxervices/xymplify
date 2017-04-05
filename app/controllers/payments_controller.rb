@@ -24,6 +24,13 @@ class PaymentsController < AdminController
     end
   end
 
+  def history
+    @order = Order.find(params[:order_id])
+    authorize! :history, @order
+
+    @payments = @order.payment_histories.order(created_at: :desc)
+  end
+
   private
 
   def supplier_filter_params
@@ -35,7 +42,7 @@ class PaymentsController < AdminController
 
   def payment_params
     params.require(:order).permit(
-      :paid_amount
+      :pay_amount
     )
   end
 
