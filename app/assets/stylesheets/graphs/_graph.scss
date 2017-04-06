@@ -4,4 +4,13 @@
     height: 230px;
     overflow-y: scroll;
   }
+
+  #cost-graph {
+    > div {
+      overflow-x: scroll;
+      overflow-y: hidden;
+      width: 100%;
+      height: 300px;
+    }
+  }
 }
