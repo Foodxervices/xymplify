@@ -1,56 +1,59 @@
 .suppliers-details-container
   table.table.table-bordered
     - if @supplier.logo.exists?
-      tr 
+      tr
         td = Supplier.human_attribute_name(:logo)
-        td = image_tag supplier.logo.url(:thumb) 
-    tr 
+        td = image_tag supplier.logo.url(:thumb)
+    tr
       td width=160 = Supplier.human_attribute_name(:country)
       td = supplier.country_name
-    tr 
+    tr
       td = Supplier.human_attribute_name(:address)
       td = supplier.address
-    tr 
+    tr
       td = Supplier.human_attribute_name(:contact)
       td = supplier.contact
-    tr 
+    tr
       td = Supplier.human_attribute_name(:telephone)
       td = supplier.telephone
-    tr 
+    tr
       td = Supplier.human_attribute_name(:email)
       td = supplier.email
-    tr 
+    tr
       td = Supplier.human_attribute_name(:currency)
       td = supplier.currency
-    tr 
+    tr
       td = Supplier.human_attribute_name(:company_registration_no)
       td = supplier.company_registration_no
-    tr 
+    tr
       td = Supplier.human_attribute_name(:delivery_days)
-      td = supplier.delivery_days.texts.to_sentence 
+      td = supplier.delivery_days.texts.to_sentence
+    tr
+      td = Supplier.human_attribute_name(:block_delivery_dates)
+      td = supplier.block_delivery_dates
     - if Config.processing_cut_off_enabled?
-      tr 
+      tr
         td = Supplier.human_attribute_name(:processing_cut_off)
         td = format_time(supplier.processing_cut_off)
-    tr 
+    tr
       td = Supplier.human_attribute_name(:min_order_price)
       td = Currency.format(supplier.min_order_price, supplier.currency)
     - if supplier.max_order_price.to_f > 0
-      tr 
+      tr
         td = Supplier.human_attribute_name(:max_order_price)
         td = Currency.format(supplier.max_order_price, supplier.currency)
-    tr 
+    tr
       td = Supplier.human_attribute_name(:bank_name)
       td = supplier.bank_name
-    tr 
+    tr
       td = Supplier.human_attribute_name(:bank_address)
       td = supplier.bank_address
-    tr 
+    tr
       td = Supplier.human_attribute_name(:bank_swift_code)
       td = supplier.bank_swift_code
-    tr 
+    tr
       td = Supplier.human_attribute_name(:bank_account_name)
       td = supplier.bank_account_name
-    tr 
+    tr
       td = Supplier.human_attribute_name(:bank_account_number)
       td = supplier.bank_account_number

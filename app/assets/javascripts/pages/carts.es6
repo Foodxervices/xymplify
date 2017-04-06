@@ -9,6 +9,7 @@ Foodxervices.carts = {
         // Date
         let dateInput = tableOrder.find('input.date-picker')
         let delivery_days = $(dateInput).data('days')
+        let block_dates = $(dateInput).data('block-dates').split(', ')
 
         let days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
         let disable_days = []
@@ -23,7 +24,8 @@ Foodxervices.carts = {
           daysOfWeekDisabled: disable_days,
           startDate: new Date(dateInput.data('start-date')),
           enableOnReadonly: true,
-          format: 'dd/mm/yyyy'
+          format: 'dd/mm/yyyy',
+          datesDisabled: block_dates
         })
 
         // Time

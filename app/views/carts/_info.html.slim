@@ -12,9 +12,9 @@
           table.request-for-delivery-at invalid=@request_for_delivery_at_invalid
             tr
               td width="120" Delivery Date
-              td = text_field_tag :request_for_delivery_start_date, order.request_for_delivery_start_at.try(:strftime, '%d/%m/%Y'), id: nil, class: 'date-picker', data: { days: days, start_date: start_date, type: 'start' }
+              td = text_field_tag :request_for_delivery_start_date, order.request_for_delivery_start_at.try(:strftime, '%d/%m/%Y'), id: nil, class: 'date-picker', data: { days: days, start_date: start_date, block_dates: supplier.block_delivery_dates.to_s, type: 'start' }
               td == "&nbsp; &nbsp; &nbsp;"
-              td = text_field_tag :request_for_delivery_end_date, order.request_for_delivery_end_at.try(:strftime, '%d/%m/%Y'), id: nil, class: 'date-picker', data: { days: days, start_date: start_date, type: 'end' }
+              td = text_field_tag :request_for_delivery_end_date, order.request_for_delivery_end_at.try(:strftime, '%d/%m/%Y'), id: nil, class: 'date-picker', data: { days: days, start_date: start_date, block_dates: supplier.block_delivery_dates.to_s, type: 'end' }
             tr
               td Delivery Time
               td = text_field_tag :request_for_delivery_start_time, order.request_for_delivery_start_at.try(:strftime, '%H:%M %p'), id: nil, class: 'time-picker', data: { type: 'start' }

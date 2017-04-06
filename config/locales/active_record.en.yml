@@ -27,6 +27,7 @@ en:
         delivery_days: "Delivery days"
         min_order_price: "Minimum Order Quantity (Money Value)"
         max_order_price: "Maximum Order Quantity (Money Value)"
+        block_delivery_dates: "Block delivery on"
       restaurant:
         company_registration_no: "Company ID"
       kitchen:

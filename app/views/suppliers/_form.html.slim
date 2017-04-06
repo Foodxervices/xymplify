@@ -15,6 +15,7 @@
             = f.input :max_order_price
             = f.association :kitchens, collection: current_restaurant.kitchens
             = f.input :delivery_days
+            = f.input :block_delivery_dates
             - if Config.processing_cut_off_enabled?
               = f.input :processing_cut_off, as: :time
       .row
@@ -35,3 +36,6 @@
 
     .form-actions
       = f.button :submit, class: 'btn-primary'
+
+  javascript:
+    Foodxervices.suppliers.form.init()

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170405034950) do
+ActiveRecord::Schema.define(version: 20170406032649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -286,6 +286,7 @@ ActiveRecord::Schema.define(version: 20170405034950) do
     t.decimal  "max_order_price",         precision: 12, scale: 2
     t.string   "delivery_days"
     t.time     "processing_cut_off"
+    t.string   "block_delivery_dates"
   end
 
   add_index "suppliers", ["priority"], name: "index_suppliers_on_priority", using: :btree
