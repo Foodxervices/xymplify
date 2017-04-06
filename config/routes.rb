@@ -34,8 +34,6 @@ Rails.application.routes.draw do
   end
 
   resources :suppliers,   only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    resources :supplier_orders, only: [:index], path: '/orders'
-
     collection do
       patch :update_priority
     end
@@ -86,7 +84,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :payments, only: [:index, :edit, :update]
+  resources :payments, only: [:index, :edit, :update] do
+    collection do
+      resources :suppliers, only: [] do
+        resources :supplier_orders, only: [:index], path: '/'
+      end
+    end
+  end
 
   resources :restaurants, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
     resources :kitchens, only: [:index, :new, :create, :edit, :update]
