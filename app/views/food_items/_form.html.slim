@@ -13,7 +13,7 @@
         .col-md-6
           = f.input         :country_of_origin, as: :string
           = f.association   :category
-          = f.input         :tag_list, input_html: { class: 'taggable', value: f.object.tag_list.to_s }, hint: "e.g. Banana, Apple"
+          = f.input         :tag_list, input_html: { class: 'taggable', value: f.object.tag_list.to_s, 'data-source' => current_restaurant.food_items.tag_counts_on(:tags).pluck(:name).join(',') }, hint: "e.g. Banana, Apple"
           = f.input         :unit
           = f.input         :unit_price_without_promotion, as: :numeric
           = f.input         :unit_price, as: :numeric

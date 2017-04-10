@@ -97,7 +97,7 @@ const Utils = {
 
       $(this).tokenfield({
         autocomplete: {
-          source: $(this).data('source'),
+          source: $(this).data('source').split(","),
           delay: 100,
           beautify: true
         },
