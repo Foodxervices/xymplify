@@ -79,7 +79,8 @@ class InventoriesController < AdminController
 
     @filter_params = ActionController::Parameters.new(params[:inventory_filter])
     @filter_params ||= @filter_params.permit(
-      :keyword
+      :keyword,
+      :tag_list
     )
     @filter_params[:kitchen_id] = current_kitchen&.id
     @filter_params

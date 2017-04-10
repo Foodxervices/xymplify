@@ -16,6 +16,7 @@ en:
         month:   'Month'
       food_item_filter: 
         keyword: 'Keyword'
+        tag_list: 'My List'
       supplier_filter: 
         keyword: 'Keyword'
       user_filter: 
@@ -24,6 +25,7 @@ en:
         keyword: 'Keyword'  
       inventory_filter:
         keyword: 'Keyword'  
+        tag_list: 'My List'
       role_filter:
         keyword: 'Keyword'  
       category_filter:

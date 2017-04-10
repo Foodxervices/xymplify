@@ -3,6 +3,7 @@ class FoodItemFilter
   attr_accessor :keyword
   attr_accessor :supplier_id
   attr_accessor :category_id
+  attr_accessor :tag_list
   attr_accessor :kitchen_ids
 
   def initialize(food_items, attributes = {})
@@ -38,6 +39,10 @@ class FoodItemFilter
     if kitchen_ids.present?
       @food_items = @food_items.joins("LEFT JOIN food_items_kitchens fk ON food_items.id = fk.food_item_id")
                                .where(fk: { kitchen_id: kitchen_ids}) 
+    end
+
+    if tag_list.present?
+      @food_items = @food_items.tagged_with(tag_list, :any => true)
     end
 
     @food_items

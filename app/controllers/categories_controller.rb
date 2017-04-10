@@ -45,6 +45,7 @@ class CategoriesController < AdminController
       :supplier_id,
       :category_id,
       :kitchen_ids,
+      :tag_list
     )
     data[:kitchen_ids] ||= current_kitchen&.id
     data[:kitchen_ids] = [data[:kitchen_ids].to_i] if data[:kitchen_ids].present?

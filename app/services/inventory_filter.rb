@@ -1,6 +1,7 @@
 class InventoryFilter
   include ActiveModel::Model
   attr_accessor :keyword
+  attr_accessor :tag_list
   attr_accessor :kitchen_id
 
   def initialize(inventories, attributes = {})
@@ -21,10 +22,13 @@ class InventoryFilter
                                         f.code             ILIKE :keyword OR 
                                         f.name             ILIKE :keyword OR 
                                         f.brand            ILIKE :keyword OR 
-                                        f.cached_tag_list  ILIKE :keyword OR 
                                         s.name             ILIKE :keyword OR 
                                         k.name             ILIKE :keyword
                                       ", keyword: "%#{keyword}%") 
+    end
+
+    if tag_list.present?
+      @inventories = @inventories.where("f.cached_tag_list  ILIKE ?", "%#{tag_list}%")
     end
 
     if kitchen_id.present?
