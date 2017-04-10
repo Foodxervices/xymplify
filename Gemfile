@@ -71,6 +71,7 @@ group :development do
   gem 'meta_request'
   gem 'bullet'
   gem 'brakeman'
+  gem 'rack-mini-profiler'
 end
 
 group :test do
