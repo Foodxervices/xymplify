@@ -1,10 +1,18 @@
 class CostGraph
   attr_accessor :restaurant
   attr_accessor :kitchen
+  attr_accessor :mode
+  attr_accessor :type
 
-  def initialize(restaurant, kitchen: nil)
+  def initialize(restaurant, kitchen: nil, mode: nil, type: nil)
     @restaurant = restaurant
     @kitchen = kitchen
+    @mode = mode || 'month'
+    @type = type || 'supplier'
+  end
+
+  def result
+    send("by_#{type}")
   end
 
   def items
@@ -25,14 +33,14 @@ class CostGraph
     items.each do |item|
       order = item.order
       next if order.nil?
-      week = order.delivered_at.beginning_of_week
+      view_mode = order.delivered_at.send("beginning_of_#{mode}")
 
       food_item = item.food_item
       next if food_item.nil?
 
-      res[week] ||= {}
-      res[week][food_item.name] ||= 0
-      res[week][food_item.name] = item.total_price.exchange_to(restaurant.currency).to_f
+      res[view_mode] ||= {}
+      res[view_mode][food_item.name] ||= 0
+      res[view_mode][food_item.name] += item.total_price.exchange_to(restaurant.currency).to_f
     end
 
     res.to_json
@@ -44,14 +52,14 @@ class CostGraph
     items.each do |item|
       order = item.order
       next if order.nil?
-      week = order.delivered_at.beginning_of_week
+      view_mode = order.delivered_at.send("beginning_of_#{mode}")
 
       category = item.category
       next if category.nil?
 
-      res[week] ||= {}
-      res[week][category.name] ||= 0
-      res[week][category.name] = item.total_price.exchange_to(restaurant.currency).to_f
+      res[view_mode] ||= {}
+      res[view_mode][category.name] ||= 0
+      res[view_mode][category.name] += item.total_price.exchange_to(restaurant.currency).to_f
     end
 
     res.to_json
@@ -63,14 +71,14 @@ class CostGraph
     items.each do |item|
       order = item.order
       next if order.nil?
-      week = order.delivered_at.beginning_of_week
+      view_mode = order.delivered_at.send("beginning_of_#{mode}")
 
       supplier = order.supplier
       next if supplier.nil?
 
-      res[week] ||= {}
-      res[week][supplier.name] ||= 0
-      res[week][supplier.name] = item.total_price.exchange_to(restaurant.currency).to_f
+      res[view_mode] ||= {}
+      res[view_mode][supplier.name] ||= 0
+      res[view_mode][supplier.name] += item.total_price.exchange_to(restaurant.currency).to_f
     end
 
     res.to_json

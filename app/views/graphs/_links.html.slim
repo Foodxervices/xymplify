@@ -1,0 +1,16 @@
+- @mode ||= 'month'
+- @type ||= 'supplier'
+.graphs-links-container
+  .row
+    .col-xs-12
+      .pull-left
+        ul.list-inline.tabs
+          li = active_link_to 'View by Month', graphs_path(restaurant_id: current_restaurant.id, kitchen_id: current_kitchen&.id, type: @type, mode: 'month'), remote: true, :active => :exact
+          li = active_link_to 'View by Week', graphs_path(restaurant_id: current_restaurant.id, kitchen_id: current_kitchen&.id, type: @type, mode: 'week'), remote: true, :active => :exact
+      .pull-right
+        ul.list-inline.tabs
+          li = active_link_to 'View by Supplier', graphs_path(restaurant_id: current_restaurant.id, kitchen_id: current_kitchen&.id, type: 'supplier', mode: @mode), remote: true, :active => :exact
+          li = active_link_to 'View by Category', graphs_path(restaurant_id: current_restaurant.id, kitchen_id: current_kitchen&.id, type: 'category', mode: @mode), remote: true, :active => :exact
+          li = active_link_to 'View by Food Item', graphs_path(restaurant_id: current_restaurant.id, kitchen_id: current_kitchen&.id, type: 'food_item', mode: @mode), remote: true, :active => :exact
+      
+      

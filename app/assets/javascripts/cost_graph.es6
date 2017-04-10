@@ -93,39 +93,39 @@ const CostGraph = {
     filter.draw();
 
     function getData() {
-      var weekArray = []
+      var modeArray = []
       var data = $('#cost-graph').data('graph')
       var res = [[]]
       var currencySymbol = $('#cost-graph').data('currency-symbol')
 
-      $.each(data, function(week, weekData) {
-        $.each(weekData, function(tag, total_price) {
+      $.each(data, function(mode, modeData) {
+        $.each(modeData, function(tag, total_price) {
           res[0].push(tag)
         })
       })
 
       res[0] = $.unique(res[0])
 
-      $.each(data, function(week, weekData) {
-        week = new Date(week).toLocaleString('en-GB', { year: '2-digit', month: 'numeric', day: 'numeric', timeZone: "Asia/Singapore" })
-        weekArray = [week]
+      $.each(data, function(mode, modeData) {
+        mode = new Date(mode).toLocaleString('en-GB', { year: '2-digit', month: 'numeric', day: 'numeric', timeZone: "Asia/Singapore" })
+        modeArray = [mode]
 
         $.each(res[0], function(i, headTag) {
           var price = null
 
-          $.each(weekData, function(tag, total_price) {
+          $.each(modeData, function(tag, total_price) {
             if(headTag == tag) {
               price = total_price
               return false
             }
           })
 
-          weekArray.push({ v: price, f: `${currencySymbol}${price}` })
+          modeArray.push({ v: price, f: `${currencySymbol}${parseFloat(price).toFixed(2)}` })
         })
-        res.push(weekArray)
+        res.push(modeArray)
       })
 
-      res[0].unshift('Week')
+      res[0].unshift('Mode')
 
       return res
     }

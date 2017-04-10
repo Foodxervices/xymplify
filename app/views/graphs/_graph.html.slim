@@ -1,7 +1,4 @@
 .graphs-graph-container
-  .text-right
-    ul#graph-links.list-inline.tabs
-      li = link_to 'View by Supplier', graphs_path(restaurant_id: current_restaurant.id, kitchen_id: current_kitchen&.id, type: 'supplier'), remote: true
-      li = link_to 'View by Category', graphs_path(restaurant_id: current_restaurant.id, kitchen_id: current_kitchen&.id, type: 'category'), remote: true
-      li = link_to 'View by Food Item', graphs_path(restaurant_id: current_restaurant.id, kitchen_id: current_kitchen&.id, type: 'food_item'), remote: true
+  #graph-links
+    = render 'graphs/links'
   #graph
