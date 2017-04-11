@@ -9,7 +9,7 @@
       = f.input  :bank_swift_code
       = f.input  :bank_account_name
       = f.input  :bank_account_number
-      = f.association  :suppliers
+      = f.association  :suppliers, collection: current_restaurant.suppliers.accessible_by(current_ability)
     .text-right
       .btn-group
         = f.button :submit, data: { :disable_with => "Submitting..." }, class: 'btn-primary'

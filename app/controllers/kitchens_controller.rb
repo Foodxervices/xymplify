@@ -65,6 +65,7 @@ class KitchensController < AdminController
       supplier_ids: []
     )
     data[:restaurant_id] = current_restaurant.id
+    data[:supplier_ids] = current_restaurant.suppliers.accessible_by(current_ability).where(id: data[:supplier_ids]).ids if data[:supplier_ids].present?
     data
   end
 
