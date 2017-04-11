@@ -7,11 +7,12 @@ class OrderMailer < ActionMailer::Base
   default template_path: 'mailers/order',
           template_name: 'template'
 
-  def notify_supplier_after_updated(order)
+  def notify_supplier_after_updated(order, remarks = '')
     init(order)
     @receiver = @supplier
     @message = "This Purchase Order from #{@restaurant.name} has been
                 <strong>updated</strong> at <strong>#{format_datetime(@order.updated_at)}</strong>."
+    @remarks = remarks
     mail(
       to: @supplier.email,
       cc: [@restaurant.email, @user.email],
@@ -69,12 +70,12 @@ class OrderMailer < ActionMailer::Base
     )
   end
 
-  def notify_supplier_after_delivered(order)
+  def notify_supplier_after_delivered(order, remarks = '')
     init(order)
     @receiver = @supplier
     @message = "This Purchase Order from #{@restaurant.name} has been marked as
                 <strong>delivered</strong> at <strong>#{format_datetime(@order.delivered_at)}</strong>."
-
+    @remarks = remarks
     mail(
       to: @supplier.email,
       cc: [@restaurant.email, @user.email],

@@ -11,6 +11,7 @@ html
         td#main
           p Hi <span id="receiver-name">#{@receiver.name}</span>,
           p == @message
+          = simple_format @remarks
 
           .line
 
