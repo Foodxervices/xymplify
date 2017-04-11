@@ -1,5 +1,5 @@
 class Alert < ActiveRecord::Base
-  include ApplicationHelper
+  include OrderHelper
   extend Enumerize
   self.inheritance_column = :_type_disabled
 
@@ -42,7 +42,7 @@ class Alert < ActiveRecord::Base
       when 'cancelled_order'
         "#{alertable.long_name} has been cancelled"
       when 'incoming_delivery'
-        "#{alertable.long_name} was requested to delivery at #{format_datetime(alertable.request_for_delivery_start_at)}"
+        "#{alertable.long_name} was requested to delivery at #{date_of_delivery(alertable)}"
     end
   end
 

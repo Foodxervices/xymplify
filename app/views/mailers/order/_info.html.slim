@@ -14,25 +14,21 @@
         table#po-info
           tr
             th P/O:
-            td colspan="2" = order.name
+            td order.name
           - if order.delivered_at.present?
             tr
               th Date of Delivery:
-              td colspan="3" = format_datetime order.delivered_at
-          - elsif order.request_for_delivery_start_at.present?
+              td = format_datetime order.delivered_at
+          - else
             tr.text-center
               th Delivery Date:
-              td = format_date order.request_for_delivery_start_at
-              td -
-              td = format_date order.request_for_delivery_end_at
+              td = format_date order.request_delivery_date
             tr
               th Delivery Time:
-              td = format_time order.request_for_delivery_start_at
-              td
-              td = format_time order.request_for_delivery_end_at
+              td = order_time_range(order)
           tr
             th Currency:
-            td colspan="2" = order.currency
+            td = order.currency
     tr
       td#delivery-info
         h3 Delivery Address

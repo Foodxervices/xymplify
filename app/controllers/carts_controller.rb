@@ -25,7 +25,7 @@ class CartsController < AdminController
 
     ActiveRecord::Base.transaction do
       if @order.nil?
-        @order = Order.create(options.merge(outlet_name: @kitchen.name, outlet_address: @kitchen.address, outlet_phone: @kitchen.phone, gsts_attributes: [{name: 'GST', percent: 7}]))
+        @order = Order.create(options.merge(outlet_name: @kitchen.name, outlet_address: @kitchen.address, outlet_phone: @kitchen.phone, request_delivery_date: @food_item.supplier&.next_available_delivery_date, gsts_attributes: [{name: 'GST', percent: 7}]))
       end
 
       @item = @order.add(@food_item, params[:quantity])
@@ -52,7 +52,7 @@ class CartsController < AdminController
     end
 
     if !@success
-      @request_for_delivery_at_invalid = @order.request_for_delivery_start_at.blank? || @order.request_for_delivery_end_at.blank?
+      @request_for_delivery_at_invalid = @order.request_delivery_date.blank?
     end
   end
 
@@ -67,7 +67,6 @@ class CartsController < AdminController
         orders: [],
         orders_amount: 0
       }
-      order.validate_request_date
 
       if order.errors.messages.any?
         suppliers[supplier.id][:errors] << order.long_name + ': ' + order.errors.full_messages.join('. ')
@@ -103,24 +102,11 @@ class CartsController < AdminController
     redirect_to :back
   end
 
-  def update_request_for_delivery_start_at
+  def update_request_delivery_date
     order = current_orders.find(params[:id])
-    order.request_for_delivery_start_at = Time.zone.parse(params[:time])
-    order.request_for_delivery_end_at = order.request_for_delivery_start_at if order.request_for_delivery_end_at.blank?
-    update_request_for_delivery_time(order)
-  end
-
-  def update_request_for_delivery_end_at
-    order = current_orders.find(params[:id])
-    order.request_for_delivery_end_at = Time.zone.parse(params[:time])
-    order.request_for_delivery_start_at = order.request_for_delivery_end_at if order.request_for_delivery_start_at.blank?
-    update_request_for_delivery_time(order)
-  end
-
-  private
-
-  def update_request_for_delivery_time(order)
-    order.validate_request_date
+    order.request_delivery_date = Time.zone.parse(params[:date])
+    order.start_time = params[:start_time]
+    order.end_time = params[:end_time]
 
     if order.errors.messages.any?
       render json: { success: false, message: order.errors.full_messages.join('. ') }
@@ -128,6 +114,8 @@ class CartsController < AdminController
       render json: { success: order.save }
     end
   end
+
+  private
 
   def confirm_params
     data = params.require(:order).permit(

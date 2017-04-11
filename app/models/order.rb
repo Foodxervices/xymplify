@@ -43,8 +43,7 @@ class Order < ActiveRecord::Base
   validates :outlet_address, presence: true
   validates :outlet_phone,   presence: true
   validates :paid_amount,    numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
-  validates :request_for_delivery_start_at, presence: true, if: '!status.wip? && request_for_delivery_end_at.present?'
-  validates :request_for_delivery_end_at,   presence: true, if: '!status.wip? && request_for_delivery_start_at.present?'
+  validates :request_delivery_date, presence: true
 
   enumerize :status, in: [:wip, :confirmed, :placed, :accepted, :declined, :delivered, :completed, :cancelled], default: :wip
 
@@ -82,29 +81,7 @@ class Order < ActiveRecord::Base
   end
 
   def date_of_delivery
-    delivered_at.present? ? delivered_at : request_for_delivery_start_at
-  end
-
-  def validate_request_date
-    if request_for_delivery_start_at.present? && request_for_delivery_end_at.present? && request_for_delivery_start_at > request_for_delivery_end_at
-      errors.add(:base, "Please ensure that request for delivery end date is after start date.")
-    end
-
-    if request_for_delivery_start_at.present?
-      if !supplier.valid_delivery_date?(request_for_delivery_start_at)
-        errors.add(:base, "Request for delivery start date is invalid.")
-      elsif request_for_delivery_start_at < supplier.next_available_delivery_date
-        errors.add(:base, "Please ensure that request for delivery start date is after #{supplier.next_available_delivery_date.try(:strftime, '%a, %d %b %Y')}.")
-      end
-    end
-
-    if request_for_delivery_end_at.present?
-      if !supplier.valid_delivery_date?(request_for_delivery_end_at)
-        errors.add(:base, "Request for delivery end date is invalid.")
-      elsif request_for_delivery_end_at < supplier.next_available_delivery_date
-        errors.add(:base, "Please ensure that request for delivery end date is after #{supplier.next_available_delivery_date.try(:strftime, '%a, %d %b %Y')}.")
-      end
-    end
+    delivered_at.present? ? delivered_at : request_delivery_date
   end
 
   def outstanding_amount

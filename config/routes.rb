@@ -118,8 +118,7 @@ Rails.application.routes.draw do
       end
 
       member do
-        post :update_request_for_delivery_start_at
-        post :update_request_for_delivery_end_at
+        post :update_request_delivery_date
         get :confirm
         post :do_confirm
       end

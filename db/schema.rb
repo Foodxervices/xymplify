@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406032649) do
+ActiveRecord::Schema.define(version: 20170411042551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -197,34 +197,33 @@ ActiveRecord::Schema.define(version: 20170406032649) do
     t.datetime "updated_at"
     t.datetime "delivered_at"
     t.string   "name"
-    t.integer  "gsts_count",                    default: 0
+    t.integer  "gsts_count",              default: 0
     t.datetime "placed_at"
     t.datetime "status_updated_at"
     t.datetime "accepted_at"
     t.datetime "declined_at"
     t.datetime "cancelled_at"
     t.string   "token"
-    t.integer  "price_cents",                   default: 0,     null: false
-    t.string   "price_currency",                default: "SGD", null: false
+    t.integer  "price_cents",             default: 0,     null: false
+    t.string   "price_currency",          default: "SGD", null: false
     t.string   "outlet_name"
     t.string   "outlet_address"
     t.string   "outlet_phone"
-    t.datetime "request_for_delivery_start_at"
-    t.boolean  "delivered_to_kitchen",          default: true
+    t.boolean  "delivered_to_kitchen",    default: true
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
-    t.datetime "request_for_delivery_end_at"
-    t.integer  "paid_amount_cents",             default: 0,     null: false
-    t.string   "paid_amount_currency",          default: "SGD", null: false
-    t.integer  "gst_cents",                     default: 0,     null: false
-    t.string   "gst_currency",                  default: "SGD", null: false
+    t.integer  "paid_amount_cents",       default: 0,     null: false
+    t.string   "paid_amount_currency",    default: "SGD", null: false
+    t.integer  "gst_cents",               default: 0,     null: false
+    t.string   "gst_currency",            default: "SGD", null: false
+    t.date     "request_delivery_date"
+    t.string   "start_time"
+    t.string   "end_time"
   end
 
   add_index "orders", ["kitchen_id"], name: "index_orders_on_kitchen_id", using: :btree
-  add_index "orders", ["request_for_delivery_end_at"], name: "index_orders_on_request_for_delivery_end_at", using: :btree
-  add_index "orders", ["request_for_delivery_start_at"], name: "index_orders_on_request_for_delivery_start_at", using: :btree
   add_index "orders", ["restaurant_id"], name: "index_orders_on_restaurant_id", using: :btree
   add_index "orders", ["status"], name: "index_orders_on_status", using: :btree
   add_index "orders", ["supplier_id"], name: "index_orders_on_supplier_id", using: :btree

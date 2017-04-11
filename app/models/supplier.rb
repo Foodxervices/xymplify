@@ -79,6 +79,13 @@ class Supplier < ActiveRecord::Base
   end
 
   def valid_delivery_date?(date)
-    delivery_days.include?(date.strftime("%A").downcase)
+    delivery_days.include?(date.strftime("%A").downcase) && !in_block_delivery_dates?(date)
+  end
+
+  def in_block_delivery_dates?(date)
+    block_delivery_dates.split(',').each do |block_date|
+      return true if block_date.to_date.beginning_of_day == date.beginning_of_day
+    end
+    false
   end
 end
