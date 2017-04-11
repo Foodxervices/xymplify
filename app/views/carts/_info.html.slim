@@ -11,7 +11,7 @@
         th colspan="4"
           table.request-for-delivery-at invalid=@request_for_delivery_at_invalid
             tr
-              td width="120" Delivery Date
+              td width="120" == 'Delivery Date <abbr title="required">*</abbr>'
               td = text_field_tag :request_delivery_date, order.request_delivery_date.try(:strftime, '%d/%m/%Y'), id: nil, class: 'date-picker', data: { days: days, start_date: start_date, block_dates: supplier.block_delivery_dates.to_s }
               td == "&nbsp; &nbsp; &nbsp;"
               td 
