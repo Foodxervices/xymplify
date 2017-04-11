@@ -237,9 +237,9 @@ class OrdersController < AdminController
     return @statuses if @statuses.present?
 
     if params[:status] == 'archived'
-      @statuses = [["Completed", "completed"], ["Cancelled", "cancelled"], ["Declined", "declined"]]
+      @statuses = [["Delivered", "delivered"], ["Completed", "completed"], ["Cancelled", "cancelled"], ["Declined", "declined"]]
     else
-      @statuses = [["Placed", "placed"], ["Accepted", "accepted"], ["Delivered", "delivered"]]
+      @statuses = [["Placed", "placed"], ["Accepted", "accepted"]]
     end
 
     @statuses
