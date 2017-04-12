@@ -5,7 +5,7 @@
         .col-md-6
           = f.input :name
           = f.input :email
-          = f.input :password, hint: "leave it blank if you don't want to change it"
+          = f.input :password, hint: user.persisted? ? "leave it blank if you don't want to change it" : ''
           = f.input :password_confirmation
           = f.input :avatar
           = f.input :type

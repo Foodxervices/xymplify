@@ -1,6 +1,6 @@
 class UsersController < AdminController
   before_action :clear_restaurant_sessions, only: [:index]
-  load_and_authorize_resource 
+  load_and_authorize_resource
 
   def index
     @user_filter = UserFilter.new(user_filter_params)
@@ -12,7 +12,10 @@ class UsersController < AdminController
   def new; end
 
   def create
+    password = @user.password
+
     if @user.save
+      SendNewPasswordInstructionsWorker.perform_async(@user.id, password)
       redirect_to users_url, notice: 'User has been created.'
     else
       render :new
@@ -39,7 +42,7 @@ class UsersController < AdminController
     redirect_to :back
   end
 
-  private 
+  private
 
   def user_filter_params
     user_filter = ActionController::Parameters.new(params[:user_filter])
@@ -58,8 +61,12 @@ class UsersController < AdminController
       :type
     )
     if data[:password].blank?
-      data.delete(:password)
-      data.delete(:password_confirmation) 
+      if action_name == 'create'
+        data[:password] = data[:password_confirmation] = SecureRandom.hex(8)
+      else
+        data.delete(:password)
+        data.delete(:password_confirmation)
+      end
     end
     data
   end
