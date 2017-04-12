@@ -107,7 +107,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :kitchens, only: [:index, :show] do
+  resources :kitchens, only: [:index, :show, :destroy] do
     resources :food_items,  only: [:index]
 
     resources :carts,       only: [:new] do

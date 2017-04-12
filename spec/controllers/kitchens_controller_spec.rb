@@ -99,6 +99,24 @@ describe KitchensController, :type => :controller do
     end
   end
 
+  describe '#destroy' do
+    def do_request
+      delete :destroy, id: kitchen.id
+    end
+
+    let!(:kitchen) { create(:kitchen, restaurant: restaurant) }
+
+    before do
+      request.env["HTTP_REFERER"] = "where_i_came_from"
+    end
+
+    it 'deletes kitchen' do
+      expect{ do_request }.to change{ Kitchen.count }.from(1).to(0)
+      expect(flash[:notice]).to eq('Kitchen has been deleted.')
+      expect(response).to redirect_to "where_i_came_from"
+    end
+  end
+
   describe '#dashboard' do
     def do_request
       get :dashboard, id: kitchen.id

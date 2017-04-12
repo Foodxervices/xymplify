@@ -33,5 +33,6 @@
                 ul.list-inline
                   li = link_to_if can?(:read, kitchen), 'View', kitchen, remote: true
                   li = link_to_if can?(:edit, kitchen), 'Edit', [:edit, @restaurant, kitchen], remote: true
+                  li = link_to_if can?(:destroy, kitchen), 'Delete', '#', data: { toggle: "confirmation", href: kitchen_path(kitchen) }, class: 'delete'
 
 

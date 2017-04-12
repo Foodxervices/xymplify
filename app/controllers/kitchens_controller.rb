@@ -27,6 +27,16 @@ class KitchensController < AdminController
     end
   end
 
+  def destroy
+    if @kitchen.destroy
+      flash[:notice] = 'Kitchen has been deleted.'
+    else
+      flash[:notice] = @kitchen.errors.full_messages.join("<br />")
+    end
+
+    redirect_to :back
+  end
+
   def dashboard
     alerts = Alert.accessible_by(current_ability, kitchen: current_kitchen)
                                 .includes(:alertable)
