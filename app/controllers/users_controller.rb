@@ -15,7 +15,7 @@ class UsersController < AdminController
     password = @user.password
 
     if @user.save
-      SendNewPasswordInstructionsWorker.perform_async(@user.id, password)
+      UserMailer.send_new_password_instructions(@user, password).deliver_later
       redirect_to users_url, notice: 'User has been created.'
     else
       render :new

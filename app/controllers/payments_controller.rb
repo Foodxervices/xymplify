@@ -16,7 +16,7 @@ class PaymentsController < AdminController
     if @order.update_attributes(payment_params)
       if paid_amount_was != @order.paid_amount
         paid = @order.paid_amount - paid_amount_was
-        PaymentMailerWorker.perform_async(@order.id, paid)
+        PaymentMailer.notify_supplier_after_paid(@order, paid).deliver_later
       end
       redirect_to :back, notice: 'Payment has been updated.'
     else

@@ -91,7 +91,7 @@ class CartsController < AdminController
         supplier[:orders].each do |order|
           order.status = :placed
           order.save
-          OrderMailerWorker.perform_async(order.id, 'notify_supplier_after_placed')
+          OrderMailer.notify_supplier_after_placed(order).deliver_later
           notices << "#{order.long_name} has been placed successfully."
         end
       end

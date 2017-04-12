@@ -7,7 +7,7 @@ class OrderMailer < ActionMailer::Base
   default template_path: 'mailers/order',
           template_name: 'template'
 
-  def notify_supplier_after_updated(order, remarks = '')
+  def notify_supplier_after_updated(order, remarks)
     init(order)
     @receiver = @supplier
     @message = "This Purchase Order from #{@restaurant.name} has been

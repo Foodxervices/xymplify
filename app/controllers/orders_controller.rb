@@ -95,7 +95,7 @@ class OrdersController < AdminController
     end
 
     if @success
-      OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_cancelled')
+      OrderMailer.notify_supplier_after_cancelled(@order).deliver_later
     end
 
     redirect_to :back
@@ -111,7 +111,7 @@ class OrdersController < AdminController
       if @success
         alert = @order.alerts.create(type: :accepted_order)
         flash[:notice] = alert.title
-        OrderMailerWorker.perform_async(@order.id, 'notify_restaurant_after_accepted')
+        OrderMailer.notify_restaurant_after_accepted(@order).deliver_later
       end
     else
       invalid_status_notice
@@ -134,7 +134,7 @@ class OrdersController < AdminController
       if @success
         alert = @order.alerts.create(type: :declined_order)
         flash[:notice] = alert.title
-        OrderMailerWorker.perform_async(@order.id, 'notify_restaurant_after_declined')
+        OrderMailer.notify_restaurant_after_declined(@order).deliver_later
       end
     else
       invalid_status_notice
