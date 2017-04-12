@@ -25,6 +25,7 @@ en:
         kitchen__dashboard:                   "Kitchen    :: Dashboard"
         kitchen__import:                      "Kitchen    :: Import"
         kitchen__history:                     "Kitchen    :: History"
+        kitchen__reset_inventory:             "Kitchen    :: Reset Inventory"
         food_item__manage:                    "Food Item  :: Full Access"
         food_item__read:                      "Food Item  :: Read"
         food_item__create:                    "Food Item  :: Create"

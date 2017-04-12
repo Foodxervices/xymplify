@@ -1,7 +1,12 @@
 #inventories-index-container
   = render 'inventories/search', inventory_filter: @inventory_filter
-  h1 Inventory Management
+  .row
+    .col-xs-12
+      - if can?(:reset_inventory, current_kitchen)
+        .pull-right
+          = link_to 'Reset Current Quantity', '#', data: { toggle: "confirmation", href: polymorphic_path([:reset_inventory, current_kitchen]), 'link-method' => 'post' }, class: 'btn btn-default'
+      h1 Inventory Management
   .table-responsive
     = react_component('InventoryList', groups: @groups, restaurant_currency_symbol: Money::Currency.new(current_restaurant.currency).symbol)
-  .text-center          
+  .text-center
     = will_paginate @inventories, renderer: BootstrapPagination::Rails

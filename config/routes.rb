@@ -126,6 +126,7 @@ Rails.application.routes.draw do
 
     member do
       get :dashboard
+      post :reset_inventory
     end
   end
 end

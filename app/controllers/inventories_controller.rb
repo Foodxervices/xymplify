@@ -1,5 +1,5 @@
 class InventoriesController < AdminController
-  load_and_authorize_resource :through => :current_restaurant
+  load_and_authorize_resource :through => :current_kitchen
 
   before_filter :detect_format, only: [:index]
 
@@ -13,9 +13,6 @@ class InventoriesController < AdminController
                                         ')
                                     .includes(:food_item)
                                     .order(current_quantity: :desc, quantity_ordered: :desc)
-    if current_kitchen.present? && !restaurant_owner?
-      @inventories = @inventories.where('s.id IN (?)', current_kitchen.suppliers.select(:id))
-    end
 
     respond_to do |format|
       format.html do
@@ -47,7 +44,7 @@ class InventoriesController < AdminController
 
       format.xlsx do
         @inventories = @inventories.where(exportable: true)
-        @filename = "INVENTORY #{current_restaurant&.name} - #{current_kitchen&.name}"
+        @filename = "INVENTORY #{current_restaurant.name} - #{current_kitchen.name}"
         render xlsx: "index", filename: @filename
       end
     end
@@ -82,7 +79,7 @@ class InventoriesController < AdminController
       :keyword,
       :tag_list
     )
-    @filter_params[:kitchen_id] = current_kitchen&.id
+
     @filter_params
   end
 

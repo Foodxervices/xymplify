@@ -1,19 +1,22 @@
 require 'rails_helper'
 
-describe InventoriesController, :type => :controller do 
-  let!(:restaurant) { create(:restaurant) }
-  let!(:kitchen)    { create(:kitchen, restaurant: restaurant) }
-  let!(:food_item)  { create(:food_item, restaurant: restaurant, kitchen_ids: [kitchen.id]) }
+describe InventoriesController, :type => :controller do
+  let!(:kitchen)    { create(:kitchen) }
   let!(:user)       { create(:admin) }
-  before { sign_in user }  
+
+  before do
+    sign_in user
+    @request.session['restaurant_id'] = kitchen.restaurant_id
+    @request.session['kitchen_id'] = kitchen.id
+  end
 
   describe '#index' do
     def do_request
-      get :index, restaurant_id: restaurant.id
+      get :index
     end
 
-    
-    let!(:inventories)       { create_list(:inventory, 2, restaurant: restaurant, food_item: food_item, current_quantity: 2) }
+
+    let!(:inventories)       { create_list(:inventory, 2, kitchen: kitchen) }
     let!(:other_inventories) { create_list(:inventory, 1) }
 
     it 'renders the :index view' do
@@ -23,12 +26,27 @@ describe InventoriesController, :type => :controller do
     end
   end
 
-  describe '#update' do 
+  describe '#show' do
     def do_request
-      patch :update, restaurant_id: restaurant.id, id: inventory.id, inventory: { current_quantity: new_current_quantity }
+      get :show, id: inventory.id, format: :js
     end
 
-    let!(:inventory) { create(:inventory, restaurant: restaurant, food_item: food_item) }
+
+    let!(:inventory)       { create(:inventory, kitchen: kitchen) }
+
+    it 'renders the :show view' do
+      do_request
+      expect(assigns(:inventory)).to match inventory
+      expect(response).to render_template :show
+    end
+  end
+
+  describe '#update' do
+    def do_request
+      patch :update, id: inventory.id, inventory: { current_quantity: new_current_quantity }
+    end
+
+    let!(:inventory) { create(:inventory, kitchen: kitchen) }
     let!(:new_current_quantity)  { 3000 }
 
     it 'updates inventory' do

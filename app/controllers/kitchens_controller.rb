@@ -46,6 +46,11 @@ class KitchensController < AdminController
     load_summary
   end
 
+  def reset_inventory
+    current_kitchen.inventories.update_all(current_quantity: 0)
+    redirect_to :back, notice: 'Current Quantity has been resetted to 0.'
+  end
+
   private
   def set_session
     session[:kitchen_id] = params[:id] if params[:id]
