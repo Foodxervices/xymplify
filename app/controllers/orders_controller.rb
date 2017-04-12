@@ -62,7 +62,7 @@ class OrdersController < AdminController
       @message << "#{order_name} has been updated."
 
       if params[:send_email] == '1'
-        OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_updated', params[:remarks])
+        OrderMailer.notify_supplier_after_updated(@order, params[:remarks]).deliver_later
         @message << "An email notification has been sent to the supplier."
       end
 
@@ -152,7 +152,11 @@ class OrdersController < AdminController
   end
 
   def deliver
-    @success = @order.update_attributes(order_params.merge(status: :delivered))
+    assign_and_detect_change
+
+    @order.status = :delivered
+
+    @success = @order.save
 
     if @success
       order_name = @order.long_name
@@ -167,7 +171,7 @@ class OrdersController < AdminController
         @message << "#{@order.long_name} has been delivered."
 
         if params[:send_email] == '1'
-          OrderMailerWorker.perform_async(@order.id, 'notify_supplier_after_delivered', params[:remarks])
+          OrderMailer.notify_supplier_after_delivered(@order, params[:remarks], @order_changed).deliver_later
         end
       end
 
@@ -199,6 +203,16 @@ class OrdersController < AdminController
   end
 
   private
+
+  def assign_and_detect_change
+    @order.assign_attributes(order_params)
+
+    @order_changed = false
+
+    if @order.changed? || @order.items.any? {|i| i.changed?} || @order.gsts.any? {|i| i.changed?}
+      @order_changed = true
+    end
+  end
 
   def order_params
     params.require(:order).permit(

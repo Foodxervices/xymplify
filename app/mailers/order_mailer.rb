@@ -70,16 +70,25 @@ class OrderMailer < ActionMailer::Base
     )
   end
 
-  def notify_supplier_after_delivered(order, remarks = '')
+  def notify_supplier_after_delivered(order, remarks, order_changed)
     init(order)
     @receiver = @supplier
     @message = "This Purchase Order from #{@restaurant.name} has been marked as
                 <strong>delivered</strong> at <strong>#{format_datetime(@order.delivered_at)}</strong>."
     @remarks = remarks
+
+    subject = "#{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
+
+    if order_changed
+      subject = "Delivered and Updated Order - #{subject}"
+    else
+      subject = "Delivered Order - #{subject}"
+    end
+
     mail(
       to: @supplier.email,
       cc: [@restaurant.email, @user.email],
-      subject: "Delivered Order - #{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
+      subject: subject
     )
   end
 
