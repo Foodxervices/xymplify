@@ -156,5 +156,7 @@ const CostGraph = {
       chart.setView(view);
       chart.draw();
     }
+    $('#cost-graph > div').niceScroll();
+    $('.google-visualization-controls-categoryfilter-selected.goog-inline-block').niceScroll();
   }
 }

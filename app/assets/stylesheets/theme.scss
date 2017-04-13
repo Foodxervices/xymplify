@@ -2,10 +2,6 @@ html, body {
   font-family: 'Roboto', sans-serif;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
-
 .notransition * {
   -webkit-transition: none !important;
   -moz-transition: none !important;

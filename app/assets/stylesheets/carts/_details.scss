@@ -2,10 +2,8 @@
   width: 100%;
 
   @media(min-width: $screen-md-min) {
-    .h-scroll {
+    .nice-scroll {
       max-height: 52vh;
-      overflow-y: scroll;
-      overflow-x: hidden;
     }
   }
 }

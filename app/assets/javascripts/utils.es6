@@ -16,6 +16,7 @@ const Utils = {
     Utils.initDateRange()
     Utils.initDragFileTip()
     Utils.initDatatable()
+    Utils.initScrollbar()
   },
   initConfirmation: () => {
     $('[data-toggle="confirmation"]').each(function() {
@@ -60,6 +61,9 @@ const Utils = {
         "orderable": false
       }]
     })
+  },
+  initScrollbar:() => {
+    $('.nice-scroll').niceScroll();
   },
   initDragFileTip:() => {
     let body = $('body')[0]

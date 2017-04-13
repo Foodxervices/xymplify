@@ -12,6 +12,7 @@
 //= require bootstrap_taggable/bootstrap-tokenfield
 //= require bootstrap-tooltip
 //= require bootstrap-confirmation
+//= require scrollbar/scrollbar
 //= require_tree ./common
 //= require drop_file
 //= require bootstrap-fileinput/js/fileinput

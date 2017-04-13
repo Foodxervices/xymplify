@@ -1,7 +1,7 @@
 - show_purchase_button = false
 .carts-details-container
   - if current_orders.present?
-    .h-scroll
+    .nice-scroll
       - current_orders.includes(:supplier).each do |order|
         = render 'carts/info', order: order
         .text-right

@@ -1,0 +1,15 @@
+.nicescroll-cursors {
+  background-color: rgb(177, 171, 171) !important;
+}
+
+.nicescroll-rails-vr {
+  .nicescroll-cursors {
+    width: 8px !important;
+  }
+}
+
+.nicescroll-rails-hr {
+  .nicescroll-cursors {
+    height: 8px !important;
+  }
+}
