@@ -1,44 +1,44 @@
 .food_items-details-container
   .row
     .col-sm-4
-      .text-center = image_tag food_item.image.url(:medium) 
+      .text-center = image_tag food_item.image.url(:medium)
     .col-sm-8
       table.table.table-bordered
-        tr 
+        tr
           th width=230 = FoodItem.human_attribute_name(:code)
           td = food_item.code
-        tr 
+        tr
           th = FoodItem.human_attribute_name(:category)
           td = food_item.category&.name
-        tr 
+        tr
           th = FoodItem.human_attribute_name(:tag_list)
           td = food_item.tag_list
-        tr 
+        tr
           th = FoodItem.human_attribute_name(:brand)
           td = food_item.brand
-        tr 
+        tr
           th = FoodItem.human_attribute_name(:supplier)
           td = link_to food_item.supplier&.name, food_item.supplier, remote: true
-        tr 
+        tr
           th = FoodItem.human_attribute_name(:unit)
           td = food_item.unit
-        tr 
+        tr
           th = FoodItem.human_attribute_name(:unit_price_currency)
           td = food_item.unit_price_currency
-        tr 
+        tr
           th = FoodItem.human_attribute_name(:both_prices)
           td = both_prices(food_item)
-        tr 
+        tr
           th = FoodItem.human_attribute_name(:country_of_origin)
           td = food_item.country_of_origin
         - if food_item.low_quantity.present?
-          tr 
+          tr
             th = FoodItem.human_attribute_name(:low_quantity)
             td = food_item.low_quantity
         - if food_item.attachments.any?
           tr
             th = FoodItem.human_attribute_name(:attachments)
-            td 
+            td
               ul
                 - food_item.attachments.each do |attachment|
                   li = link_to attachment.name, attachment.file.url, target: :_blank
