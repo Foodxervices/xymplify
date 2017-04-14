@@ -13,10 +13,19 @@ class OrderMailer < ActionMailer::Base
     @message = "This Purchase Order from #{@restaurant.name} has been
                 <strong>updated</strong> at <strong>#{format_datetime(@order.updated_at)}</strong>."
     @remarks = remarks
+
+    subject = "#{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
+
+    if order.status.delivered? || order.status.completed?
+      subject = "Delivered and Updated Order - #{subject}"
+    else
+      subject = "Updated Order - #{subject}"
+    end
+
     mail(
       to: @supplier.email,
       cc: [@restaurant.email, @user.email],
-      subject: "Updated Order - #{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
+      subject: subject
     )
   end
 
