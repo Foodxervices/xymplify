@@ -58,7 +58,7 @@ class KitchensController < AdminController
 
   def reset_inventory
     current_kitchen.inventories.update_all(current_quantity: 0)
-    redirect_to :back, notice: 'Current Quantity has been resetted to 0.'
+    redirect_to :back, notice: 'All Current Quantity has been reset to "0"'
   end
 
   private
