@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411042551) do
+ActiveRecord::Schema.define(version: 20170414031941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,17 +115,19 @@ ActiveRecord::Schema.define(version: 20170411042551) do
   add_index "inventories", ["restaurant_id"], name: "index_inventories_on_restaurant_id", using: :btree
 
   create_table "kitchens", force: :cascade do |t|
-    t.string  "name"
-    t.integer "restaurant_id"
-    t.string  "bank_name"
-    t.string  "bank_address"
-    t.string  "bank_swift_code"
-    t.string  "bank_account_name"
-    t.string  "bank_account_number"
-    t.string  "address"
-    t.string  "phone"
+    t.string   "name"
+    t.integer  "restaurant_id"
+    t.string   "bank_name"
+    t.string   "bank_address"
+    t.string   "bank_swift_code"
+    t.string   "bank_account_name"
+    t.string   "bank_account_number"
+    t.string   "address"
+    t.string   "phone"
+    t.datetime "deleted_at"
   end
 
+  add_index "kitchens", ["deleted_at"], name: "index_kitchens_on_deleted_at", using: :btree
   add_index "kitchens", ["restaurant_id"], name: "index_kitchens_on_restaurant_id", using: :btree
 
   create_table "kitchens_suppliers", force: :cascade do |t|
@@ -254,7 +256,10 @@ ActiveRecord::Schema.define(version: 20170411042551) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.datetime "deleted_at"
   end
+
+  add_index "restaurants", ["deleted_at"], name: "index_restaurants_on_deleted_at", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string "name"

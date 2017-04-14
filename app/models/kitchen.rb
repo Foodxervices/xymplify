@@ -1,12 +1,13 @@
 class Kitchen < ActiveRecord::Base
   has_paper_trail
+  acts_as_paranoid
 
   belongs_to :restaurant
 
-  has_many :orders,      dependent: :destroy
-  has_many :inventories, dependent: :destroy
-  has_many :messages,    dependent: :destroy
-  has_many :food_items_kitchens, dependent: :destroy
+  has_many :orders
+  has_many :inventories
+  has_many :messages
+  has_many :food_items_kitchens
   has_many :food_items, through: :food_items_kitchens
 
   has_and_belongs_to_many :user_roles
