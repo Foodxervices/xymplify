@@ -43,6 +43,8 @@ class AdminController < ApplicationController
   end
 
   def current_restaurant
+    return @current_restaurant if @current_restaurant.present?
+
     session[:restaurant_id] = params[:restaurant_id] if params[:restaurant_id]
 
     if session[:restaurant_id]
@@ -59,14 +61,18 @@ class AdminController < ApplicationController
   end
 
   def current_kitchen
+    return @current_kitchen if @current_kitchen.present?
+
     session[:kitchen_id] = params[:kitchen_id] if params[:kitchen_id]
-    
-    if session[:kitchen_id] && session[:restaurant_id]
-      @current_kitchen ||= current_restaurant.kitchens.accessible_by(current_ability).find_by_id(session[:kitchen_id]) 
+
+    if session[:kitchen_id]
+      @current_kitchen ||= Kitchen.accessible_by(current_ability).find_by_id(session[:kitchen_id])
 
       if !@current_kitchen
         session.delete(:kitchen_id)
-        redirect_to current_restaurant and return
+        redirect_to (current_restaurant || root_path) and return
+      else
+        session[:restaurant_id] = @current_kitchen.restaurant_id
       end
     end
 

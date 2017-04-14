@@ -63,7 +63,7 @@ class KitchensController < AdminController
 
   private
   def set_session
-    session[:kitchen_id] = params[:id] if params[:id]
+    session[:kitchen_id] = params[:id].to_i if params[:id]
   end
 
   def kitchen_params

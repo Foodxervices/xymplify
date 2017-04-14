@@ -86,7 +86,7 @@ class RestaurantsController < AdminController
   private
 
   def set_session
-    session[:restaurant_id] = params[:id] if params[:id]
+    session[:restaurant_id] = params[:id].to_i if params[:id]
   end
 
   def restaurant_filter_params
