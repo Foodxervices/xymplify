@@ -56,7 +56,7 @@ class FoodItemImport
     i = 0
     sheet.each( code: "Item Code", name: "Item Name", brand: "Brand",
                 unit_price_without_promotion: "Unit Price", unit_price: "Special Price", category: "Category",
-                tag_list: "Item tags", country_of_origin: "Country of Origin" ) do |row|
+                tag_list: "Item tags", country_of_origin: "Country of Origin", unit: "UOM" ) do |row|
       i += 1
 
       next if i == 1
@@ -66,7 +66,7 @@ class FoodItemImport
 
       food_item = FoodItem.find_or_initialize_by(code: row[:code], restaurant_id: restaurant_id)
       food_item.attributes  = row.to_hash.slice(*row.to_hash.keys)
-      food_item.unit        = get_unit(food_item.name)
+      food_item.unit        = get_unit(food_item.name) if food_item.unit.blank?
       food_item.user_id     = user_id
       food_item.supplier_id = supplier_id
       food_item.kitchen_ids = kitchen_ids
