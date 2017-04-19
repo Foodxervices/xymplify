@@ -1,6 +1,6 @@
-class ProfilesController < AdminController 
+class ProfilesController < AdminController
   before_action :authenticate_user!
-  
+
   def edit; end
 
   def update
@@ -11,7 +11,7 @@ class ProfilesController < AdminController
     end
   end
 
-  private 
+  private
 
   def profile_params
     data = params.require(:profile).permit(
@@ -20,11 +20,12 @@ class ProfilesController < AdminController
       :avatar,
       :password,
       :password_confirmation,
-      :current_password
+      :current_password,
+      :receive_email
     )
     if data[:password].blank?
       data.delete(:password)
-      data.delete(:password_confirmation) 
+      data.delete(:password_confirmation)
     end
     data
   end

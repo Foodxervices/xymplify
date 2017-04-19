@@ -11,13 +11,6 @@ class FoodItemsController < AdminController
                                     .includes(:supplier)
                                     .order(sort_column + ' ' + sort_direction)
                                     .paginate(:page => params[:page])
-    if current_kitchen.nil?
-      @food_items = @food_items.includes(:kitchens)
-    else
-      if !restaurant_owner?
-        @food_items = @food_items.where(supplier_id: current_kitchen.suppliers.select(:id))
-      end
-    end
   end
 
   def show

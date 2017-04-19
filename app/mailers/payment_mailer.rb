@@ -7,6 +7,8 @@ class PaymentMailer < ActionMailer::Base
     @restaurant = @order.restaurant
     @user = @order.user
     @paid = Money.from_amount(paid, @order.paid_amount_currency)
+    @cc = [@restaurant.email]
+    @cc << @user.email if @user.receive_email?
 
     subject = "#{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
 
@@ -18,7 +20,7 @@ class PaymentMailer < ActionMailer::Base
 
     mail(
       to: @supplier.email,
-      cc: [@restaurant.email, @user.email],
+      cc: @cc,
       subject: subject
     )
   end
