@@ -3,7 +3,7 @@
     = kitchen_dropdown(f, action: :import)
     = f.input :supplier_id, collection: current_restaurant.suppliers
     = f.input :file, as: :file, input_html: { data: {'allowed-file-extensions' => "xlsx", 'show-preview' => false} }
-    p = link_to 'Download example', 'https://s3-ap-southeast-1.amazonaws.com/rim-ror-staging/template.xlsx'
+    p = link_to 'Download example', Rails.application.secrets.import_template_url
     = f.button :submit, class: 'btn btn-primary btn-block', data: { :disable_with => "Submitting..." }
 
   - if @errors.present?
