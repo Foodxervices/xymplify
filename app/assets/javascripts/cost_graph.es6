@@ -106,9 +106,17 @@ const CostGraph = {
 
       res[0] = $.unique(res[0])
 
-      $.each(data, function(mode, modeData) {
-        mode = new Date(mode).toLocaleString('en-GB', { year: '2-digit', month: 'numeric', day: 'numeric', timeZone: "Asia/Singapore" })
-        modeArray = [mode]
+      $.each(data, function(date, modeData) {
+        var mode = $('#cost-graph').data('mode')
+
+        if(mode == 'month') {
+          date = new Date(date).toLocaleString('en-us', { month: "short", year: "numeric", timeZone: "Asia/Singapore" })
+        }
+        else {
+          date = new Date(date).toLocaleString('en-GB', { year: '2-digit', month: 'numeric', day: 'numeric', timeZone: "Asia/Singapore" })
+        }
+
+        modeArray = [date]
 
         $.each(res[0], function(i, headTag) {
           var price = null
