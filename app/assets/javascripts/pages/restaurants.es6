@@ -12,5 +12,16 @@ Foodxervices.restaurants = {
     init: function() {
       new TableFilter('kitchen_filter_keyword')
     }
+  },
+  form: {
+    init: function() {
+      $('#restaurant_block_delivery_dates').datepicker({
+        multidate: true,
+        multidateSeparator: ", ",
+        todayBtn: true,
+        format: 'dd/mm/yyyy',
+        clearBtn: true
+      });
+    }
   }
 }

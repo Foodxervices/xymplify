@@ -106,7 +106,8 @@ class RestaurantsController < AdminController
       :email,
       :currency,
       :company_registration_no,
-      :logo
+      :logo,
+      :block_delivery_dates
     )
   end
 

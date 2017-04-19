@@ -2,7 +2,7 @@
   = simple_nested_form_for restaurant, wrapper: :table_form, remote: true do |f|
     - if restaurant.logo.exists?
       .text-center
-        = image_tag restaurant.logo.url(:medium) 
+        = image_tag restaurant.logo.url(:medium)
       br
     table.table.table-bordered
       = f.input :name
@@ -13,9 +13,13 @@
       = f.input :email
       = f.input :currency, collection: currency_codes
       = f.input :company_registration_no
-      tr 
+      = f.input :block_delivery_dates, as: :string
+      tr
         th Logo
         td = f.input :logo, label: false, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg"} }
     .text-right
       .btn-group
         = f.button :submit, data: { :disable_with => "Submitting..." }, class: 'btn-primary'
+
+  javascript:
+    Foodxervices.restaurants.form.init()

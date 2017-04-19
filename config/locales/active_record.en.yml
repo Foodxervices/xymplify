@@ -30,6 +30,7 @@ en:
         block_delivery_dates: "Block delivery on"
       restaurant:
         company_registration_no: "Company ID"
+        block_delivery_dates: "Block delivery on"
       kitchen:
         name: "Kitchen Name"
         bank_swift_code: "Bank SWIFT code"
