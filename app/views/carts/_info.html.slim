@@ -14,11 +14,11 @@
               td width="120" == 'Delivery Date <abbr title="required">*</abbr>'
               td = text_field_tag :request_delivery_date, order.request_delivery_date.try(:strftime, '%d/%m/%Y'), id: nil, class: 'date-picker', data: { days: days, start_date: start_date, block_dates: supplier.block_delivery_dates.to_s }
               td == "&nbsp; &nbsp; &nbsp;"
-              td 
+              td
             tr
               td Delivery Time
               td = text_field_tag :start_time, order.start_time, id: nil, class: 'time-picker', data: { type: 'start' }
-              td == "&nbsp; &nbsp; &nbsp;"
+              td style="padding-left: 8px; padding-right: 8px;" to
               td = text_field_tag :end_time, order.end_time, id: nil, class: 'time-picker', data: { type: 'end' }
       tr
         th.name = order.name
