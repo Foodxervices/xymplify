@@ -12,7 +12,7 @@
   .table-responsive
     table.table.table-striped
       thead
-        tr 
+        tr
           th = Restaurant.human_attribute_name(:name)
           th = Restaurant.human_attribute_name(:logo)
           th = Restaurant.human_attribute_name(:contact_person)
@@ -21,13 +21,13 @@
           th = Restaurant.human_attribute_name(:kitchens)
           th.text-center = Restaurant.human_attribute_name(:currency)
           th.text-center Action
-      tbody 
+      tbody
         - @restaurants.each do |restaurant|
-          tr 
+          tr
             td = link_to_if can?(:dashboard, restaurant), restaurant.name, [:dashboard, restaurant]
-            td 
+            td
               - if restaurant.logo.exists?
-                = image_tag restaurant.logo.url(:thumb) 
+                = image_tag restaurant.logo.url(:thumb)
             td = restaurant.contact_person
             td = restaurant.telephone
             td = restaurant.email
@@ -35,6 +35,9 @@
             td.text-center = restaurant.currency
             td.text-center
               ul.actions
-                li = link_to_if can?(:dashboard, restaurant), 'View', [:dashboard, restaurant]
-                li = link_to_if can?(:edit, restaurant), 'Edit', [:edit, restaurant], remote: true
-                li = link_to_if can?(:destroy, restaurant), 'Delete', '#', data: { toggle: "confirmation", href: restaurant_path(restaurant) }, class: 'delete'
+                - if can?(:dashboard, restaurant)
+                  li = link_to 'View', [:dashboard, restaurant]
+                - if can?(:edit, restaurant)
+                  li = link_to 'Edit', [:edit, restaurant], remote: true
+                - if can?(:destroy, restaurant)
+                  li = link_to 'Delete', '#', data: { toggle: "confirmation", href: restaurant_path(restaurant) }, class: 'delete'

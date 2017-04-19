@@ -1,5 +1,5 @@
 class InventoriesController < AdminController
-  load_and_authorize_resource :through => :current_kitchen
+  load_and_authorize_resource :through => :current_kitchen, :shallow => true
 
   before_filter :detect_format, only: [:index]
 

@@ -35,6 +35,9 @@
               td = format_time(supplier.processing_cut_off)
             td.text-center width="250"
               ul.actions
-                li = link_to 'View', supplier, remote: true
-                li = link_to_if can?(:update, supplier), 'Edit', [:edit, supplier]
-                li = link_to_if can?(:destroy, supplier), 'Delete', '#', data: { toggle: "confirmation", href: supplier_path(supplier) }, class: 'delete'
+                - if can?(:show, supplier)
+                  li = link_to 'View', supplier, remote: true
+                - if can?(:update, supplier)
+                  li = link_to 'Edit', [:edit, supplier]
+                - if can?(:destroy, supplier)
+                  li = link_to 'Delete', '#', data: { toggle: "confirmation", href: supplier_path(supplier) }, class: 'delete'

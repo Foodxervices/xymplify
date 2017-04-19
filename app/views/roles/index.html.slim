@@ -4,23 +4,26 @@
     .pull-right
       .btn-group
         = link_to 'Create New Role', new_role_path, class: 'btn btn-default'
-    
+
   h1 User Roles
   .clearfix
   .table-responsive
     table.table.table-striped
       thead
         tr
-          th = Role.human_attribute_name(:name) 
+          th = Role.human_attribute_name(:name)
           th.text-center Action
-      tbody 
+      tbody
         - @roles.each do |role|
           tr
-            td = link_to_if can?(:read, role), role&.name, role, remote: true
+            td = link_to_if can?(:show, role), role&.name, role, remote: true
             td.text-center
               ul.actions
-                li = link_to_if can?(:read, role), 'View', role, remote: true
-                li = link_to_if can?(:update, role), 'Edit', [:edit, role]
-                li = link_to_if can?(:destroy, role), 'Delete', '#', data: { toggle: "confirmation", href: role_path(role) }, class: 'delete'
-  .text-center          
+                - if can?(:show, role)
+                  li = link_to 'View', role, remote: true
+                - if can?(:update, role)
+                  li = link_to 'Edit', [:edit, role]
+                - if can?(:destroy, role)
+                  li = link_to 'Delete', '#', data: { toggle: "confirmation", href: role_path(role) }, class: 'delete'
+  .text-center
     = will_paginate @roles, renderer: BootstrapPagination::Rails

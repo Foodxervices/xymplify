@@ -4,13 +4,13 @@
     .btn-group
       - if can?(:create, Category)
         = link_to 'Create New Category', [:new, :food_category], class: 'btn btn-default', remote: true
-        
+
   h1 Food Item Categories
   .clearfix
   .table-responsive
     table.table.table-striped
       thead
-        tr 
+        tr
           th = Category.human_attribute_name(:name)
           th.text-center Action
       tbody class="#{can?(:update_priority, Category) ? 'sortable' : ''}"
@@ -19,5 +19,7 @@
             td = category.name
             td.text-center
               ul.actions
-                li = link_to_if can?(:update, category), 'Edit', edit_food_category_path(category), remote: true
-                li = link_to_if can?(:destroy, category), 'Delete', '#', data: { toggle: "confirmation", href: food_category_path(category) }, class: 'delete'
+                - if can?(:update, category)
+                  li = link_to 'Edit', edit_food_category_path(category), remote: true
+                - if can?(:destroy, category)
+                  li = link_to 'Delete', '#', data: { toggle: "confirmation", href: food_category_path(category) }, class: 'delete'

@@ -26,8 +26,11 @@
             td = mail_to user_role.user&.email
             td.text-center
               ul.actions
-                li = link_to 'View', user_role, remote: true
-                li = link_to_if can?(:update, user_role), 'Edit', [:edit, user_role], remote: true
-                li = link_to_if can?(:destroy, user_role), 'Delete', '#', data: { toggle: "confirmation", href: user_role_path(user_role) }, class: 'delete'
+                - if can?(:show, user_role)
+                  li = link_to 'View', user_role, remote: true
+                - if can?(:update, user_role)
+                  li = link_to 'Edit', [:edit, user_role], remote: true
+                - if can?(:destroy, user_role)
+                  li = link_to 'Delete', '#', data: { toggle: "confirmation", href: user_role_path(user_role) }, class: 'delete'
   .text-center
     = will_paginate @user_roles, renderer: BootstrapPagination::Rails

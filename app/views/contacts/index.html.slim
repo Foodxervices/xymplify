@@ -4,13 +4,13 @@
   .table-responsive
     table.table.table-striped
       thead
-        tr 
+        tr
           th = Contact.human_attribute_name(:name)
           th = Contact.human_attribute_name(:email)
           th = Contact.human_attribute_name(:designation)
           th = Contact.human_attribute_name(:organisation)
           th.text-center Action
-      tbody 
+      tbody
         - @contacts.each do |contact|
           tr
             td = contact.name
@@ -19,7 +19,9 @@
             td = contact.organisation
             td.text-center
               ul.actions
-                li = link_to_if can?(:read, contact), 'Show', contact, remote: true
-                li = link_to_if can?(:destroy, contact), 'Delete', '#', data: { toggle: "confirmation", href: contact_path(contact) }, class: 'delete'
+                - if can?(:read, contact)
+                  li = link_to 'Show', contact, remote: true
+                - if can?(:destroy, contact)
+                  li = link_to 'Delete', '#', data: { toggle: "confirmation", href: contact_path(contact) }, class: 'delete'
   .text-center
     = will_paginate @contacts, renderer: BootstrapPagination::Rails

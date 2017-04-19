@@ -31,8 +31,11 @@
               td.filterable = kitchen.address
               td
                 ul.list-inline
-                  li = link_to_if can?(:read, kitchen), 'View', kitchen, remote: true
-                  li = link_to_if can?(:edit, kitchen), 'Edit', [:edit, @restaurant, kitchen], remote: true
-                  li = link_to_if can?(:destroy, kitchen), 'Delete', '#', data: { toggle: "confirmation", href: kitchen_path(kitchen) }, class: 'delete'
+                  - if can?(:show, kitchen)
+                    li = link_to 'View', kitchen, remote: true
+                  - if can?(:edit, kitchen)
+                    li = link_to 'Edit', [:edit, @restaurant, kitchen], remote: true
+                  - if can?(:destroy, kitchen)
+                    li = link_to 'Delete', '#', data: { toggle: "confirmation", href: kitchen_path(kitchen) }, class: 'delete'
 
 
