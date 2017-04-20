@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419095717) do
+ActiveRecord::Schema.define(version: 20170420030909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(version: 20170419095717) do
     t.datetime "logo_updated_at"
     t.datetime "deleted_at"
     t.text     "block_delivery_dates"
+    t.string   "receive_email"
   end
 
   add_index "restaurants", ["deleted_at"], name: "index_restaurants_on_deleted_at", using: :btree

@@ -7,7 +7,9 @@ class PaymentMailer < ActionMailer::Base
     @restaurant = @order.restaurant
     @user = @order.user
     @paid = Money.from_amount(paid, @order.paid_amount_currency)
-    @cc = [@restaurant.email]
+
+    @cc = []
+    @cc << @restaurant.email if @restaurant.receive_email.after_paid?
     @cc << @user.email if @user.receive_email?
 
     subject = "#{@order.name}, #{@restaurant.name} - #{order.outlet_address}"

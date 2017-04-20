@@ -14,6 +14,7 @@
       = f.input :currency, collection: currency_codes
       = f.input :company_registration_no
       = f.input :block_delivery_dates, as: :string
+      = f.input :receive_email
       tr
         th Logo
         td = f.input :logo, label: false, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg"} }

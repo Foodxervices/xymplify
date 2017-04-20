@@ -6,6 +6,7 @@ describe Restaurant do
     it { is_expected.to validate_presence_of :currency }
     it { is_expected.to allow_value("test@example.com").for(:email) }
     it { is_expected.to_not allow_value("invalid@email").for(:email) }
+    it { is_expected.to enumerize(:receive_email).in(:after_updated, :after_placed, :after_accepted, :after_declined, :after_cancelled, :after_delivered, :after_paid) }
   end
 
   context 'associations' do 

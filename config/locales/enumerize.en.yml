@@ -53,3 +53,12 @@ en:
         message__destroy:                     "Message    :: Destroy"
         inventory__read:                      "Inventory  :: Read"
         inventory__update:                    "Inventory  :: Update"
+    restaurant:
+      receive_email:
+        after_updated:   "After Updated"
+        after_placed:    "After Placed"       
+        after_accepted:  "After Accepted"     
+        after_declined:  "After Declined"     
+        after_cancelled: "After Cancelled"       
+        after_delivered: "After Delivered"       
+        after_paid:      "After Paid" 
