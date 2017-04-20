@@ -11,20 +11,20 @@ class InventoryFilter
 
   def result
     @inventories = @inventories.uniq
-                               .joins("LEFT JOIN food_items f ON inventories.food_item_id = f.id")
+                               .joins("INNER JOIN food_items f ON inventories.food_item_id = f.id")
                                .joins("LEFT JOIN kitchens   k ON inventories.kitchen_id = k.id")
                                .joins("LEFT JOIN suppliers  s ON f.supplier_id = s.id")
                                .joins("LEFT JOIN categories c ON f.category_id = c.id")
-                               
+                               .where("f.deleted_at IS NULL")
 
     if keyword.present?
       @inventories = @inventories.where("
-                                        f.code             ILIKE :keyword OR 
-                                        f.name             ILIKE :keyword OR 
-                                        f.brand            ILIKE :keyword OR 
-                                        s.name             ILIKE :keyword OR 
+                                        f.code             ILIKE :keyword OR
+                                        f.name             ILIKE :keyword OR
+                                        f.brand            ILIKE :keyword OR
+                                        s.name             ILIKE :keyword OR
                                         k.name             ILIKE :keyword
-                                      ", keyword: "%#{keyword}%") 
+                                      ", keyword: "%#{keyword}%")
     end
 
     if tag_list.present?
@@ -32,7 +32,7 @@ class InventoryFilter
     end
 
     if kitchen_id.present?
-      @inventories = @inventories.where('k.id = ?', kitchen_id) 
+      @inventories = @inventories.where('k.id = ?', kitchen_id)
     end
 
     @inventories

@@ -26,6 +26,7 @@ class InventoriesController < AdminController
 
           @groups[food_item.name] << {
             id: i.id,
+            food_item_id: i.food_item_id,
             name: food_item.name,
             supplier_name: i.supplier_name,
             category_name: i.category_name,

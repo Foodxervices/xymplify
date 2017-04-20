@@ -18,7 +18,7 @@ const InventoryItem = React.createClass({
     }
 
     if(nextQuantity >= 0) {
-      this.props.onCurrentQuantityChange(this.props.id, nextCurrentQuantity)  
+      this.props.onCurrentQuantityChange(this.props.id, nextCurrentQuantity)
       this.setState({ showSubmit: true })
     }
   },
@@ -27,19 +27,19 @@ const InventoryItem = React.createClass({
 
     $.ajax({
       type: 'PATCH',
-      url: `/restaurants/${this.props.restaurant_id}/inventories/${this.props.id}`,
+      url: `/inventories/${this.props.id}`,
       data: { inventory: { current_quantity: this.props.current_quantity } },
       success: (data) => {
         if(!data.success) {
           const { id, current_quantity } = data.inventory
           this.props.onCurrentQuantityChange(id, current_quantity)
-        }    
+        }
       }
     });
   },
   render: function() {
     const { name, supplier_name, category_name, current_quantity, quantity_ordered, unit, unit_price, symbol, can_update, tag_list } = this.props
-  
+
     return (
       <tr className="item">
          <td></td>
@@ -48,9 +48,9 @@ const InventoryItem = React.createClass({
          <td className="current-quantity">
             { (can_update &&
               <div className="form-inline">
-                <a className="btn btn-minus form-control" onClick={this.minusQuantity}>-</a> 
+                <a className="btn btn-minus form-control" onClick={this.minusQuantity}>-</a>
                 <input ref='currentQuantity' className="form-control" type="number" value={current_quantity} onChange={(event) => this.updateCurrentQuantity(event.target.value)}/>
-                <a className="btn btn-plus form-control" onClick={this.plusQuantity}>+</a> 
+                <a className="btn btn-plus form-control" onClick={this.plusQuantity}>+</a>
               </div>) ||
               current_quantity
             }
