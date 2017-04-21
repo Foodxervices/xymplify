@@ -5,6 +5,7 @@ class ProfilesController < AdminController
 
   def update
     if current_user.update_with_password(profile_params)
+      bypass_sign_in(current_user)
       redirect_to :back, notice: 'Profile has been updated.'
     else
       render :edit

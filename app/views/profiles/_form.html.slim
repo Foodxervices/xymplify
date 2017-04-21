@@ -7,7 +7,6 @@
           = f.input :email
           = f.input :password, hint: "leave it blank if you don't want to change it"
           = f.input :password_confirmation
-          = f.input :receive_email
         .col-md-5
           div = image_tag(current_user.avatar.url(:small))
           br
@@ -22,6 +21,7 @@
       .row
         .col-md-12
           = f.input :avatar, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg"} }
+          = f.input :receive_email, label: 'I would like to receive email updates for my Ximplify purchases'
           = f.input :current_password, hint: "we need your current password to confirm your changes", required: true
     .form-actions
       = f.button :submit, 'Update Profile'
