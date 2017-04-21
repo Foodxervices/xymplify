@@ -31,4 +31,12 @@ class Restaurant < ActiveRecord::Base
   def to_param
     "#{id}-#{name.parameterize}"
   end
+
+  def in_block_delivery_dates?(date)
+    block_delivery_dates.present? && block_delivery_dates.split(',').each do |block_date|
+      return true if block_date.to_date.beginning_of_day == date.beginning_of_day
+    end
+
+    false
+  end
 end

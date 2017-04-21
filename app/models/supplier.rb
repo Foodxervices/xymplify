@@ -86,6 +86,9 @@ class Supplier < ActiveRecord::Base
     block_delivery_dates.present? && block_delivery_dates.split(',').each do |block_date|
       return true if block_date.to_date.beginning_of_day == date.beginning_of_day
     end
+
+    return true if restaurant.in_block_delivery_dates?(date)
+
     false
   end
 end
