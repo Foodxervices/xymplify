@@ -88,7 +88,12 @@
           - if kitchen.send(field).present?
             = "#{Kitchen.human_attribute_name(field)}: #{kitchen.send(field)}"
             br
-
   #remarks
     h3 Eatery remarks:
+
+    - if @order_changes.present?
+      h3 History:
+      ul
+        - @order_changes.each do |msg|
+          li = msg
 

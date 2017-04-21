@@ -51,7 +51,8 @@ class OrdersController < AdminController
 
   def update
     authorize! "update_#{@order.status}".to_sym, @order
-    @success = @order.update_attributes(order_params)
+    assign_and_detect_change
+    @success = @order.save
 
     if @success
       @order.reload
@@ -61,8 +62,8 @@ class OrdersController < AdminController
       @message = []
       @message << "#{order_name} has been updated."
 
-      if params[:send_email] == '1'
-        OrderMailer.notify_supplier_after_updated(@order, params[:remarks]).deliver_later
+      if params[:send_email] == '1' && @order_changes.any?
+        OrderMailer.notify_supplier_after_updated(@order, params[:remarks], @order_changes).deliver_later
         @message << "An email notification has been sent to the supplier."
       end
 
@@ -171,7 +172,7 @@ class OrdersController < AdminController
         @message << "#{@order.long_name} has been delivered."
 
         if params[:send_email] == '1'
-          OrderMailer.notify_supplier_after_delivered(@order, params[:remarks], @order_changed).deliver_later
+          OrderMailer.notify_supplier_after_delivered(@order, params[:remarks], @order_changes).deliver_later
         end
       end
 
@@ -207,10 +208,22 @@ class OrdersController < AdminController
   def assign_and_detect_change
     @order.assign_attributes(order_params)
 
-    @order_changed = false
+    @order_changes = []
 
-    if @order.changed? || @order.items.any? {|i| i.changed?} || @order.gsts.any? {|i| i.changed?}
-      @order_changed = true
+    @order.changes_list.each do |msg|
+      @order_changes << msg
+    end
+
+    @order.items.each do |item|
+      item.changes_list.each do |msg|
+        @order_changes << msg
+      end
+    end
+
+    @order.gsts.each do |item|
+      item.changes_list.each do |msg|
+        @order_changes << msg
+      end
     end
   end
 

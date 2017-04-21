@@ -1,4 +1,6 @@
 class OrderItem < ActiveRecord::Base
+  include ChangesList
+
   acts_as_taggable
   has_paper_trail :unless => Proc.new { |item| item.order.status.wip? || item.order.status.confirmed? }
 

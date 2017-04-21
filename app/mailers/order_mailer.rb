@@ -7,7 +7,7 @@ class OrderMailer < ActionMailer::Base
   default template_path: 'mailers/order',
           template_name: 'template'
 
-  def notify_supplier_after_updated(order, remarks)
+  def notify_supplier_after_updated(order, remarks, order_changes)
     init(order)
     @receiver = @supplier
     @cc = []
@@ -16,6 +16,8 @@ class OrderMailer < ActionMailer::Base
     @message = "This Purchase Order from #{@restaurant.name} has been
                 <strong>updated</strong> at <strong>#{format_datetime(@order.updated_at)}</strong>."
     @remarks = remarks
+
+    @order_changes = order_changes
 
     subject = "#{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
 
@@ -100,12 +102,14 @@ class OrderMailer < ActionMailer::Base
     )
   end
 
-  def notify_supplier_after_delivered(order, remarks, order_changed)
+  def notify_supplier_after_delivered(order, remarks, order_changes)
     init(order)
     @receiver = @supplier
     @cc = []
     @cc << @restaurant.email if @restaurant.receive_email.after_delivered?
     @cc << @user.email if @user.receive_email?
+
+    @order_changes = order_changes
 
     @message = "This Purchase Order from #{@restaurant.name} has been marked as
                 <strong>delivered</strong> at <strong>#{format_datetime(@order.delivered_at)}</strong>."
@@ -113,7 +117,7 @@ class OrderMailer < ActionMailer::Base
 
     subject = "#{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
 
-    if order_changed
+    if order_changes.any?
       subject = "Delivered and Updated Order - #{subject}"
     else
       subject = "Delivered Order - #{subject}"

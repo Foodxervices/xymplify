@@ -1,4 +1,5 @@
 class OrderGst < ActiveRecord::Base
+  include ChangesList
   has_paper_trail :unless => Proc.new { |gst| gst.order.status.wip? || gst.order.status.confirmed? }
 
   belongs_to :order, :counter_cache => :gsts_count

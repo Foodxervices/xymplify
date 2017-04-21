@@ -1,5 +1,6 @@
 include MoneyRails::ActionViewExtension
 class Order < ActiveRecord::Base
+  include ChangesList
   attr_accessor :pay_amount, :send_email, :remarks
 
   has_paper_trail :unless => Proc.new { |order| order.status.wip? || order.status.confirmed? }
