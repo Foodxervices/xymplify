@@ -11,5 +11,9 @@ FactoryGirl.define do
     restaurant
     sequence(:brand)    { |n| "Brand #{n}" }
     association :user ,   factory: :admin
+
+    before(:create) do |food_item|
+      food_item.kitchen_ids = [create(:kitchen, restaurant: food_item.restaurant).id] if food_item.kitchen_ids.empty?
+    end
   end
 end

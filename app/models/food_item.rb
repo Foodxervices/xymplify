@@ -1,10 +1,10 @@
 class FoodItem < ActiveRecord::Base
   acts_as_paranoid
   acts_as_taggable
-  has_paper_trail 
+  has_paper_trail
 
   self.inheritance_column = :_type_disabled
-  
+
   monetize :unit_price_cents
   monetize :unit_price_without_promotion_cents
 
@@ -20,11 +20,12 @@ class FoodItem < ActiveRecord::Base
   has_many :food_items_kitchens
   has_many :inventories
   has_many :order_items
-  
-  has_many :kitchens, through: :food_items_kitchens 
 
+  has_many :kitchens, through: :food_items_kitchens
+
+  validates :kitchens,      presence: true
   validates :code,          presence: true, uniqueness: {scope: [:restaurant_id]}
-  validates :name,          presence: true 
+  validates :name,          presence: true
   validates :brand,         presence: true
   validates :supplier_id,   presence: true
   validates :restaurant_id, presence: true
@@ -44,7 +45,7 @@ class FoodItem < ActiveRecord::Base
     unit_price != unit_price_without_promotion
   end
 
-  private 
+  private
   def set_currency
     self.unit_price_currency = supplier&.currency if unit_price_currency.blank?
     self.unit_price_without_promotion_currency = unit_price_currency if unit_price_without_promotion_currency != unit_price_currency
@@ -52,7 +53,7 @@ class FoodItem < ActiveRecord::Base
 
   def set_category
     if category_id.blank?
-      self.category_id = Category.find_or_create_by(name: 'Uncategorised').id 
+      self.category_id = Category.find_or_create_by(name: 'Uncategorised').id
     end
   end
 

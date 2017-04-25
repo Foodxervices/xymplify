@@ -6,8 +6,8 @@ describe FoodItemsController, :type => :controller do
   let!(:supplier)   { create(:supplier, restaurant: restaurant) }
   let!(:user)       { create(:admin) }
 
-  before do 
-    sign_in user 
+  before do
+    sign_in user
     @request.session['restaurant_id'] = kitchen.restaurant_id
     @request.session['kitchen_id'] = kitchen.id
   end
@@ -27,30 +27,30 @@ describe FoodItemsController, :type => :controller do
     end
   end
 
-  describe '#new' do 
+  describe '#new' do
     def do_request
       get :new
     end
 
-    it 'assigns a new food item and renders the :new view' do 
-      do_request 
+    it 'assigns a new food item and renders the :new view' do
+      do_request
       expect(assigns(:food_item)).to be_a_new FoodItem
       expect(response).to render_template :new
     end
   end
 
-  describe '#create' do 
+  describe '#create' do
     def do_request
-      post :create, food_item: attributes_for(:food_item, restaurant_id: restaurant.id, supplier_id: supplier.id)
+      post :create, food_item: attributes_for(:food_item, restaurant_id: restaurant.id, supplier_id: supplier.id, kitchen_ids: [kitchen.id])
     end
 
-    it 'creates a food item' do 
+    it 'creates a food item' do
       expect{ do_request }.to change{ [FoodItem.count] }.from([0]).to([1])
       expect(response).to redirect_to assigns(:food_item)
     end
   end
 
-  describe '#edit' do 
+  describe '#edit' do
     def do_request
       get :edit, id: food_item.id
     end
@@ -64,14 +64,14 @@ describe FoodItemsController, :type => :controller do
     end
   end
 
-  describe '#update' do 
+  describe '#update' do
     def do_request
       patch :update, id: food_item.id, food_item: attributes_for(:food_item, code: new_code)
     end
 
     let!(:food_item) { create(:food_item, restaurant: restaurant) }
     let!(:new_code)  { 'KL30902' }
-    
+
     it 'updates food item' do
       do_request
       expect(food_item.reload.code).to eq new_code
@@ -80,7 +80,7 @@ describe FoodItemsController, :type => :controller do
     end
   end
 
-  describe '#destroy' do 
+  describe '#destroy' do
     def do_request
       delete :destroy, id: food_item.id
     end
@@ -91,7 +91,7 @@ describe FoodItemsController, :type => :controller do
       request.env["HTTP_REFERER"] = "where_i_came_from"
     end
 
-    it 'deletes food item' do 
+    it 'deletes food item' do
       expect{ do_request }.to change{ FoodItem.count }.from(1).to(0)
       expect(flash[:notice]).to eq('Food Item has been deleted.')
       expect(response).to redirect_to "where_i_came_from"
