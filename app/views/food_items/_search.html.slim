@@ -3,8 +3,8 @@
     = f.input :keyword
     = f.input :supplier_id, collection: current_restaurant.suppliers.accessible_by(current_ability), include_blank: 'Supplier'
     = f.input :category_id, collection: Category.all, include_blank: 'Category'
-    = f.input :tag_list, collection: current_restaurant.food_items.tag_counts_on(:tags).pluck(:name), include_blank: 'My List'
+    = f.input :tag_list, collection: current_restaurant.food_items.tag_counts_on(:tags).pluck(:name), include_blank: 'My Tagged Lists'
     - if current_kitchen.nil?
       = kitchen_dropdown(f, include_blank: 'All', multiple: false)
     = f.button :submit, 'Search', class: 'btn-primary'
-    = link_to 'Reset', url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default' 
+    = link_to 'Reset', url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default'

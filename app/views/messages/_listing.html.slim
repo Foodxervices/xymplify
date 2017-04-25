@@ -8,7 +8,7 @@
     = will_paginate messages, inner_window: 3, outer_window: 1, param_name: "message_page"
   - else
     h4
-      i The data doesn't exist yet
+      i No messages yet
 
   - if can?(:create, Message)
     .pull-right

@@ -5,7 +5,7 @@
         .col-md-7
           = f.input :name
           = f.input :email
-          = f.input :password, hint: "leave it blank if you don't want to change it"
+          = f.input :password, hint: "leave it blank if you don't want to change it", label: 'Change password', placeholder: 'New password'
           = f.input :password_confirmation
         .col-md-5
           div = image_tag(current_user.avatar.url(:small))
@@ -22,6 +22,6 @@
         .col-md-12
           = f.input :avatar, input_html: { data: {'allowed-file-extensions' => "png,jpg,jpeg"} }
           = f.input :receive_email, label: 'I would like to receive email updates for my Ximplify purchases'
-          = f.input :current_password, hint: "we need your current password to confirm your changes", required: true
+          = f.input :current_password, hint: "Enter your current password to confirm changes", required: true
     .form-actions
       = f.button :submit, 'Update Profile'

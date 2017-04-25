@@ -8,19 +8,19 @@
           = render 'alerts/listing', alerts: @incoming_deliveries
         - else
           h4
-            i The data doesn't exist yet
+            i The incoming delivery yet
     .col-lg-6
       .block
-        h2.alert Your Pending Orders
+        h2.alert Order Updates
         - if @alerts.present?
           = render 'alerts/listing', alerts: @alerts
         - else
           h4
-            i The data doesn't exist yet
+            i The pending order yet
 
   = render 'graphs/graph'
-  
+
   .block
-    h2 Messages
+    h2 Message Board
     = render 'messages/listing', messages: @messages
 - @notification.seen

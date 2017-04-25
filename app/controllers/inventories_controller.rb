@@ -67,9 +67,11 @@ class InventoriesController < AdminController
   private
 
   def inventory_params
-    params.require(:inventory).permit(
+    data = params.require(:inventory).permit(
       :current_quantity
     )
+    data[:exportable] = true
+    data
   end
 
   def filter_params

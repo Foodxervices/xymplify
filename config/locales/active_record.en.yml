@@ -16,8 +16,8 @@ en:
         category_name: "Category"
         kitchen_name: "Kitchen"
         type: "Item type"
-        tag_list: "My List"
-        cached_tag_list: "My List"
+        tag_list: "My Tagged Lists"
+        cached_tag_list: "My Tagged Lists"
         kitchen_ids: "Kitchens"
       supplier:
         name: "Company Name"

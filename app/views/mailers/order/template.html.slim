@@ -7,17 +7,25 @@ html
     table#mailers-order-template-container.mailers-theme-container width="800"
       tr
         td#head height="90" valign="middle" Purchase Order No: #{@order.name}
-      tr 
+      tr
         td#main
           p Hi <span id="receiver-name">#{@receiver.name}</span>,
           p == @message
-          = simple_format @remarks
+          - if @remarks.present?
+            #remarks
+              h3 Eatery remarks:
+            = simple_format @remarks
+          - if @order_changes.present?
+            h3 The following change(s) was made to the PO:
+            ul
+              - @order_changes.each do |msg|
+                li = msg
 
           .line
 
           #header
             - if @restaurant.logo.exists?
-              #logo = image_tag @restaurant.logo.url(:thumb) 
+              #logo = image_tag @restaurant.logo.url(:thumb)
             #restaurant
               h2 = @restaurant.name
               p: i = @restaurant.company_registration_no
@@ -33,19 +41,18 @@ html
                 tr
                   td Please &nbsp;
                   td
-                    table border="0" cellpadding="0" cellspacing="0" 
+                    table border="0" cellpadding="0" cellspacing="0"
                       tr
                         td#accept align="center" bgcolor="#304FFE"
                           = link_to 'ACCEPT', mark_as_accepted_order_url(@order.id, token: @order.token), target: :_blank
                   td  &nbsp; or &nbsp;
                   td
-                    table border="0" cellpadding="0" cellspacing="0" 
+                    table border="0" cellpadding="0" cellspacing="0"
                       tr
                         td#decline align="center" bgcolor="#FF5252"
                           = link_to 'DECLINE', mark_as_declined_order_url(@order.id, token: @order.token), target: :_blank
                   td  &nbsp; the Order.
             p#replying-to Please kindly acknowledge the receipt by selecting "Reply to All"
       tr
-        td#logo-footer 
+        td#logo-footer
           div = Rails.application.secrets.domain_name
-        
