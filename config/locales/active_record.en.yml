@@ -40,6 +40,6 @@ en:
       user:
         remember_me: "Keep me logged in"
       order:
-        name: 'Code'
+        name: 'PO Number'
         delivered_to_kitchen: "Linked to Inventory"
         paid_amount_cents: "Paid Amount"
