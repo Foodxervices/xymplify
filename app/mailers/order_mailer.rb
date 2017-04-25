@@ -41,7 +41,7 @@ class OrderMailer < ActionMailer::Base
     @cc << @restaurant.email if @restaurant.receive_email.after_updated?
     @cc << @user.email if @user.receive_email?
     @receiver = @supplier
-    @message = "You got a Purchase Order from <strong>#{@restaurant.name}</strong> for delivery at: <strong>#{date_of_delivery(@order)}</strong>."
+    @message = "You have received a Purchase Order from <strong>#{@restaurant.name}</strong> for delivery at: <strong>#{date_of_delivery(@order)}</strong>."
 
     mail(
       to: @supplier.email,
