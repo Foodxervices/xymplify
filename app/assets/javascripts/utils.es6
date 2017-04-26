@@ -97,24 +97,42 @@ const Utils = {
   },
   initTaggable:() => {
     $('input.taggable:not(.taggable-initialized)').each(function() {
-      $(this).addClass('taggable-initialized')
+      let input = $(this)
 
-      $(this).tokenfield({
+      input.addClass('taggable-initialized')
+      let source = $(this).data('source') || ''
+
+      input.tokenfield({
         autocomplete: {
-          source: $(this).data('source').split(","),
+          source: source.split(","),
           delay: 100,
           beautify: true
         },
         showAutocompleteOnFocus: true
       })
 
-      $(this).on('tokenfield:createtoken', function (event) {
+      input.on('tokenfield:createtoken', function (event) {
         var existingTokens = $(this).tokenfield('getTokens');
         $.each(existingTokens, function(index, token) {
             if (token.value === event.attrs.value)
               event.preventDefault();
         });
       });
+
+      input.siblings('.token-input').blur(function() {
+        input.tokenfield('createToken', $(this).val())
+        $(this).val('')
+      })
+
+      if(input.attr('type') == 'email') {
+        input.on('tokenfield:createdtoken', function (e) {
+          var re = /\S+@\S+\.\S+/
+          var valid = re.test(e.attrs.value)
+          if (!valid) {
+            $(e.relatedTarget).remove()
+          }
+        })
+      }
     })
   },
   initDatePicker:() => {

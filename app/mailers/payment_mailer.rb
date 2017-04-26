@@ -8,7 +8,7 @@ class PaymentMailer < ActionMailer::Base
     @user = @order.user
     @paid = Money.from_amount(paid, @order.paid_amount_currency)
 
-    @cc = []
+    @cc = @supplier.cc_emails.split(',')
     @cc << @restaurant.email if @restaurant.receive_email.after_paid?
     @cc << @user.email if @user.receive_email?
 

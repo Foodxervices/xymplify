@@ -24,6 +24,7 @@
             = f.input :contact
             = f.input :telephone
             = f.input :email
+            = f.input :cc_emails, input_html: { class: 'taggable' }, hint: "e.g. email-1@example.com, email-2@example.com"
             = f.input :currency, collection: currency_codes
             = f.input :company_registration_no
         .col-md-6

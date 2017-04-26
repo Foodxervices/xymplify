@@ -82,6 +82,7 @@ class SuppliersController < AdminController
       :max_order_price,
       :processing_cut_off,
       :block_delivery_dates,
+      :cc_emails,
       kitchen_ids: [],
       delivery_days: []
     )
