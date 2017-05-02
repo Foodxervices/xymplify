@@ -8,7 +8,7 @@
           = render 'alerts/listing', alerts: @incoming_deliveries
         - else
           h4
-            i The incoming delivery yet
+            i No incoming deliveries yet
     .col-lg-6
       .block
         h2.alert Order Updates
@@ -16,7 +16,7 @@
           = render 'alerts/listing', alerts: @alerts
         - else
           h4
-            i The pending order yet
+            i No orders yet
 
   = render 'graphs/graph'
 
