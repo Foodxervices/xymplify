@@ -3,6 +3,21 @@
   table.alert-listing.table.table-striped data-last-seen-at=@notification.seen_at
     - alerts.each do |alert|
       tr.alert data-created-at=alert.created_at
-        td width="160" = format_date(alert.created_at)
-        td = link_to_if can?(:read, alert.alertable), alert.title, [alert.alertable, alert: true], remote: true
+        td = alert.alertable&.long_name
+        - case alert.type
+        - when 'pending_order'
+          td Has not been received
+        - when 'accepted_order'
+          td Has been accepted
+        - when 'declined_order'
+          td Has been declined
+        - when 'cancelled_order'
+          td Cancelled
+        - when 'low_quantity'
+          td Running low
+        - when 'incoming_delivery'
+          td = date_of_delivery(alert.alertable)
+        td
+          - if can?(:read, alert.alertable)
+            = link_to 'View', [alert.alertable, alert: true], remote: true
   = will_paginate alerts, inner_window: 3, outer_window: 1, param_name: page_type

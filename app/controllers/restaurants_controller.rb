@@ -69,11 +69,10 @@ class RestaurantsController < AdminController
     session.delete(:kitchen_id)
     alerts = Alert.accessible_by(current_ability, restaurant: @restaurant)
                                 .includes(:alertable)
-                                .paginate(:page => params[:alert_page], :per_page => 5)
                                 .order(id: :desc)
 
-    @alerts              = alerts.where.not(type: :incoming_delivery)
-    @incoming_deliveries = alerts.where(type: :incoming_delivery)
+    @alerts              = alerts.where.not(type: :incoming_delivery).paginate(:page => params[:alert_page], :per_page => 5)
+    @incoming_deliveries = alerts.where(type: :incoming_delivery).paginate(:page => params[:incoming_page], :per_page => 5)
 
     @messages = @restaurant.messages.accessible_by(current_ability).order(id: :desc).paginate(:page => params[:message_page], :per_page => 5)
 

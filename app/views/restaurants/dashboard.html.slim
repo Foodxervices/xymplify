@@ -5,7 +5,7 @@
       .block
         h2.alert Incoming Deliveries
         - if @incoming_deliveries.present?
-          = render 'alerts/listing', alerts: @incoming_deliveries
+          = render 'alerts/listing', alerts: @incoming_deliveries, page: :incoming_page
         - else
           h4
             i No incoming deliveries yet

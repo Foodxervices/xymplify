@@ -43,8 +43,7 @@ class KitchensController < AdminController
                                 .order(id: :desc)
 
     @alerts              = alerts.where.not(type: :incoming_delivery).paginate(:page => params[:alert_page], :per_page => 5)
-    @incoming_deliveries = alerts.where(type: :incoming_delivery).paginate(:page => params[:incoming_delivery_page], :per_page => 5)
-
+    @incoming_deliveries = alerts.where(type: :incoming_delivery).paginate(:page => params[:incoming_page], :per_page => 5)
     @messages = Message.accessible_by(current_ability)
 
     @messages = @messages.where("(kitchen_id IS NULL AND restaurant_id = ?) OR kitchen_id = ?", current_restaurant.id, current_kitchen.id)
