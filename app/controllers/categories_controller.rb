@@ -1,14 +1,14 @@
 class CategoriesController < AdminController
   def index
     init
-    @food_items = @food_items.order("category_priority, supplier_priority, unit_price_cents")
+    @food_items = @food_items.order("category_priority, category_name, supplier_priority, unit_price_cents")
     @groups = @food_items.group_by(&:category_name)
     @hide_category = true
   end
 
   def by_supplier
     init
-    @food_items = @food_items.order("supplier_priority, category_priority, unit_price_cents")
+    @food_items = @food_items.order("supplier_priority, supplier_name, category_priority, unit_price_cents")
     @groups = @food_items.group_by(&:supplier_name)
     @hide_supplier = true
     render :index
@@ -23,7 +23,7 @@ class CategoriesController < AdminController
 
   private
 
-  def init 
+  def init
     authorize! :read, current_kitchen
     @food_item_filter = FoodItemFilter.new(current_kitchen.food_items, food_item_filter_params)
     @food_items = @food_item_filter.result

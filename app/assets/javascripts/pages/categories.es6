@@ -24,7 +24,7 @@ Foodxervices.categories = {
       $('#cart-details').width($('#cart-details-ref').width())
 
       $( window ).resize(function() {
-        $('#cart-details').width($('#cart-details-ref').width())        
+        $('#cart-details').width($('#cart-details-ref').width())
       })
     },
     initCartItem: function() {
@@ -41,7 +41,7 @@ Foodxervices.categories = {
         $(this).addClass('submitting')
 
         $('.cart-item').each(function() {
-          new CartItem($(this)).submit()  
+          new CartItem($(this)).submit()
         })
 
         setTimeout(() => { $(this).removeClass('submitting') }, 3000)

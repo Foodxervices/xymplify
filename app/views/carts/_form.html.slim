@@ -14,7 +14,7 @@
     - food_items.each do |food_item|
       tr.cart-item data={id: food_item.id, restaurant_id: current_restaurant.id, kitchen_id: kitchen.id}
         td = food_item.code
-        td 
+        td
           = food_item.name
           span.help-block rel="#{kitchen.id}-#{food_item.id}"
         - if !@hide_category
@@ -25,5 +25,3 @@
         td.text-center = food_item.unit
         td = number_field_tag :quantity, 0, class: 'form-control quantity-input', id: nil
         td = link_to '', '#', class: 'btn btn-default btn-add mdi mdi-cart-plus'
-  .text-right
-    = link_to 'Add All to Cart', '#', class: 'btn btn-primary', id: 'btn-add-all'
