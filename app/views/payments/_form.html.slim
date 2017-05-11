@@ -13,6 +13,7 @@
     .row
       .col-md-6
         = f.input :pay_amount
+        = f.input :send_email, as: :boolean, label: 'Send email to supplier', value: 'true', input_html: { name: 'send_email', checked: true }
 
     = f.button :submit, 'Submit', :data => { disable_with: 'Processing...' }, class: 'btn-primary btn-block'
 

@@ -14,7 +14,7 @@ class PaymentsController < AdminController
     paid_amount_was = @order.paid_amount
 
     if @order.update_attributes(payment_params)
-      if paid_amount_was != @order.paid_amount
+      if params[:send_email] == '1' && paid_amount_was != @order.paid_amount
         paid = @order.paid_amount - paid_amount_was
         PaymentMailer.notify_supplier_after_paid(@order, paid.dollars.to_f).deliver_later
       end
