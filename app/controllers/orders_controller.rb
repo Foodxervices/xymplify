@@ -214,15 +214,15 @@ class OrdersController < AdminController
       @order_changes << msg
     end
 
-    @order.items.each do |item|
-      item.changes_list.each do |msg|
-        @order_changes << "#{item.name}: #{msg}"
-      end
-    end
-
-    @order.gsts.each do |item|
-      item.changes_list.each do |msg|
-        @order_changes << "#{item.name}: #{msg}"
+    [@order.items, @order.gsts].each do |items|
+      items.each do |item|
+        if item._destroy
+          @order_changes << "#{item.name} is deleted"
+        else
+          item.changes_list.each do |msg|
+            @order_changes << "#{item.name}: #{msg}"
+          end
+        end
       end
     end
   end

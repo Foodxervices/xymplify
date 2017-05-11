@@ -2,7 +2,7 @@
 .carts-details-container
   - if current_orders.present?
     .nice-scroll
-      - current_orders.includes(:supplier).each do |order|
+      - current_orders.includes(supplier: :restaurant).each do |order|
         = render 'carts/info', order: order
         .text-right
           .btn-group
