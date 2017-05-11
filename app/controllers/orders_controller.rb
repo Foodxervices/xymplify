@@ -216,13 +216,13 @@ class OrdersController < AdminController
 
     @order.items.each do |item|
       item.changes_list.each do |msg|
-        @order_changes << msg
+        @order_changes << "#{item.name}: #{msg}"
       end
     end
 
     @order.gsts.each do |item|
       item.changes_list.each do |msg|
-        @order_changes << msg
+        @order_changes << "#{item.name}: #{msg}"
       end
     end
   end
