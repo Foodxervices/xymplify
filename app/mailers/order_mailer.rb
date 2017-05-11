@@ -34,7 +34,8 @@ class OrderMailer < ActionMailer::Base
   end
 
   def notify_supplier_after_placed(order)
-    order.update_column(:token, SecureRandom.urlsafe_base64)
+    @remarks = order.eatery_remarks
+    order.update_columns(token: SecureRandom.urlsafe_base64, eatery_remarks: '')
     init(order)
     @cc << @restaurant.email if @restaurant.receive_email.after_updated?
     @cc << @user.email if @user.receive_email?

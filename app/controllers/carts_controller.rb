@@ -122,7 +122,8 @@ class CartsController < AdminController
         :outlet_name,
         :outlet_address,
         :outlet_phone,
-        :delivered_to_kitchen
+        :delivered_to_kitchen,
+        :eatery_remarks
       )
     data[:status] = :confirmed
     data

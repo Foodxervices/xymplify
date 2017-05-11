@@ -6,6 +6,6 @@
     = f.input :outlet_address
     = f.input :outlet_phone
     = f.input :delivered_to_kitchen, label: 'Linked to Inventory (Food Inventory will be changed)'
+    = f.input :eatery_remarks
     .text-right
       = f.submit 'Confirm', class: 'btn btn-primary btn-block', data: { :disable_with => "Confirming..." }
-           
