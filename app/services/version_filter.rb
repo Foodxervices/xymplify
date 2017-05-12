@@ -17,7 +17,7 @@ class VersionFilter
     attrs.each { |name, value| send("#{name}=", value) }
     @item_types = []
     @events = []
-    
+
     @versions.select('item_type, event').map do |version|
       @item_types << version.item_type
       @events << version.event
@@ -57,8 +57,9 @@ class VersionFilter
     end
 
     @versions = @versions.where(created_at: (start_date.beginning_of_day..end_date.end_of_day))
+    @versions = @versions.where.not(whodunnit: Admin.all)
 
-    @versions 
+    @versions
   end
 
   def attribute_values
