@@ -5,7 +5,7 @@ class Inventory < ActiveRecord::Base
   belongs_to :food_item, -> { with_deleted }
 
   has_many :alerts, as: :alertable
-  
+
   validates :restaurant_id,   presence: true
   validates :kitchen_id,      presence: true
   validates :food_item_id,    presence: true
@@ -17,8 +17,9 @@ class Inventory < ActiveRecord::Base
   def name
     food_item&.name
   end
+  alias_method :long_name, :name
 
-  private 
+  private
   def cache_restaurant
     self.restaurant_id = food_item.restaurant_id if restaurant_id.nil?
   end
