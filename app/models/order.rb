@@ -15,6 +15,7 @@ class Order < ActiveRecord::Base
 
   before_save :set_status_updated_at
   before_save :add_pay_amount
+  before_save :check_incoming_delivery
 
   after_save :set_item_price
   after_save :check_status
@@ -184,6 +185,14 @@ class Order < ActiveRecord::Base
       update_column(:status, :completed)
     elsif status.completed? && !paid?
       update_column(:status, :delivered)
+    end
+  end
+
+  def check_incoming_delivery
+    if status_changed? && status.placed?
+      if request_delivery_date.beginning_of_day == 1.day.from_now.beginning_of_day
+        alerts.create(type: :incoming_delivery)
+      end
     end
   end
 end
