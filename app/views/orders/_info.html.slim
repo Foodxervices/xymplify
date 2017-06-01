@@ -70,7 +70,6 @@
           td.text-right = humanized_money_with_symbol(item.unit_price)
           td.text-right = item.quantity
           td.text-right = humanized_money_with_symbol(item.total_price)
-    tfoot
       - if order.gsts_count != 0
         tr
           td.text-right colspan="6" Subtotal
