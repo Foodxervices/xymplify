@@ -13,9 +13,10 @@ class Order < ActiveRecord::Base
   before_create :cache_restaurant
   before_create :set_name
 
+  before_update :check_incoming_delivery
+
   before_save :set_status_updated_at
   before_save :add_pay_amount
-  before_save :check_incoming_delivery
 
   after_save :set_item_price
   after_save :check_status
