@@ -52,8 +52,16 @@ class Ability
       cannot [:update_priority], Supplier
     end
 
-    cannot :show, FoodItem do |food_item|
+    cannot [:show], FoodItem do |food_item|
       food_item.deleted?
+    end
+
+    cannot [:pay], Order do |order|
+      order.status.pending? || order.status.rejected? || order.status.declined?
+    end
+
+    cannot [:mark_as_approved, :mark_as_rejected], Order do |order|
+      !order.status.pending? && !order.status.confirmed?
     end
 
     cannot [:mark_as_accepted, :mark_as_declined], Order do |order|

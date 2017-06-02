@@ -48,7 +48,7 @@ class Order < ActiveRecord::Base
   validates :paid_amount,    numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
   validates :request_delivery_date, presence: true
 
-  enumerize :status, in: [:wip, :confirmed, :placed, :accepted, :declined, :delivered, :completed, :cancelled], default: :wip
+  enumerize :status, in: [:wip, :confirmed, :pending, :placed, :rejected, :accepted, :declined, :delivered, :completed, :cancelled], default: :wip
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :gsts,  reject_if: :all_blank, allow_destroy: true

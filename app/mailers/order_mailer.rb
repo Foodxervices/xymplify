@@ -7,6 +7,26 @@ class OrderMailer < ActionMailer::Base
   default template_path: 'mailers/order',
           template_name: 'template'
 
+  def asking_for_approval(order)
+    @remarks = order.eatery_remarks
+    order.update_columns(token: SecureRandom.urlsafe_base64)
+    init(order)
+
+    @restaurant.users.each do |user|
+      if user.can? :mark_as_approved, @order
+        @to << user.email
+        @receiver = user
+      end
+    end
+
+    return if @to.empty?
+
+    mail(
+      to: @to,
+      subject: "Pending for Approval - #{@order.name}, #{@restaurant.name} - #{order.outlet_address}"
+    )
+  end
+
   def notify_supplier_after_updated(order, remarks, order_changes)
     init(order)
     @receiver = @supplier

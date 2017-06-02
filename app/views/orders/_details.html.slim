@@ -48,6 +48,10 @@
   .btn-toolbar.pull-right
     - if can?(:pay, order)
       = link_to 'Track Payment', edit_payment_path(order), class: 'btn btn-default', remote: true
+    - if can?(:mark_as_approved, order)
+      = link_to 'Mark as Approved', '#', data: { toggle: "confirmation", href: mark_as_approved_order_path(order), link_method: 'patch' }, class: 'btn btn-approved'
+    - if can?(:mark_as_rejected, order)
+      = link_to 'Mark as Rejected', '#', data: { toggle: "confirmation", href: mark_as_rejected_order_path(order), link_method: 'patch' }, class: 'btn btn-rejected'
     - if can?(:mark_as_accepted, order)
       = link_to 'Mark as Accepted', '#', data: { toggle: "confirmation", href: mark_as_accepted_order_path(order), link_method: 'patch' }, class: 'btn btn-accepted'
     - if can?(:mark_as_declined, order)

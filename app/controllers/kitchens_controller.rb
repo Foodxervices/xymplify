@@ -41,7 +41,6 @@ class KitchensController < AdminController
     alerts = Alert.accessible_by(current_ability, kitchen: current_kitchen)
                                 .includes(:alertable)
                                 .order(id: :desc)
-
     @alerts              = alerts.where.not(type: :incoming_delivery).paginate(:page => params[:alert_page], :per_page => 5)
     @incoming_deliveries = alerts.where(type: :incoming_delivery).paginate(:page => params[:incoming_page], :per_page => 5)
     @messages = Message.accessible_by(current_ability)

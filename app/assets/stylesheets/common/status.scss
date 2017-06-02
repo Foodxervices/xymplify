@@ -9,8 +9,16 @@
   cursor: auto;
 }
 
+.status-pending {
+  background: $pending_color !important;
+}
+
 .status-placed {
   background: $placed_color !important;
+}
+
+.status-rejected {
+  background: $rejected_color !important;
 }
 
 .status-accepted {

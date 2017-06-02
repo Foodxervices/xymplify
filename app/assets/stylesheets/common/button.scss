@@ -8,7 +8,7 @@
   background-color: $green_color;
 }
 
-.btn-primary, .btn-placed, .btn-accepted, .btn-declined, .btn-cancelled, .btn-delivered, .btn-add {
+.btn-primary, .btn-placed, .btn-approved, .btn-rejected, .btn-accepted, .btn-declined, .btn-cancelled, .btn-delivered, .btn-add {
   color: #fff;
 
   &:hover {
@@ -26,6 +26,14 @@
 
 .btn-placed {
   background: $placed_color;
+}
+
+.btn-approved {
+  background: $approved_color;
+}
+
+.btn-rejected {
+  background: $rejected_color;
 }
 
 .btn-accepted {

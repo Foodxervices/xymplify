@@ -7,6 +7,10 @@
         - case alert.type
         - when 'pending_order'
           td Has not been received
+        - when 'approved_order'
+          td Has been approved
+        - when 'rejected_order'
+          td Has been rejected
         - when 'accepted_order'
           td Has been accepted
         - when 'declined_order'

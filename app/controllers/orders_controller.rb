@@ -1,7 +1,7 @@
 class OrdersController < AdminController
   include ApplicationHelper
 
-  AUTHORIZE_TOKEN_ACTIONS = [:show, :mark_as_accepted, :mark_as_declined]
+  AUTHORIZE_TOKEN_ACTIONS = [:show, :mark_as_approved, :mark_as_rejected, :mark_as_accepted, :mark_as_declined]
 
   load_resource :order, :through => :current_kitchen, :shallow => true
 
@@ -100,6 +100,51 @@ class OrdersController < AdminController
     end
 
     redirect_to :back
+  end
+
+  def mark_as_approved
+    if @order.status.pending?
+      ActiveRecord::Base.transaction do
+        @order.status = :placed
+        @success = @order.save
+      end
+
+      if @success
+        alert = @order.alerts.create(type: :approved_order)
+        flash[:notice] = alert.title
+        OrderMailer.notify_supplier_after_placed(@order).deliver_later
+      end
+    else
+      invalid_status_notice
+    end
+
+    if params[:_method] == 'patch'
+      redirect_to :back
+    else
+      redirect_to root_url
+    end
+  end
+
+  def mark_as_rejected
+    if @order.status.pending?
+      ActiveRecord::Base.transaction do
+        @order.status = :rejected
+        @success = @order.save
+      end
+
+      if @success
+        alert = @order.alerts.create(type: :rejected_order)
+        flash[:notice] = alert.title
+      end
+    else
+      invalid_status_notice
+    end
+
+    if params[:_method] == 'patch'
+      redirect_to :back
+    else
+      redirect_to root_url
+    end
   end
 
   def mark_as_accepted
@@ -264,9 +309,9 @@ class OrdersController < AdminController
     return @statuses if @statuses.present?
 
     if params[:status] == 'archived'
-      @statuses = [["Delivered", "delivered"], ["Completed", "completed"], ["Cancelled", "cancelled"], ["Declined", "declined"]]
+      @statuses = [["Delivered", "delivered"], ["Completed", "completed"], ["Cancelled", "cancelled"], ["Declined", "declined"], ["Rejected", "rejected"]]
     else
-      @statuses = [["Placed", "placed"], ["Accepted", "accepted"]]
+      @statuses = [["Pending", "pending"], ["Placed", "placed"], ["Accepted", "accepted"]]
     end
 
     @statuses

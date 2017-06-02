@@ -89,10 +89,16 @@ class CartsController < AdminController
         notices << "Please ensure that the total value of purchase from #{s.name} is less than #{Currency.format(s.max_order_price, s.currency)}."
       else
         supplier[:orders].each do |order|
-          order.status = :placed
+          if can?(:mark_as_approved, order)
+            order.status = :placed
+            OrderMailer.notify_supplier_after_placed(order).deliver_later
+            notices << "#{order.long_name} has been placed successfully."
+          else
+            order.status = :pending
+            OrderMailer.asking_for_approval(order).deliver_later
+            notices << "#{order.long_name} is pending for approval."
+          end
           order.save
-          OrderMailer.notify_supplier_after_placed(order).deliver_later
-          notices << "#{order.long_name} has been placed successfully."
         end
       end
     end
