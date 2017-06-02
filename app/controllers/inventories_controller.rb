@@ -44,7 +44,6 @@ class InventoriesController < AdminController
       end
 
       format.xlsx do
-        @inventories = @inventories.where(exportable: true)
         @filename = "INVENTORY #{current_restaurant.name} - #{current_kitchen.name}"
         render xlsx: "index", filename: @filename
       end
@@ -70,7 +69,6 @@ class InventoriesController < AdminController
     data = params.require(:inventory).permit(
       :current_quantity
     )
-    data[:exportable] = true
     data
   end
 
