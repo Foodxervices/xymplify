@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  default_url_options :host => Rails.application.secrets.host
   devise_for :users
   mount Sidekiq::Web, at: "/sidekiq"
 

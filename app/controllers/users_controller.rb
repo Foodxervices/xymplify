@@ -12,10 +12,12 @@ class UsersController < AdminController
   def new; end
 
   def create
-    password = @user.password
+    token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
+    @user.reset_password_token = hashed_token
+    @user.reset_password_sent_at = Time.now.utc
 
     if @user.save
-      UserMailer.send_new_password_instructions(@user, password).deliver_later
+      UserMailer.send_new_password_instructions(@user, token).deliver_later
       redirect_to users_url, notice: 'User has been created.'
     else
       render :new
