@@ -5,7 +5,7 @@ class Alert < ActiveRecord::Base
 
   belongs_to :alertable, polymorphic: true
 
-  enumerize :type, in: [:pending_order, :approved_order, :rejected_order, :accepted_order, :cancelled_order, :low_quantity, :incoming_delivery]
+  enumerize :type, in: [:pending_order, :pending_for_approval, :approved_order, :rejected_order, :accepted_order, :cancelled_order, :low_quantity, :incoming_delivery]
 
   after_save :cache_redis
 
@@ -33,6 +33,8 @@ class Alert < ActiveRecord::Base
     case type
       when 'pending_order'
         "#{alertable.long_name} has not been received yet"
+      when 'pending_for_approval'
+        "#{alertable.long_name} is pending for approval"
       when 'approved_order'
         "#{alertable.long_name} has been approved"
       when 'rejected_order'

@@ -95,6 +95,7 @@ class CartsController < AdminController
             notices << "#{order.long_name} has been placed successfully."
           else
             order.status = :pending
+            order.alerts.create(type: :pending_for_approval)
             OrderMailer.asking_for_approval(order).deliver_later
             notices << "#{order.long_name} is pending for approval."
           end
