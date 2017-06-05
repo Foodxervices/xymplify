@@ -9,6 +9,7 @@ class OrderMailer < ActionMailer::Base
 
   def asking_for_approval(order)
     @remarks = order.eatery_remarks
+    @pending_for_approval = true
     order.update_columns(token: SecureRandom.urlsafe_base64)
     init(order)
 

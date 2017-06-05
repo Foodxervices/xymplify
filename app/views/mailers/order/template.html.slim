@@ -52,7 +52,7 @@ html
                         td#decline align="center" bgcolor="#FF5252"
                           = link_to 'DECLINE', mark_as_declined_order_url(@order.id, token: @order.token), target: :_blank
                   td  &nbsp; the Order.
-            - if @order.status.pending?
+            - if @pending_for_approval
               table
                 tr
                   td Please &nbsp;
