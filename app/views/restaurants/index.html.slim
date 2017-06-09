@@ -2,14 +2,14 @@
 #restaurants-index-container
   = render 'shared/summary_admin', summary: @summary
 
-  .pull-right
-    .btn-group
-      - if can?(:create, Restaurant.new)
-        = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default', remote: true
-  h1 Restaurants
-  .clearfix
-
-  .table-responsive
+  .block
+    .row
+      .col-xs-12
+        .pull-right
+          .btn-group
+            - if can?(:create, Restaurant.new)
+              = link_to 'Create New Restaurant', new_restaurant_path, class: 'btn btn-default', remote: true
+        h1 Restaurants
     table.table.table-striped
       thead
         tr

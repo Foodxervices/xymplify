@@ -6,8 +6,10 @@ html
       = render 'shared/menu'
 
     #sidebar
+      = link_to authenticated_root_path, class: 'logo'
+        = image_tag 'ximplify.png', alt: 'XIMPLIFY LOGO'
       = render 'shared/sidebar'
-     
+
     main
       = yield
 

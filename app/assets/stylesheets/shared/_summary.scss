@@ -24,7 +24,7 @@
 
       p.description {
         font-weight: bold;
-        font-size: 18px;
+        font-size: 16px;
         text-transform: uppercase;
         white-space: nowrap;
         overflow: hidden;
@@ -32,13 +32,12 @@
 
       i {
         position: absolute;
-        bottom: 10px;
+        bottom: 4px;
         right: 20px;
-        font-size: 90px;
+        font-size: 70px;
         line-height: 90px;
         margin: 0;
         padding: 0;
-        color: rgba(255,255,255,0.30);
       }
     }
 
@@ -47,7 +46,6 @@
 
       i {
         @extend .mdi-home;
-        color: rgba(255,255,255,0.30);
       }
     }
 
@@ -56,7 +54,6 @@
 
       i {
         @extend .mdi-silverware-variant;
-        color: rgba(255,255,255,0.30);
       }
     }
 
@@ -65,21 +62,19 @@
 
       i {
         @extend .mdi-account-multiple;
-        color: rgba(255,255,255,0.30);
       }
     }
 
     &.item-suppliers .content {
-      background: #00BFA5;
+      background: #F0BE23;
 
       i {
         @extend .mdi-store;
-        color: rgba(255,255,255,0.30);
       }
     }
 
     &.item-food_items .content {
-      background: #FBC02D;
+      background: #43BFC1;
 
       i {
         @extend .mdi-food;
@@ -87,7 +82,7 @@
     }
 
     &.item-shipped_pos .content {
-      background: #2979FF;
+      background: #F48691;
 
       i {
         @extend .mdi-calendar-text;
@@ -95,7 +90,7 @@
     }
 
     &.item-pending_pos .content {
-      background: #FF5252;
+      background: #029FA7;
 
       i {
         @extend .mdi-calendar-text;

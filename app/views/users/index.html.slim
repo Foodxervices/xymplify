@@ -1,23 +1,25 @@
 = render 'users/search', user_filter: @user_filter, url: users_path
 #users-index-container
-  .pull-right
-    .btn-group
-      = link_to 'Create New User', new_user_path, class: 'btn btn-default'
-      
-  h1 User Accounts
-  .clearfix
-  .table-responsive
+  .block
+    .row
+      .col-xs-12
+        .pull-right
+          .btn-group
+            = link_to 'Create New User', new_user_path, class: 'btn btn-default'
+
+        h1 User Accounts
+    br
     table.table.table-striped
       thead
         tr
-          th = User.human_attribute_name(:name) 
-          th = User.human_attribute_name(:avatar) 
+          th = User.human_attribute_name(:name)
+          th = User.human_attribute_name(:avatar)
           th = User.human_attribute_name(:email)
           th = User.human_attribute_name(:type)
           th.text-center Action
-      tbody 
+      tbody
         - @users.each do |user|
-          tr 
+          tr
             td = user.name
             td = image_tag(user.avatar.url(:thumb))
             td = user.email
@@ -27,5 +29,5 @@
                 li = link_to 'View', user_path(user), remote: true
                 li = link_to 'Edit', edit_user_path(user)
                 li = link_to 'Delete', '#', data: { toggle: "confirmation", href: user_path(user) }, class: 'delete'
-  .text-center          
-    = will_paginate @users, renderer: BootstrapPagination::Rails
+    .text-center
+      = will_paginate @users

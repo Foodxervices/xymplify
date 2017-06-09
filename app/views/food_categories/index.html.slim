@@ -1,13 +1,15 @@
 = render 'food_categories/search', category_filter: @category_filter
 #food_categories-index-container
-  .pull-right
-    .btn-group
-      - if can?(:create, Category)
-        = link_to 'Create New Category', [:new, :food_category], class: 'btn btn-default', remote: true
+  .block
+    .row
+      .col-xs-12
+        .pull-right
+          .btn-group
+            - if can?(:create, Category)
+              = link_to 'Create New Category', [:new, :food_category], class: 'btn btn-default', remote: true
 
-  h1 Food Item Categories
-  .clearfix
-  .table-responsive
+        h1 Food Item Categories
+    br
     table.table.table-striped
       thead
         tr

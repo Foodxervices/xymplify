@@ -1,13 +1,13 @@
 = render 'user_roles/search', user_role_filter: @user_role_filter
 #user_roles-index-container
-  .pull-right
-    .btn-group
-      - if can?(:create, UserRole.new(restaurant_id: current_restaurant.id))
-        = link_to 'Create New User Role', [:new, :user_role], remote: true, class: 'btn btn-default'
-
-  h1 User Roles
-  .clearfix
-  .table-responsive
+  .block
+    .row
+      .col-xs-12
+        .pull-right
+          .btn-group
+            - if can?(:create, UserRole.new(restaurant_id: current_restaurant.id))
+              = link_to 'Create New User Role', [:new, :user_role], remote: true, class: 'btn btn-default'
+        h1 User Roles
     table.table.table-striped
       thead
         tr
@@ -32,5 +32,5 @@
                   li = link_to 'Edit', [:edit, user_role], remote: true
                 - if can?(:destroy, user_role)
                   li = link_to 'Delete', '#', data: { toggle: "confirmation", href: user_role_path(user_role) }, class: 'delete'
-  .text-center
-    = will_paginate @user_roles, renderer: BootstrapPagination::Rails
+    .text-center
+      = will_paginate @user_roles

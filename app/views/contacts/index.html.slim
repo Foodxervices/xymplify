@@ -1,7 +1,7 @@
 = render 'contacts/search', contact_filter: @contact_filter
 #contacts-index-container
-  h1 Contacts
-  .table-responsive
+  .block
+    h1 Contacts
     table.table.table-striped
       thead
         tr
@@ -24,4 +24,4 @@
                 - if can?(:destroy, contact)
                   li = link_to 'Delete', '#', data: { toggle: "confirmation", href: contact_path(contact) }, class: 'delete'
   .text-center
-    = will_paginate @contacts, renderer: BootstrapPagination::Rails
+    = will_paginate @contacts

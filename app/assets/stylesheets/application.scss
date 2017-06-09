@@ -21,9 +21,6 @@
 @import 'search';
 @import 'selectpicker';
 
-@import 'modules/block';
-@import 'modules/pagination';
-
 @import 'layouts/main';
 @import 'layouts/sidebar';
 
@@ -62,6 +59,7 @@
 @import 'carts/_details';
 @import 'carts/_info';
 
+@import 'kitchens/dashboard';
 @import 'kitchens/_list';
 
 @import 'messages/_form';

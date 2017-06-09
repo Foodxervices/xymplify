@@ -1,4 +1,5 @@
 #food_items-edit-container
-  h1 = @food_item.name
+  .block
+    h1 = @food_item.name
 
-  = render 'food_items/form', { food_item: @food_item }
+    = render 'food_items/form', { food_item: @food_item }

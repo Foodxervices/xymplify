@@ -18,9 +18,10 @@
 
 .btn-primary, .btn-add {
   background: $primary_color;
+  border: $primary_color;
 
-  &:hover {
-    background: $primary_color;
+  &:hover, &:focus, &:active, &:visited {
+    background: $primary_color !important;
   }
 }
 

@@ -3,7 +3,7 @@
   table.alert-listing.table.table-striped data-last-seen-at=@notification.seen_at
     - alerts.each do |alert|
       tr.alert data-created-at=alert.created_at
-        td = alert.alertable&.long_name
+        td: div = alert.alertable&.long_name
         - case alert.type
         - when 'pending_order'
           td Has not been received

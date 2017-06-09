@@ -9,12 +9,13 @@
           li = active_link_to 'Frequently Ordered', url_for(params.merge(action: :frequently_ordered)), :active => :exclusive
       - @groups.each do |group_name, food_items|
         .block
-          h4 = group_name
+          h1 = group_name
           = render 'carts/form', food_items: food_items, kitchen: current_kitchen
       .text-right
         = link_to 'Add All to Cart', '#', class: 'btn btn-primary', id: 'btn-add-all'
       .text-center
-        = will_paginate @food_items, renderer: BootstrapPagination::Rails, inner_window: 3, outer_window: 1
+        br
+        = will_paginate @food_items
 
     .col-md-4
       #cart-details-ref

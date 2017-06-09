@@ -7,35 +7,35 @@
           .text-right
             strong = link_to 'EDIT', [:edit, @restaurant], remote: true
     .col-lg-8
-      br
-      .row
-        - if can?(:create, Kitchen.new(restaurant_id: @restaurant.id))
+      .block
+        br
+        .row
+          - if can?(:create, Kitchen.new(restaurant_id: @restaurant.id))
+            .col-xs-12
+              .pull-right
+                strong = link_to 'New Kitchen', [:new, @restaurant, :kitchen], remote: true, class: 'btn btn-primary'
+              h2 Kitchens
           .col-xs-12
-            .pull-right
-              strong = link_to 'New Kitchen', [:new, @restaurant, :kitchen], remote: true, class: 'btn btn-primary'
-            h2 Kitchens
-        .col-xs-12
-          = text_field_tag :keyword, '', id: 'kitchen_filter_keyword', target: 'kitchens', placeholder: 'Keyword'
-      br
-
-      table#kitchens.table.table-striped
-        thead
-          tr
-            th Name
-            th Address
-            th
-        tbody
-          - @restaurant.kitchens.includes(:restaurant).each do |kitchen|
+            = text_field_tag :keyword, '', id: 'kitchen_filter_keyword', target: 'kitchens', placeholder: 'Keyword'
+        br
+        table#kitchens.table.table-striped
+          thead
             tr
-              td.filterable = kitchen.name
-              td.filterable = kitchen.address
-              td
-                ul.list-inline
-                  - if can?(:show, kitchen)
-                    li = link_to 'View', kitchen, remote: true
-                  - if can?(:edit, kitchen)
-                    li = link_to 'Edit', [:edit, @restaurant, kitchen], remote: true
-                  - if can?(:destroy, kitchen)
-                    li = link_to 'Delete', '#', data: { toggle: "confirmation", href: kitchen_path(kitchen) }, class: 'delete'
+              th Name
+              th Address
+              th
+          tbody
+            - @restaurant.kitchens.includes(:restaurant).each do |kitchen|
+              tr
+                td.filterable = kitchen.name
+                td.filterable = kitchen.address
+                td
+                  ul.list-inline
+                    - if can?(:show, kitchen)
+                      li = link_to 'View', kitchen, remote: true
+                    - if can?(:edit, kitchen)
+                      li = link_to 'Edit', [:edit, @restaurant, kitchen], remote: true
+                    - if can?(:destroy, kitchen)
+                      li = link_to 'Delete', '#', data: { toggle: "confirmation", href: kitchen_path(kitchen) }, class: 'delete'
 
 

@@ -2,10 +2,9 @@ const Sidebar = function(sidebar) {
   this.body = $('body')
   this.sidebar = $(sidebar)
   this.sidebar.find('li a').prepend('<i/>')
-  this.toggleButton = $('#toggle-sidebar')
-  
+
   $('body').addClass('notransition')
-  
+
   if(Cookies.get('sidebar-status') == 'collapsed') {
     this.collapse()
   }
@@ -14,13 +13,9 @@ const Sidebar = function(sidebar) {
   }
 
   setTimeout(function() {
-    $('body').removeClass('notransition')  
+    $('body').removeClass('notransition')
     $('#cart-details').width($('#cart-details-ref').width() + 15)
   }, 1000)
-  
-  this.toggleButton.click(() => {
-    this.toggle()
-  })
 }
 
 Sidebar.prototype.collapse = function() {

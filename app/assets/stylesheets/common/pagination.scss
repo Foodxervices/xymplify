@@ -1,0 +1,40 @@
+.pagination:not(ul) {
+  display: block;
+  background: #43BFC1;
+  color: #fff;
+  margin: 8px 0;
+  border-radius: 0;
+  padding: 12px 20px;
+  margin: 0;
+
+  .previous_page {
+    margin-right: 2px;
+  }
+
+  .next_page {
+    margin-left: 2px;
+  }
+
+  em.current {
+    color: #666666;
+    font-size: 14px;
+    font-style: normal;
+    margin: 0 6px;
+  }
+
+  a {
+    margin: 0 6px;
+    color: #fff;
+  }
+}
+
+ul.pagination > .active {
+  > a {
+    border-color: $primary_color;
+  }
+
+  > a, > a:hover, > a:focus, > span, > span:hover, > span:focus {
+    background: $primary_color;
+  }
+}
+

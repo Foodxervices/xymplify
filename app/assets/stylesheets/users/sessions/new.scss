@@ -1,12 +1,10 @@
 #users-sessions-new-container {
-  .title {
-    text-align: center;
+  #logo {
+    margin-top: -40px;
   }
 
-  h1 {
-    padding: 10px 65px;
-    display: inline-block;
-    background: url(image_path("logo.png")) no-repeat 0 center;
+  .title {
+    text-align: center;
   }
 
   .user_remember_me {

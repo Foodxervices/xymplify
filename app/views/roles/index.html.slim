@@ -1,13 +1,15 @@
 = render 'roles/search', role_filter: @role_filter, url: roles_path
 #roles-index-container
-  - if can?(:create, Role)
-    .pull-right
-      .btn-group
-        = link_to 'Create New Role', new_role_path, class: 'btn btn-default'
+  .block
+    .row
+      .col-xs-12
+        - if can?(:create, Role)
+          .pull-right
+            .btn-group
+              = link_to 'Create New Role', new_role_path, class: 'btn btn-default'
 
-  h1 User Roles
-  .clearfix
-  .table-responsive
+        h1 User Roles
+    br
     table.table.table-striped
       thead
         tr
@@ -25,5 +27,5 @@
                   li = link_to 'Edit', [:edit, role]
                 - if can?(:destroy, role)
                   li = link_to 'Delete', '#', data: { toggle: "confirmation", href: role_path(role) }, class: 'delete'
-  .text-center
-    = will_paginate @roles, renderer: BootstrapPagination::Rails
+    .text-center
+      = will_paginate @roles

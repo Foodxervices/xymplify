@@ -1,18 +1,16 @@
 = render 'food_items/search', food_item_filter: @food_item_filter
 #food_items-index-container
-  .row
-    .col-sm-4
-      h1 Food Item
-    .col-sm-8
-      br
-      .text-right
-        .btn-group
-          - if can?(:import, Kitchen)
-            = link_to 'Import', [:new, :food_item_import], remote: true, class: 'btn btn-default'
-          - if can?(:create, FoodItem)
-            = link_to 'Create Food Item', [:new, :food_item], class: 'btn btn-default'
-
-  .table-responsive
+  .block
+    .row
+      .col-xs-12
+        .pull-right
+          .btn-group
+            - if can?(:import, Kitchen)
+              = link_to 'Import', [:new, :food_item_import], remote: true, class: 'btn btn-default'
+            - if can?(:create, FoodItem)
+              = link_to 'Create Food Item', [:new, :food_item], class: 'btn btn-default'
+        h1 Food Item
+    br
     table.table.table-striped.text-center
       thead
         tr
@@ -51,4 +49,4 @@
                 - if can?(:destroy, food_item)
                   li = link_to 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item) }, class: 'delete'
   .text-center
-    = will_paginate @food_items, renderer: BootstrapPagination::Rails
+    = will_paginate @food_items

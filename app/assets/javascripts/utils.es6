@@ -161,7 +161,6 @@ const Utils = {
   },
   paddingMain: () => {
     $('main').css('top', $('#menu').outerHeight())
-    $('#sidebar').css('padding-top', $('#menu').outerHeight())
   },
   initMentionsInput: () => {
     $('.mention-input').each(function() {

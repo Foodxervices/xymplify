@@ -1,47 +1,17 @@
 .shared-menu-container {
   background: #FFFFFF;
-  box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
+  border-bottom: 1px solid #a8a1a1;
 
-  #brand-logo, #toggle-sidebar, #current-page-info, #notification, #user-info {
-    line-height: 80px;
-    height: 80px;
+  #current-page-info, #notification, #user-info {
+    line-height: 100px;
+    height: 101px;
     display: block;
     float: left;
   }
 
-  #brand-logo {
-    font-family: 'Proxima Nova Lt';
-    font-size: 24px;
-    color: $primary_color;
-    min-width: 195px;
-    position: relative;
-    padding-left: 78px;
-
-    img {
-      position: absolute;
-      left: 20px;
-      top: 15px;
-    }
-  }
-
-  #toggle-sidebar {
-    width: 56px;
-    text-align: center;
-    cursor: pointer;
-
-    i {
-      font-size: 30px;
-      font-style: normal;
-      color: #757575;
-      @extend .mdi;
-      @extend .mdi-menu;
-    }
-  }
-
   #current-page-info {
     position: relative;
-    height: 80px;
-    padding: 0 15px;
+    padding: 0 15px 0 195px;
     cursor: pointer;
 
     a {
@@ -50,39 +20,46 @@
     }
 
     a.restaurant-name {
-      font-size: 24px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 32px;
       color: $primary_color;
       font-weight: 600;
       text-transform: uppercase;
-      color: #424242;
+      color: #000;
       line-height: 24px;
-      margin: 14px 0 8px;
+      margin: 24px 0 8px;
     }
 
     a.kitchen-name {
+      font-family: 'Open Sans', sans-serif;
+      color: #000;
       font-size: 14px;
-      line-height: 18px;
+      line-height: 24px;
       letter-spacing: 0;
     }
   }
 
   #notification {
-    font-size: 28px;
     width: 80px;
     text-align: center;
-    color: $primary_color;
+    color: #000;
     position: relative;
+
+    a {
+      color: #7f7a7a;
+      font-size: 24px;
+    }
 
     #alert-count {
       position: absolute;
+      top: 32px;
+      right: 22px;
       font-size: 10px;
       line-height: 14px;
       display: block;
       min-width: 14px;
       height: 14px;
       color: #FFFFFF;
-      top: 23px;
-      right: 24px;
       background: #FF5252;
       border-radius: 50%;
     }
@@ -90,13 +67,13 @@
 
   #user-info {
     position: relative;
-    padding: 0 10px 0 65px;
+    padding: 10px 10px 0 65px;
     line-height: 20px;
 
     > img {
       position: absolute;
       left: 0;
-      top: 15px;
+      top: 25px;
       border-radius: 50%;
       width: 50px;
       height: 50px;
@@ -128,8 +105,7 @@
       font-family: 'Proxima Nova Lt';
       text-decoration: none;
       color: #fff;
-      background: #2979FF;
-      border-radius: 2px;
+      background: #EF6062;
       padding: 0 10px;
       display: inline-block;
       font-size: 10px;

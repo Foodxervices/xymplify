@@ -3,24 +3,24 @@
     = image_tag restaurant.logo.url(:medium)
   br
   table.table.table-striped
-    tr 
+    tr
       th = Restaurant.human_attribute_name(:site_address)
       td = restaurant.site_address
-    tr 
+    tr
       th = Restaurant.human_attribute_name(:billing_address)
       td = restaurant.billing_address
-    tr 
+    tr
       th = Restaurant.human_attribute_name(:contact_person)
       td = restaurant.contact_person
-    tr 
+    tr
       th = Restaurant.human_attribute_name(:telephone)
       td = restaurant.telephone
-    tr 
+    tr
       th = Restaurant.human_attribute_name(:email)
       td = restaurant.email
-    tr 
+    tr
       th = Restaurant.human_attribute_name(:currency)
       td = restaurant.currency
-    tr 
+    tr
       th = Restaurant.human_attribute_name(:company_registration_no)
       td = restaurant.company_registration_no

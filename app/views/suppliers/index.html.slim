@@ -1,13 +1,15 @@
 = render 'suppliers/search', supplier_filter: @supplier_filter
 #suppliers-index-container
-  .pull-right
-    .btn-group
-      - if can?(:create, Supplier.new(restaurant_id: current_restaurant&.id))
-        = link_to 'Create New Supplier', [:new, :supplier], class: 'btn btn-default'
+  .block
+    .row
+      .col-xs-12
+        .pull-right
+          .btn-group
+            - if can?(:create, Supplier.new(restaurant_id: current_restaurant&.id))
+              = link_to 'Create New Supplier', [:new, :supplier], class: 'btn btn-default'
 
-  h1 Supplier
-  .clearfix
-  .table-responsive
+        h1 Supplier
+    br
     table.table.table-striped
       thead
         tr

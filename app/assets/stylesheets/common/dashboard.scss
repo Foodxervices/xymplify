@@ -1,0 +1,28 @@
+.dashboard {
+  h1 {
+    margin-bottom: 0;
+    font-size: 22px;
+  }
+
+  .order-updates {
+    h2 {
+      color: #EF6062;
+    }
+
+    .pagination {
+      background: #EF6062;
+
+      em.current {
+        color: #4ade17;
+      }
+    }
+  }
+
+  .incoming {
+    min-height: 415px;
+  }
+
+  .pagination {
+    margin: -20px;
+  }
+}

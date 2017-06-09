@@ -2,27 +2,27 @@
   = render 'shared/summary', summary: @summary
   #notifications
     .row
-      .col-lg-6
+      .col-lg-7
+        = render 'graphs/graph'
         .block
-          h2.alert Incoming Deliveries
-          - if @incoming_deliveries.present?
-            = render 'alerts/listing', alerts: @incoming_deliveries, page: :incoming_page
-          - else
-            h4
-              i No incoming deliveries yet
-      .col-lg-6
-        .block
-          h2.alert Order Updates
-          - if @alerts.present?
-            = render 'alerts/listing', alerts: @alerts
-          - else
-            h4
-              i No orders yet
-
-  = render 'graphs/graph'
-
-  .block
-    h2 Message Board
-    = render 'messages/listing', messages: @messages
+          h2 Message Board
+          = render 'messages/listing', messages: @messages
+      .col-lg-5
+        .incoming
+          .block
+            h2.alert Incoming Deliveries
+            - if @incoming_deliveries.present?
+              = render 'alerts/listing', alerts: @incoming_deliveries, page: :incoming_page
+            - else
+              h4
+                i No incoming deliveries yet
+        .order-updates
+          .block
+            h2.alert Order Updates
+            - if @alerts.present?
+              = render 'alerts/listing', alerts: @alerts
+            - else
+              h4
+                i No orders yet
 
   - @notification.seen

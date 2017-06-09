@@ -1,11 +1,15 @@
 .graphs-graph-container {
   .google-visualization-controls-categoryfilter-selected.goog-inline-block {
-    height: 230px;
+    height: auto;
   }
 
   #cost-graph {
     > div {
       height: 334px;
     }
+  }
+
+  #graph-links {
+    display: none;
   }
 }

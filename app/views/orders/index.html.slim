@@ -19,4 +19,4 @@
                   td = order_time_range(order)
             = render 'orders/details', order: order
   .text-center
-    = will_paginate @orders, renderer: BootstrapPagination::Rails
+    = will_paginate @orders
