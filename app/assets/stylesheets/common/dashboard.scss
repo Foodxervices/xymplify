@@ -1,9 +1,4 @@
 .dashboard {
-  h1 {
-    margin-bottom: 0;
-    font-size: 22px;
-  }
-
   .order-updates {
     h2 {
       color: #EF6062;
@@ -19,7 +14,8 @@
   }
 
   .incoming {
-    min-height: 415px;
+    margin-top: 40px;
+    min-height: 417px;
   }
 
   .pagination {

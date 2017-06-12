@@ -1,20 +1,5 @@
 .shared-cost_graph-container {
-  margin: 20px 0;
-
   .graph {
-    min-height: 414px;
-    padding: 12px 0;
-    background: #FFFFFF;
-    box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
-
-    h1 {
-      margin: 15px 0 0 0;
-      padding-left: 20px;
-      font-weight: 500;
-      font-size: 20px;
-      color: #424242;
-    }
-
     #cost-graph {
       margin-right: 50px;
       overflow: hidden;
@@ -22,7 +7,6 @@
   }
 
   #graph-filter {
-    margin-top: 20px;
     padding: 20px;
     background: #FFFFFF;
     box-shadow: 0 0 4px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.24);
