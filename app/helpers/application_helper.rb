@@ -1,6 +1,10 @@
 require 'numeric'
 
 module ApplicationHelper
+  def namespace
+    controller.class.name.gsub(/(::)?\w+Controller$/, '')
+  end
+
   def format_date(date)
     date.try(:strftime, '%a, %d %b %Y')
   end
@@ -12,7 +16,7 @@ module ApplicationHelper
   def format_time(time)
     time.try(:strftime, '%I:%M %p')
   end
-  
+
   def currency_codes
     currencies = []
     Money::Currency.table.values.each do |currency|
@@ -28,7 +32,7 @@ module ApplicationHelper
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     link_to title, params.merge(:sort => column, :direction => direction), {:class => css_class}
   end
-  
+
   def image_tag_retina_detection(name_at_1x, options={})
     name_at_2x = name_at_1x.gsub(%r{\.\w+$}, '-2x\0')
     image_tag(name_at_1x, options.merge("data-at2x" => ActionController::Base.helpers.asset_path(name_at_2x)))

@@ -1,0 +1,42 @@
+= render 'suppliers/search', supplier_filter: @supplier_filter
+#suppliers-index-container
+  .block
+    .row
+      .col-xs-12
+        h1 Supplier
+    br
+    table.table.table-striped
+      thead
+        tr
+          th = Supplier.human_attribute_name(:name)
+          th = Supplier.human_attribute_name(:restaurant)
+          th = Supplier.human_attribute_name(:country)
+          th = Supplier.human_attribute_name(:contact)
+          th = Supplier.human_attribute_name(:telephone)
+          th = Supplier.human_attribute_name(:email)
+          th.text-center = Supplier.human_attribute_name(:currency)
+          th = Supplier.human_attribute_name(:delivery_days)
+          - if Config.processing_cut_off_enabled?
+            th = Supplier.human_attribute_name(:processing_cut_off)
+          th.text-center Action
+      tbody
+        - @suppliers.each do |supplier|
+          tr
+            td = link_to supplier.name, supplier, remote: true
+            td = supplier.restaurant&.name
+            td = supplier.country_name
+            td = supplier.contact
+            td = supplier.telephone
+            td = supplier.email
+            td.text-center = supplier.currency
+            td = supplier.delivery_days.texts.to_sentence
+            - if Config.processing_cut_off_enabled?
+              td = format_time(supplier.processing_cut_off)
+            td.text-center width="250"
+              ul.actions
+                li = link_to 'View', supplier, remote: true
+                li = link_to 'Clone', clone_global_supplier_path(supplier), remote: true
+                li = link_to 'Edit', [:edit, supplier]
+                li = link_to 'Delete', '#', data: { toggle: "confirmation", href: supplier_path(supplier) }, class: 'delete'
+  .text-center
+    = will_paginate @suppliers

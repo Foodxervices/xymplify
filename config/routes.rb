@@ -134,4 +134,14 @@ Rails.application.routes.draw do
       post :reset_inventory
     end
   end
+
+  namespace :global do
+    resources :suppliers,  only: [:index] do
+      member do
+        get :clone
+        post :do_clone
+      end
+    end
+    resources :food_items, only: [:index]
+  end
 end

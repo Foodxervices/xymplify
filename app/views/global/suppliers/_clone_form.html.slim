@@ -1,0 +1,4 @@
+.global-suppliers-clone_form-container
+  = simple_form_for form, url: do_clone_global_supplier_path(params[:id]), method: :post do |f|
+    = kitchen_dropdown(f, action: :import)
+    = f.button :submit, class: 'btn btn-primary btn-block', data: { :disable_with => "Submitting..." }

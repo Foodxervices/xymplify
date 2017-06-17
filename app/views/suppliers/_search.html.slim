@@ -1,5 +1,7 @@
 .suppliers-search-container.search-container
   = simple_form_for supplier_filter, url: '', method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
     = f.input :keyword
+    - if namespace == 'Global'
+      = f.input :restaurant_id, collection: Restaurant.all, include_blank: 'All Restaurants'
     = f.button :submit, 'Search', class: 'btn-primary'
     = link_to "Reset", [@restaurant, :suppliers], class: 'btn btn-default'

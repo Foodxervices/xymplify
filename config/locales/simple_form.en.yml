@@ -33,3 +33,5 @@ en:
     labels:
       food_item_import:
         kitchen_ids: 'Kitchens'
+      clone_supplier_service:
+        kitchen_ids: 'Kitchens'

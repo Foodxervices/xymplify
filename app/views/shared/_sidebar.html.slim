@@ -6,6 +6,7 @@
       = render 'shared/sidebar/restaurant'
     - if current_user.kind_of?(Admin)
       = active_link_to 'Restaurants', authenticated_root_path, :wrap_tag => :li, :active => :exact, class: 'sb-dashboard', title: 'Restaurant'
+      = active_link_to 'Suppliers (Global)', global_suppliers_path, :wrap_tag => :li, :active => :exact, class: 'sb-supplier', title: 'Suppliers'
     - if can?(:index, Role)
       = active_link_to 'User Roles', roles_path, :wrap_tag => :li, class: 'sb-role', title: 'Role'
     - if can?(:index, User)
