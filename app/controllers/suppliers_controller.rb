@@ -1,6 +1,5 @@
 class SuppliersController < AdminController
   load_and_authorize_resource :supplier, :through => :current_restaurant
-
   before_action :init_processing_cut_off, only: [:new, :edit]
 
   def index
