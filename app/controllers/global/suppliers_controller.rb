@@ -1,4 +1,5 @@
 class Global::SuppliersController < AdminController
+  before_action :authorize
   before_action :clear_restaurant_sessions
 
   def index
@@ -34,5 +35,9 @@ class Global::SuppliersController < AdminController
     data[:source_id] = params[:id]
     data[:user_id] = current_user.id
     data
+  end
+
+  def authorize
+    authorize! :global_suppliers, User
   end
 end

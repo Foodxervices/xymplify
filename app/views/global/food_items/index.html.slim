@@ -1,0 +1,46 @@
+= render 'food_items/search', food_item_filter: @food_item_filter
+#global-food_items-index-container
+  .block
+    .row
+      .col-xs-12
+        h1 Food Item
+    br
+    table.table.table-striped.text-center
+      thead
+        tr
+          th.text-left = sortable(:restarant_name, kclass: FoodItem)
+          th width=100 = sortable(:code, kclass: FoodItem)
+          th.text-left = sortable(:name, kclass: FoodItem)
+          th.text-left = sortable(:attachments_count, title: FoodItem.human_attribute_name(:files), kclass: FoodItem)
+          th = FoodItem.human_attribute_name(:image)
+          th = sortable(:unit, kclass: FoodItem)
+          th width=80 = sortable(:unit_price_cents, title: FoodItem.human_attribute_name(:both_prices), kclass: FoodItem)
+          th = sortable(:unit_price_currency, kclass: FoodItem)
+          th = sortable(:supplier_name, kclass: FoodItem)
+          th = sortable(:brand, kclass: FoodItem)
+          th = sortable(:category_name, kclass: FoodItem)
+          th Action
+      tbody
+        - @food_items.each do |food_item|
+          tr
+            td.text-left = food_item.restaurant_name
+            td = link_to food_item.code, food_item, remote: true
+            td.text-left = food_item.name
+            td = food_item.attachments.size
+            td = image_tag food_item.image.url(:thumb)
+            td = food_item.unit
+            td = both_prices(food_item)
+            td = food_item.unit_price_currency
+            td = link_to_if can?(:read, food_item.supplier), food_item.supplier_name, supplier_path(food_item.supplier_id, restaurant_id: food_item.restaurant_id), remote: true
+            td = food_item.brand
+            td = food_item.category_name
+            td
+              ul.actions
+                - if can?(:show, food_item, restaurant_id: food_item.restaurant_id)
+                  li = link_to 'View', [food_item, restaurant_id: food_item.restaurant_id], remote: true
+                - if can?(:update, food_item)
+                  li = link_to 'Edit', [:edit, food_item, restaurant_id: food_item.restaurant_id]
+                - if can?(:destroy, food_item)
+                  li = link_to 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item, restaurant_id: food_item.restaurant_id) }, class: 'delete'
+  .text-center
+    = will_paginate @food_items
