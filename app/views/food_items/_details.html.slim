@@ -35,6 +35,9 @@
           tr
             th = FoodItem.human_attribute_name(:low_quantity)
             td = food_item.low_quantity
+        tr
+          th = FoodItem.human_attribute_name(:remarks)
+          td = simple_format food_item.remarks
         - if food_item.attachments.any?
           tr
             th = FoodItem.human_attribute_name(:attachments)

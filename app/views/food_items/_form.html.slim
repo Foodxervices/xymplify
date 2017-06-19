@@ -19,6 +19,7 @@
           = f.input         :unit_price, as: :numeric
           = f.input         :unit_price_currency, collection: currency_codes, hint: "leave it blank to following supplier's currency"
           = f.input         :low_quantity
+          = f.input         :remarks
       = f.input         :files, as: :file, input_html: { name: 'attachment[file]', data: {'allowed-file-extensions' => "png,jpg,jpeg,pdf", 'initial-preview' => attachments_preview(food_item.attachments), 'initial-preview-config' => attachments_preview_config(food_item.attachments), 'overwrite-initial' => false, 'upload-url' => attachments_url}, multiple: true }
 
     .form-actions

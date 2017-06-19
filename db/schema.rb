@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619045912) do
+ActiveRecord::Schema.define(version: 20170619054354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20170619045912) do
     t.datetime "deleted_at"
     t.integer  "ordered_count",                                                 default: 0
     t.string   "country_of_origin"
+    t.text     "remarks"
   end
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree

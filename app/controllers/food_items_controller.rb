@@ -82,6 +82,7 @@ class FoodItemsController < AdminController
       :tag_list,
       :low_quantity,
       :country_of_origin,
+      :remarks,
       kitchen_ids: []
     )
 
