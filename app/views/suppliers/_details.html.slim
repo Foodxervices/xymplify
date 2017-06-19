@@ -57,3 +57,6 @@
     tr
       td = Supplier.human_attribute_name(:bank_account_number)
       td = supplier.bank_account_number
+    tr
+      td = Supplier.human_attribute_name(:remarks)
+      td = simple_format supplier.remarks

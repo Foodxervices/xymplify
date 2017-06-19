@@ -83,6 +83,7 @@ class SuppliersController < AdminController
       :processing_cut_off,
       :block_delivery_dates,
       :cc_emails,
+      :remarks,
       kitchen_ids: [],
       delivery_days: []
     )

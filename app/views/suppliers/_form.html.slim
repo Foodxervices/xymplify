@@ -18,6 +18,7 @@
             = f.input :block_delivery_dates, as: :string
             - if Config.processing_cut_off_enabled?
               = f.input :processing_cut_off, as: :time
+            = f.input :remarks
       .row
         .col-md-6
           table.table.table-bordered
