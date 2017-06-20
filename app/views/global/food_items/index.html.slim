@@ -8,7 +8,7 @@
     table.table.table-striped.text-center
       thead
         tr
-          th.text-left = sortable(:restarant_name, kclass: FoodItem)
+          th.text-left = sortable(:restaurant_name, kclass: FoodItem)
           th width=100 = sortable(:code, kclass: FoodItem)
           th.text-left = sortable(:name, kclass: FoodItem)
           th.text-left = sortable(:attachments_count, title: FoodItem.human_attribute_name(:files), kclass: FoodItem)

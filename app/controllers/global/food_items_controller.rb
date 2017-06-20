@@ -35,6 +35,7 @@ class Global::FoodItemsController < AdminController
     FoodItem.column_names
             .push('supplier_name')
             .push('category_name')
+            .push('restaurant_name')
             .include?(params[:sort]) ? params[:sort] : "name"
   end
 
