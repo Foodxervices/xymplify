@@ -1,0 +1,16 @@
+.orders-updates-container
+  table.alert-listing.table.table-striped data-last-seen-at=@notification.seen_at
+    thead
+      tr
+        th PO No.
+        th Status
+        th
+    tbody
+      - orders.each do |order|
+        tr.alert data-created-at=order.status_updated_at
+          td: div = order.long_name
+          td = order.status_text
+          td
+            - if can?(:read, order)
+              = link_to 'View', [order, alert: true], remote: true
+  = will_paginate orders, inner_window: 3, outer_window: 1, param_name: :statuses_page

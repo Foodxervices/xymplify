@@ -4,8 +4,6 @@ class Inventory < ActiveRecord::Base
   belongs_to :kitchen
   belongs_to :food_item, -> { with_deleted }
 
-  has_many :alerts, as: :alertable
-
   validates :restaurant_id,   presence: true
   validates :kitchen_id,      presence: true
   validates :food_item_id,    presence: true

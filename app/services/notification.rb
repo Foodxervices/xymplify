@@ -9,11 +9,11 @@ class Notification
 
   def count
     $redis.del(redis_key(:count)) if seen_at < alert_updated_at
-    
+
     cache(:count) {
-      alerts = Alert.accessible_by(current_ability, kitchen: kitchen)
-      alerts = alerts.where('created_at > ?', seen_at) if seen_at.present?
-      alerts.count
+      orders = kitchen.orders.accessible_by(current_ability)
+      orders = orders.where('status_updated_at > ?', seen_at) if seen_at.present?
+      orders.count
     }.to_i
   end
 

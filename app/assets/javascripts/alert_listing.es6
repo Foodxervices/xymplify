@@ -4,7 +4,6 @@ const AlertListing = function(object) {
 
   this.object.find('.alert').each((index, alert) => {
     let created_at = new Date($(alert).data('created-at'))
-    
     if(this.last_seen_at <= created_at) {
       $(alert).addClass('not-seen')
     }

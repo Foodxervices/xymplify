@@ -110,8 +110,7 @@ class OrdersController < AdminController
       end
 
       if @success
-        alert = @order.alerts.create(type: :approved_order)
-        flash[:notice] = alert.title
+        flash[:notice] = "#{@order.long_name} has been approved"
         OrderMailer.notify_supplier_after_placed(@order).deliver_later
       end
     else
@@ -133,8 +132,7 @@ class OrdersController < AdminController
       end
 
       if @success
-        alert = @order.alerts.create(type: :rejected_order)
-        flash[:notice] = alert.title
+        flash[:notice] = "#{@order.long_name} has been rejected"
       end
     else
       invalid_status_notice
@@ -155,8 +153,7 @@ class OrdersController < AdminController
       end
 
       if @success
-        alert = @order.alerts.create(type: :accepted_order)
-        flash[:notice] = alert.title
+        flash[:notice] = "#{@order.long_name} has been accepted"
         OrderMailer.notify_restaurant_after_accepted(@order).deliver_later
       end
     else
@@ -178,8 +175,7 @@ class OrdersController < AdminController
       end
 
       if @success
-        alert = @order.alerts.create(type: :declined_order)
-        flash[:notice] = alert.title
+        flash[:notice] = "#{@order.long_name} has been declined"
         OrderMailer.notify_restaurant_after_declined(@order).deliver_later
       end
     else
@@ -214,7 +210,7 @@ class OrdersController < AdminController
         @message = "#{order_name} has been deleted."
       else
         FrequentlyOrderedWorker.perform_async(@order.id)
-        @message << "#{@order.long_name} has been delivered."
+        @message << "#{@order.long_name} has been delivered"
 
         if params[:send_email] == '1'
           OrderMailer.notify_supplier_after_delivered(@order, params[:remarks], @order_changes).deliver_later

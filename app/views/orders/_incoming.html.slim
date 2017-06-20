@@ -1,0 +1,15 @@
+.orders-incoming-container
+  table.table.table-striped
+    thead
+      th PO No.
+      th Delivery Date
+      th
+    tbody
+      - orders.each do |order|
+        tr.alert
+          td: div = order.long_name
+          td = date_of_delivery(order)
+          td
+            - if can?(:read, order)
+              = link_to 'View', [order, alert: true], remote: true
+  = will_paginate orders, inner_window: 3, outer_window: 1, param_name: :incoming_page

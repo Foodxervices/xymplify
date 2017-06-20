@@ -18,7 +18,7 @@
 
 .btn-primary, .btn-add {
   background: $primary_color;
-  border: $primary_color;
+  border: 1px solid $primary_color;
 
   &:hover, &:focus, &:active, &:visited {
     background: $primary_color !important;

@@ -38,8 +38,6 @@
 @import 'restaurants/show';
 @import 'restaurants/_list';
 
-@import 'alerts/_listing';
-
 @import 'roles/_details';
 
 @import 'categories/index';
@@ -47,6 +45,8 @@
 @import 'orders/index';
 @import 'orders/_form';
 @import 'orders/_details';
+@import 'orders/_incoming';
+@import 'orders/_updates';
 
 @import 'suppliers/index';
 @import 'suppliers/_form';

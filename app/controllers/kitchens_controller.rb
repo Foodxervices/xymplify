@@ -38,11 +38,15 @@ class KitchensController < AdminController
   end
 
   def dashboard
-    alerts = Alert.accessible_by(current_ability, kitchen: current_kitchen)
-                                .includes(:alertable)
-                                .order(id: :desc)
-    @alerts              = alerts.where.not(type: :incoming_delivery).paginate(:page => params[:alert_page], :per_page => 5)
-    @incoming_deliveries = alerts.where(type: :incoming_delivery).paginate(:page => params[:incoming_page], :per_page => 5)
+    orders = current_kitchen.orders.accessible_by(current_ability).where.not(status: [:wip, :confirmed])
+
+    @order_updates       =  orders.order(status_updated_at: :desc)
+                                  .paginate(:page => params[:statuses_page], :per_page => 5)
+
+    @incoming_deliveries =  orders.where(status: [:accepted])
+                                  .order(:request_delivery_date)
+                                  .paginate(:page => params[:incoming_page], :per_page => 5)
+
     @messages = Message.accessible_by(current_ability)
 
     @messages = @messages.where("(kitchen_id IS NULL AND restaurant_id = ?) OR kitchen_id = ?", current_restaurant.id, current_kitchen.id)

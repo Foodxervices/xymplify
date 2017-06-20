@@ -9,17 +9,17 @@
     .col-lg-5
       .incoming
         .block
-          h2.alert Incoming Deliveries
           - if @incoming_deliveries.present?
-            = render 'alerts/listing', alerts: @incoming_deliveries, page: :incoming_page
+            h2.alert Incoming Deliveries
+            = render 'orders/incoming', orders: @incoming_deliveries
           - else
             h4
               i No incoming deliveries yet
       .order-updates
         .block
           h2.alert Order Updates
-          - if @alerts.present?
-            = render 'alerts/listing', alerts: @alerts
+          - if @order_updates.present?
+            = render 'orders/updates', orders: @order_updates
           - else
             h4
               i No orders yet

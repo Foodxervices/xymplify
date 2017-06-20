@@ -67,12 +67,15 @@ class RestaurantsController < AdminController
 
   def dashboard
     session.delete(:kitchen_id)
-    alerts = Alert.accessible_by(current_ability, restaurant: @restaurant)
-                                .includes(:alertable)
-                                .order(id: :desc)
 
-    @alerts              = alerts.where.not(type: :incoming_delivery).paginate(:page => params[:alert_page], :per_page => 5)
-    @incoming_deliveries = alerts.where(type: :incoming_delivery).paginate(:page => params[:incoming_page], :per_page => 5)
+    orders = current_restaurant.orders.accessible_by(current_ability).where.not(status: [:wip, :confirmed])
+
+    @order_updates       =  orders.order(status_updated_at: :desc)
+                                  .paginate(:page => params[:statuses_page], :per_page => 5)
+
+    @incoming_deliveries =  orders.where(status: [:accepted])
+                                  .order(:request_delivery_date)
+                                  .paginate(:page => params[:incoming_page], :per_page => 5)
 
     @messages = @restaurant.messages.accessible_by(current_ability).order(id: :desc).paginate(:page => params[:message_page], :per_page => 5)
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe Inventory do 
-  context 'validations' do 
+describe Inventory do
+  context 'validations' do
     it { is_expected.to validate_presence_of :food_item_id }
     it { is_expected.to validate_presence_of :kitchen_id }
     it { is_expected.to validate_presence_of :restaurant_id }
@@ -11,11 +11,9 @@ describe Inventory do
     it { is_expected.to validate_numericality_of(:quantity_ordered).is_greater_than_or_equal_to(0) }
   end
 
-  context 'associations' do 
+  context 'associations' do
     it { is_expected.to belong_to :food_item }
     it { is_expected.to belong_to :kitchen }
     it { is_expected.to belong_to :restaurant }
-
-    it { is_expected.to have_many :alerts }
   end
 end

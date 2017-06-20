@@ -13,19 +13,17 @@ class Order < ActiveRecord::Base
   before_create :cache_restaurant
   before_create :set_name
 
-  before_update :check_incoming_delivery
-
   before_save :set_status_updated_at
   before_save :add_pay_amount
 
   after_save :set_item_price
   after_save :check_status
+  after_save :clear_notification_caching
 
   after_commit :cache_price, on: [:create, :update]
 
   has_many :items, class_name: "OrderItem", dependent: :destroy
   has_many :gsts, -> { includes :order },  class_name: "OrderGst",  dependent: :destroy
-  has_many :alerts, as: :alertable
   has_many :payment_histories
 
   belongs_to :supplier
@@ -184,11 +182,8 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def check_incoming_delivery
-    if status_changed? && status.placed?
-      if request_delivery_date.beginning_of_day == 1.day.from_now.beginning_of_day
-        alerts.create(type: :incoming_delivery)
-      end
-    end
+  protected
+  def clear_notification_caching
+    kitchen.set_redis(:alert_updated_at, Time.zone.now) if status_updated_at_changed?
   end
 end
