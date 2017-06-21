@@ -11,7 +11,7 @@ class Global::SuppliersController < AdminController
   end
 
   def clone
-    @form = CloneSupplierService.new(source_id: params[:id])
+    @form = CloneSupplierService.new
   end
 
   def do_clone
@@ -32,7 +32,7 @@ class Global::SuppliersController < AdminController
 
   def clone_params
     data = params.require(:clone_supplier_service).permit(kitchen_ids: [])
-    data[:source_id] = params[:id]
+    data[:supplier_id] = params[:id]
     data[:user_id] = current_user.id
     data
   end

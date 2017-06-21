@@ -13,6 +13,18 @@ class Global::FoodItemsController < AdminController
                                     .paginate(:page => params[:page])
   end
 
+  def clone
+    @form = CloneFoodItemService.new
+  end
+
+  def do_clone
+    @form = CloneFoodItemService.new(clone_params)
+
+    @form.call
+
+    redirect_to global_food_items_path
+  end
+
   private
 
   def food_item_filter_params
@@ -24,6 +36,15 @@ class Global::FoodItemsController < AdminController
       :kitchen_ids,
       :tag_list
     )
+    data
+  end
+
+  def clone_params
+    data = params.require(:clone_food_item_service).permit(kitchen_ids: [])
+    food_item = FoodItem.find(params[:id])
+    data[:food_items] = [food_item]
+    data[:supplier_id] = food_item.supplier_id
+    data[:user_id] = current_user.id
     data
   end
 

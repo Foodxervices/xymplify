@@ -1,6 +1,6 @@
 class CloneSupplierService
   include ActiveModel::Model
-  attr_accessor :source_id
+  attr_accessor :supplier_id
   attr_accessor :user_id
   attr_accessor :kitchen_ids
 
@@ -9,7 +9,7 @@ class CloneSupplierService
   end
 
   def save
-    CloneSupplierWorker.perform_async(user_id, source_id, kitchen_ids)
+    CloneSupplierWorker.perform_async(user_id, supplier_id, kitchen_ids)
   end
 
   def persisted?

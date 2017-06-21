@@ -35,3 +35,5 @@ en:
         kitchen_ids: 'Kitchens'
       clone_supplier_service:
         kitchen_ids: 'Kitchens'
+      clone_food_item_service:
+        kitchen_ids: 'Kitchens'

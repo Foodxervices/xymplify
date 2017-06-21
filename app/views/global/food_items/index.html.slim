@@ -36,11 +36,9 @@
             td = food_item.category_name
             td
               ul.actions
-                - if can?(:show, food_item, restaurant_id: food_item.restaurant_id)
-                  li = link_to 'View', [food_item, restaurant_id: food_item.restaurant_id], remote: true
-                - if can?(:update, food_item)
-                  li = link_to 'Edit', [:edit, food_item, restaurant_id: food_item.restaurant_id]
-                - if can?(:destroy, food_item)
-                  li = link_to 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item, restaurant_id: food_item.restaurant_id) }, class: 'delete'
+                li = link_to 'Clone', clone_global_food_item_path(food_item), remote: true
+                li = link_to 'View', [food_item, restaurant_id: food_item.restaurant_id], remote: true
+                li = link_to 'Edit', [:edit, food_item, restaurant_id: food_item.restaurant_id]
+                li = link_to 'Delete', '#', data: { toggle: "confirmation", href: food_item_path(food_item, restaurant_id: food_item.restaurant_id) }, class: 'delete'
   .text-center
     = will_paginate @food_items

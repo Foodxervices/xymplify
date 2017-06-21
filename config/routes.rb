@@ -142,6 +142,11 @@ Rails.application.routes.draw do
         post :do_clone
       end
     end
-    resources :food_items, only: [:index]
+    resources :food_items, only: [:index] do
+      member do
+        get :clone
+        post :do_clone
+      end
+    end
   end
 end
