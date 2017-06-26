@@ -4,4 +4,4 @@
     - if namespace == 'Global'
       = f.input :restaurant_id, collection: Restaurant.all, include_blank: 'All Restaurants'
     = f.button :submit, 'Search', class: 'btn-primary'
-    = link_to "Reset", [@restaurant, :suppliers], class: 'btn btn-default'
+    = link_to "Reset", url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default'
