@@ -3,9 +3,12 @@
   .block
     .row
       .col-xs-12
-        - if can?(:reset_inventory, current_kitchen)
-          .pull-right
-            = link_to 'Reset Current Quantity', '#', data: { toggle: "confirmation", href: polymorphic_path([:reset_inventory, current_kitchen]), 'link-method' => 'post' }, class: 'btn btn-default'
+        .pull-right
+          .btn-group
+            - if can?(:reset_inventory, current_kitchen)
+              = link_to 'Reset Current Quantity', '#', data: { toggle: "confirmation", href: polymorphic_path([:reset_inventory, current_kitchen]), 'link-method' => 'post' }, class: 'btn btn-default'
+            - if can?(:requisition, current_kitchen)
+              = link_to 'New Requisition', new_requisition_path, remote: true, class: 'btn btn-primary'
         h1 Inventory Management
     br
     = react_component('InventoryList', groups: @groups, restaurant_currency_symbol: Money::Currency.new(current_restaurant.currency).symbol)

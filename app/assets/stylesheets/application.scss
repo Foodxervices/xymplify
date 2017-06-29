@@ -29,6 +29,8 @@
 
 @import 'inventories/index';
 
+@import 'requisitions/_form';
+
 @import 'food_items/index';
 @import 'food_items/_details';
 
@@ -80,3 +82,4 @@
 @import 'popups/orders/_details';
 @import 'popups/food_items/_details';
 @import 'popups/roles/_details';
+@import 'popups/requisitions/_form';

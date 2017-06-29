@@ -27,7 +27,7 @@ describe FoodItem do
     it { is_expected.to have_many :food_items_kitchens }
     it { is_expected.to have_many :inventories }
     it { is_expected.to have_many :order_items }
-
+    it { is_expected.to have_many :requisition_items }
     it { is_expected.to have_many :kitchens }
   end
 end

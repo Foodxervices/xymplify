@@ -11,6 +11,7 @@ describe Kitchen do
     it { is_expected.to belong_to :restaurant }
     it { is_expected.to have_many :orders }
     it { is_expected.to have_many :inventories }
+    it { is_expected.to have_many :requisitions }
     it { is_expected.to have_many :messages }
     it { is_expected.to have_many :food_items_kitchens }
     it { is_expected.to have_many :food_items }

@@ -54,6 +54,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :requisitions, only: [:new, :create]
+
   resources :food_item_imports, only: [:new, :create]
 
   resources :attachments, only: [:create] do

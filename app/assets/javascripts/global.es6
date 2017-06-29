@@ -14,6 +14,10 @@ $( document ).ajaxComplete(function() {
   $('body').removeClass('submitting')
 })
 
+$(document).on('nested:fieldAdded', function(event) {
+  Utils.initSelectPicker()
+})
+
 $( document ).ready(function() {
   Utils.paddingMain()
 })

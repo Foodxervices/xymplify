@@ -20,6 +20,7 @@ class FoodItem < ActiveRecord::Base
   has_many :food_items_kitchens
   has_many :inventories
   has_many :order_items
+  has_many :requisition_items
 
   has_many :kitchens, through: :food_items_kitchens
 
@@ -40,6 +41,10 @@ class FoodItem < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   before_validation :set_currency
+
+  def name_with_code
+    "#{code} - #{name}"
+  end
 
   def has_special_price?
     unit_price != unit_price_without_promotion

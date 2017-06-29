@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170620045424) do
+ActiveRecord::Schema.define(version: 20170622035800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,6 +235,25 @@ ActiveRecord::Schema.define(version: 20170620045424) do
   end
 
   add_index "payment_histories", ["order_id"], name: "index_payment_histories_on_order_id", using: :btree
+
+  create_table "requisition_items", force: :cascade do |t|
+    t.integer "requisition_id"
+    t.integer "food_item_id"
+    t.decimal "quantity",       precision: 8, scale: 2, default: 0.0
+  end
+
+  add_index "requisition_items", ["food_item_id"], name: "index_requisition_items_on_food_item_id", using: :btree
+  add_index "requisition_items", ["requisition_id"], name: "index_requisition_items_on_requisition_id", using: :btree
+
+  create_table "requisitions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "kitchen_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "requisitions", ["kitchen_id"], name: "index_requisitions_on_kitchen_id", using: :btree
+  add_index "requisitions", ["user_id"], name: "index_requisitions_on_user_id", using: :btree
 
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"
