@@ -12,6 +12,7 @@ class Role < ActiveRecord::Base
     'kitchen__create', 'kitchen__update', 'kitchen__destroy', 'kitchen__dashboard', 'kitchen__import', 'kitchen__history', 'kitchen__reset_inventory',
     'message__read', 'message__create', 'message__update', 'message__destroy',
     'food_item__manage', 'food_item__read', 'food_item__create', 'food_item__update', 'food_item__destroy', 'food_item__order',
-    'inventory__read', 'inventory__update'
+    'inventory__read', 'inventory__update',
+    'requisition__create'
   ], multiple: true
 end

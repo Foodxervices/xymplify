@@ -7,7 +7,7 @@
           .btn-group
             - if can?(:reset_inventory, current_kitchen)
               = link_to 'Reset Current Quantity', '#', data: { toggle: "confirmation", href: polymorphic_path([:reset_inventory, current_kitchen]), 'link-method' => 'post' }, class: 'btn btn-default'
-            - if can?(:requisition, current_kitchen)
+            - if can?(:create, Requisition.new(kitchen: current_kitchen))
               = link_to 'New Requisition', new_requisition_path, remote: true, class: 'btn btn-primary'
         h1 Inventory Management
     br

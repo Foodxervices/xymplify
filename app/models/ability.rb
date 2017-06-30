@@ -37,7 +37,7 @@ class Ability
               can action, clazz.camelize.constantize, { id: user_role.restaurant_id }
             when 'supplier', 'user_role', 'message', 'food_item'
               can action, clazz.camelize.constantize, { restaurant_id: user_role.restaurant_id }
-            when 'order', 'inventory'
+            when 'order', 'inventory', 'requisition'
               can action, clazz.camelize.constantize, { kitchen_id: kitchen_ids }
             when 'kitchen'
               if action == :create
