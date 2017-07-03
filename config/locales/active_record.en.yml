@@ -19,6 +19,7 @@ en:
         tag_list: "My Tagged Lists"
         cached_tag_list: "My Tagged Lists"
         kitchen_ids: "Kitchens"
+        low_quantity: "Critical Qty"
       supplier:
         name: "Company Name"
         contact: "Contact Person"
