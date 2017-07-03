@@ -13,7 +13,6 @@ describe FoodItem do
     it { is_expected.to validate_presence_of :kitchens }
     it { is_expected.to monetize :unit_price }
     it { is_expected.to monetize :unit_price_without_promotion }
-    it { is_expected.to validate_numericality_of(:low_quantity).is_greater_than_or_equal_to(0) }
     it { is_expected.to allow_value("", nil).for(:low_quantity) }
   end
 

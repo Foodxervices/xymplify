@@ -1,4 +1,4 @@
 #pdf-orders-show-container
   h1 Purchase Order
 
-  = render partial: 'orders/info', locals: { supplier: @supplier, kitchen: @kitchen, restaurant: current_restaurant, order: @order, items: @items }, formats: :html
+  = render partial: 'orders/info', locals: { supplier: @supplier, kitchen: @kitchen, restaurant: @restaurant, order: @order, items: @items }, formats: :html

@@ -1,0 +1,5 @@
+.popups-kitchens-form {
+  .bootstrap-select.form-control:not([class*=span]):not([class*=col-]) {
+    max-width: 390px;
+  }
+}
