@@ -2,6 +2,14 @@ class RequisitionsController < AdminController
   before_action :set_session
   load_and_authorize_resource :through => :current_kitchen
 
+  def index
+    @requisition_filter = RequisitionFilter.new(@requisitions, requisition_filter_params)
+    @requisitions =  @requisition_filter.result
+                                    .includes(:items, items: {food_item: :supplier})
+                                    .order(updated_at: :desc)
+                                    .paginate(:page => params[:page])
+  end
+
   def new
     @requisition.items.new
   end
@@ -29,6 +37,15 @@ class RequisitionsController < AdminController
       ]
     )
     data[:user_id] = current_user.id
+    data
+  end
+
+  def requisition_filter_params
+    requisition_filter = ActionController::Parameters.new(params[:requisition_filter])
+    data = requisition_filter.permit(
+      :keyword,
+      :date_range
+    )
     data
   end
 end

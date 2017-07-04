@@ -20,7 +20,9 @@ class RequisitionItem < ActiveRecord::Base
   end
 
   def update_inventory
-    inventory.current_quantity = inventory.current_quantity - quantity
-    inventory.save!
+    inventory.with_lock do
+      inventory.current_quantity = inventory.current_quantity - quantity
+      inventory.save!
+    end
   end
 end

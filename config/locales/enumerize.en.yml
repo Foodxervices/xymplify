@@ -55,6 +55,7 @@ en:
         message__destroy:                     "Message      :: Destroy"
         inventory__read:                      "Inventory    :: Read"
         inventory__update:                    "Inventory    :: Update"
+        requisition__read:                    "Requisition  :: Read"
         requisition__create:                  "Requisition  :: Create"
     restaurant:
       receive_email:

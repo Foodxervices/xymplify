@@ -13,7 +13,7 @@ describe Role do
         'message__read', 'message__create', 'message__update', 'message__destroy',
         'order__read', 'order__history', 'order__mark_as_approved', 'order__mark_as_rejected', 'order__mark_as_accepted', 'order__mark_as_declined', 'order__mark_as_delivered', 'order__mark_as_cancelled', 'order__update_placed', 'order__update_accepted', 'order__update_declined', 'order__update_delivered', 'order__update_cancelled', 'order__add_attachment', 'order__pay',
         'inventory__read', 'inventory__update',
-        'requisition__create'
+        'requisition__read', 'requisition__create'
       )
     end
   end

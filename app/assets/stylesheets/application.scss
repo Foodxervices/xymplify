@@ -29,7 +29,9 @@
 
 @import 'inventories/index';
 
+@import 'requisitions/index';
 @import 'requisitions/_form';
+@import 'requisitions/_details';
 
 @import 'food_items/index';
 @import 'food_items/_details';

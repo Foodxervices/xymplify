@@ -1,0 +1,12 @@
+#requisitions-index-container
+  = render 'requisitions/search', requisition_filter: @requisition_filter
+  .grid
+    - @requisitions.each do |requisition|
+      .grid-item
+        div
+          .title
+            h4 = requisition.user&.name
+            small = format_datetime(requisition.updated_at)
+          = render 'requisitions/details', requisition: requisition
+  .text-center
+    = will_paginate @requisitions

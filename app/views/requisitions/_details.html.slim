@@ -1,0 +1,15 @@
+.requisitions-details-container
+  table.table.table-striped
+    thead
+      tr
+        th Item
+        th Supplier
+        th.text-center Quantity
+    tbody
+      - requisition.items.each do |item|
+        - food_item = item.food_item
+        - supplier = food_item&.supplier
+        tr
+          td = link_to_if can?(:show, food_item), food_item&.name || 'This Food Item is deleted', food_item, remote: true
+          td = link_to_if can?(:show, supplier), supplier&.name || 'This Supplier is deleted', supplier, remote: true
+          td.text-center = "#{item.quantity} x #{food_item&.unit}"
