@@ -18,7 +18,7 @@ class RequisitionFilter
   end
 
   def result
-    @requisitions =  @requisitions.joins("LEFT JOIN requisition_items ri ON ri.requisition_id = requisitions.id")
+    @requisitions =  @requisitions.uniq.joins("LEFT JOIN requisition_items ri ON ri.requisition_id = requisitions.id")
                                   .joins("LEFT JOIN users u ON requisitions.user_id = u.id")
                                   .joins("LEFT JOIN food_items f ON f.id = ri.food_item_id")
 
