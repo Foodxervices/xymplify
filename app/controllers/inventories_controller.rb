@@ -56,10 +56,10 @@ class InventoriesController < AdminController
   end
 
   def update
-    if @inventory.update_attributes(inventory_params)
-      render json: { success: true }
-    else
-      render json: { inventory: @inventory.reload, success: false }
+    @quantity_was = @inventory.current_quantity
+    
+    if !@inventory.update_attributes(inventory_params)
+      return render json: { inventory: @inventory.reload, success: false }
     end
   end
 

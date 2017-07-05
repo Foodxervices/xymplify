@@ -43,7 +43,7 @@ describe InventoriesController, :type => :controller do
 
   describe '#update' do
     def do_request
-      patch :update, id: inventory.id, inventory: { current_quantity: new_current_quantity }
+      patch :update, id: inventory.id, inventory: { current_quantity: new_current_quantity }, format: :js
     end
 
     let!(:inventory) { create(:inventory, kitchen: kitchen) }

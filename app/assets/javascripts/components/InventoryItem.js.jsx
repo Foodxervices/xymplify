@@ -30,7 +30,8 @@ const InventoryItem = React.createClass({
       url: `/inventories/${this.props.id}`,
       data: { inventory: { current_quantity: this.props.current_quantity } },
       success: (data) => {
-        if(!data.success) {
+
+        if(data.success === false) {
           const { id, current_quantity } = data.inventory
           this.props.onCurrentQuantityChange(id, current_quantity)
         }
