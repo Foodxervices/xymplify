@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703101948) do
+ActiveRecord::Schema.define(version: 20170705021545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 20170703101948) do
     t.integer  "supplier_id"
     t.integer  "user_id"
     t.string   "brand"
-    t.integer  "unit_price_cents",                                              default: 0,     null: false
-    t.string   "unit_price_currency",                                                           null: false
+    t.integer  "unit_price_cents",                                              default: 0,                     null: false
+    t.string   "unit_price_currency",                                                                           null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -70,13 +70,15 @@ ActiveRecord::Schema.define(version: 20170703101948) do
     t.integer  "category_id"
     t.string   "cached_tag_list",                                               default: ""
     t.decimal  "low_quantity",                          precision: 8, scale: 2
-    t.integer  "unit_price_without_promotion_cents",                            default: 0,     null: false
-    t.string   "unit_price_without_promotion_currency",                         default: "SGD", null: false
+    t.integer  "unit_price_without_promotion_cents",                            default: 0,                     null: false
+    t.string   "unit_price_without_promotion_currency",                         default: "SGD",                 null: false
     t.integer  "attachments_count",                                             default: 0
     t.datetime "deleted_at"
     t.integer  "ordered_count",                                                 default: 0
     t.string   "country_of_origin"
     t.text     "remarks"
+    t.datetime "created_at",                                                    default: '2017-07-05 02:54:09', null: false
+    t.datetime "updated_at",                                                    default: '2017-07-05 02:54:09', null: false
   end
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree
@@ -307,6 +309,8 @@ ActiveRecord::Schema.define(version: 20170703101948) do
     t.text     "block_delivery_dates"
     t.string   "cc_emails",                                        default: ""
     t.text     "remarks"
+    t.datetime "created_at",                                       default: '2017-07-05 02:55:14', null: false
+    t.datetime "updated_at",                                       default: '2017-07-05 02:55:14', null: false
   end
 
   add_index "suppliers", ["priority"], name: "index_suppliers_on_priority", using: :btree

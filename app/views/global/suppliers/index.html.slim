@@ -13,6 +13,7 @@
           th = Supplier.human_attribute_name(:country)
           th = Supplier.human_attribute_name(:email)
           th.text-center = Supplier.human_attribute_name(:currency)
+          th = Supplier.human_attribute_name(:updated_at)
           th.text-center colspan="2" Action
       tbody
         - @suppliers.each do |supplier|
@@ -22,6 +23,7 @@
             td = supplier.country_name
             td = supplier.email
             td.text-center = supplier.currency
+            td = format_datetime((@group[supplier.id] && supplier.updated_at < @group[supplier.id]) ?  @group[supplier.id] : supplier.updated_at)
             td.text-center
               ul.actions
                 li = link_to 'Food Items', food_items_path(restaurant_id: supplier.restaurant_id,  food_item_filter: {supplier_id: supplier.id})

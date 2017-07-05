@@ -8,6 +8,11 @@ class Global::SuppliersController < AdminController
                                  .includes(:restaurant)
                                  .order(:restaurant_id, :priority, :name)
                                  .paginate(:page => params[:page])
+    @group = {}
+    FoodItem.select('MAX(updated_at) as updated_at, supplier_id').group(:supplier_id).where(supplier_id: @suppliers).each do |i|
+      @group[i.supplier_id] = i.updated_at
+    end
+
   end
 
   def clone
