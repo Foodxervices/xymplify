@@ -3,6 +3,7 @@ class AddTimestampsToSuppliers < ActiveRecord::Migration
     add_timestamps :suppliers, null: false, default: DateTime.now
 
     Supplier.all.each do |s|
+      next if !s.versions.first&.created_at
       s.update_columns(created_at: s.versions.first.created_at, updated_at: s.versions.last.created_at)
     end
   end
