@@ -31,9 +31,9 @@ class FoodItem < ActiveRecord::Base
   validates :supplier_id,   presence: true
   validates :restaurant_id, presence: true
   validates :user_id,     presence: true
-  validates :unit_price,  presence: true, numericality: { greater_than: 0, less_than: 9999999999 }
+  validates :unit_price,  presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
   validates :unit_price_currency,                    presence: true
-  validates :unit_price_without_promotion,           presence: true, numericality: { greater_than: 0, less_than: 9999999999 }
+  validates :unit_price_without_promotion,           presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
   validates :unit_price_without_promotion_currency,  presence: true
   validates :low_quantity,                      numericality: { greater_than_or_equal_to: 0, less_than: 99999999 }, :allow_blank => true
 

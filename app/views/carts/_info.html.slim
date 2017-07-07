@@ -2,7 +2,7 @@
 - days = supplier.delivery_days
 - start_date = supplier.next_available_delivery_date&.to_date&.to_s
 - block_dates = [supplier.block_delivery_dates, current_restaurant.block_delivery_dates].reject(&:blank?).join(', ')
-
+- tba = ''
 .carts-info-container
   table.table.table-striped.table-order rel=order.id data-kitchen-id=current_kitchen.id
 
@@ -31,23 +31,24 @@
             .confirmed Confirmed
     tbody
       - order.items.includes(:food_item).each do |item|
+        - tba = ' excluded TBA' if item.total_price.to_f == 0
         tr.order-item rel=item.id
           td = link_to_if can?(:read, item.food_item), item.name, item.food_item, remote: true
           td.text-center = item.quantity
           td = item.food_item&.unit
-          td.text-right width="60" = humanized_money_with_symbol(item.total_price)
+          td.text-right width="60" = price_or_tba(item.total_price)
 
     tfoot
       - if order.gsts_count != 0
         tr
-          td.text-right colspan="3" Subtotal
+          td.text-right colspan="3" Subtotal #{tba}
           td.text-right = humanized_money_with_symbol(order.price)
         - order.gsts.each do |gst|
           tr
             td.text-right colspan="3" = "#{gst.name} #{gst.percent}%"
             td.text-right = humanized_money_with_symbol(gst.amount)
       tr
-        td.text-right colspan="3" Total
+        td.text-right colspan="3" Total #{tba}
         td.text-right = humanized_money_with_symbol(order.price_with_gst)
 
 javascript:

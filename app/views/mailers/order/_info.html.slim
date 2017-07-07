@@ -1,3 +1,4 @@
+- tba = ''
 .mailers-order-info-container
   table.grid
     tr
@@ -14,7 +15,7 @@
         table#po-info
           tr
             th P/O:
-            td order.name
+            td = order.name
           - if order.delivered_at.present?
             tr
               th Date of Delivery:
@@ -58,26 +59,27 @@
         th Amount
     tbody
       - items.each_with_index do |item, i|
+        - tba = 'excluded TBA' if item.unit_price.to_f == 0
         - food_item = item.food_item
         tr class="#{ i % 2 == 0 ? 'even' : 'odd' }"
           td = "#{i + 1}."
           td = food_item&.code
           td = food_item&.name
           td = food_item&.unit
-          td.text-right = humanized_money_with_symbol(item.unit_price)
+          td.text-right = price_or_tba(item.unit_price)
           td.text-right = item.quantity
-          td.text-right = humanized_money_with_symbol(item.total_price)
+          td.text-right = price_or_tba(item.total_price)
     tfoot
       - if order.gsts_count != 0
         tr
-          td.text-right colspan="6" Subtotal
+          td.text-right colspan="6" Subtotal #{tba}
           td.text-right = humanized_money_with_symbol(order.price)
         - order.gsts.each do |gst|
           tr
             td.text-right colspan="6" = "#{gst.name} #{gst.percent}%"
             td.text-right = humanized_money_with_symbol(gst.amount)
       tr
-        td.text-right colspan="6" Total
+        td.text-right colspan="6" Total #{tba}
         td.text-right = humanized_money_with_symbol(order.price_with_gst)
   br
   - if kitchen.bank_name.present?

@@ -1,3 +1,4 @@
+- tba = ''
 .orders-details-container rel=order.id
   .row
     .col-xs-12
@@ -18,17 +19,18 @@
   table.table.table-striped
     tbody
       - order.items.includes(:food_item).each do |item|
+        - tba = 'excluded TBA' if item.unit_price.to_f == 0
         tr
           td = link_to_if can?(:show, item.food_item), item.name, item.food_item, remote: true
-          td.text-right = humanized_money_with_symbol(item.unit_price)
+          td.text-right = price_or_tba(item.unit_price)
           td.text-center = "#{item.quantity} x #{item.food_item&.unit}"
           td.text-right
-            strong = humanized_money_with_symbol(item.total_price)
+            strong = price_or_tba(item.total_price)
     tfoot
       - if order.gsts_count != 0
         tr
           td colspan="2"
-          td.text-right Subtotal
+          td.text-right Subtotal #{tba}
           td.text-right
             strong = humanized_money_with_symbol(order.price)
         - order.gsts.each do |gst|
@@ -39,11 +41,11 @@
       tr
         td.link2inventory colspan="2"
           == "This PO is #{order.delivered_to_kitchen? ? '' : '<b>NOT</b> '}linked to your food inventory"
-        td.text-right Total
+        td.text-right Total #{tba}
         td.text-right = humanized_money_with_symbol(order.price_with_gst)
       tr
         td colspan="2"
-        td.text-right Outstanding
+        td.text-right Outstanding #{tba}
         td.text-right = humanized_money_with_symbol(order.outstanding_amount)
   .btn-toolbar.pull-right
     - if can?(:pay, order)

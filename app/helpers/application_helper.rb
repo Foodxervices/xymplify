@@ -17,6 +17,11 @@ module ApplicationHelper
     time.try(:strftime, '%I:%M %p')
   end
 
+  def price_or_tba(price)
+    return 'TBA' if price.to_f == 0
+    humanized_money_with_symbol(price)
+  end
+
   def currency_codes
     currencies = []
     Money::Currency.table.values.each do |currency|
@@ -43,7 +48,7 @@ module ApplicationHelper
     if food_item.has_special_price?
       arr << "<i><strike>#{humanized_money_with_symbol(food_item.unit_price_without_promotion)}</strike></i>"
     end
-    arr << humanized_money_with_symbol(food_item.unit_price)
+    arr << price_or_tba(food_item.unit_price)
     arr.join(' / ').html_safe
   end
 end

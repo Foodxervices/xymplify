@@ -37,7 +37,7 @@ class CartsController < AdminController
       end
     end
 
-    @order.destroy if @order.reload.price_with_gst == 0
+    @order.destroy if @order.reload.items.size == 0
   end
 
   def confirm

@@ -20,9 +20,9 @@ class OrderItem < ActiveRecord::Base
   validates :order_id,      presence: true
   validates :food_item_id,  presence: true
   validates :quantity,      presence: true, numericality: { greater_than: 0, less_than: 99999999 }
-  validates :unit_price,    presence: true, numericality: { greater_than: 0, less_than: 9999999999 }
+  validates :unit_price,    presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
   validates :unit_price_currency,                    presence: true
-  validates :unit_price_without_promotion,           presence: true, numericality: { greater_than: 0, less_than: 9999999999 }
+  validates :unit_price_without_promotion,           presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
   validates :unit_price_without_promotion_currency,  presence: true
 
   def total_price
