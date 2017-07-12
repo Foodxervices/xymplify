@@ -21,7 +21,7 @@ class Supplier < ActiveRecord::Base
   enumerize :delivery_days, in: [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday], multiple: true,
                             default: [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
 
-  has_attached_file :logo, styles: { thumb: "80x80#", medium: "300x300#" }
+  has_attached_file :logo, styles: { thumb: "80x80>", medium: "300x300>" }
   validates_attachment_content_type :logo, content_type: /\Aimage\/.*\Z/
 
   def country_name

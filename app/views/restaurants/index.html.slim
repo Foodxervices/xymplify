@@ -25,7 +25,7 @@
         - @restaurants.each do |restaurant|
           tr
             td = link_to_if can?(:dashboard, restaurant), restaurant.name, [:dashboard, restaurant]
-            td
+            td.text-center
               - if restaurant.logo.exists?
                 = image_tag restaurant.logo.url(:thumb)
             td = restaurant.contact_person

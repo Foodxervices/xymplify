@@ -37,7 +37,7 @@ class FoodItem < ActiveRecord::Base
   validates :unit_price_without_promotion_currency,  presence: true
   validates :low_quantity,                      numericality: { greater_than_or_equal_to: 0, less_than: 99999999 }, :allow_blank => true
 
-  has_attached_file :image, styles: { thumb: "80x80#", medium: "400x400#" }
+  has_attached_file :image, styles: { thumb: "80x80>", medium: "400x400>" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   before_validation :set_currency

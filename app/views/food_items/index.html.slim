@@ -32,7 +32,7 @@
             td = link_to food_item.code, food_item, remote: true
             td.text-left = food_item.name
             td = food_item.attachments.size
-            td = image_tag food_item.image.url(:thumb)
+            td.text-center = image_tag food_item.image.url(:thumb)
             td = food_item.unit
             td = both_prices(food_item)
             td = food_item.unit_price_currency
