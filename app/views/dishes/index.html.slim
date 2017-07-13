@@ -1,0 +1,20 @@
+#dishes-index-container
+  = render 'dishes/search', dish_filter: @dish_filter
+
+  .row
+    .col-xs-12
+      .pull-right
+        .btn-group
+          - if can?(:create, Dish.new(restaurant: current_restaurant))
+            = link_to 'New Dish', new_dish_path, remote: true, class: 'btn btn-primary'
+
+  .grid
+    - @dishes.each do |dish|
+      .grid-item
+        div
+          .title
+            h4 = dish.name
+            small = dish.user&.name
+          = render 'dishes/details', dish: dish
+  .text-center
+    = will_paginate @dishes

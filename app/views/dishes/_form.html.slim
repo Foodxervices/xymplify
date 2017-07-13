@@ -1,0 +1,25 @@
+.dishes-form-container
+  = simple_nested_form_for dish, remote: true do |f|
+    = f.error :base
+    .row
+      .col-md-6
+        = f.input :name
+
+    table.table.table-striped
+      thead
+        tr
+          th Item
+          th.text-center Quantity
+          th
+      tbody#items
+        = f.simple_fields_for :items, :wrapper => false, defaults: { label: false } do |ff|
+          tr.fields
+            td.text-right = food_item_dropdown(ff)
+            td.text-center = ff.input :quantity
+            td.text-center = ff.link_to_remove "Remove"
+
+    .text-right
+      .btn-group
+        = f.link_to_add "Add Item", :items, data: { target: "#items" }, class: 'btn btn-default'
+        = f.button :submit, :data => { disable_with: 'Processing...' }, class: 'btn-primary'
+

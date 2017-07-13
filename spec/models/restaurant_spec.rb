@@ -18,5 +18,6 @@ describe Restaurant do
     it { is_expected.to have_many :user_roles }
     it { is_expected.to have_many :users }
     it { is_expected.to have_many :messages }
+    it { is_expected.to have_many :dishes }
   end
 end

@@ -13,7 +13,13 @@ module DropdownHelper
   end
 
   def food_item_dropdown(form, include_blank: false)
-    food_items = current_kitchen.food_items.joins(:supplier).accessible_by(current_ability).select('food_items.id, food_items.code, food_items.name, suppliers.id as supplier_id, suppliers.name as supplier_name')
+    if current_kitchen
+      food_items = current_kitchen.food_items
+    else
+      food_items = current_restaurant.food_items
+    end
+
+    food_items = food_items.joins(:supplier).accessible_by(current_ability).select('food_items.id, food_items.code, food_items.name, food_items.unit, suppliers.id as supplier_id, suppliers.name as supplier_name')
     suppliers = {}
 
     food_items.each do |f|

@@ -33,6 +33,10 @@
 @import 'requisitions/_form';
 @import 'requisitions/_details';
 
+@import 'dishes/index';
+@import 'dishes/_form';
+@import 'dishes/_details';
+
 @import 'food_items/index';
 @import 'food_items/_details';
 
@@ -85,3 +89,4 @@
 @import 'popups/roles/_details';
 @import 'popups/requisitions/_form';
 @import 'popups/kitchens/_form';
+@import 'popups/dishes/_form';

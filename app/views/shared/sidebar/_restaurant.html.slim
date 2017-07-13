@@ -12,4 +12,6 @@
   = active_link_to 'Manage Payments',  :payments,  :wrap_tag => :li, class: 'sb-payment',   title: 'Manage Payments'
 - if can?(:index, FoodItem)
   = active_link_to 'Food Items', :food_items, :wrap_tag => :li, class: 'sb-food_item', title: 'Food Items'
+- if can?(:index, Dish)
+  = active_link_to 'Dishes', :dishes, :wrap_tag => :li, class: 'sb-food_item', title: 'Dishes'
 hr
