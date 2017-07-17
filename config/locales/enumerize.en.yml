@@ -57,6 +57,10 @@ en:
         inventory__update:                    "Inventory    :: Update"
         requisition__read:                    "Requisition  :: Read"
         requisition__create:                  "Requisition  :: Create"
+        dish__read:                           "Dish         :: Read"
+        dish__create:                         "Dish         :: Create"
+        dish__update:                         "Dish         :: Update"
+        dish__destroy:                        "Dish         :: Destroy"
     restaurant:
       receive_email:
         after_updated:   "After Updated"
