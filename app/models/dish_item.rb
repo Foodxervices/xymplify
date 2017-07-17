@@ -4,7 +4,15 @@ class DishItem < ActiveRecord::Base
 
   validates :quantity, presence: true
 
+  def unit_price
+    food_item&.unit_price || 0
+  end
+
   def total_price
-    food_item.unit_price * quantity
+    unit_price * quantity
+  end
+
+  def self.total_price
+    all.map(&:total_price).inject(0, :+)
   end
 end

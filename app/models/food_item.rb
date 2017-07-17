@@ -42,10 +42,6 @@ class FoodItem < ActiveRecord::Base
 
   before_validation :set_currency
 
-  def name_with_code
-    "#{code} - #{name} [#{unit&.upcase}]"
-  end
-
   def has_special_price?
     unit_price != unit_price_without_promotion
   end

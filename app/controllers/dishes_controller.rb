@@ -43,6 +43,8 @@ class DishesController < AdminController
   def dish_params
     data = params.require(:dish).permit(
       :name,
+      :profit_margin,
+      :profit_margin_currency,
       items_attributes: [
         :id,
         :food_item_id,

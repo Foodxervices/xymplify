@@ -1,20 +1,41 @@
+- tba = ''
 .dishes-details-container
   table.table.table-striped
     thead
       tr
         th Item
         th Supplier
+        th Unit Price
         th.text-center Quantity
         th.text-center UOM
+        th Total Price
     tbody
       - dish.items.each do |item|
         - food_item = item.food_item
         - supplier = food_item&.supplier
+        - tba = 'excluded TBA' if item.unit_price.to_f == 0
         tr
           td = link_to_if can?(:show, food_item), food_item&.name || 'This Food Item is deleted', food_item, remote: true
           td = link_to_if can?(:show, supplier), supplier&.name || 'This Supplier is deleted', supplier, remote: true
+          td = price_or_tba(item.unit_price)
           td.text-center = item.quantity
           td.text-center = food_item.unit
+          td.text-right = price_or_tba(item.total_price)
+      tr
+        td colspan="4"
+        td.text-right Subtotal #{tba}
+        td.text-right
+          strong = humanized_money_with_symbol(dish.price_without_profit)
+      tr
+        td colspan="4"
+        td.text-right Profit Margin
+        td.text-right
+          strong = humanized_money_with_symbol(dish.profit_margin)
+      tr
+        td colspan="4"
+        td.text-right Total #{tba}
+        td.text-right
+          strong = humanized_money_with_symbol(dish.price)   
           
   .text-right
     .btn-group

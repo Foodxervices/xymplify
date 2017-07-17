@@ -23,10 +23,10 @@ module DropdownHelper
     suppliers = {}
 
     food_items.each do |f|
-      suppliers[f.supplier_id] ||= Supplier.new(name: f.supplier_name)
-      suppliers[f.supplier_id].food_items << f
+      suppliers[f.supplier_name] ||= []
+      suppliers[f.supplier_name] << [f.id, "#{f.code} - #{f.name} [#{f.unit&.upcase}]"]
     end
 
-    form.input :food_item_id, collection: suppliers.values, as: :grouped_select, group_method: :food_items, label_method: :name_with_code, include_blank: include_blank
+    form.input :food_item_id, collection: suppliers, as: :grouped_select, group_method: :last, label_method: :last, value_method: :first
   end
 end

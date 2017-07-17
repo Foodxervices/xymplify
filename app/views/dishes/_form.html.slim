@@ -4,6 +4,11 @@
     .row
       .col-md-6
         = f.input :name
+    .row
+      .col-md-6
+        = f.input :profit_margin, as: :numeric
+      .col-md-6
+        = f.input :profit_margin_currency, collection: currency_codes, input_html: { value: f.object.profit_margin_currency || current_restaurant.currency }
 
     table.table.table-striped
       thead
