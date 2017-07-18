@@ -1,0 +1,1 @@
+<%= open_popup(title: "#{@dish.name}<br /><small>#{format_date(@dish.created_at)} - #{@user.name}</small>".html_safe, partial: 'dishes/details', locals: { dish: @dish }) %> 

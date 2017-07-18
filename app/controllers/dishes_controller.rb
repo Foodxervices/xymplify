@@ -6,6 +6,10 @@ class DishesController < AdminController
     @dishes = @dish_filter.result.includes(:user, items: {food_item: :supplier}).paginate(:page => params[:page])
   end
 
+  def show
+    @user = @dish.user
+  end
+
   def new
     @dish.items.new
   end

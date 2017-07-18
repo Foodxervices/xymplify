@@ -5,7 +5,7 @@ class RequisitionItem < ActiveRecord::Base
   validates :quantity, presence: true, numericality: { greater_than: 0, less_than: 99999999 }
 
   after_validation :validate_inventory
-  before_save :update_inventory
+  before_create :update_inventory
 
   def inventory
     @inventory ||= Inventory.where(food_item_id: food_item_id, kitchen: requisition.kitchen_id).first if requisition

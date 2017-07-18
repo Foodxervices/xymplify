@@ -1,0 +1,18 @@
+#dish_requisitions-index-container
+  = render 'dish_requisitions/search', dish_requisition_filter: @dish_requisition_filter
+  .row
+    .col-xs-12
+      .pull-right
+        .btn-group
+          - if can?(:create, DishRequisition.new(kitchen: current_kitchen))
+            = link_to 'New Requisition', new_dish_requisition_path, remote: true, class: 'btn btn-primary'
+  .grid
+    - @dish_requisitions.each do |dish_requisition|
+      .grid-item
+        div
+          .title
+            h4 = dish_requisition.user&.name
+            small = format_datetime(dish_requisition.updated_at)
+          = render 'dish_requisitions/details', dish_requisition: dish_requisition
+  .text-center
+    = will_paginate @dish_requisitions

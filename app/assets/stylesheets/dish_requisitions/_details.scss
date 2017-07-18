@@ -1,0 +1,28 @@
+.dish_requisitions-details-container {
+  table.table-striped {
+    border: none;
+    margin-left: -15px;
+    margin-right: -15px;
+    width: calc(100% + 30px);
+    max-width: none;
+
+    tr td {
+      border-top: none;
+      color: #5e5e5e;
+
+      a {
+        color: #5e5e5e;
+      } 
+    }
+
+    tr td, tr th {
+      &:first-child {
+        padding-left: 15px;
+      }
+
+      &:last-child {
+        padding-right: 15px;
+      }
+    }
+  }
+}

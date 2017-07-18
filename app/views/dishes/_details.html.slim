@@ -22,18 +22,15 @@
           td.text-center = food_item.unit
           td.text-right = price_or_tba(item.total_price)
       tr
-        td colspan="4"
-        td.text-right Subtotal #{tba}
+        td.text-right colspan="5" Subtotal #{tba}
         td.text-right
           strong = humanized_money_with_symbol(dish.price_without_profit)
       tr
-        td colspan="4"
-        td.text-right Profit Margin
+        td.text-right colspan="5" Profit Margin
         td.text-right
           strong = humanized_money_with_symbol(dish.profit_margin)
       tr
-        td colspan="4"
-        td.text-right Total #{tba}
+        td.text-right colspan="5" Total #{tba}
         td.text-right
           strong = humanized_money_with_symbol(dish.price)   
           

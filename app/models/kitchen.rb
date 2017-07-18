@@ -7,6 +7,7 @@ class Kitchen < ActiveRecord::Base
   has_many :orders
   has_many :inventories
   has_many :requisitions
+  has_many :dish_requisitions
   has_many :messages
   has_many :food_items_kitchens
   has_many :food_items, through: :food_items_kitchens

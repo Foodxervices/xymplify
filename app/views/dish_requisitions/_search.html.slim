@@ -1,0 +1,6 @@
+.dish_requisitions-search-container.search-container
+  = simple_form_for dish_requisition_filter, url: '', method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
+    = f.input :keyword
+    = f.input :date_range, as: :month_picker, placeholder: 'Month', input_html: { class: 'date-range-picker' }
+    = f.button :submit, 'Search', class: 'btn-primary'
+    = link_to 'Reset', url_for(only_path: false, overwrite_params: nil), class: 'btn btn-default'

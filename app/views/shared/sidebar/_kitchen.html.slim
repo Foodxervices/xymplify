@@ -16,6 +16,8 @@
   = active_link_to 'Food Inventory', :inventories, :wrap_tag => :li, class: 'sb-inventory', title: 'Food Inventory'
 - if can?(:index, Dish)
   = active_link_to 'Dishes', :dishes, :wrap_tag => :li, class: 'sb-food_item', title: 'Dishes'
+- if can?(:index, DishRequisition)
+  = active_link_to 'Dish Requisition', :dish_requisitions, :wrap_tag => :li, class: 'sb-food_item', title: 'Dish Requisition'
 - if can?(:order, FoodItem)
   hr
     = active_link_to 'Create New PO', [:by_supplier, :categories], :wrap_tag => :li, class: 'sb-create_new_request', title: 'Create New PO'

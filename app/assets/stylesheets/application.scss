@@ -69,6 +69,10 @@
 @import 'kitchens/dashboard';
 @import 'kitchens/_list';
 
+@import 'dish_requisitions/index';
+@import 'dish_requisitions/_form';
+@import 'dish_requisitions/_details';
+
 @import 'messages/_form';
 
 @import 'shared/_menu';
@@ -90,3 +94,4 @@
 @import 'popups/requisitions/_form';
 @import 'popups/kitchens/_form';
 @import 'popups/dishes/_form';
+@import 'popups/dishes/_details';

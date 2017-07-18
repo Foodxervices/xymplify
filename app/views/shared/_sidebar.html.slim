@@ -8,14 +8,9 @@
       = active_link_to 'Restaurants', authenticated_root_path, :wrap_tag => :li, :active => :exact, class: 'sb-dashboard', title: 'Restaurant'
       = active_link_to 'Suppliers (Global)', global_suppliers_path, :wrap_tag => :li, :active => :exact, class: 'sb-supplier', title: 'Suppliers'
       = active_link_to 'Food Items (Global)', global_food_items_path, :wrap_tag => :li, :active => :exact, class: 'sb-food_item', title: 'Food Items'
-    - if can?(:index, Role)
       = active_link_to 'User Roles', roles_path, :wrap_tag => :li, class: 'sb-role', title: 'Role'
-    - if can?(:index, User)
       = active_link_to 'User Accounts', users_path, :wrap_tag => :li, class: 'sb-user', title: 'User'
-    - if can?(:index, Category)
       = active_link_to 'Food Categories', food_categories_path, :wrap_tag => :li, class: 'sb-category', title: 'Category'
-    - if can?(:index, Contact)
       = active_link_to 'Contacts', contacts_path, :wrap_tag => :li, class: 'sb-contact', title: 'Contacts'
-    - if can?(:index, Config)
       = active_link_to 'Configurations', configs_path, :wrap_tag => :li, class: 'sb-config', title: 'Configurations'
 

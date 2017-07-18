@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713030953) do
+ActiveRecord::Schema.define(version: 20170718003218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,25 @@ ActiveRecord::Schema.define(version: 20170713030953) do
   add_index "dish_items", ["dish_id"], name: "index_dish_items_on_dish_id", using: :btree
   add_index "dish_items", ["food_item_id"], name: "index_dish_items_on_food_item_id", using: :btree
 
+  create_table "dish_requisition_items", force: :cascade do |t|
+    t.integer "dish_requisition_id"
+    t.integer "dish_id"
+    t.decimal "quantity",            precision: 8, scale: 2, default: 0.0
+  end
+
+  add_index "dish_requisition_items", ["dish_id"], name: "index_dish_requisition_items_on_dish_id", using: :btree
+  add_index "dish_requisition_items", ["dish_requisition_id"], name: "index_dish_requisition_items_on_dish_requisition_id", using: :btree
+
+  create_table "dish_requisitions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "kitchen_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "dish_requisitions", ["kitchen_id"], name: "index_dish_requisitions_on_kitchen_id", using: :btree
+  add_index "dish_requisitions", ["user_id"], name: "index_dish_requisitions_on_user_id", using: :btree
+
   create_table "dishes", force: :cascade do |t|
     t.string   "name"
     t.integer  "restaurant_id"
@@ -76,8 +95,10 @@ ActiveRecord::Schema.define(version: 20170713030953) do
     t.string   "price_without_profit_currency", default: "SGD", null: false
     t.integer  "price_cents",                   default: 0,     null: false
     t.string   "price_currency",                default: "SGD", null: false
+    t.datetime "deleted_at"
   end
 
+  add_index "dishes", ["deleted_at"], name: "index_dishes_on_deleted_at", using: :btree
   add_index "dishes", ["restaurant_id"], name: "index_dishes_on_restaurant_id", using: :btree
   add_index "dishes", ["user_id"], name: "index_dishes_on_user_id", using: :btree
 

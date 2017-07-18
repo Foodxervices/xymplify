@@ -1,0 +1,21 @@
+.dish_requisitions-details-container
+  table.table.table-striped
+    thead
+      tr
+        th Item
+        th.text-center Quantity
+        th.text-right Unit Price
+        th.text-right Total Price
+    tbody
+      - dish_requisition.items.each do |item|
+        - dish = item.dish
+        tr
+          td = link_to_if can?(:show, dish), dish.name, dish, remote: true
+          td.text-center = item.quantity
+          td.text-right = price_or_tba(item.unit_price)
+          td.text-right = price_or_tba(item.total_price)
+      tr
+        td colspan="2"
+        td.text-right Total
+        td.text-right
+          strong = humanized_money_with_symbol(dish_requisition.price)

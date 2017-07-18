@@ -47,6 +47,7 @@
 //= require pages/categories
 //= require pages/food_categories
 //= require pages/carts
+//= require pages/dish_requisitions
 //= require pages/requisitions
 //= require pages/dishes
 
