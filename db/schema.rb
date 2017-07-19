@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718003218) do
+ActiveRecord::Schema.define(version: 20170719081949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 20170718003218) do
     t.integer "dish_requisition_id"
     t.integer "dish_id"
     t.decimal "quantity",            precision: 8, scale: 2, default: 0.0
+    t.integer "unit_price_cents",                            default: 0,     null: false
+    t.string  "unit_price_currency",                         default: "SGD", null: false
   end
 
   add_index "dish_requisition_items", ["dish_id"], name: "index_dish_requisition_items_on_dish_id", using: :btree
@@ -78,6 +80,8 @@ ActiveRecord::Schema.define(version: 20170718003218) do
     t.integer  "kitchen_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "price_cents",    default: 0,     null: false
+    t.string   "price_currency", default: "SGD", null: false
   end
 
   add_index "dish_requisitions", ["kitchen_id"], name: "index_dish_requisitions_on_kitchen_id", using: :btree

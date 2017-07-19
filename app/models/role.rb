@@ -14,6 +14,7 @@ class Role < ActiveRecord::Base
     'food_item__manage', 'food_item__read', 'food_item__create', 'food_item__update', 'food_item__destroy', 'food_item__order',
     'inventory__read', 'inventory__update',
     'requisition__read', 'requisition__create',
-    'dish__read', 'dish__create', 'dish__update', 'dish__destroy'
+    'dish__read', 'dish__create', 'dish__update', 'dish__destroy',
+    'dish_requisition__read', 'dish_requisition__create'
   ], multiple: true
 end
