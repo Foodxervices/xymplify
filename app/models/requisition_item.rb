@@ -1,9 +1,13 @@
 class RequisitionItem < ActiveRecord::Base
+  monetize :unit_price_cents
+
   belongs_to :food_item
   belongs_to :requisition, inverse_of: :items
 
   validates :quantity, presence: true, numericality: { greater_than: 0, less_than: 99999999 }
+  validates :unit_price, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 9999999999 }
 
+  before_create :set_unit_price
   after_validation :validate_inventory
   before_create :update_inventory
 
@@ -24,5 +28,9 @@ class RequisitionItem < ActiveRecord::Base
       inventory.current_quantity = inventory.current_quantity - quantity
       inventory.save!
     end
+  end
+
+  def set_unit_price
+    self.unit_price = food_item.unit_price 
   end
 end
