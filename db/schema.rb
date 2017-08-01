@@ -130,8 +130,8 @@ ActiveRecord::Schema.define(version: 20170719084640) do
     t.integer  "ordered_count",                                                 default: 0
     t.string   "country_of_origin"
     t.text     "remarks"
-    t.datetime "created_at",                                                    default: '2017-07-05 02:54:09', null: false
-    t.datetime "updated_at",                                                    default: '2017-07-05 02:54:09', null: false
+    t.datetime "created_at",                                                    default: '2017-08-01 07:55:16', null: false
+    t.datetime "updated_at",                                                    default: '2017-08-01 07:55:16', null: false
   end
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree
@@ -364,8 +364,8 @@ ActiveRecord::Schema.define(version: 20170719084640) do
     t.text     "block_delivery_dates"
     t.string   "cc_emails",                                        default: ""
     t.text     "remarks"
-    t.datetime "created_at",                                       default: '2017-07-05 02:55:14', null: false
-    t.datetime "updated_at",                                       default: '2017-07-05 02:55:14', null: false
+    t.datetime "created_at",                                       default: '2017-08-01 07:56:38', null: false
+    t.datetime "updated_at",                                       default: '2017-08-01 07:56:38', null: false
   end
 
   add_index "suppliers", ["priority"], name: "index_suppliers_on_priority", using: :btree

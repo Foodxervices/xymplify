@@ -8,18 +8,18 @@
     table.table.table-striped
       thead
         tr
-          th = Supplier.human_attribute_name(:name)
-          th = Supplier.human_attribute_name(:restaurant)
-          th = Supplier.human_attribute_name(:country)
-          th = Supplier.human_attribute_name(:email)
-          th.text-center = Supplier.human_attribute_name(:currency)
-          th = Supplier.human_attribute_name(:updated_at)
+          th = sortable(:name, kclass: Supplier)
+          th = sortable(:restaurant_name, kclass: Supplier)
+          th = sortable(:country, kclass: Supplier)
+          th = sortable(:email, kclass: Supplier)
+          th.text-center = sortable(:currency, kclass: Supplier)
+          th = sortable(:updated_at, kclass: Supplier)
           th.text-center colspan="2" Action
       tbody
         - @suppliers.each do |supplier|
           tr
             td = link_to supplier.name, supplier, remote: true
-            td = supplier.restaurant&.name
+            td = supplier.restaurant_name
             td = supplier.country_name
             td = supplier.email
             td.text-center = supplier.currency
