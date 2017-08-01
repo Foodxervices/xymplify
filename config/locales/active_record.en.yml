@@ -1,6 +1,7 @@
 en:
   activerecord:
     models:
+      dish_requisition: Dish Purchase
       order_gst: TAX
     attributes:
       food_item:

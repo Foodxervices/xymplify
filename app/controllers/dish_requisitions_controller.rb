@@ -16,7 +16,7 @@ class DishRequisitionsController < AdminController
 
   def create
     if @dish_requisition.save
-      redirect_to :back, notice: 'Dish Requisition has been created.'
+      redirect_to :back, notice: 'Dish Purchase has been created.'
     else
       render :new
     end

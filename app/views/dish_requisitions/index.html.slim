@@ -5,7 +5,7 @@
       .pull-right
         .btn-group
           - if can?(:create, DishRequisition.new(kitchen: current_kitchen))
-            = link_to 'New Requisition', new_dish_requisition_path, remote: true, class: 'btn btn-primary'
+            = link_to 'New Purchase', new_dish_requisition_path, remote: true, class: 'btn btn-primary'
   .grid
     - @dish_requisitions.each do |dish_requisition|
       .grid-item

@@ -61,8 +61,8 @@ en:
         dish__create:                         "Dish         :: Create"
         dish__update:                         "Dish         :: Update"
         dish__destroy:                        "Dish         :: Destroy"
-        dish_requisition__read:               "Dish Requisition  :: Read"
-        dish_requisition__create:             "Dish Requisition  :: Create"
+        dish_requisition__read:               "Dish Purchase  :: Read"
+        dish_requisition__create:             "Dish Purchase  :: Create"
     restaurant:
       receive_email:
         after_updated:   "After Updated"
