@@ -11,7 +11,7 @@
       .grid-item
         div
           .title
-            h4 = dish_requisition.user&.name
+            h4 = "##{dish_requisition.id} - #{dish_requisition.user&.name}"
             small = format_datetime(dish_requisition.updated_at)
           = render 'dish_requisitions/details', dish_requisition: dish_requisition
   .text-center
