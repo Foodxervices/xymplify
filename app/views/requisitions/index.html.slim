@@ -5,7 +5,7 @@
       .grid-item
         div
           .title
-            h4 = requisition.user&.name
+            h4 = "##{requisition.id} - #{requisition.user&.name}"
             small = format_datetime(requisition.updated_at)
           = render 'requisitions/details', requisition: requisition
   .text-center
