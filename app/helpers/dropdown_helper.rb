@@ -9,7 +9,7 @@ module DropdownHelper
       restaurants[kitchen.restaurant_id] ||= Restaurant.new(name: kitchen.restaurant&.name)
       restaurants[kitchen.restaurant_id].kitchens << kitchen
     end
-    form.input :kitchen_ids, collection: restaurants.values, as: :grouped_select, group_method: :kitchens, include_blank: include_blank, input_html: {multiple: multiple}
+    form.input :kitchen_ids, collection: restaurants.values, as: :grouped_select, group_method: :kitchens, include_blank: include_blank, input_html: {multiple: multiple, :'data-actions-box' => multiple}
   end
 
   def food_item_dropdown(form, include_blank: false)
