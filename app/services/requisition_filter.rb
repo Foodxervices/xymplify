@@ -4,6 +4,7 @@ class RequisitionFilter
   DATE_FORMAT = '%d/%m/%Y'
 
   attr_accessor :keyword
+  attr_accessor :supplier_id
   attr_accessor :date_range
   attr_accessor :start_date
   attr_accessor :end_date
@@ -28,6 +29,10 @@ class RequisitionFilter
                                         f.name               ILIKE :keyword OR
                                         u.name               ILIKE :keyword
                                       ", keyword: "%#{keyword}%")
+    end
+
+    if supplier_id.present?
+      @requisitions = @requisitions.where('f.supplier_id = ?', supplier_id)
     end
 
     @requisitions = @requisitions.where(updated_at: (start_date.beginning_of_day..end_date.end_of_day))

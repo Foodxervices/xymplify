@@ -44,6 +44,7 @@ class RequisitionsController < AdminController
     requisition_filter = ActionController::Parameters.new(params[:requisition_filter])
     data = requisition_filter.permit(
       :keyword,
+      :supplier_id,
       :date_range
     )
     data
