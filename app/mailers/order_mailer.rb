@@ -60,6 +60,7 @@ class OrderMailer < ActionMailer::Base
     init(order)
     @cc << @restaurant.email if @restaurant.receive_email.after_updated?
     @cc << @user.email if @user.receive_email?
+    @show_accept_decline_button = true
 
     @receiver = @supplier
     @message = "You have received a Purchase Order from <strong>#{@restaurant.name}</strong> for delivery at: <strong>#{date_of_delivery(@order)}</strong>."

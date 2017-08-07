@@ -36,7 +36,7 @@ html
           .line
 
           .text-center
-            - if @order.status.placed?
+            - if @show_accept_decline_button
               table
                 tr
                   td Please &nbsp;
