@@ -80,7 +80,7 @@ class InventoriesController < AdminController
       :keyword,
       :tag_list
     )
-
+    @filter_params[:kitchen_id] = current_kitchen&.id
     @filter_params
   end
 
