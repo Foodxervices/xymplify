@@ -3,8 +3,6 @@ class Dish < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :user
 
-  monetize :price_cents
-  monetize :price_without_profit_cents
   monetize :profit_margin_cents
 
   has_many :items, class_name: 'DishItem'
