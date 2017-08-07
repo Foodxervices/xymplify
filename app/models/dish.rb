@@ -3,8 +3,6 @@ class Dish < ActiveRecord::Base
   belongs_to :restaurant
   belongs_to :user
 
-  after_commit :cache_price, on: [:create, :update]
-
   monetize :price_cents
   monetize :price_without_profit_cents
   monetize :profit_margin_cents
@@ -16,14 +14,11 @@ class Dish < ActiveRecord::Base
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
-  def cache_price
-    without_profit = Money.new(items.total_price, restaurant.currency)
+  def price_without_profit
+    @without_profit ||= Money.new(items.total_price, restaurant.currency)
+  end
 
-    update_columns({
-      price_without_profit_cents: without_profit.cents,
-      price_without_profit_currency: restaurant.currency,
-      price_cents: Money.new(without_profit + profit_margin, restaurant.currency).cents,
-      price_currency: restaurant.currency
-    })
+  def price
+    @price ||= Money.new(price_without_profit + profit_margin, restaurant.currency)
   end
 end
