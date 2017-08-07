@@ -32,7 +32,7 @@ class DishRequisitionItem < ActiveRecord::Base
       inventory = Inventory.where(food_item_id: i.food_item_id, kitchen: dish_requisition.kitchen_id).first
       return errors.add(:dish_id, "#{i.food_item&.name} Not Found") if inventory.nil?
       return errors.add(:dish_id, "No more food #{i.food_item&.name} in inventory") if inventory.current_quantity == 0
-      return errors.add(:dish_id, "#{i.food_item&.name}: Not enough food in inventory") if inventory.current_quantity < i.quantity * quantity
+      return errors.add(:dish_id, "#{i.food_item&.name}: Not enough food in inventory") if inventory.current_quantity < i.food_quantity * quantity
     end
   end
 
@@ -47,7 +47,7 @@ class DishRequisitionItem < ActiveRecord::Base
       inventory = Inventory.where(food_item_id: i.food_item_id, kitchen: dish_requisition.kitchen_id).first
 
       inventory.with_lock do
-        inventory.current_quantity = inventory.current_quantity - i.quantity * quantity
+        inventory.current_quantity = inventory.current_quantity - i.food_quantity * quantity
         inventory.save!
       end
     end

@@ -14,12 +14,16 @@
       thead
         tr
           th Item
+          th.text-center UOM
+          th Dish Qty per Food Item UOM
           th.text-center Quantity
           th
       tbody#items
         = f.simple_fields_for :items, :wrapper => false, defaults: { label: false } do |ff|
           tr.fields
             td.text-right = food_item_dropdown(ff)
+            td.text-center = ff.input :unit
+            td.text-center = ff.input :unit_rate
             td.text-center = ff.input :quantity
             td.text-center = ff.link_to_remove "Remove"
 

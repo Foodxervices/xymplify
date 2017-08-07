@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719084640) do
+ActiveRecord::Schema.define(version: 20170804015825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,9 +56,11 @@ ActiveRecord::Schema.define(version: 20170719084640) do
   create_table "dish_items", force: :cascade do |t|
     t.integer  "food_item_id"
     t.integer  "dish_id"
-    t.decimal  "quantity",     precision: 8, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "quantity",     precision: 8, scale: 2, default: 0.0
+    t.string   "unit"
+    t.float    "unit_rate"
   end
 
   add_index "dish_items", ["dish_id"], name: "index_dish_items_on_dish_id", using: :btree

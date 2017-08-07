@@ -53,6 +53,8 @@ class DishesController < AdminController
         :id,
         :food_item_id,
         :quantity,
+        :unit,
+        :unit_rate,
         :_destroy
       ]
     )

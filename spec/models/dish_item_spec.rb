@@ -3,6 +3,7 @@ require 'rails_helper'
 describe DishItem do
   context 'validations' do
     it { is_expected.to validate_presence_of :quantity }
+    it { is_expected.to validate_presence_of :unit_rate }
   end
 
   context 'associations' do
