@@ -1,4 +1,6 @@
 class RequisitionItem < ActiveRecord::Base
+  attr_accessor :supplier_id
+  
   monetize :unit_price_cents
 
   belongs_to :food_item

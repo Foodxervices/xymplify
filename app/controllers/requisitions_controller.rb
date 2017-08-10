@@ -33,6 +33,7 @@ class RequisitionsController < AdminController
         :id,
         :food_item_id,
         :quantity,
+        :supplier_id,
         :_destroy
       ]
     )

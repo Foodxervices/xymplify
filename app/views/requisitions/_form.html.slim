@@ -1,10 +1,12 @@
 - food_items = current_kitchen.food_items
+- suppliers = current_restaurant.suppliers
 .requisitions-form-container
   = simple_nested_form_for requisition, method: :post, remote: true do |f|
     table.table.table-striped
       tbody#items
         = f.simple_fields_for :items, :wrapper => false, defaults: { label: false } do |ff|
           tr.fields
+            td = ff.input :supplier_id, collection: suppliers
             td = food_item_dropdown(ff)
             td = ff.input :quantity
             td.text-center = ff.link_to_remove "Remove"
@@ -12,3 +14,6 @@
       .btn-group
         = f.link_to_add "Add Item", :items, data: { target: "#items" }, class: 'btn btn-default'
         = f.button :submit, data: { :disable_with => "Submitting..." }, class: 'btn-primary'
+
+javascript:
+  Foodxervices.requisitions.form.init()
