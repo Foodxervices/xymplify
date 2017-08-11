@@ -11,8 +11,8 @@
       .grid-item
         div
           .title
-            h4 = "##{dish_requisition.id} - #{dish_requisition.user&.name}"
-            small = format_datetime(dish_requisition.updated_at)
+            h4 = dish_requisition.code
+            small = "#{format_datetime(dish_requisition.updated_at)} - #{dish_requisition.user&.name}"
           = render 'dish_requisitions/details', dish_requisition: dish_requisition
   .text-center
     = will_paginate @dish_requisitions

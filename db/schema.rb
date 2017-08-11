@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170807033905) do
+ActiveRecord::Schema.define(version: 20170810103743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,9 +56,9 @@ ActiveRecord::Schema.define(version: 20170807033905) do
   create_table "dish_items", force: :cascade do |t|
     t.integer  "food_item_id"
     t.integer  "dish_id"
+    t.decimal  "quantity",     precision: 8, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "quantity",     precision: 8, scale: 2, default: 0.0
     t.string   "unit"
     t.float    "unit_rate"
   end
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20170807033905) do
     t.datetime "updated_at"
     t.integer  "price_cents",    default: 0,     null: false
     t.string   "price_currency", default: "SGD", null: false
+    t.string   "code"
   end
 
   add_index "dish_requisitions", ["kitchen_id"], name: "index_dish_requisitions_on_kitchen_id", using: :btree
@@ -128,8 +129,8 @@ ActiveRecord::Schema.define(version: 20170807033905) do
     t.integer  "ordered_count",                                                 default: 0
     t.string   "country_of_origin"
     t.text     "remarks"
-    t.datetime "created_at",                                                    default: '2017-08-01 07:55:16', null: false
-    t.datetime "updated_at",                                                    default: '2017-08-01 07:55:16', null: false
+    t.datetime "created_at",                                                    default: '2017-08-07 18:10:02', null: false
+    t.datetime "updated_at",                                                    default: '2017-08-07 18:10:02', null: false
   end
 
   add_index "food_items", ["category_id"], name: "index_food_items_on_category_id", using: :btree
@@ -305,6 +306,7 @@ ActiveRecord::Schema.define(version: 20170807033905) do
     t.integer  "kitchen_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
   end
 
   add_index "requisitions", ["kitchen_id"], name: "index_requisitions_on_kitchen_id", using: :btree
@@ -362,8 +364,8 @@ ActiveRecord::Schema.define(version: 20170807033905) do
     t.text     "block_delivery_dates"
     t.string   "cc_emails",                                        default: ""
     t.text     "remarks"
-    t.datetime "created_at",                                       default: '2017-08-01 07:56:38', null: false
-    t.datetime "updated_at",                                       default: '2017-08-01 07:56:38', null: false
+    t.datetime "created_at",                                       default: '2017-08-07 18:11:23', null: false
+    t.datetime "updated_at",                                       default: '2017-08-07 18:11:23', null: false
   end
 
   add_index "suppliers", ["priority"], name: "index_suppliers_on_priority", using: :btree

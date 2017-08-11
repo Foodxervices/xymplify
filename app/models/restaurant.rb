@@ -19,6 +19,8 @@ class Restaurant < ActiveRecord::Base
   has_many :kitchens
   has_many :suppliers
   has_many :dishes
+  has_many :requisitions, through: :kitchens
+  has_many :dish_requisitions, through: :kitchens
 
   validates :name,        presence: true
   validates :currency,    presence: true
