@@ -19,9 +19,7 @@ class DishRequisition < ActiveRecord::Base
       price_cents: Money.new(items.total_price, restaurant.currency).cents,
       price_currency: restaurant.currency
     })
-  end
-
-  private 
+  end 
 
   def set_code
     today = Time.new
