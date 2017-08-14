@@ -1,22 +1,38 @@
 #orders-index-container
-  = render 'orders/search', order_filter: @order_filter
-  - @grouped_orders.each do |supplier_name, orders|
-    h2 = supplier_name
-    .grid
-      - orders.each do |order|
-        .po-wrap.grid-item
-          div
-            .title
-              .btn.btn-default.status class="status-#{order.status}" = order.status_text
-              h4 = order.name
-              small = format_date(order.status_updated_at) + ' - ' + supplier_name
-              table.datetime
-                tr
-                  th Date:
-                  td = format_date(order.request_delivery_date)
-                tr
-                  th Time:
-                  td = order_time_range(order)
-            = render 'orders/details', order: order
-  .text-center
-    = will_paginate @orders
+  .block
+    .row
+      .col-xs-12
+        .pull-right
+          = link_to 'Create New PO', [:by_supplier, :categories], class: 'btn btn-primary btn-create'
+        ul.status-list
+          = active_link_to 'All', orders_url(params.merge(order_filter: {status: nil})), :wrap_tag => :li, :active => @status.blank?
+          = active_link_to 'Pending', orders_url(params.merge(order_filter: {status: 'pending'})), :wrap_tag => :li, active: @status == 'pending'
+          = active_link_to 'Placed', orders_url(params.merge(order_filter: {status: 'placed'})), :wrap_tag => :li, active: @status == 'placed'
+          = active_link_to 'Accepted', orders_url(params.merge(order_filter: {status: 'accepted'})), :wrap_tag => :li, active: @status == 'accepted'
+          = active_link_to 'Delivered', orders_url(params.merge(order_filter: {status: 'delivered'})), :wrap_tag => :li, active: @status == 'delivered'
+          = active_link_to 'Completed', orders_url(params.merge(order_filter: {status: 'completed'})), :wrap_tag => :li, active: @status == 'completed'
+          = active_link_to 'Rejected', orders_url(params.merge(order_filter: {status: 'rejected'})), :wrap_tag => :li, active: @status == 'rejected'
+          = active_link_to 'Cancelled', orders_url(params.merge(order_filter: {status: 'cancelled'})), :wrap_tag => :li, active: @status == 'cancelled'
+          = active_link_to 'Declined', orders_url(params.merge(order_filter: {status: 'declined'})), :wrap_tag => :li, active: @status == 'declined'
+    br
+    = render 'orders/search', order_filter: @order_filter
+    - @grouped_orders.each do |supplier_name, orders|
+      h2 = supplier_name
+      .grid
+        - orders.each do |order|
+          .po-wrap.grid-item
+            div
+              .title
+                .btn.btn-default.status class="status-#{order.status}" = order.status_text
+                h4 = order.name
+                small = format_date(order.status_updated_at) + ' - ' + supplier_name
+                table.datetime
+                  tr
+                    th Date:
+                    td = format_date(order.request_delivery_date)
+                  tr
+                    th Time:
+                    td = order_time_range(order)
+              = render 'orders/details', order: order
+    .text-center
+      = will_paginate @orders

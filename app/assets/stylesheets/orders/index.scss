@@ -1,4 +1,37 @@
 #orders-index-container {
+  .block {
+    padding-top: 0;
+  }
+
+  ul.status-list {
+    list-style: none;
+    margin: 0 -20px;
+    padding: 0;
+
+    li {
+      display: inline-block;
+
+      a {
+        display: block;
+        padding: 15px 20px 10px 20px;
+        color: #757575;
+        border-top: 4px solid #fff;
+      }
+
+      &.active, &:hover {
+        a {
+          border-top: 4px solid #FF6200;
+          color: #000;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .btn-create {
+    margin-top: 10px;
+  }
+
   .grid {
     border-bottom: 2px solid #dedede;
     padding-bottom: 40px;

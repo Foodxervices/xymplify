@@ -68,7 +68,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :archived_pos, controller: 'orders', only: [:index], status: 'archived'
   resources :orders,      only: [:index, :show, :edit, :update, :destroy] do
     resources :payments, only: [] do
       collection do

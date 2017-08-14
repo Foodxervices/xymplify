@@ -1,8 +1,8 @@
 .orders-search-container.search-container
   = simple_form_for order_filter, url: '', method: :get, wrapper: :inline_form, html: {class: 'form-inline'} do |f|
+    = f.hidden_field :status
     = f.input :keyword
     = f.input :date_range, as: :month_picker, placeholder: 'Month', input_html: { class: 'date-range-picker' }
-    = f.select :status, @statuses, include_blank: 'All'
     = f.button :submit, 'Search', data: { :disable_with => "Search" }, class: 'btn-primary'
     - if @show_export
       = f.button :submit, 'Export', data: { :disable_with => "Export" }

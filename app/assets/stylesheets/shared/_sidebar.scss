@@ -93,16 +93,8 @@
       @extend .mdi-folder-outline;
     }
 
-    &.sb-pending_pos i:before {
+    &.sb-pos i:before {
       @extend .mdi-calendar-text;
-    }
-
-    &.sb-create_new_request i:before {
-      @extend .mdi-cart-outline;
-    }
-
-    &.sb-archived_pos i:before {
-      @extend .mdi-calendar-check;
     }
 
     &.sb-user_role i:before {

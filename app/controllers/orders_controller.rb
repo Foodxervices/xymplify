@@ -12,10 +12,10 @@ class OrdersController < AdminController
 
   def index
     @order_filter = OrderFilter.new(@orders, order_filter_params)
+    @status = @order_filter.status
 
     @orders = @order_filter.result
                            .select('orders.*, suppliers.name as supplier_name')
-                           .where(status: statuses.collect(&:last))
                            .order('supplier_name asc, status_updated_at desc')
     respond_to do |format|
       format.html do
@@ -299,18 +299,6 @@ class OrdersController < AdminController
       :date_range,
       :status
     )
-  end
-
-  def statuses
-    return @statuses if @statuses.present?
-
-    if params[:status] == 'archived'
-      @statuses = [["Delivered", "delivered"], ["Completed", "completed"], ["Cancelled", "cancelled"], ["Declined", "declined"], ["Rejected", "rejected"]]
-    else
-      @statuses = [["Pending", "pending"], ["Placed", "placed"], ["Accepted", "accepted"]]
-    end
-
-    @statuses
   end
 
   def authorize_token
