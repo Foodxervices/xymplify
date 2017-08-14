@@ -17,7 +17,7 @@
           td = link_to_if can?(:show, food_item), food_item&.name || 'This Food Item is deleted', food_item, remote: true
           td = link_to_if can?(:show, supplier), supplier&.name || 'This Supplier is deleted', supplier, remote: true
           td = price_or_tba(item.unit_price)
-          td.text-center = "#{item.quantity} #{item.unit}"
+          td.text-center = "#{item.quantity} #{item.unit} / #{item.food_quantity} #{food_item.unit}"
           td.text-right = price_or_tba(item.total_price)
       tr
         td.text-right colspan="4" Subtotal #{tba}
