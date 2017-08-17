@@ -57,6 +57,7 @@ en:
         inventory__update:                    "Inventory    :: Update"
         requisition__read:                    "Requisition  :: Read"
         requisition__create:                  "Requisition  :: Create"
+        analytic__read:                       "Analytic     :: Read"
         dish__read:                           "Dish         :: Read"
         dish__create:                         "Dish         :: Create"
         dish__update:                         "Dish         :: Update"

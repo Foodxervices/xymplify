@@ -6,6 +6,7 @@ class Kitchen < ActiveRecord::Base
 
   has_many :orders
   has_many :inventories
+  has_many :analytics
   has_many :requisitions
   has_many :dish_requisitions
   has_many :messages

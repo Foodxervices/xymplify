@@ -93,6 +93,10 @@
       @extend .mdi-folder-outline;
     }
 
+    &.sb-analytic i:before {
+      @extend .mdi-chart-bar;
+    }
+
     &.sb-pos i:before {
       @extend .mdi-calendar-text;
     }

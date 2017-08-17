@@ -50,5 +50,6 @@
 //= require pages/dish_requisitions
 //= require pages/requisitions
 //= require pages/dishes
+//= require pages/analytics
 
 

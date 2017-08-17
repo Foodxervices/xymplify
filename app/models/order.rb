@@ -170,6 +170,8 @@ class Order < ActiveRecord::Base
           when ["placed", "cancelled"], ["accepted", "cancelled"], ["placed", "declined"]
             inventory.quantity_ordered = inventory.quantity_ordered - item.quantity
         end
+
+        inventory.save if inventory.changed?
       end
     end
   end

@@ -12,6 +12,7 @@ class Restaurant < ActiveRecord::Base
   has_many :user_roles
   has_many :users, -> { uniq }, :through => :user_roles
   has_many :orders, through: :kitchens
+  has_many :analytics
   has_many :food_items
   has_many :order_items, through: :orders, source: :items
   has_many :messages

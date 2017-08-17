@@ -12,6 +12,7 @@ describe Restaurant do
   context 'associations' do 
     it { is_expected.to have_many :suppliers }
     it { is_expected.to have_many :kitchens }
+    it { is_expected.to have_many :analytics }
     it { is_expected.to have_many :orders }
     it { is_expected.to have_many :order_items }
     it { is_expected.to have_many :food_items }

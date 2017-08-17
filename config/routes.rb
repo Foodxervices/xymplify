@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   resources :food_items,  only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   resources :dishes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  
+  resources :analytics, only: [:index]
 
   resources :dish_requisitions, only: [:index, :new, :create]
 

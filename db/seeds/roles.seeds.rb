@@ -21,7 +21,8 @@ Role.create([
     'inventory__read', 'inventory__update', 
     'requisition__read', 'requisition__create', 
     'dish__read', 'dish__create', 'dish__update', 'dish__destroy',
-    'dish_requisition__read', 'dish_requisition__create'
+    'dish_requisition__read', 'dish_requisition__create',
+    'analytic__read'
   ]},
   { name: 'Kitchen Manager', permissions: [
     'restaurant__read', 'restaurant__dashboard', 
@@ -34,7 +35,8 @@ Role.create([
     'message__read', 
     'food_item__read', 'food_item__order', 
     'inventory__read', 
-    'requisition__create'
+    'requisition__create',
+    'analytic__read'
   ]}
 ])
 puts '==== End ===='

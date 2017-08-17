@@ -15,6 +15,7 @@ class Role < ActiveRecord::Base
     'inventory__read', 'inventory__update',
     'requisition__read', 'requisition__create',
     'dish__read', 'dish__create', 'dish__update', 'dish__destroy',
-    'dish_requisition__read', 'dish_requisition__create'
+    'dish_requisition__read', 'dish_requisition__create',
+    'analytic__read'
   ], multiple: true
 end

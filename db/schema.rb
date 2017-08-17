@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810103743) do
+ActiveRecord::Schema.define(version: 20170817041300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "analytics", force: :cascade do |t|
+    t.integer "restaurant_id"
+    t.integer "kitchen_id"
+    t.decimal "current_quantity", precision: 10, scale: 2, default: 0.0
+    t.decimal "quantity_ordered", precision: 10, scale: 2, default: 0.0
+    t.date    "start_period"
+  end
+
+  add_index "analytics", ["kitchen_id"], name: "index_analytics_on_kitchen_id", using: :btree
+  add_index "analytics", ["restaurant_id"], name: "index_analytics_on_restaurant_id", using: :btree
 
   create_table "attachments", force: :cascade do |t|
     t.integer  "restaurant_id"
