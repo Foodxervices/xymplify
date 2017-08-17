@@ -7,7 +7,7 @@ class UserMailer < ActionMailer::Base
 
     mail(
       to: @user.email,
-      subject: "[XIMPLIFY] Sign Up Successfully!"
+      subject: "[XYMPLIFY] Sign Up Successfully!"
     )
   end
 end
