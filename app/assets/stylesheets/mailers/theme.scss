@@ -66,9 +66,11 @@ body {
       color: #0277BD;
       text-transform: uppercase;
       margin: 0 0 20px 0;
-      padding: 10px 50px 10px 65px;
+      width: 150px;
+      height: 100px;
       display: inline-block;
-      background: url(image_path("logo.png")) no-repeat left center;
+      background: url(image_path("ximplify.png")) no-repeat left center;
+      background-size: 100% auto;
     }
   }
 
