@@ -1,5 +1,5 @@
 #food_item-form.food_items-form-container
-  = simple_form_for [@restaurant, food_item] do |f|
+  = simple_nested_form_for [@restaurant, food_item] do |f|
     = hidden_field_tag :attachment_ids, food_item.attachments.map(&:id).join(',')
     .form-inputs
       .row
@@ -21,7 +21,17 @@
           = f.input         :low_quantity
           = f.input         :remarks
       = f.input         :files, as: :file, input_html: { name: 'attachment[file]', data: {'allowed-file-extensions' => "png,jpg,jpeg,pdf", 'initial-preview' => attachments_preview(food_item.attachments), 'initial-preview-config' => attachments_preview_config(food_item.attachments), 'overwrite-initial' => false, 'upload-url' => attachments_url}, multiple: true }
-
+      hr
+      h4 Dish Conversion
+      .row#conversions
+        = f.simple_fields_for :conversions do |ff|
+          .col-md-6
+            hr
+            = ff.input :unit, label: 'Dish UOM'
+            = ff.input :rate, label: '1 Food Item UOM = ?'
+            = ff.link_to_remove "Remove"
+      = f.link_to_add "Add Conversion", :conversions, data: { target: "#conversions" }
+    br
     .form-actions
       = f.button :submit, class: 'btn-primary'
 

@@ -24,7 +24,11 @@ Rails.application.routes.draw do
 
   resources :contacts,    only: [:index, :show, :new, :create, :destroy]
 
-  resources :food_items,  only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  resources :food_items,  only: [:index, :show, :new, :create, :edit, :update, :destroy] do 
+    member do 
+      get :conversions
+    end
+  end
 
   resources :dishes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   

@@ -1,7 +1,7 @@
 class FoodItemsController < AdminController
   helper_method :sort_column, :sort_direction
 
-  load_and_authorize_resource :food_item, :through => :current_restaurant, except: [:new]
+  load_and_authorize_resource :food_item, :through => :current_restaurant, except: [:new, :conversions]
 
 
   def index
@@ -49,6 +49,11 @@ class FoodItemsController < AdminController
     redirect_to :back
   end
 
+  def conversions
+    food_item = FoodItem.find(params[:id])
+    render json: { conversions: food_item.conversions }
+  end
+
   private
 
   def food_item_filter_params
@@ -83,7 +88,13 @@ class FoodItemsController < AdminController
       :low_quantity,
       :country_of_origin,
       :remarks,
-      kitchen_ids: []
+      kitchen_ids: [],
+      conversions_attributes: [
+        :id,
+        :unit,
+        :rate,
+        :__destroy
+      ]
     )
 
     data[:unit_price]  = data[:unit_price_without_promotion] if data[:unit_price].to_f == 0

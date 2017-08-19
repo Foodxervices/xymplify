@@ -22,6 +22,7 @@ describe FoodItem do
     it { is_expected.to belong_to :restaurant }
     it { is_expected.to belong_to :category }
 
+    it { is_expected.to have_many :conversions }
     it { is_expected.to have_many :attachments }
     it { is_expected.to have_many :food_items_kitchens }
     it { is_expected.to have_many :inventories }

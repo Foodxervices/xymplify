@@ -21,6 +21,7 @@ class FoodItem < ActiveRecord::Base
   has_many :inventories
   has_many :order_items
   has_many :requisition_items
+  has_many :conversions, inverse_of: :food_item
 
   has_many :kitchens, through: :food_items_kitchens
 
@@ -39,6 +40,8 @@ class FoodItem < ActiveRecord::Base
 
   has_attached_file :image, styles: { thumb: "80x80>", medium: "400x400>" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+
+  accepts_nested_attributes_for :conversions, reject_if: :all_blank, allow_destroy: true
 
   before_validation :set_currency
 

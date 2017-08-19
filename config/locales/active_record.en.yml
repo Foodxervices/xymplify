@@ -47,3 +47,5 @@ en:
         name: 'PO Number'
         delivered_to_kitchen: "Linked to Inventory"
         paid_amount_cents: "Paid Amount"
+      conversion:
+        unit: 'UOM'

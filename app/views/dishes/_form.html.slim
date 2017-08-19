@@ -22,7 +22,7 @@
         = f.simple_fields_for :items, :wrapper => false, defaults: { label: false } do |ff|
           tr.fields
             td.text-right = food_item_dropdown(ff)
-            td.text-center = ff.input :unit
+            td.text-center = ff.input :unit, collection: [], input_html: {data: {value: ff.object.unit}}
             td.text-center = ff.input :unit_rate
             td.text-center = ff.input :quantity
             td.text-center = ff.link_to_remove "Remove"
@@ -32,3 +32,5 @@
         = f.link_to_add "Add Item", :items, data: { target: "#items" }, class: 'btn btn-default'
         = f.button :submit, :data => { disable_with: 'Processing...' }, class: 'btn-primary'
 
+javascript:
+  Foodxervices.dishes.form.init()
